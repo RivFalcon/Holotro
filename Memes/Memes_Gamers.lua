@@ -6,8 +6,8 @@ SMODS.Atlas{
     py = 95
 }
 
-local Fubuki_MFG = {
-    name = "Fubuki_MFG",
+SMODS.Joker{
+    key = "Fubuki_MFG",
     loc_txt = {
         name = "Medical Fee Gamble",
         text = {
@@ -23,19 +23,24 @@ local Fubuki_MFG = {
     atlas = 'Fubuki_MFG',
     pos = { x = 0, y = 0 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { G.GAME.probabilities.normal + 1,} }
+        return { vars = { G.GAME.probabilities.normal * 2 , } }
     end,
     calculate = function(self, card, context)
         if G.shop_jokers and G.shop_booster then
-            if pseudorandom('fubuki') < (G.GAME.probabilities.normal + 1)/6 then
+            if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
                 for k, v in pairs(G.shop_jokers.cards) do
-                    v:set_cost()
+                    v.cost = 0
                 end
                 for k, v in pairs(G.shop_booster.cards) do
-                    v:set_cost()
+                    v.cost = 0
                 end
             else
-                -- double the price
+                for k, v in pairs(G.shop_jokers.cards) do
+                    v.cost = v.cost * 2
+                end
+                for k, v in pairs(G.shop_booster.cards) do
+                    v.cost = v.cost * 2
+                end
             end
         end
     end

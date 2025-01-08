@@ -8,7 +8,7 @@
 	"main_file": "holotro.lua",
 	"priority": 0,
 	"badge_colour": "ffffff",
-	"badge_text_colour": "93A8AC",
+	"badge_text_colour": "33C9FE",
 	"version": "0-alpha_whoamikiddingihaventevenfinishedthemod",
 	"dependencies": []
 }
