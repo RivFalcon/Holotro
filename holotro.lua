@@ -14,9 +14,9 @@ holo_config = SMODS.current_mod.config
 
 local helper, load_error = SMODS.load_file("holosprite.lua")
 if load_error then
-  sendDebugMessage ("The error is: "..load_error)
+    sendDebugMessage ("The error is: "..load_error)
 else
-  helper()
+    helper()
 end
 
 SMODS.Rarity{
@@ -34,9 +34,9 @@ for _, file in ipairs(mfiles) do
     sendDebugMessage ("The file is: "..file)
     local memejoker, load_error = SMODS.load_file("Memes/"..file)
     if load_error then
-      sendDebugMessage ("The error is: "..load_error)
+        sendDebugMessage ("The error is: "..load_error)
     else
-      memejoker()
+        memejoker()
     end
 end
 

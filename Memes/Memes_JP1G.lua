@@ -1,3 +1,4 @@
+----
 
 SMODS.Atlas{
     key = "Fubuki_MFG",
@@ -16,7 +17,7 @@ SMODS.Joker{
             'would be {C:attention}doubled{}.'
         }
     },
-    config = { extra = {} },
+    config = { extra = { activating = false } },
     rarity = 2,
     cost = 8,
     atlas = 'Fubuki_MFG',
@@ -25,15 +26,30 @@ SMODS.Joker{
         return { vars = { G.GAME.probabilities.normal * 2 , } }
     end,
     calculate = function(self, card, context)
-        if G.shop_jokers then
+        if context.type == 'shop_start' then
+            card.ability.extra.activating = true
+        end
+        if context.ending_shop then
+            card.ability.extra.activating = false
+        end
+        if card.ability.extra.activating then
             for k, v in pairs(G.shop_jokers.cards) do
                 if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
                     v.cost = 0
                 else
                     v.cost = v.cost * 2
                 end
-        if G.shop_booster then
+            end
             for k, v in pairs(G.shop_booster.cards) do
+                if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
+                    v.cost = 0
+                else
+                    v.cost = v.cost * 2
+                end
+            end
+        end
+        if context.reroll_shop then
+            for k, v in pairs(G.shop_jokers.cards) do
                 if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
                     v.cost = 0
                 else
@@ -43,3 +59,5 @@ SMODS.Joker{
         end
     end
 }
+
+----
