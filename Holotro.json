@@ -1,0 +1,14 @@
+{
+	"id": "Holotro",
+	"name": "holotro",
+	"display_name": "holotro",
+	"author": ["Riv_Falcon","and potentially others"],
+	"description": "A Hololive-themed fanmade Balatro mod",
+	"prefix": "hololive",
+	"main_file": "holotro.lua",
+	"priority": 0,
+	"badge_colour": "ffffff",
+	"badge_text_colour": "93A8AC",
+	"version": "0-alpha_whoamikiddingihaventevenfinishedthemod",
+	"dependencies": []
+}
