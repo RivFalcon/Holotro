@@ -7,10 +7,3 @@ if SMODS.Atlas then
         py = 32
     })
 end
-
-SMODS.Atlas{
-    key = "Fubuki_MFG",
-    path = "Fubuki_MFG.png",
-    px = 71,
-    py = 95
-}
