@@ -25,19 +25,18 @@ SMODS.Joker{
         return { vars = { G.GAME.probabilities.normal * 2 , } }
     end,
     calculate = function(self, card, context)
-        if G.shop_jokers and G.shop_booster then
-            if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
-                for k, v in pairs(G.shop_jokers.cards) do
+        if G.shop_jokers then
+            for k, v in pairs(G.shop_jokers.cards) do
+                if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
                     v.cost = 0
-                end
-                for k, v in pairs(G.shop_booster.cards) do
-                    v.cost = 0
-                end
-            else
-                for k, v in pairs(G.shop_jokers.cards) do
+                else
                     v.cost = v.cost * 2
                 end
-                for k, v in pairs(G.shop_booster.cards) do
+        if G.shop_booster then
+            for k, v in pairs(G.shop_booster.cards) do
+                if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
+                    v.cost = 0
+                else
                     v.cost = v.cost * 2
                 end
             end
