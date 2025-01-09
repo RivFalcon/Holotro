@@ -23,38 +23,16 @@ SMODS.Joker{
     atlas = 'Fubuki_MFG',
     pos = { x = 0, y = 0 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { G.GAME.probabilities.normal * 2 , } }
+        return { vars = { math.min(G.GAME.probabilities.normal * 2 , 6 ) , } }
     end,
     calculate = function(self, card, context)
-        if context.type == 'shop_start' then
-            card.ability.extra.activating = true
-        end
-        if context.ending_shop then
-            card.ability.extra.activating = false
-        end
-        if card.ability.extra.activating then
-            for k, v in pairs(G.shop_jokers.cards) do
-                if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
-                    v.cost = 0
-                else
-                    v.cost = v.cost * 2
-                end
-            end
-            for k, v in pairs(G.shop_booster.cards) do
-                if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
-                    v.cost = 0
-                else
-                    v.cost = v.cost * 2
-                end
-            end
-        end
-        if context.reroll_shop then
-            for k, v in pairs(G.shop_jokers.cards) do
-                if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
-                    v.cost = 0
-                else
-                    v.cost = v.cost * 2
-                end
+        if context.buying_card or context.open_booster then
+            delay(0.2)
+            play_sound('timpani')
+            if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
+                ease_dollars(context.card.cost)
+            else
+                ease_dollars(-context.card.cost)
             end
         end
     end
