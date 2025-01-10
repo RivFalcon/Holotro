@@ -17,7 +17,7 @@ SMODS.Joker{
             'would be {C:attention}doubled{}.'
         }
     },
-    config = { extra = { activating = false } },
+    config = { extra = {} },
     rarity = 2,
     cost = 8,
     atlas = 'Fubuki_MFG',
@@ -27,12 +27,20 @@ SMODS.Joker{
     end,
     calculate = function(self, card, context)
         if context.buying_card or context.open_booster then
-            delay(0.2)
-            play_sound('timpani')
             if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
-                ease_dollars(context.card.cost)
+                context.card.cost = 0
+                return {
+                    message = 'Free!',
+                    colour = G.C.MONEY,
+                    card = card
+                }
             else
-                ease_dollars(-context.card.cost)
+                context.card.cost = context.card.cost * 2
+                return {
+                    message = 'Doubled!',
+                    colour = G.C.MONEY,
+                    card = card
+                }
             end
         end
     end
