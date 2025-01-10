@@ -8,6 +8,7 @@ SMODS.Atlas{
 }
 SMODS.Joker{
     key = "Fubuki_MFG",
+    talent = "Fubuki",
     loc_txt = {
         name = "Medical Fee Gamble",
         text = {
@@ -15,9 +16,9 @@ SMODS.Joker{
             '{C:green}#1# in 6{} chance to be {C:attention}free{},',
             'otherwise the price',
             'would be {C:attention}doubled{}.',
-            '{C:inactive,s:0.6}(Due to coding constaint,',
-            '{C:inactive,s:0.6}this joker doesn\'t work on',
-            '{C:inactive,s:0.6}booster packs, vouchers, or rerolls.)'
+            '{C:inactive,s:0.8}(Due to coding constraint,',
+            '{C:inactive,s:0.8}this joker doesn\'t work on',
+            '{C:inactive,s:0.8}booster packs, vouchers, or rerolls.)'
         }
     },
     config = { extra = {} },
