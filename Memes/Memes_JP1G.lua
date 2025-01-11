@@ -31,6 +31,7 @@ SMODS.Joker{
     end,
     calculate = function(self, card, context)
         if context.buying_card then
+            card:juice_up(0.5, 0.5)
             if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
                 context.card.cost = 0
                 return {

@@ -25,11 +25,14 @@ SMODS.Joker{
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.scoring_name == 'High Card' then
-                return {
-                    Xmult_mod = 7,
-                    message = localize { type = 'variable', key = 'a_xmult', vars = { 7 } },
-                    card = context.other_card
-                }
+                if not context.other_card.debuff and not context.other_card.config.center == G.P_CENTERS.m_stone then
+                    card:juice_up(0.5, 0.5)
+                    return {
+                        x_mult = 7,
+                        message = localize { type = 'variable', key = 'a_xmult', vars = { 7 } },
+                        card = context.other_card
+                    }
+                end
             end
         end
     end
