@@ -25,7 +25,9 @@ SMODS.Joker{
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.scoring_name == 'High Card' then
-                if not context.other_card.debuff and not SMODS.has_enhancement(context.other_card, "m_stone") then
+                if not context.other_card.debuff
+                     and not SMODS.has_enhancement(context.other_card, "m_stone")
+                     and not context.other_card.config.center.always_scores then
                     card:juice_up(0.5, 0.5)
                     return {
                         x_mult = 7,
