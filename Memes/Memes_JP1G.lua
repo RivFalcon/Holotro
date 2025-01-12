@@ -16,9 +16,7 @@ SMODS.Joker{
             '{C:green}#1# in 6{} chance to be {C:attention}free{},',
             'otherwise the price',
             'would be {C:attention}doubled{}.',
-            '{C:inactive,s:0.8}(Due to coding constraint,',
-            '{C:inactive,s:0.8}this joker doesn\'t work on',
-            '{C:inactive,s:0.8}booster packs, vouchers, or rerolls.)'
+            '{C:inactive,s:0.8}(Does not work on: reroll),'
         }
     },
     config = { extra = {} },
@@ -30,7 +28,7 @@ SMODS.Joker{
         return { vars = { math.min(G.GAME.probabilities.normal * 2 , 6 ) , } }
     end,
     calculate = function(self, card, context)
-        if context.buying_card then
+        if context.buying_card or context.buying_booster_pack or context.buying_voucher then
             card:juice_up(0.5, 0.5)
             if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
                 context.card.cost = 0

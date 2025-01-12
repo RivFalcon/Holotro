@@ -12,17 +12,18 @@
 mod_dir = ''..SMODS.current_mod.path
 holo_config = SMODS.current_mod.config
 
-local helper, load_error = SMODS.load_file("holosprite.lua")
+local hsprite, load_error = SMODS.load_file("holosprite.lua")
 if load_error then
     sendDebugMessage ("The error is: "..load_error)
 else
-    helper()
+    hsprite()
 end
 
 SMODS.Rarity{
-    key = "Meme",
+    key = "Relic",
+    loc_txt = { name = 'Relic' },
     default_weight = 0,
-    badge_colour = HEX("93A8AC"),
+    badge_colour = HEX("266AFF"),
     pools = {["Joker"] = true},
     get_weight = function(self, weight, object_type)
         return weight
@@ -40,6 +41,18 @@ for _, file in ipairs(mfiles) do
     end
 end
 
+if false then
+    local rfiles = NFS.getDirectoryItems(mod_dir.."Relics")
+    for _, file in ipairs(rfiles) do
+        sendDebugMessage ("The file is: "..file)
+        local relicjoker, load_error = SMODS.load_file("Relics/"..file)
+        if load_error then
+            sendDebugMessage ("The error is: "..load_error)
+        else
+            relicjoker()
+        end
+    end
+end
 
 ---------------------------------------
 ------------MOD CODE END---------------

@@ -1,0 +1,24 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.regex]
+target = "functions/state_events.lua"
+pattern = "(?<indent>[\t ]*)if scoring_hand[i].ability.name == 'Glass Card' and not scoring_hand[i].debuff and pseudorandom('glass') < G.GAME.probabilities.normal/scoring_hand[i].ability.extra then\n([\t ]+.*\n)*end"
+position = 'at'
+line_prepend = '$indent'
+payload = '''
+local durable = nil
+if scoring_hand[i].ability.name == 'Glass Card' and not scoring_hand[i].debuff then
+    if pseudorandom('glass') < G.GAME.probabilities.normal/scoring_hand[i].ability.extra then
+        destroyed = true
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i]:calculate_joker({about_to_shatter = true, card = self}).very_durable then
+                destroyed = false
+            end
+        end
+    end
+end
+'''
