@@ -14,7 +14,7 @@ SMODS.Joker{
             '(Currently {X:mult,C:white} X#2# {} Mult)'
         }
     },
-    config = { extra = { Xmult = 4, Xmult_mod = 0.5 } },
+    config = { extra = { Xmult = 4, Xmult_mod = 0.25 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult} }
     end,
@@ -22,10 +22,26 @@ SMODS.Joker{
     cost = 20,
     --atlas = 'Relic_Justice',
     --pos = { x = 1, y = 0 },
+    --soul_pos = { x = 1 , y = 1 },
     upgrade = function()
         self.config.extra.Xmult = self.config.extra.Xmult + self.config.extra.Xmult_mod
     end,
     calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.before then
+                for i = 1, #context.scoring_hand do
+                    if SMODS.has_enhancement(context.scoring_hand[i], "m_glass") then
+                        self:upgrade()
+                    else
+                        context.scoring_hand[i]:set_ability(G.P_CENTERS.m_glass, nil, true)
+                    end
+                end
+            elseif context.joker_main then
+                return {
+                    Xmult_mod = card.ability.extra.Xmult
+                }
+            end
+        end
     end
 }
 

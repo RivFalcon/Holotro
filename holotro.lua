@@ -23,7 +23,7 @@ SMODS.Rarity{
     key = "Relic",
     loc_txt = { name = 'Relic' },
     default_weight = 0,
-    badge_colour = HEX("266AFF"),
+    badge_colour = HEX("33C9FE"),
     pools = {["Joker"] = true},
     get_weight = function(self, weight, object_type)
         return weight
