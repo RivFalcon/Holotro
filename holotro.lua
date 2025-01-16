@@ -19,17 +19,6 @@ else
     hsprite()
 end
 
-SMODS.Rarity{
-    key = "Relic",
-    loc_txt = { name = 'Relic' },
-    default_weight = 0,
-    badge_colour = HEX("33C9FE"),
-    pools = {["Joker"] = true},
-    get_weight = function(self, weight, object_type)
-        return weight
-    end,
-}
-
 local mfiles = NFS.getDirectoryItems(mod_dir.."Memes")
 for _, file in ipairs(mfiles) do
     sendDebugMessage ("The file is: "..file)
@@ -41,17 +30,11 @@ for _, file in ipairs(mfiles) do
     end
 end
 
-if false then
-    local rfiles = NFS.getDirectoryItems(mod_dir.."Relics")
-    for _, file in ipairs(rfiles) do
-        sendDebugMessage ("The file is: "..file)
-        local relicjoker, load_error = SMODS.load_file("Relics/"..file)
-        if load_error then
-            sendDebugMessage ("The error is: "..load_error)
-        else
-            relicjoker()
-        end
-    end
+local relic_loader, load_error = SMODS.load_file("Relics/Relic_Loader.lua")
+if load_error then
+    sendDebugMessage ("The error is: "..load_error)
+else
+    relic_loader()
 end
 
 ---------------------------------------
