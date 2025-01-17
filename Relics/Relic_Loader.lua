@@ -20,6 +20,7 @@ SMODS.Atlas{
 
 relic_files = {
     "Relics/Relic_ID1.lua",
+    "Relics/Relic_EN3.lua",
     "Relics/Relic_EN4.lua"
 }
 

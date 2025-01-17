@@ -12,7 +12,7 @@ if SMODS.has_enhancement(scoring_hand[i], 'm_glass') and not scoring_hand[i].deb
 end
 '''
 position = 'at'
-line_prepend = '$indent'
+match_indent = true
 payload = '''
 print('Debug: CeCi_patch is working.')
 if SMODS.has_enhancement(scoring_hand[i], 'm_glass') and not scoring_hand[i].debuff then
