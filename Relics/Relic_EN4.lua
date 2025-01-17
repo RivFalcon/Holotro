@@ -1,4 +1,10 @@
 ----
+SMODS.Atlas{
+    key = "Relic_Justice",
+    path = "Relic_Justice.png",
+    px = 71,
+    py = 95
+}
 
 SMODS.Joker{
     key = "Relic_Gigi",
@@ -20,14 +26,10 @@ SMODS.Joker{
     rarity = "hololive_Relic",
     cost = 20,
 
-    --atlas = 'Relic_Justice',
-    --pos = { x = 1, y = 0 },
-    --soul_pos = { x = 1 , y = 1 },
+    atlas = 'Relic_Justice',
+    pos = { x = 1, y = 0 },
+    soul_pos = { x = 1 , y = 1 },
 
-    atlas = 'Relic_hololive',
-    pos = { x = 0, y = 0 },
-    soul_pos = { x = 0 , y = 1 },
-    
     upgrade = function(self, card)
         card:juice_up(0.5, 0.5)
         self.config.extra.Xmult = self.config.extra.Xmult + self.config.extra.Xmult_mod
@@ -81,13 +83,9 @@ SMODS.Joker{
     rarity = "hololive_Relic",
     cost = 20,
 
-    --atlas = 'Relic_Justice',
-    --pos = { x = 2, y = 0 },
-    --soul_pos = { x = 2, y = 1 },
-
-    atlas = 'Relic_hololive',
-    pos = { x = 0, y = 0 },
-    soul_pos = { x = 0 , y = 1 },
+    atlas = 'Relic_Justice',
+    pos = { x = 2, y = 0 },
+    soul_pos = { x = 2, y = 1 },
 
     upgrade = function(self, card)
         card:juice_up(0.5, 0.5)
