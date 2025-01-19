@@ -95,6 +95,7 @@ SMODS.Joker{
         card.ability.extra.phase = "Full Moon"
     end,
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_moon
         return {
             vars = {
                 card.ability.extra.Xmult_mod,
@@ -133,7 +134,7 @@ SMODS.Joker{
         end
     end,
     calculate = function(self, card, context)
-        if (context.individual or context.repetition) and context.cardarea == G.play then
+        if context.individual and context.cardarea == G.play and not context.blueprint then
             if not context.other_card.debuff and context.other_card:is_suit("Clubs") then
                 card.ability.extra.scored_card = card.ability.extra.scored_card - 1
                 if card.ability.extra.scored_card <= 0 then
@@ -187,7 +188,7 @@ SMODS.Joker{
     calculate = function(self, card, context)
         if context.before and context.full_hand then
             for i=1, #context.full_hand do
-                if card.full_hand[i]:is_suit("Clubs") then
+                if card.full_hand[i]:is_suit("Clubs") and not context.blueprint then
                     card.ability.extra.scored_card = card.ability.extra.scored_card - 1
                     if card.ability.extra.scored_card <= 0 then
                         card.ability.extra.scored_card = 3

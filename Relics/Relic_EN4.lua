@@ -21,6 +21,7 @@ SMODS.Joker{
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.25 } },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return { vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult} }
     end,
     rarity = "hololive_Relic",
@@ -43,7 +44,7 @@ SMODS.Joker{
         if context.cardarea == G.jokers then
             if context.before and context.scoring_hand then
                 for i = 1, #context.scoring_hand do
-                    if SMODS.has_enhancement(context.scoring_hand[i], "m_glass") then
+                    if SMODS.has_enhancement(context.scoring_hand[i], "m_glass") and not context.blueprint then
                         self:upgrade(card)
                     else
                         context.scoring_hand[i]:set_ability(G.P_CENTERS.m_glass, nil, true)
@@ -78,6 +79,7 @@ SMODS.Joker{
     },
     config = { extra = { Xmult = 4, Xmult_mod = 1 } },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return { vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult} }
     end,
     rarity = "hololive_Relic",
@@ -97,7 +99,7 @@ SMODS.Joker{
         }
     end,
     calculate = function(self, card, context)
-        if context.about_to_shatter then
+        if context.about_to_shatter and not context.blueprint then
             self:upgrade(card)
             return {very_durable = true}
         end

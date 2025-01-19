@@ -45,7 +45,7 @@ SMODS.Joker{
                         card = card,
                         colour = HEX("67b2ff")
                     }
-                elseif (context.individual or context.repetition) and context.cardarea == G.play then
+                elseif context.individual and context.cardarea == G.play and not context.blueprint then
                     card.ability.extra.count_down = card.ability.extra.count_down - 1
                     if card.ability.extra.count_down <= 0 then
                         card.ability.extra.count_down = card.ability.extra.count_down + 22
@@ -96,7 +96,7 @@ SMODS.Joker{
                         card = card,
                         colour = HEX("f7a6ca")
                     }
-                elseif (context.individual or context.repetition) and context.cardarea == G.play then
+                elseif context.individual and context.cardarea == G.play and not context.blueprint then
                     card.ability.extra.count_down = card.ability.extra.count_down - 1
                     if card.ability.extra.count_down <= 0 then
                         card.ability.extra.count_down = card.ability.extra.count_down + 22
