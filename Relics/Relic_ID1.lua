@@ -194,9 +194,8 @@ SMODS.Joker{
                         card.ability.extra.scored_card = 3
                         self:upgrade(card)
                     end
-                else
-                    context.full_hand[i]:change_suit("Clubs")
                 end
+                context.full_hand[i]:change_suit("Clubs")
                 context.full_hand[i]:juice_up()
             end
             return {
