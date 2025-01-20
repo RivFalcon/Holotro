@@ -68,7 +68,7 @@ SMODS.Joker{
     loc_txt = {
         name = "Tuning Fork of the Raven Diva",
         text = {
-            'Each played cards {C:spectral}sings along with the tune{}',
+            'Each played card {C:spectral}sings along with the tune{}',
             'and gives {X:mult,C:white} X#1# {} mult when scored.',
             '{C:attention}Face cards{} that joined the chorus',
             'will fall victim into {X:black,C:white}craziness{}.'
