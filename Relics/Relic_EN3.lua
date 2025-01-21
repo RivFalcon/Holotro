@@ -32,12 +32,12 @@ SMODS.Joker{
     upgrade = function(self, card)
         card:juice_up()
         card.ability.extra.retriggers = card.ability.extra.retriggers + 1
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Upgrade!",colour = HEX("373741")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Yoricked!",colour = HEX("373741")})
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.scoring_hand and context.full_hand then
             return {
-                message = "Again!",
+                message = "Note!",
                 repetitions = card.ability.extra.retriggers,
                 card = card,
                 colour = HEX("373741")
@@ -60,7 +60,48 @@ SMODS.Joker{
     end
 }
 
--- Biboo
+SMODS.Joker{
+    key = "Relic_Biboo",
+    talent = "Biboo",
+    loc_txt = {
+        name = "Jewel Crown of the Ancient Rock",
+        text = {
+            '{C:attention}Stone cards{} become {C:attention}Rock Hard{}',
+            'and give {C:chips}81,800{} extra chips when scored.',
+            '{C:attention}Face cards{} held in hand',
+            'get {X:black,C:white}petrified{} at end of round.'
+        }
+    },
+    config = { extra = { } },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_stone
+        return { vars = { } }
+    end,
+    rarity = "hololive_Relic",
+    cost = 20,
+
+    atlas = 'Relic_Advent',
+    pos = { x = 1, y = 0 },
+    soul_pos = { x = 1, y = 1 },
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if SMODS.has_enhancement(context.other_card, "m_stone") then
+                card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Biboo!",colour = HEX("6e5bf4")})
+                return {
+                    card = context.other_card,
+                    chips = 81800
+                }
+            end
+        elseif context.individual and context.cardarea == G.hand and context.end_of_round then
+            if context.other_card:is_face() then
+                context.other_card:juice_up()
+                play_sound('cancel')
+                context.other_card:set_ability(G.P_CENTERS.m_stone, nil, true)
+            end
+        end
+    end
+}
 
 SMODS.Joker{
     key = "Relic_Nerissa",
@@ -95,6 +136,7 @@ SMODS.Joker{
             }
         elseif context.destroying_card then
             if context.destroying_card:is_face() then
+                play_sound('gong')
                 return { remove = true }
             end
         end
@@ -127,7 +169,7 @@ SMODS.Joker{
     upgrade = function(self, card)
         card:juice_up()
         card.ability.extra.retriggers = card.ability.extra.retriggers + 1
-        
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Baubau!",colour = HEX("67b2ff")})
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.scoring_hand and context.full_hand then
@@ -147,7 +189,6 @@ SMODS.Joker{
                 if card.ability.extra.count_down <= 0 then
                     card.ability.extra.count_down = card.ability.extra.count_down + 22
                     self:upgrade(card)
-                    return {message="Baubau!",card=card,colour = HEX("67b2ff")}
                 end
             end
         end
@@ -180,6 +221,7 @@ SMODS.Joker{
     upgrade = function(self, card)
         card:juice_up()
         card.ability.extra.retriggers = card.ability.extra.retriggers + 1
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Baubau!",colour = HEX("f7a6ca")})
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.scoring_hand and context.full_hand then
@@ -199,7 +241,6 @@ SMODS.Joker{
                 if card.ability.extra.count_down <= 0 then
                     card.ability.extra.count_down = card.ability.extra.count_down + 22
                     self:upgrade(card)
-                    return {message="Baubau!",card=card,colour = HEX("f7a6ca")}
                 end
             end
         end
