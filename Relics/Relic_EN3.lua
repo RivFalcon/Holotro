@@ -49,12 +49,10 @@ SMODS.Joker{
                 self:upgrade(card)
             end
             if context.other_card:is_face() then
-                return {
-                    remove = true,
-                    message = 'Archived!',
-                    card = card,
-                    colour = HEX('373741')
-                }
+                context.other_card:juice_up()
+                card_eval_status_text(context.other_card, 'extra', nil, 1, nil, {message="Archived!",colour = HEX("373741")})
+                context.other_card:start_dissolve(nil, true)
+                -- "No no no, they were not destroyed, silly! I just took them to somewhere else!"
             end
         end
     end
