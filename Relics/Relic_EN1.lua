@@ -1,5 +1,10 @@
 ----
---SMODS.Atlas{}
+SMODS.Atlas{
+    key = "Relic_Myth",
+    path = "Relic_Myth.png",
+    px = 71,
+    py = 95
+}
 
 SMODS.Joker{
     key = "Relic_Calli",
@@ -21,7 +26,7 @@ SMODS.Joker{
     cost = 20,
     blueprint_compat = true,
 
-    atlas = 'Relic_hololive',
+    atlas = 'Relic_Myth',
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
 
@@ -51,9 +56,9 @@ SMODS.Joker{
     cost = 20,
     blueprint_compat = true,
 
-    atlas = 'Relic_hololive',
-    pos = { x = 0, y = 0 },
-    soul_pos = { x = 0, y = 1 },
+    atlas = 'Relic_Myth',
+    pos = { x = 1, y = 0 },
+    soul_pos = { x = 1, y = 1 },
 
     upgrade = function (self, card)
     end,
@@ -81,9 +86,9 @@ SMODS.Joker{
     cost = 20,
     blueprint_compat = true,
 
-    atlas = 'Relic_hololive',
-    pos = { x = 0, y = 0 },
-    soul_pos = { x = 0, y = 1 },
+    atlas = 'Relic_Myth',
+    pos = { x = 2, y = 0 },
+    soul_pos = { x = 2, y = 1 },
 
     upgrade = function (self, card)
     end,
@@ -111,9 +116,9 @@ SMODS.Joker{
     cost = 20,
     blueprint_compat = true,
 
-    atlas = 'Relic_hololive',
-    pos = { x = 0, y = 0 },
-    soul_pos = { x = 0, y = 1 },
+    atlas = 'Relic_Myth',
+    pos = { x = 3, y = 0 },
+    soul_pos = { x = 3, y = 1 },
 
     upgrade = function (self, card)
     end,
@@ -141,9 +146,9 @@ SMODS.Joker{
     cost = 20,
     blueprint_compat = true,
 
-    atlas = 'Relic_hololive',
-    pos = { x = 0, y = 0 },
-    soul_pos = { x = 0, y = 1 },
+    atlas = 'Relic_Myth',
+    pos = { x = 4, y = 0 },
+    soul_pos = { x = 4, y = 1 },
 
     upgrade = function (self, card)
     end,
