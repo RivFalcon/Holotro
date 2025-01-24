@@ -26,6 +26,7 @@ SMODS.Joker{
     end,
     rarity = "hololive_Relic",
     cost = 20,
+    blueprint_compat = true,
 
     atlas = 'Relic_Justice',
     pos = { x = 1, y = 0 },
@@ -84,6 +85,7 @@ SMODS.Joker{
     end,
     rarity = "hololive_Relic",
     cost = 20,
+    blueprint_compat = true,
 
     atlas = 'Relic_Justice',
     pos = { x = 2, y = 0 },
