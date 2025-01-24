@@ -71,8 +71,13 @@ SMODS.Joker{
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
     },
-    config = { extra = { Xmult = 6, Xmult_mod = 0.5, odds = 3, bag_of_planet = {} } },
+    config = { extra = { Xmult = 6, Xmult_mod = 0.5, odds = 3, bag_of_planets = {} } },
     loc_vars = function(self, info_queue, card)
+        if card.ability.extra.bag_of_planets then
+            for _, _planet in ipairs(card.ability.extra.bag_of_planets) do
+                info_queue[#info_queue+1] = G.P_CENTERS[_planet]
+            end
+        end
         return {
             vars = {
                 card.ability.extra.Xmult,
@@ -92,19 +97,10 @@ SMODS.Joker{
 
     update = function (self, card, dt)
         -- Release the planets until the consumable slot is full.
-        if #card.ability.extra.bag_of_planet > 0 then
+        if #card.ability.extra.bag_of_planets > 0 then
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                local _planet = table.remove(card.ability.extra.bag_of_planet,1)
-                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before',
-                    delay = 0.0,
-                    func = (function()
-                        SMODS.add_card({ key = _planet, area = G.consumeables})
-                        G.GAME.consumeable_buffer = 0
-                        return true
-                    end
-                )}))
+                local _planet = table.remove(card.ability.extra.bag_of_planets,1)
+                SMODS.add_card({ key = _planet, area = G.consumeables})
             end
         end
     end,
@@ -121,14 +117,17 @@ SMODS.Joker{
             end
         elseif context.cardarea == G.jokers and context.scoring_hand then
             if context.before then
-                if pseudorandom('Sanana') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                if pseudorandom('sanana') < G.GAME.probabilities.normal / card.ability.extra.odds then
                     -- Store the planet into the bag of planet.
                     for k, v in pairs(G.P_CENTER_POOLS.Planet) do
                         if v.config.hand_type == context.scoring_name then
-                            card.ability.extra.bag_of_planet[#card.ability.extra.bag_of_planet+1] = v.key
+                            card.ability.extra.bag_of_planets[#card.ability.extra.bag_of_planets+1] = v.key
                             break
                         end
                     end
+                    card:juice_up()
+                    play_sound('highlight2')
+                    card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Observed!',colour=HEX('fede4a')})
                 end
             end
         elseif context.joker_main then
