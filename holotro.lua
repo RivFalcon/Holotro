@@ -12,12 +12,12 @@
 mod_dir = ''..SMODS.current_mod.path
 holo_config = SMODS.current_mod.config
 
-local hsprite, load_error = SMODS.load_file("holosprite.lua")
-if load_error then
-    sendDebugMessage ("The error is: "..load_error)
-else
-    hsprite()
-end
+SMODS.Atlas({
+    key = "modicon",
+    path = "HoloIcon.png",
+    px = 32,
+    py = 32
+})
 
 local mfiles = NFS.getDirectoryItems(mod_dir.."Memes")
 for _, file in ipairs(mfiles) do

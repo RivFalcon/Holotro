@@ -48,20 +48,21 @@ SMODS.Joker{
                         card.ability.extra.clubbin = 2
                         return {
                             message = 'Clubbin\'',
-                            colour = card.colour,
+                            colour = HEX('EF8381'),
                             card = context.other_card
                         }
                     elseif card.ability.extra.clubbin == 2 then
                         card.ability.extra.clubbin = 1
                         return {
                             message = 'Deez',
-                            colour = card.colour,
+                            colour = HEX('EF8381'),
                             card = context.other_card
                         }
                     elseif card.ability.extra.clubbin == 1 then
                         card.ability.extra.clubbin = 3
                         return {
                             message = 'NUTS!',
+                            colour = HEX('EF8381'),
                             card = context.other_card,
                             Xmult_mod = 15
                         }
