@@ -293,7 +293,7 @@ SMODS.Joker{
                 end
             end
         elseif context.using_consumeable and not context.blueprint then -- This part isn't working as expected
-            if context.consumeable.ability.name == 'The World' then
+            if context.consumeable.config.center.key == 'c_world' then
                 self:upgrade(card)
             end
         elseif context.joker_main then
