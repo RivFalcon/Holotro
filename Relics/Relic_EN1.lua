@@ -12,13 +12,23 @@ SMODS.Joker{
     loc_txt = {
         name = "Scythe of the Death Apprentice",
         text = {
-            ''
+            'When played exactly {C:attention}4 {}cards, each card',
+            'has {C:green}#3# in 4 {}chance to be converted',
+            'to the {C:attention}fourth {}card before scoring.',
+            'Create a {C:dark_edition}Negative {C:tarot}Death {}card every {C:attention}4 {C:inactive}[#4#] {}conversions.',
+            'Gain {X:mult,C:white}X#2#{} mult every time using a {C:tarot}Death{} card.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1# {C:inactive}Mult){}'
         }
     },
-    config = { extra = {  } },
+    config = { extra = { Xmult = 4, Xmult_mod = 1, count_down = 4  } },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_death
         return {
             vars = {
+                card.ability.extra.Xmult,
+                card.ability.extra.Xmult_mod,
+                G.GAME.probabilities.normal,
+                card.ability.extra.count_down
             }
         }
     end,
@@ -31,8 +41,70 @@ SMODS.Joker{
     soul_pos = { x = 0, y = 1 },
 
     upgrade = function (self, card)
+        card:juice_up()
+        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Guh!",colour = HEX("a1020b")})
     end,
     calculate = function(self, card, context)
+        if context.using_consumeable then
+            if context.consumeable.config.center.key == 'c_death' and not context.blueprint then
+                self:upgrade(card)
+            end
+        elseif context.before and #context.full_hand == 4 and not context.blueprint then
+            card:juice_up()
+            play_sound('tarot1')
+            local rightmost = context.full_hand[4]
+            for i, _card in ipairs(context.full_hand) do
+                local percent = 1.15 - (i-0.999)/(4-0.998)*0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        _card:flip();
+                        play_sound('card1', percent);
+                        _card:juice_up(0.3, 0.3);
+                        return true
+                    end
+                }))
+                delay(0.2)
+                if pseudorandom('Calli') < G.GAME.probabilities.normal / 4 then
+                    card:juice_up()
+                    if card.ability.extra.count_down <= 1 then
+                        card.ability.extra.count_down = 4
+                        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Shin de kudasai!",colour = HEX("a1020b")})
+                        SMODS.add_card({ key = 'c_death', area = G.consumeables, edition = 'e_negative' })
+                    else
+                        card.ability.extra.count_down = card.ability.extra.count_down - 1
+                    end
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.1,
+                        func = function()
+                            copy_card(rightmost, _card)
+                            return true
+                        end
+                    }))
+                end
+                percent = 0.85 + (i-0.999)/(4-0.998)*0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        _card:flip()
+                        play_sound('tarot2', percent, 0.6)
+                        _card:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+        elseif context.joker_main then
+            card:juice_up()
+            play_sound('gong')
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Death!',colour=HEX('a1020b')})
+            return {
+                Xmult = card.ability.extra.Xmult
+            }
+        end
     end
 }
 
@@ -66,19 +138,37 @@ SMODS.Joker{
     end
 }
 
+SMODS.Sound{
+    key = 'Ina-Wah',
+    path = 'Ina_Wah.ogg'
+    -- source: https://www.myinstants.com/en/instant/wah-eco-ninomae-inanis-8589/
+}
+
 SMODS.Joker{
     key = "Relic_Ina",
     talent = "Ina",
     loc_txt = {
         name = "Ancient Tome of the Eldritch Priestess",
         text = {
-            ''
+            'Played cards with {C:purple}purple seal{}',
+            'create a {C:spectral}Spectral{} card when scored.',
+            '(If no room, {C:attention}accumulate{} until there is)',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:spectral}Spectral{} card created.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
     },
-    config = { extra = {  } },
+    config = { extra = { Xmult = 5, Xmult_mod = 0.5, tome_of_spectrals = {} } },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_SEALS.Purple
+        if card.ability.extra.tome_of_spectrals then
+            for _, _spectral in ipairs(card.ability.extra.tome_of_spectrals) do
+                info_queue[#info_queue+1] = G.P_CENTERS[_spectral]
+            end
+        end
         return {
             vars = {
+                card.ability.extra.Xmult,
+                card.ability.extra.Xmult_mod
             }
         }
     end,
@@ -90,10 +180,43 @@ SMODS.Joker{
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
 
+    update = function (self, card, dt)
+        -- Release the Spectrals until the consumable slot is full.
+        if #card.ability.extra.tome_of_spectrals > 0 then
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                local _spectral = table.remove(card.ability.extra.tome_of_spectrals,1)
+                SMODS.add_card({ key = _spectral, area = G.consumeables})
+                self:upgrade(card)
+            end
+        end
+    end,
     upgrade = function (self, card)
+        card:juice_up()
+        play_sound('hololive_Ina-Wah')
+        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Wah!",colour = HEX("3f3e69")})
     end,
     calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if context.other_card.seal == 'Purple' then
+                local _spectral = pseudorandom_element('ina',G.P_CENTER_POOLS.Spectral)
+                card.ability.extra.tome_of_spectrals[#card.ability.extra.tome_of_spectrals+1] = _spectral.key
+            end
+        elseif context.joker_main then
+            card:juice_up()
+            play_sound('hololive_Ina-Wah')
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Wah!',colour=HEX('3f3e69')})
+            return {
+                Xmult = card.ability.extra.Xmult
+            }
+        end
     end
+}
+
+SMODS.Sound{
+    key = 'Gura-A',
+    path = 'Gura_A.ogg'
+    -- source: https://www.myinstants.com/en/instant/gawr-gura-a-66933/
 }
 
 SMODS.Joker{
@@ -102,11 +225,19 @@ SMODS.Joker{
     loc_txt = {
         name = "Trident of the Atlantic Shark",
         text = {
-            ''
+            'Retrigger {C:attention}middle 3{} scored cards {C:attention}2{} additional times',
+            'if played hand is a {C:attention}Straight Flush{}.',
+            'Using a {C:planet}Neptune{} levels up {C:attention}Straight Flush{}',
+            '{C:attention}2{} additional times.',
+            'Using a {C:planet}Jupiter{} or a {C:planet}Saturn{} also',
+            'levels up {C:attention}Straight Flush{}.'
         }
     },
     config = { extra = {  } },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_neptune
+        info_queue[#info_queue+1] = G.P_CENTERS.c_jupiter
+        info_queue[#info_queue+1] = G.P_CENTERS.c_saturn
         return {
             vars = {
             }
@@ -121,8 +252,52 @@ SMODS.Joker{
     soul_pos = { x = 3, y = 1 },
 
     upgrade = function (self, card)
+        card:juice_up()
+        play_sound('hololive_Gura-A')
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message='A!',colour=HEX('5d81c7')})
+        update_hand_text(
+            { sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
+            {
+                handname=localize('Straight Flush', 'poker_hands'),
+                chips = G.GAME.hands['Straight Flush'].chips,
+                mult = G.GAME.hands['Straight Flush'].mult,
+                level=G.GAME.hands['Straight Flush'].level
+            }
+        )
+        level_up_hand(used_tarot, 'Straight Flush')
+        update_hand_text(
+            { sound = 'button', volume = 0.7, pitch = 1.1, delay = 0 },
+            { mult = 0, chips = 0, handname = '', level = '' }
+        )
     end,
     calculate = function(self, card, context)
+        if context.using_consumeable then
+            local _p = context.consumeable.config.center.key
+            if _p == 'c_jupiter' or _p == 'c_saturn' then
+                self:upgrade(card)
+            elseif _p == 'c_neptune' then
+                self:upgrade(card)
+                self:upgrade(card)
+            end
+        elseif context.before and context.scoring_name == 'Straight Flush' then
+            play_sound('hololive_Gura-A')
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="A!",colour = HEX("5d81c7")})
+        elseif context.repetition and context.scoring_name == 'Straight Flush' then
+            local is_middle = false
+            for i=2, math.min(4,#context.scoring_hand) do
+                if context.other_card == context.scoring_hand[i] then
+                    is_middle = true
+                end
+            end
+            if is_middle then
+                return {
+                    message = 'A!',
+                    repetitions = 2,
+                    card = card,
+                    colour = HEX("5d81c7")
+                }
+            end
+        end
     end
 }
 
@@ -132,10 +307,19 @@ SMODS.Joker{
     loc_txt = {
         name = "Magnifying Glass of the Detective",
         text = {
-            ''
+            'Mult gained next hand increases by X0.25 mult',
+            'per consecutive hand played with',
+            'at least one scoring face card.',
+            '(Currently X#1# Mult, gain X#2# Mult next hand)'
         }
     },
-    config = { extra = {  } },
+    config = {
+        extra = {
+            Xmult = 1,
+            Xmult_mod = 0,
+            Xmult_mod_mod = 0.25
+        }
+    },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -151,8 +335,36 @@ SMODS.Joker{
     soul_pos = { x = 4, y = 1 },
 
     upgrade = function (self, card)
+        card:juice_up()
+        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Elementary!",colour = HEX("f8db92")})
     end,
     calculate = function(self, card, context)
+        if context.after and not context.blueprint then
+            card:juice_up()
+            local contains_scoring_face_card = false
+            for i, _card in ipairs(context.scoring_hand) do
+                if _card:is_face() then
+                    contains_scoring_face_card = true
+                end
+            end
+            if contains_scoring_face_card then
+                card.ability.extra.Xmult_mod = card.ability.extra.Xmult_mod + card.ability.extra.Xmult_mod_mod
+                card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Clues Found!",colour = HEX("f8db92")})
+            else
+                card.ability.extra.Xmult_mod = 0
+                card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Lost the track!",colour = HEX("f8db92")})
+            end
+            delay(0.2)
+            self:upgrade(card)
+        elseif context.joker_main then
+            card:juice_up()
+            play_sound('gong')
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Detective!',colour=HEX('f8db92')})
+            return {
+                Xmult = card.ability.extra.Xmult
+            }
+        end
     end
 }
 
