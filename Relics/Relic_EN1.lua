@@ -17,7 +17,7 @@ SMODS.Joker{
             'to the {C:attention}fourth {}card before scoring.',
             'Create a {C:dark_edition}Negative {C:tarot}Death {}card every {C:attention}4 {C:inactive}[#4#] {}conversions.',
             'Gain {X:mult,C:white}X#2#{} mult every time using a {C:tarot}Death{} card.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1# {C:inactive}Mult){}'
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
     },
     config = { extra = { Xmult = 4, Xmult_mod = 1, count_down = 4  } },
@@ -99,7 +99,7 @@ SMODS.Joker{
             end
         elseif context.joker_main then
             card:juice_up()
-            play_sound('gong')
+            play_sound('mult2')
             card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Death!',colour=HEX('a1020b')})
             return {
                 Xmult = card.ability.extra.Xmult
@@ -112,15 +112,20 @@ SMODS.Joker{
     key = "Relic_Kiara",
     talent = "Kiara",
     loc_txt = {
-        name = "Flamming Sword of the Phoenix",
+        name = "Flaming Sword of the Phoenix",
         text = {
-            ''
+            'Played cards that {C:red}did not score{} get {C:red}burned{}.',
+            'Gain {X:mult,C:white}X#2#{} mult and {C:money}$#3#{} per card burned.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
     },
-    config = { extra = {  } },
+    config = { extra = { Xmult = 4, Xmult_mod = 0.4, dollars = 4 } },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
+                card.ability.extra.Xmult,
+                card.ability.extra.Xmult_mod,
+                card.ability.extra.dollars
             }
         }
     end,
@@ -133,8 +138,33 @@ SMODS.Joker{
     soul_pos = { x = 1, y = 1 },
 
     upgrade = function (self, card)
+        card:juice_up()
+        ease_dollars(card.ability.extra.dollars)
+        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Kikiriki!",colour = HEX("dc3907")})
     end,
     calculate = function(self, card, context)
+        if context.after then
+            local cards_burned = {}
+            local _i = 0
+            for i,_card in ipairs(context.full_hand) do
+                if _card ~= context.scoring_hand[i-_i] then
+                    cards_burned[#cards_burned+1] = _card
+                    _i = _i + 1
+                end
+            end
+            for _,J in ipairs(G.jokers.cards) do
+                eval_card(J, {cardarea = G.jokers, remove_playing_cards = true, removed = cards_burned})
+            end
+            for i,_card in ipairs(cards_burned) do
+                self:upgrade(card)
+                _card:start_dissolve()
+            end
+        elseif context.joker_main then
+            play_sound('mult2')
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Phoenix!",colour = HEX("dc3907")})
+            return { Xmult = card.ability.extra.Xmult }
+        end
     end
 }
 
@@ -160,7 +190,7 @@ SMODS.Joker{
     config = { extra = { Xmult = 5, Xmult_mod = 0.5, tome_of_spectrals = {} } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_SEALS.Purple
-        if card.ability.extra.tome_of_spectrals then
+        if #card.ability.extra.tome_of_spectrals > 0 then
             for _, _spectral in ipairs(card.ability.extra.tome_of_spectrals) do
                 info_queue[#info_queue+1] = G.P_CENTERS[_spectral]
             end
@@ -227,8 +257,8 @@ SMODS.Joker{
         text = {
             'Retrigger {C:attention}middle 3{} scored cards {C:attention}2{} additional times',
             'if played hand is a {C:attention}Straight Flush{}.',
-            'Using a {C:planet}Neptune{} levels up {C:attention}Straight Flush{}',
-            '{C:attention}2{} additional times.',
+            'Using a {C:planet}Neptune{} levels up',
+            '{C:attention}Straight Flush {C:attention}2{} additional times.',
             'Using a {C:planet}Jupiter{} or a {C:planet}Saturn{} also',
             'levels up {C:attention}Straight Flush{}.'
         }
@@ -307,22 +337,20 @@ SMODS.Joker{
     loc_txt = {
         name = "Magnifying Glass of the Detective",
         text = {
-            'Mult gained next hand increases by X0.25 mult',
-            'per consecutive hand played with',
-            'at least one scoring face card.',
-            '(Currently X#1# Mult, gain X#2# Mult next hand)'
+            'Mult gained next hand increases by {X:mult,C:white}X#3#{} mult',
+            'per {C:attention}consecutive{} hand played with',
+            'at least one scoring {C:attention}face card{}.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult, gain {X:mult,C:white}X#2#{C:inactive} Mult next hand){}'
         }
     },
-    config = {
-        extra = {
-            Xmult = 1,
-            Xmult_mod = 0,
-            Xmult_mod_mod = 0.25
-        }
+    config = { extra = { Xmult = 1, Xmult_mod = 0, Xmult_mod_mod = 0.25 }
     },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
+                card.ability.extra.Xmult,
+                card.ability.extra.Xmult_mod,
+                card.ability.extra.Xmult_mod_mod
             }
         }
     end,

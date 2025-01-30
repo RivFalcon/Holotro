@@ -71,7 +71,7 @@ SMODS.Joker{
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
     },
-    config = { extra = { Xmult = 6, Xmult_mod = 0.5, odds = 3, bag_of_planets = {} } },
+    config = { extra = { Xmult = 6, Xmult_mod = 0.6, odds = 3, bag_of_planets = {} } },
     loc_vars = function(self, info_queue, card)
         if card.ability.extra.bag_of_planets then
             for _, _planet in ipairs(card.ability.extra.bag_of_planets) do
@@ -292,7 +292,7 @@ SMODS.Joker{
                     SMODS.add_card({ key = 'c_world', area = G.consumeables, edition = 'e_negative' })
                 end
             end
-        elseif context.using_consumeable and not context.blueprint then -- This part isn't working as expected
+        elseif context.using_consumeable and not context.blueprint then
             if context.consumeable.config.center.key == 'c_world' then
                 self:upgrade(card)
             end
@@ -355,8 +355,9 @@ SMODS.Joker{
                     play_sound('slice1')
                     context.other_card:juice_up()
                     context.other_card:start_dissolve(nil, true)
-                    if not context.blueprint then self:upgrade(card) end
-                    -- Sacrifice does not count as destroyed to other jokers for now due to some 'limitations'.
+                    for _,J in ipairs(G.jokres.cards) do
+                        eval_card(J, {cardarea = G.jokers, remove_playing_cards = true, removed = {context.other_card,}})
+                    end
                 end
             end
         elseif context.joker_main then
