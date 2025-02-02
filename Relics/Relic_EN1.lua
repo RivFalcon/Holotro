@@ -13,7 +13,7 @@ SMODS.Joker{
         name = "Scythe of the Death Apprentice",
         text = {
             'When played exactly {C:attention}4 {}cards, each card',
-            'has {C:green}#3# in 4 {}chance to be converted',
+            'has {C:green}#3# in 4 {}chance to be {C:attention}converted{}',
             'to the {C:attention}fourth {}card before scoring.',
             'Create a {C:dark_edition}Negative {C:tarot}Death {}card every {C:attention}4 {C:inactive}[#4#] {}conversions.',
             'Gain {X:mult,C:white}X#2#{} mult every time using a {C:tarot}Death{} card.',
@@ -180,8 +180,8 @@ SMODS.Joker{
     loc_txt = {
         name = "Ancient Tome of the Eldritch Priestess",
         text = {
-            'Played cards with {C:purple}purple seal{}',
-            'create a {C:spectral}Spectral{} card when scored.',
+            'Each played card with a {C:purple}purple seal{}',
+            'creates a {C:spectral}Spectral{} card when scored.',
             '(If no room, {C:attention}accumulate{} until there is)',
             'Gain {X:mult,C:white}X#2#{} mult per {C:spectral}Spectral{} card created.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
