@@ -55,19 +55,22 @@ SMODS.Joker{
             play_sound('tarot1')
             local rightmost = context.full_hand[4]
             for i, _card in ipairs(context.full_hand) do
-                local percent = 1.15 - (i-0.999)/(4-0.998)*0.3
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.15,
-                    func = function()
-                        _card:flip();
-                        play_sound('card1', percent);
-                        _card:juice_up(0.3, 0.3);
-                        return true
-                    end
-                }))
-                delay(0.2)
+                if i == 4 then
+                    break
+                end
                 if pseudorandom('Calli') < G.GAME.probabilities.normal / 4 then
+                    local percent = 1.15 - (i-0.999)/(4-0.998)*0.3
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.15,
+                        func = function()
+                            _card:flip();
+                            play_sound('card1', percent);
+                            _card:juice_up(0.3, 0.3);
+                            return true
+                        end
+                    }))
+                    delay(0.2)
                     card:juice_up()
                     if card.ability.extra.count_down <= 1 then
                         card.ability.extra.count_down = 4
@@ -84,18 +87,18 @@ SMODS.Joker{
                             return true
                         end
                     }))
+                    percent = 0.85 + (i-0.999)/(4-0.998)*0.3
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.15,
+                        func = function()
+                            _card:flip()
+                            play_sound('tarot2', percent, 0.6)
+                            _card:juice_up(0.3, 0.3)
+                            return true
+                        end
+                    }))
                 end
-                percent = 0.85 + (i-0.999)/(4-0.998)*0.3
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.15,
-                    func = function()
-                        _card:flip()
-                        play_sound('tarot2', percent, 0.6)
-                        _card:juice_up(0.3, 0.3)
-                        return true
-                    end
-                }))
             end
         elseif context.joker_main then
             card:juice_up()
@@ -187,7 +190,7 @@ SMODS.Joker{
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
     },
-    config = { extra = { Xmult = 5, Xmult_mod = 0.5, tome_of_spectrals = {} } },
+    config = { extra = { Xmult = 2.5, Xmult_mod = 0.5, tome_of_spectrals = {} } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_SEALS.Purple
         if #card.ability.extra.tome_of_spectrals > 0 then
@@ -255,7 +258,7 @@ SMODS.Joker{
     loc_txt = {
         name = "Trident of the Atlantic Shark",
         text = {
-            'Retrigger {C:attention}middle 3{} scored cards {C:attention}2{} additional times',
+            'Retrigger {C:attention}first 3{} scored cards {C:attention}2{} additional times',
             'if played hand is a {C:attention}Straight Flush{}.',
             'Using a {C:planet}Neptune{} levels up',
             '{C:attention}Straight Flush {C:attention}2{} additional times.',
@@ -313,13 +316,16 @@ SMODS.Joker{
             play_sound('hololive_Gura-A')
             card_eval_status_text(card, 'jokers', nil, 1, nil, {message="A!",colour = HEX("5d81c7")})
         elseif context.repetition and context.scoring_name == 'Straight Flush' then
-            local is_middle = false
-            for i=2, math.min(4,#context.scoring_hand) do
+            if #context.scoring_hand < 3 then
+                return {}
+            end
+            local is_first_three = false
+            for i=1, 3 do
                 if context.other_card == context.scoring_hand[i] then
-                    is_middle = true
+                    is_first_three = true
                 end
             end
-            if is_middle then
+            if is_first_three then
                 return {
                     message = 'A!',
                     repetitions = 2,
