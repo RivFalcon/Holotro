@@ -99,7 +99,7 @@ SMODS.Joker{
             end
         elseif context.joker_main then
             card:juice_up()
-            play_sound('mult2')
+            play_sound('multhit2')
             card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Death!',colour=HEX('a1020b')})
             return {
                 Xmult = card.ability.extra.Xmult
@@ -161,7 +161,7 @@ SMODS.Joker{
                 _card:start_dissolve()
             end
         elseif context.joker_main then
-            play_sound('mult2')
+            play_sound('multhit2')
             card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Phoenix!",colour = HEX("dc3907")})
             return { Xmult = card.ability.extra.Xmult }
         end
