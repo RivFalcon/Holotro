@@ -10,7 +10,7 @@ SMODS.Joker{
     key = "Relic_Elizabeth",
     talent = "Elizabeth",
     loc_txt = {
-        name = "Thorn, the Great Sword of the Scarlet Queen",
+        name = "Great Sword of the Scarlet Queen",
         text = {
             'Serve {C:tarot}Justice{} when a {C:attention}blind{}',
             'is either {C:attention}selected{} or {C:attention}skipped{}.',
