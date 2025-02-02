@@ -269,8 +269,6 @@ SMODS.Joker{
     config = { extra = {  } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_neptune
-        info_queue[#info_queue+1] = G.P_CENTERS.c_jupiter
-        info_queue[#info_queue+1] = G.P_CENTERS.c_saturn
         return {
             vars = {
             }
