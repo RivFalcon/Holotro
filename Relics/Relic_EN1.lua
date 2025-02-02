@@ -363,9 +363,11 @@ SMODS.Joker{
     soul_pos = { x = 4, y = 1 },
 
     upgrade = function (self, card)
-        card:juice_up()
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Elementary!",colour = HEX("f8db92")})
+        if card.ability.extra.Xmult_mod > 0 then
+            card:juice_up()
+            card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Elementary!",colour = HEX("f8db92")})
+        end
     end,
     calculate = function(self, card, context)
         if context.after and not context.blueprint then
