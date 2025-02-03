@@ -261,16 +261,15 @@ SMODS.Joker{
         name = "Trident of the Atlantic Shark",
         text = {
             'Retrigger {C:blue}first {C:attention}3 {}scored cards {C:attention}2{} additional times',
-            'and gain {X:mult,C:white}X#2#{} mult if played hand is a {C:attention}Straight Flush{}.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}',
-            'Using a {C:planet}Neptune{} levels up',
-            '{C:attention}Straight Flush {C:attention}2{} additional times.',
-            'Using a {C:planet}Jupiter{} or a {C:planet}Saturn{} also',
-            'levels up {C:attention}Straight Flush{}.'
+            'if played hand is a {C:attention}Straight Flush{}.',
+            'Gain {X:mult,C:white}X#2#{} mult every time {C:attention}Straight Flush{}',
+            'is leveled up. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}',
+            '{s:0.8}Using a {C:planet,s:0.8}Neptune{s:0.8} levels up {C:attention,s:0.8}Straight Flush {C:blue,s:0.8}2{s:0.8} additional times.',
+            '{s:0.8}Using a {C:planet,s:0.8}Jupiter{s:0.8} or a {C:planet,s:0.8}Saturn{s:0.8} also levels up {C:attention,s:0.8}Straight Flush{s:0.8}.'
         }
-        ,boxes={3,4}
+        ,boxes={2,2,2}
     },
-    config = { extra = { Xmult = 3, Xmult_mod = 0.3 } },
+    config = { extra = { Xmult = 3, Xmult_mod = 0.3, level = { neptune = 1 } } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_neptune
         return {
@@ -288,7 +287,24 @@ SMODS.Joker{
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
 
+    update = function (self, card, dt)
+        -- For Neptune
+        if card.ability.extra.level.neptune < G.GAME.hands['Straight Flush'].level then
+            for i=1, (G.GAME.hands['Straight Flush'].level - card.ability.extra.level.neptune) do
+                self:upgrade(card)
+            end
+            card.ability.extra.level.neptune = G.GAME.hands['Straight Flush'].level
+        elseif card.ability.extra.level.neptune > G.GAME.hands['Straight Flush'].level then
+            card.ability.extra.level.neptune = G.GAME.hands['Straight Flush'].level
+        end
+    end,
     upgrade = function (self, card)
+        card:juice_up()
+        play_sound('hololive_Gura-A')
+        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="A!",colour = HEX("5d81c7")})
+    end,
+    uplevel = function (self, card)
         card:juice_up()
         play_sound('hololive_Gura-A')
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message='A!',colour=HEX('5d81c7')})
@@ -311,10 +327,10 @@ SMODS.Joker{
         if context.using_consumeable then
             local _p = context.consumeable.config.center.key
             if _p == 'c_jupiter' or _p == 'c_saturn' then
-                self:upgrade(card)
+                self:uplevel(card)
             elseif _p == 'c_neptune' then
-                self:upgrade(card)
-                self:upgrade(card)
+                self:uplevel(card)
+                self:uplevel(card)
             end
         elseif context.before and context.scoring_name == 'Straight Flush' then
             play_sound('hololive_Gura-A')
@@ -337,6 +353,11 @@ SMODS.Joker{
                     colour = HEX("5d81c7")
                 }
             end
+        elseif context.joker_main and context.scoring_name == 'Straight Flush' then
+            card:juice_up()
+            play_sound('multhit2')
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Shark!",colour = HEX("5d81c7")})
+            return {Xmult=card.ability.extra.Xmult}
         end
     end
 }
