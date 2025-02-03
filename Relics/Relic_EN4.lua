@@ -61,13 +61,14 @@ SMODS.Joker{
     loc_txt = {
         name = "Gauntlet of Da Fister",
         text = {
-            'All played cards get {C:attention}fisted{}',
-            'and become {C:attention}Glass{} when scored.',
+            'All played cards get {C:attention}fisted{} and',
+            'become {C:attention}Glass Cards{} when scored.',
             'Gain {X:mult,C:white} X#1# {} Mult every time a card',
-            'is already a {C:attention}Glass Card{} before getting {C:attention}fisted{}.',
+            'is already a {C:attention}Glass Card{}',
+            'before getting {C:attention}fisted{}.',
             '(Currently {X:mult,C:white} X#2# {} Mult)'
         }
-        ,boxes = { 2, 3 }
+        ,boxes = { 2, 4 }
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.25 } },
     loc_vars = function(self, info_queue, card)
@@ -192,11 +193,12 @@ SMODS.Joker{
         name = "Sketching Pen of the Pink Panther",
         text = {
             'Played {C:attention}Glass Cards{} get sketched',
-            'and increase its {C:mult}Xmult{} by {X:mult,C:white}X#3#{} mult when scored.',
+            'and increase its {C:mult}Xmult{}',
+            'by {X:mult,C:white}X#3#{} mult when scored.',
             'Gain {X:mult,C:white}X#2#{} mult per card sketched.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
-        ,boxes = { 2, 2 }
+        ,boxes = { 3, 2 }
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.25, Xmult_mod_card = 0.1 } },
     loc_vars = function(self, info_queue, card)
