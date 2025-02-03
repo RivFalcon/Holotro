@@ -17,6 +17,7 @@ SMODS.Joker{
             'Discarded {C:attention}face cards{} get made into {X:black,C:white}bookmarks{}',
             'and will be properly {X:black,C:white}archived{}.'
         }
+        ,boxes={2,2}
     },
     config = { extra = { retriggers = 1, count_down = 23 } },
     loc_vars = function(self, info_queue, card)
@@ -70,6 +71,7 @@ SMODS.Joker{
             '{C:attention}Face cards{} held in hand',
             'get {X:black,C:white}petrified{} at end of round.'
         }
+        ,boxes={2,2}
     },
     config = { extra = { } },
     loc_vars = function(self, info_queue, card)
@@ -114,6 +116,7 @@ SMODS.Joker{
             '{C:attention}Face cards{} that joined the chorus',
             'will fall victim into {X:black,C:white}craziness{}.'
         }
+        ,boxes={2,2}
     },
     config = { extra = { Xmult = 3 } },
     loc_vars = function(self, info_queue, card)

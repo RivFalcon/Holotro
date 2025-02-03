@@ -70,6 +70,7 @@ SMODS.Joker{
             'is used since taking this relic.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
+        ,boxes={3,3}
     },
     config = { extra = { Xmult = 6, Xmult_mod = 0.6, odds = 3, bag_of_planets = {} } },
     loc_vars = function(self, info_queue, card)
@@ -153,6 +154,7 @@ SMODS.Joker{
             '{C:attention}Full House{} or {C:attention}Flush House{} is {C:planet}leveled up{}.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
+        ,boxes={2,3}
     },
     config = {
         extra = {
@@ -247,6 +249,7 @@ SMODS.Joker{
             'is used since taking this relic.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
+        ,boxes={2,3}
     },
     config = { extra = { Xmult = 6, Xmult_mod = 1.5, count_down = 12} },
     loc_vars = function(self, info_queue, card)
@@ -318,6 +321,7 @@ SMODS.Joker{
             'Gain {X:mult,C:white}X#2#{} mult for each card destroyed.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
+        ,boxes={2,2}
     },
     config = { extra = { Xmult = 6, Xmult_mod = 1, odds = 6 } },
     loc_vars = function(self, info_queue, card)

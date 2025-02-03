@@ -19,6 +19,7 @@ SMODS.Joker{
             'rightfully delivered.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
+        ,boxes = { 3, 3 }
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.5 } },
     loc_vars = function(self, info_queue, card)
@@ -66,6 +67,7 @@ SMODS.Joker{
             'is already a {C:attention}Glass Card{} before getting {C:attention}fisted{}.',
             '(Currently {X:mult,C:white} X#2# {} Mult)'
         }
+        ,boxes = { 2, 3 }
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.25 } },
     loc_vars = function(self, info_queue, card)
@@ -125,6 +127,7 @@ SMODS.Joker{
             'is prevented from shattering.',
             '(Currently {X:mult,C:white} X#2# {} Mult)'
         }
+        ,boxes = { 1, 3 }
     },
     config = { extra = { Xmult = 4, Xmult_mod = 1 } },
     loc_vars = function(self, info_queue, card)
@@ -193,6 +196,7 @@ SMODS.Joker{
             'Gain {X:mult,C:white}X#2#{} mult per card sketched.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
+        ,boxes = { 2, 2 }
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.25, Xmult_mod_card = 0.1 } },
     loc_vars = function(self, info_queue, card)

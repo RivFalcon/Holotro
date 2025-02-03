@@ -19,6 +19,7 @@ SMODS.Joker{
             'Gain {X:mult,C:white}X#2#{} mult every time using a {C:tarot}Death{} card.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
+        ,boxes={3,1,2}
     },
     config = { extra = { Xmult = 4, Xmult_mod = 1, count_down = 4  } },
     loc_vars = function(self, info_queue, card)
@@ -189,6 +190,7 @@ SMODS.Joker{
             'Gain {X:mult,C:white}X#2#{} mult per {C:spectral}Spectral{} card created.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
+        ,boxes={3,2}
     },
     config = { extra = { Xmult = 2.5, Xmult_mod = 0.5, tome_of_spectrals = {} } },
     loc_vars = function(self, info_queue, card)
@@ -266,6 +268,7 @@ SMODS.Joker{
             'Using a {C:planet}Jupiter{} or a {C:planet}Saturn{} also',
             'levels up {C:attention}Straight Flush{}.'
         }
+        ,boxes={3,4}
     },
     config = { extra = { Xmult = 3, Xmult_mod = 0.3 } },
     loc_vars = function(self, info_queue, card)
