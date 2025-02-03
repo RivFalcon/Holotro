@@ -98,12 +98,18 @@ SMODS.Joker{
     end,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_moon
+        local _phase
+        if card.ability.extra.phase == "Full Moon" then
+            _phase = "Full Moon"
+        elseif card.ability.extra.phase == "New Moon" then
+            _phase = "New Moon"
+        end
         return {
             vars = {
                 card.ability.extra.Xmult_mod,
                 card.ability.extra.Xmult,
                 card.ability.extra.scored_card,
-                card.ability.extra.phase
+                _phase
             }
         }
     end,
