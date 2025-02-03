@@ -15,7 +15,8 @@ SMODS.Joker{
             'Serve {C:tarot}Justice{} when a {C:attention}blind{}',
             'is either {C:attention}selected{} or {C:attention}skipped{}.',
             '{C:inactive}(Must have room){}',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Justice{} rightfully delivered.',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Justice{}',
+            'rightfully delivered.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
     },

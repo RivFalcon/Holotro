@@ -258,19 +258,22 @@ SMODS.Joker{
     loc_txt = {
         name = "Trident of the Atlantic Shark",
         text = {
-            'Retrigger {C:attention}first 3{} scored cards {C:attention}2{} additional times',
-            'if played hand is a {C:attention}Straight Flush{}.',
+            'Retrigger {C:blue}first {C:attention}3 {}scored cards {C:attention}2{} additional times',
+            'and gain {X:mult,C:white}X#2#{} mult if played hand is a {C:attention}Straight Flush{}.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}',
             'Using a {C:planet}Neptune{} levels up',
             '{C:attention}Straight Flush {C:attention}2{} additional times.',
             'Using a {C:planet}Jupiter{} or a {C:planet}Saturn{} also',
             'levels up {C:attention}Straight Flush{}.'
         }
     },
-    config = { extra = {  } },
+    config = { extra = { Xmult = 3, Xmult_mod = 0.3 } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_neptune
         return {
             vars = {
+                card.ability.extra.Xmult,
+                card.ability.extra.Xmult_mod
             }
         }
     end,

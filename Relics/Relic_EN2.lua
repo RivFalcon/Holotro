@@ -242,7 +242,7 @@ SMODS.Joker{
         name = "Clock Hands of the Time Warden",
         text = {
             'Create a {C:dark_edition}Negative {C:tarot}World{} card every {C:attention}12 {C:inactive}[#3#]{}',
-            '{C:blue}played{} or {C:red}discarded{} cards with {C:spades}Spade{} suit',
+            '{C:blue}played{} or {C:red}discarded{} cards with {C:spades}Spade{} suit.',
             'Gain {X:mult,C:white}X#2#{} mult every time a {C:tarot}World{} card',
             'is used since taking this relic.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
