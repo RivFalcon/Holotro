@@ -19,7 +19,7 @@ SMODS.Atlas({
     py = 32
 })
 
-local ffiles = NFS.getDirectoryItems(mod_dir.."functions")
+local ffiles = NFS.getDirectoryItems(mod_dir.."Miscellaneous")
 for _, file in ipairs(ffiles) do assert(SMODS.load_file(file))()end
 
 local mfiles = NFS.getDirectoryItems(mod_dir.."Memes")
