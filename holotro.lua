@@ -20,10 +20,10 @@ SMODS.Atlas({
 })
 
 local ffiles = NFS.getDirectoryItems(mod_dir.."Miscellaneous")
-for _, file in ipairs(ffiles) do assert(SMODS.load_file(file))()end
+for _, file in ipairs(ffiles) do assert(SMODS.load_file("Miscellaneous/"..file))()end
 
 local mfiles = NFS.getDirectoryItems(mod_dir.."Memes")
-for _, file in ipairs(mfiles) do assert(SMODS.load_file(file))()end
+for _, file in ipairs(mfiles) do assert(SMODS.load_file("Memes/"..file))()end
 
 assert(SMODS.load_file("Relics/Relic_Loader.lua"))()
 
