@@ -11,7 +11,6 @@ SMODS.Tag{
             'when entering it.'
         }
     },
-    
     apply = function (self, tag, context)
         print(context.setting_blind , G.GAME.blind.boss)
         if context.setting_blind and G.GAME.blind.boss then
