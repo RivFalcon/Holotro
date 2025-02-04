@@ -269,7 +269,7 @@ SMODS.Joker{
         }
         ,boxes={2,2,2}
     },
-    config = { extra = { Xmult = 3, Xmult_mod = 0.3, level = { neptune = 1 } } },
+    config = { extra = { Xmult = 3, Xmult_mod = 0.3 } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_neptune
         return {
@@ -366,8 +366,7 @@ SMODS.Joker{
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult, gain {X:mult,C:white}X#2#{C:inactive} Mult next hand){}'
         }
     },
-    config = { extra = { Xmult = 1, Xmult_mod = 0, Xmult_mod_mod = 0.25 }
-    },
+    config = { extra = { Xmult = 1, Xmult_mod = 0, Xmult_mod_mod = 0.25 } },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {

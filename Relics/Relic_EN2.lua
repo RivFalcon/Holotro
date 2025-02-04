@@ -156,13 +156,7 @@ SMODS.Joker{
         }
         ,boxes={2,3}
     },
-    config = {
-        extra = {
-            Xmult = 6,
-            Xmult_mod = 1,
-            level = { earth = 1, ceres = 1 }
-        }
-    },
+    config = { extra = { Xmult = 6, Xmult_mod = 1 } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_earth
         info_queue[#info_queue+1] = G.P_CENTERS.c_ceres
