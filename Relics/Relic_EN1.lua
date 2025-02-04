@@ -22,6 +22,7 @@ SMODS.Joker{
         ,boxes={3,1,2}
     },
     config = { extra = { Xmult = 4, Xmult_mod = 1, count_down = 4  } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_death
         return {
@@ -124,6 +125,7 @@ SMODS.Joker{
         }
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.4, dollars = 4 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -193,6 +195,7 @@ SMODS.Joker{
         ,boxes={3,2}
     },
     config = { extra = { Xmult = 2.5, Xmult_mod = 0.5, tome_of_spectrals = {} } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_SEALS.Purple
         if #card.ability.extra.tome_of_spectrals > 0 then
@@ -270,6 +273,7 @@ SMODS.Joker{
         ,boxes={2,2,2}
     },
     config = { extra = { Xmult = 3, Xmult_mod = 0.3 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_neptune
         return {
@@ -367,6 +371,7 @@ SMODS.Joker{
         }
     },
     config = { extra = { Xmult = 1, Xmult_mod = 0, Xmult_mod_mod = 0.25 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {

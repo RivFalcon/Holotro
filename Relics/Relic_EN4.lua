@@ -22,6 +22,7 @@ SMODS.Joker{
         ,boxes = { 3, 3 }
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.5 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_justice
         return { vars = { card.ability.extra.Xmult, card.ability.extra.Xmult_mod} }
@@ -71,6 +72,7 @@ SMODS.Joker{
         ,boxes = { 2, 4 }
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.25 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return { vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult} }
@@ -131,6 +133,7 @@ SMODS.Joker{
         ,boxes = { 1, 3 }
     },
     config = { extra = { Xmult = 4, Xmult_mod = 1 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return { vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult} }
@@ -201,6 +204,7 @@ SMODS.Joker{
         ,boxes = { 3, 2 }
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.25, Xmult_mod_card = 0.1 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return {

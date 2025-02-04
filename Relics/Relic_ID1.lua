@@ -18,6 +18,7 @@ SMODS.Joker{
         }
     },
     config = { extra = { clubbin = 3 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     add_to_deck = function(self, card, from_debuff)
         card.ability.extra.clubbin = 3
     end,
@@ -90,6 +91,7 @@ SMODS.Joker{
         }
     },
     config = { extra = { Xmult = 3, Xmult_mod = 1.5, scored_card = 15, phase = "Full Moon" } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     add_to_deck = function(self, card, from_debuff)
         card.ability.extra.Xmult = 3
         card.ability.extra.Xmult_mod = 1.5
@@ -172,6 +174,7 @@ SMODS.Joker{
         }
     },
     config = { extra = { Xmult = 3, Xmult_mod = 1.5, scored_card = 3 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return { vars = {
             card.ability.extra.Xmult_mod,

@@ -20,6 +20,7 @@ SMODS.Joker{
         ,boxes={2,2}
     },
     config = { extra = { retriggers = 1, count_down = 23 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
     end,
@@ -74,6 +75,7 @@ SMODS.Joker{
         ,boxes={2,2}
     },
     config = { extra = { } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_stone
         return { vars = { } }
@@ -119,6 +121,7 @@ SMODS.Joker{
         ,boxes={2,2}
     },
     config = { extra = { Xmult = 3 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult } }
     end,
@@ -160,6 +163,7 @@ SMODS.Joker{
         }
     },
     config = { extra = { retriggers = 2, count_down = 22 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
     end,
@@ -213,6 +217,7 @@ SMODS.Joker{
         }
     },
     config = { extra = { retriggers = 2, count_down = 22 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
     end,

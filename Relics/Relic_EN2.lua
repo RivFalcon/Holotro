@@ -20,6 +20,7 @@ SMODS.Joker{
         }
     },
     config = { extra = { dollars = 6, dollars_mod = 1, odds = 6 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -73,6 +74,7 @@ SMODS.Joker{
         ,boxes={3,3}
     },
     config = { extra = { Xmult = 6, Xmult_mod = 0.6, odds = 3, bag_of_planets = {} } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         if card.ability.extra.bag_of_planets then
             for _, _planet in ipairs(card.ability.extra.bag_of_planets) do
@@ -157,6 +159,7 @@ SMODS.Joker{
         ,boxes={2,3}
     },
     config = { extra = { Xmult = 6, Xmult_mod = 1 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_earth
         info_queue[#info_queue+1] = G.P_CENTERS.c_ceres
@@ -232,6 +235,7 @@ SMODS.Joker{
         ,boxes={2,3}
     },
     config = { extra = { Xmult = 6, Xmult_mod = 1.5, count_down = 12} },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_world
         return {
@@ -304,6 +308,7 @@ SMODS.Joker{
         ,boxes={2,2}
     },
     config = { extra = { Xmult = 6, Xmult_mod = 1, odds = 6 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -368,6 +373,7 @@ SMODS.Joker{
         }
     },
     config = { extra = { Pmult = 6 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Pmult } }
     end,
