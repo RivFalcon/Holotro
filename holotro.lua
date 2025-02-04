@@ -19,6 +19,17 @@ SMODS.Atlas({
     py = 32
 })
 
+local ffiles = NFS.getDirectoryItems(mod_dir.."functions")
+for _, file in ipairs(ffiles) do
+    sendDebugMessage ("The file is: "..file)
+    local functionfile, load_error = SMODS.load_file("functions/"..file)
+    if load_error then
+        sendDebugMessage ("The error is: "..load_error)
+    else
+        functionfile()
+    end
+end
+
 local mfiles = NFS.getDirectoryItems(mod_dir.."Memes")
 for _, file in ipairs(mfiles) do
     sendDebugMessage ("The file is: "..file)
