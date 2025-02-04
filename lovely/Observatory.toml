@@ -18,5 +18,5 @@ payload = '''
 for _,J in ipairs(G.jokers.cards) do
     J:calculate_joker({level_up_hand = hand, level_up_amount = amount})
 end
-print('Observatory is working.')
+-- print('Observatory is working.')
 '''
