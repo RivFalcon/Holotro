@@ -287,17 +287,6 @@ SMODS.Joker{
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
 
-    update = function (self, card, dt)
-        -- For Neptune
-        if card.ability.extra.level.neptune < G.GAME.hands['Straight Flush'].level then
-            for i=1, (G.GAME.hands['Straight Flush'].level - card.ability.extra.level.neptune) do
-                self:upgrade(card)
-            end
-            card.ability.extra.level.neptune = G.GAME.hands['Straight Flush'].level
-        elseif card.ability.extra.level.neptune > G.GAME.hands['Straight Flush'].level then
-            card.ability.extra.level.neptune = G.GAME.hands['Straight Flush'].level
-        end
-    end,
     upgrade = function (self, card)
         card:juice_up()
         play_sound('hololive_Gura-A')
@@ -305,9 +294,6 @@ SMODS.Joker{
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="A!",colour = HEX("5d81c7")})
     end,
     uplevel = function (self, card)
-        card:juice_up()
-        play_sound('hololive_Gura-A')
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message='A!',colour=HEX('5d81c7')})
         update_hand_text(
             { sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
             {
@@ -317,7 +303,7 @@ SMODS.Joker{
                 level=G.GAME.hands['Straight Flush'].level
             }
         )
-        level_up_hand(used_tarot, 'Straight Flush')
+        level_up_hand(card, 'Straight Flush')
         update_hand_text(
             { sound = 'button', volume = 0.7, pitch = 1.1, delay = 0 },
             { mult = 0, chips = 0, handname = '', level = '' }
@@ -358,6 +344,12 @@ SMODS.Joker{
             play_sound('multhit2')
             card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Shark!",colour = HEX("5d81c7")})
             return {Xmult=card.ability.extra.Xmult}
+        elseif context.level_up_hand == 'Straight Flush' then
+            if context.level_up_amount > 0 then
+                for i=1,context.level_up_amount do
+                    self:upgrade(card)
+                end
+            end
         end
     end
 }

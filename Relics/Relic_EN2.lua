@@ -181,26 +181,6 @@ SMODS.Joker{
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
 
-    update = function (self, card, dt)
-        -- For Earth
-        if card.ability.extra.level.earth < G.GAME.hands['Full House'].level then
-            for i=1, (G.GAME.hands['Full House'].level - card.ability.extra.level.earth) do
-                self:upgrade(card)
-            end
-            card.ability.extra.level.earth = G.GAME.hands['Full House'].level
-        elseif card.ability.extra.level.earth > G.GAME.hands['Full House'].level then
-            card.ability.extra.level.earth = G.GAME.hands['Full House'].level
-        end
-        -- For Ceres
-        if card.ability.extra.level.ceres < G.GAME.hands['Flush House'].level then
-            for i=1, (G.GAME.hands['Flush House'].level - card.ability.extra.level.ceres) do
-                self:upgrade(card)
-            end
-            card.ability.extra.level.ceres = G.GAME.hands['Flush House'].level
-        elseif card.ability.extra.level.ceres > G.GAME.hands['Flush House'].level then
-            card.ability.extra.level.ceres = G.GAME.hands['Flush House'].level
-        end
-    end,
     upgrade = function(self, card)
         card:juice_up()
         play_sound('generic1')
@@ -233,6 +213,12 @@ SMODS.Joker{
             return {
                 Xmult = card.ability.extra.Xmult
             }
+        elseif context.level_up_hand == 'Full House' or context.level_up_hand == 'Flush House' then
+            if context.level_up_amount > 0 then
+                for i=1,context.level_up_amount do
+                    self:upgrade(card)
+                end
+            end
         end
     end
 }
