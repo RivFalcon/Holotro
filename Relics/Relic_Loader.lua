@@ -26,14 +26,6 @@ relic_files = {
     "Relics/Relic_EN4.lua"
 }
 
-for _,file in pairs(relic_files) do
-    sendDebugMessage ("The file is: "..file)
-    local relicjoker, load_error = SMODS.load_file(file)
-    if load_error then
-        sendDebugMessage ("The error is: "..load_error)
-    else
-        relicjoker()
-    end
-end
+for _,file in ipairs(relic_files) do assert(SMODS.load_file(file))()end
 
 ----

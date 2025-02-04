@@ -20,33 +20,12 @@ SMODS.Atlas({
 })
 
 local ffiles = NFS.getDirectoryItems(mod_dir.."functions")
-for _, file in ipairs(ffiles) do
-    sendDebugMessage ("The file is: "..file)
-    local functionfile, load_error = SMODS.load_file("functions/"..file)
-    if load_error then
-        sendDebugMessage ("The error is: "..load_error)
-    else
-        functionfile()
-    end
-end
+for _, file in ipairs(ffiles) do assert(SMODS.load_file(file))()end
 
 local mfiles = NFS.getDirectoryItems(mod_dir.."Memes")
-for _, file in ipairs(mfiles) do
-    sendDebugMessage ("The file is: "..file)
-    local memejoker, load_error = SMODS.load_file("Memes/"..file)
-    if load_error then
-        sendDebugMessage ("The error is: "..load_error)
-    else
-        memejoker()
-    end
-end
+for _, file in ipairs(mfiles) do assert(SMODS.load_file(file))()end
 
-local relic_loader, load_error = SMODS.load_file("Relics/Relic_Loader.lua")
-if load_error then
-    sendDebugMessage ("The error is: "..load_error)
-else
-    relic_loader()
-end
+assert(SMODS.load_file("Relics/Relic_Loader.lua"))()
 
 ---------------------------------------
 ------------MOD CODE END---------------
