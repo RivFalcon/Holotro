@@ -16,7 +16,7 @@ SMODS.Joker{
             '{C:green}#1# in 6{} chance to be {C:attention}free{},',
             'otherwise the price',
             'would be {C:attention}doubled{}.',
-            '{C:inactive,s:0.8}(Does not work on: reroll),'
+            '{C:inactive,s:0.8}(Does not work on: reroll)'
         }
     },
     config = { extra = {} },
