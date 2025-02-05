@@ -1,4 +1,10 @@
 ----
+SMODS.Atlas{
+    key = "tags_butterfly",
+    path = "Tags/Butterfly.png",
+    px = 32,
+    py = 32
+}
 
 SMODS.Tag{
     key = "butterfly",
@@ -10,6 +16,7 @@ SMODS.Tag{
             'when entering it.'
         }
     },
+    atlas = 'tags_butterfly', pos = { x = 0, y = 0 },
     apply = function (self, tag, context)
         if (not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss') then
             -- card_eval_status_text(tag, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
