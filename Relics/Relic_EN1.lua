@@ -150,7 +150,7 @@ SMODS.Joker{
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Kikiriki!",colour = HEX("dc3907")})
     end,
     calculate = function(self, card, context)
-        if context.after then
+        if context.after and not context.blueprint then
             local cards_burned = {}
             local _i = 0
             for i,_card in ipairs(context.full_hand) do
@@ -160,11 +160,14 @@ SMODS.Joker{
                 end
             end
             for _,J in ipairs(G.jokers.cards) do
-                eval_card(J, {cardarea = G.jokers, remove_playing_cards = true, removed = cards_burned})
+                eval_card(J, {cardarea = G.jokers, remove_playing_cards = true, removed = cards_burned, burned = true})
             end
             for i,_card in ipairs(cards_burned) do
-                self:upgrade(card)
                 _card:start_dissolve()
+            end
+        elseif context.remove_playing_cards and context.burned and not context.blueprint then
+            for i=1, #context.removed do
+                self:upgrade(card)
             end
         elseif context.joker_main then
             play_sound('multhit2')
