@@ -77,15 +77,17 @@ SMODS.Joker{ -- Uruha Rushia
     loc_txt = {
         name = "Butterfies of the Necromancer",
         text = {
-            'Prevents Death no matter what.',
+            'Prevents Death once.',
             '{C:red}self destructs{}',
             'Selling this card spawns',
             'two {C:attention}Butterfly Tags{}.'
         }
+        ,boxes={2,2}
     },
     config = { extra = { summon = 2 } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_TAGS.tag_hololive_butterfly
         return {
             vars = {
             }
@@ -252,6 +254,7 @@ SMODS.Joker{ -- Houshou Marine
             'Multiplier goes up by {X:money,C:white}X#2#{} every {C:attention}17',
             '{C:inactive}[#3#]{} triggered {C:attention}Gold cards{} held in hand.'
         }
+        ,boxes={3,2}
     },
     config = { extra = { Mmult = 2, Mmult_mod = 1, count_down = 17, treasure = 0 } },
     unlock_condition = {type = '', extra = '', hidden = true},
