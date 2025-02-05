@@ -63,7 +63,7 @@ SMODS.Joker{ -- Gigi Murin
         name = "Gauntlet of Da Fister",
         text = {
             'All played cards get {C:attention}fisted{} and',
-            'become {C:attention}Glass Cards{} when scored.',
+            'become {C:attention}Glass cards{} when scored.',
             'Gain {X:mult,C:white} X#1# {} Mult every time a card',
             'is already a {C:attention}Glass Card{}',
             'before getting {C:attention}fisted{}.',
@@ -125,7 +125,7 @@ SMODS.Joker{ -- Cecilia Immergreen
     loc_txt = {
         name = "Violance of the Automaton",
         text = {
-            'All {C:attention}Glass Cards{} become {C:attention}very durable{}.',
+            'All {C:attention}Glass cards{} become {C:attention}very durable{}.',
             'Gain {X:mult,C:white} X#1# {} Mult every time a {C:attention}Glass Card{}',
             'is prevented from shattering.',
             '(Currently {X:mult,C:white} X#2# {} Mult)'
@@ -195,7 +195,7 @@ SMODS.Joker{ -- Raora Panthera
     loc_txt = {
         name = "Sketching Pen of the Pink Panther",
         text = {
-            'Played {C:attention}Glass Cards{} get sketched',
+            'Played {C:attention}Glass cards{} get sketched',
             'and increase its {C:mult}Xmult{}',
             'by {X:mult,C:white}X#3#{} mult when scored.',
             'Gain {X:mult,C:white}X#2#{} mult per card sketched.',
