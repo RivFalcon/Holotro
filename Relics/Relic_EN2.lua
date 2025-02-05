@@ -6,7 +6,7 @@ SMODS.Atlas{
     py = 95
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- IRyS
     key = "Relic_IRyS",
     talent = "IRyS",
     loc_txt = {
@@ -58,7 +58,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Tsukumo Sana
     key = "Relic_Sana",
     talent = "Sana",
     loc_txt = {
@@ -144,7 +144,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Ceres Fauna
     key = "Relic_Fauna",
     talent = "Fauna",
     loc_txt = {
@@ -220,7 +220,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Ouro Kronii
     key = "Relic_Kronii",
     talent = "Kronii",
     loc_txt = {
@@ -294,7 +294,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Nanashi Mumei
     key = "Relic_Mumei",
     talent = "Mumei",
     loc_txt = {
@@ -360,7 +360,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Hakos Baelz
     key = "Relic_Bae",
     talent = "Bae",
     loc_txt = {

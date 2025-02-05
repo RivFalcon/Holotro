@@ -6,7 +6,7 @@ SMODS.Atlas{
     py = 95
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Elizabeth Rose Bloodflame
     key = "Relic_Elizabeth",
     talent = "Elizabeth",
     loc_txt = {
@@ -56,7 +56,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Gigi Murin
     key = "Relic_Gigi",
     talent = "Gigi",
     loc_txt = {
@@ -119,7 +119,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Cecilia Immergreen
     key = "Relic_Ceci",
     talent = "Ceci",
     loc_txt = {
@@ -189,7 +189,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Raora Panthera
     key = "Relic_Raora",
     talent = "Raora",
     loc_txt = {

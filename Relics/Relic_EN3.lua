@@ -6,7 +6,7 @@ SMODS.Atlas{
     py = 95
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Shiori Novella
     key = "Relic_Shiori",
     talent = "Shiori",
     loc_txt = {
@@ -61,7 +61,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Koseki Bijou
     key = "Relic_Biboo",
     talent = "Biboo",
     loc_txt = {
@@ -107,7 +107,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Nerissa Ravencroft
     key = "Relic_Nerissa",
     talent = "Nerissa",
     loc_txt = {
@@ -150,7 +150,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Fuwawa Abyssgard
     key = "Relic_Fuwawa",
     talent = "Fuwawa",
     loc_txt = {
@@ -204,7 +204,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Mococo Abyssgard
     key = "Relic_Mococo",
     talent = "Mococo",
     loc_txt = {

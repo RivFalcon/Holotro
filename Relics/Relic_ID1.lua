@@ -6,7 +6,7 @@ SMODS.Atlas{
     py = 95
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Ayunda Risu
     key = "Relic_Risu",
     talent = "Risu",
     colour = HEX('EF8381'),
@@ -74,7 +74,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Moona Hoshinova
     key = "Relic_Moona",
     talent = "Moona",
     loc_txt = {
@@ -161,7 +161,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Airani Iofifteen
     key = "Relic_Iofi",
     talent = "Iofi",
     loc_txt = {

@@ -6,7 +6,7 @@ SMODS.Atlas{
     py = 95
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Mori Calliope
     key = "Relic_Calli",
     talent = "Calli",
     loc_txt = {
@@ -113,7 +113,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Takanashi Kiara
     key = "Relic_Kiara",
     talent = "Kiara",
     loc_txt = {
@@ -183,7 +183,7 @@ SMODS.Sound{
     -- source: https://www.myinstants.com/en/instant/wah-eco-ninomae-inanis-8589/
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Ninomae Ina'nis
     key = "Relic_Ina",
     talent = "Ina",
     loc_txt = {
@@ -260,7 +260,7 @@ SMODS.Sound{
     -- source: https://www.myinstants.com/en/instant/gawr-gura-a-66933/
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Gawr Gura
     key = "Relic_Gura",
     talent = "Gura",
     loc_txt = {
@@ -361,7 +361,7 @@ SMODS.Joker{
     end
 }
 
-SMODS.Joker{
+SMODS.Joker{ -- Watson Amelia
     key = "Relic_Ame",
     talent = "Ame",
     loc_txt = {
