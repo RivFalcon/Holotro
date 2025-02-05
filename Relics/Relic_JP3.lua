@@ -1,61 +1,9 @@
 ----
-
-SMODS.Joker{ -- Houshou Marine
-    key = "Relic_Marine",
-    talent = "Marine",
-    loc_txt = {
-        name = "Treasure Box of the Pirate Captain",
-        text = {
-            'Takes {C:money}$1{} per purchase at the shop.',
-            'Gives you back {X:money,C:white}X#1#{} the amount at {C:attention}end of shop{}.',
-            '{C:inactive}(Currently {C:money}$#4#{C:inactive} taken)',
-            'Multiplier goes up by {X:money,C:white}X#2#{} every {C:attention}17',
-            '{C:inactive}[#3#]{} triggered {C:attention}Gold cards{} held in hand.'
-        }
-    },
-    config = { extra = { Mmult = 2, Mmult_mod = 1, count_down = 17, treasure = 0 } },
-    unlock_condition = {type = '', extra = '', hidden = true},
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.Mmult,
-                card.ability.extra.Mmult_mod,
-                card.ability.extra.count_down,
-                card.ability.extra.treasure
-            }
-        }
-    end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
-
-    atlas = 'Relic_hololive',
-    pos = { x = 0, y = 0 },
-    soul_pos = { x = 0, y = 1 },
-
-    upgrade = function (self, card)
-        card:juice_up()
-        play_sound('generic1')
-        card.ability.extra.Mmult = card.ability.extra.Mmult + card.ability.extra.Mmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ahoy!",colour = HEX("d2251e")}) -- borrowed colour code
-    end,
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and not context.repetition and not context.blueprint then
-            if SMODS.has_enhancement(context.other_card, "m_gold") then
-                card.ability.extra.count_down = card.ability.extra.count_down - 1
-                if card.ability.extra.count_down <= 0 then
-                    card.ability.extra.count_down = 17
-                    self:upgrade(card)
-                end
-            end
-        elseif context.buying_card then
-            ease_dollars(-1)
-            card.ability.extra.treasure = card.ability.extra.treasure + 1
-        elseif context.ending_shop then
-            ease_dollars(card.ability.extra.treasure * card.ability.extra.Mmult)
-            card.ability.extra.treasure = 0
-        end
-    end
+SMODS.Atlas{
+    key = "Relic_Fantasy",
+    path = "Relics/Relic_Fantasy.png",
+    px = 71,
+    py = 95
 }
 
 SMODS.Joker{ -- Usada Pekora
@@ -87,7 +35,7 @@ SMODS.Joker{ -- Usada Pekora
     cost = 20,
     blueprint_compat = true,
 
-    atlas = 'Relic_hololive',
+    atlas = 'Relic_Fantasy',
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
 
@@ -118,6 +66,65 @@ SMODS.Joker{ -- Usada Pekora
                 return 777
             else
                 card_eval_status_text(self, 'jokers', nil, 1, nil, {message='Aww dang it!',colour=HEX('5d81c7')}) -- borrowed colour code
+            end
+        end
+    end
+}
+
+SMODS.Joker{ -- Uruha Rushia
+    key = "Relic_Rushia",
+    talent = "Rushia",
+    loc_txt = {
+        name = "Butterfies of the Necromancer",
+        text = {
+            'Prevents Death no matter what.',
+            '{C:red}self destructs{}',
+            'Selling this card spawns',
+            'two {C:attention}Butterfly Tags{}.'
+        }
+    },
+    config = { extra = { summon = 2 } },
+    unlock_condition = {type = '', extra = '', hidden = true},
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+            }
+        }
+    end,
+    rarity = "hololive_Relic",
+    cost = 20,
+    blueprint_compat = true,
+
+    atlas = 'Relic_Fantasy',
+    pos = { x = 1, y = 0 },
+    soul_pos = { x = 1, y = 1 },
+
+    calculate = function(self, card, context)
+        if context.game_over then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.hand_text_area.blind_chips:juice_up()
+                    G.hand_text_area.game_chips:juice_up()
+                    play_sound('tarot1')
+                    card:start_dissolve()
+                    return true
+                end
+            }))
+            return {
+                message = localize('k_saved_ex'),
+                saved_by_necromancy = true,
+                colour = G.C.GREEN -- borrowed colour code
+            }
+        elseif context.selling_self then
+            for i=1, card.ability.extra.summon do
+                G.E_MANAGER:add_event(Event({
+                    func = (function()
+                        add_tag(Tag('tag_hololive_butterfly'))
+                        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                        play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                        return true
+                    end)
+                }))
             end
         end
     end
@@ -156,9 +163,9 @@ SMODS.Joker{ -- Shiranui Flare
     cost = 20,
     blueprint_compat = true,
 
-    atlas = 'Relic_hololive',
-    pos = { x = 0, y = 0 },
-    soul_pos = { x = 0, y = 1 },
+    atlas = 'Relic_Fantasy',
+    pos = { x = 2, y = 0 },
+    soul_pos = { x = 2, y = 1 },
 
     upgrade = function (self, card)
         card:juice_up()
@@ -204,9 +211,9 @@ SMODS.Joker{ -- Shirogane Noel
     cost = 20,
     blueprint_compat = true,
 
-    atlas = 'Relic_hololive',
-    pos = { x = 0, y = 0 },
-    soul_pos = { x = 0, y = 1 },
+    atlas = 'Relic_Fantasy',
+    pos = { x = 3, y = 0 },
+    soul_pos = { x = 3, y = 1 },
 
     upgrade = function (self, card)
     end,
@@ -233,23 +240,28 @@ SMODS.Joker{ -- Shirogane Noel
     end
 }
 
-SMODS.Joker{ -- Uruha Rushia
-    key = "Relic_Rushia",
-    talent = "Rushia",
+SMODS.Joker{ -- Houshou Marine
+    key = "Relic_Marine",
+    talent = "Marine",
     loc_txt = {
-        name = "Butterfies of the Necromancer",
+        name = "Treasure Box of the Pirate Captain",
         text = {
-            'Prevents Death no matter what.',
-            '{C:red}self destructs{}',
-            'Selling this card spawns',
-            'two {C:attention}Butterfly Tags{}.'
+            'Takes {C:money}$1{} per purchase at the shop.',
+            'Gives you back {X:money,C:white}X#1#{} the amount at {C:attention}end of shop{}.',
+            '{C:inactive}(Currently {C:money}$#4#{C:inactive} taken)',
+            'Multiplier goes up by {X:money,C:white}X#2#{} every {C:attention}17',
+            '{C:inactive}[#3#]{} triggered {C:attention}Gold cards{} held in hand.'
         }
     },
-    config = { extra = { summon = 2 } },
+    config = { extra = { Mmult = 2, Mmult_mod = 1, count_down = 17, treasure = 0 } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
+                card.ability.extra.Mmult,
+                card.ability.extra.Mmult_mod,
+                card.ability.extra.count_down,
+                card.ability.extra.treasure
             }
         }
     end,
@@ -257,37 +269,31 @@ SMODS.Joker{ -- Uruha Rushia
     cost = 20,
     blueprint_compat = true,
 
-    atlas = 'Relic_hololive',
-    pos = { x = 0, y = 0 },
-    soul_pos = { x = 0, y = 1 },
+    atlas = 'Relic_Fantasy',
+    pos = { x = 4, y = 0 },
+    soul_pos = { x = 4, y = 1 },
 
+    upgrade = function (self, card)
+        card:juice_up()
+        play_sound('generic1')
+        card.ability.extra.Mmult = card.ability.extra.Mmult + card.ability.extra.Mmult_mod
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ahoy!",colour = HEX("d2251e")}) -- borrowed colour code
+    end,
     calculate = function(self, card, context)
-        if context.game_over then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.hand_text_area.blind_chips:juice_up()
-                    G.hand_text_area.game_chips:juice_up()
-                    play_sound('tarot1')
-                    card:start_dissolve()
-                    return true
+        if context.individual and context.cardarea == G.play and not context.repetition and not context.blueprint then
+            if SMODS.has_enhancement(context.other_card, "m_gold") then
+                card.ability.extra.count_down = card.ability.extra.count_down - 1
+                if card.ability.extra.count_down <= 0 then
+                    card.ability.extra.count_down = 17
+                    self:upgrade(card)
                 end
-            }))
-            return {
-                message = localize('k_saved_ex'),
-                saved_by_necromancy = true,
-                colour = G.C.GREEN -- borrowed colour code
-            }
-        elseif context.selling_self then
-            for i=1, card.ability.extra.summon do
-                G.E_MANAGER:add_event(Event({
-                    func = (function()
-                        add_tag(Tag('tag_hololive_butterfly'))
-                        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
-                        play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
-                        return true
-                    end)
-                }))
             end
+        elseif context.buying_card then
+            ease_dollars(-1)
+            card.ability.extra.treasure = card.ability.extra.treasure + 1
+        elseif context.ending_shop then
+            ease_dollars(card.ability.extra.treasure * card.ability.extra.Mmult)
+            card.ability.extra.treasure = 0
         end
     end
 }
