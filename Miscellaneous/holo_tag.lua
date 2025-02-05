@@ -19,7 +19,6 @@ SMODS.Tag{
     atlas = 'tags_butterfly', pos = { x = 0, y = 0 },
     apply = function (self, tag, context)
         if (not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss') then
-            -- card_eval_status_text(tag, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
             G.GAME.blind:disable()
             tag:yep(
                 localize('ph_boss_disabled'),
