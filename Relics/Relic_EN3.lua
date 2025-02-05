@@ -88,6 +88,8 @@ SMODS.Joker{ -- Koseki Bijou
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
 
+    upgrade = function (self, card)
+    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if SMODS.has_enhancement(context.other_card, "m_stone") then
@@ -133,6 +135,8 @@ SMODS.Joker{ -- Nerissa Ravencroft
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
 
+    upgrade = function (self, card)
+    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             return {

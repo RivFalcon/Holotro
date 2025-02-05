@@ -33,6 +33,8 @@ SMODS.Joker{ -- Ayunda Risu
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0 , y = 1 },
 
+    upgrade = function (self, card)
+    end,
     calculate = function(self, card, context)
         if context.before then
             card.ability.extra.clubbin = 3

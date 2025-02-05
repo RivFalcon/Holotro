@@ -397,6 +397,8 @@ SMODS.Joker{ -- Hakos Baelz
         card.ability.extra.Pmult = pseudorandom('Hakos Baelz', 1, 6)
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Roll!",colour = HEX("d2251e")})
     end,
+    upgrade = function (self, card)
+    end,
     calculate = function(self, card, context)
         if context.after and context.cardarea == G.jokers then
             G.GAME.probabilities.normal = G.GAME.probabilities.normal / card.ability.extra.Pmult
