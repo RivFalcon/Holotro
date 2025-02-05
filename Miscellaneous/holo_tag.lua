@@ -17,6 +17,7 @@ SMODS.Tag{
         }
     },
     atlas = 'tags_butterfly', pos = { x = 0, y = 0 },
+    min_ante = 9,
     apply = function (self, tag, context)
         if (not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss') then
             G.GAME.blind:disable()
