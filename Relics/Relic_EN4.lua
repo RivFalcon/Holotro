@@ -1,7 +1,7 @@
 ----
 SMODS.Atlas{
     key = "Relic_Justice",
-    path = "Relic_Justice.png",
+    path = "Relics/Relic_Justice.png",
     px = 71,
     py = 95
 }

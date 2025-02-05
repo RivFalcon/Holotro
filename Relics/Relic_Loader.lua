@@ -13,12 +13,13 @@ SMODS.Rarity{
 
 SMODS.Atlas{
     key = "Relic_hololive",
-    path = "Relic_hololive.png",
+    path = "Relics/Relic_hololive.png",
     px = 71,
     py = 95
 }
 
 relic_files = {
+    "Relics/Relic_JP3.lua",
     "Relics/Relic_ID1.lua",
     "Relics/Relic_EN1.lua",
     "Relics/Relic_EN2.lua",
