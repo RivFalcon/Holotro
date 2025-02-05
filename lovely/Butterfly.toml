@@ -1,0 +1,19 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "or {n=G.UIT.C, config={padding = 0.05, align = 'cm'}, nodes={"
+position = "before"
+match_indent = true
+payload = '''
+or (config.saved_by_necromancy and 
+{n=G.UIT.C, config={padding = 0.05, align = 'cm'}, nodes={
+    {n=G.UIT.R, config={align = 'cm'}, nodes={
+        {n=G.UIT.O, config={object = DynaText({string = {' '.."Saved by the Necromancer"..' '}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.5*scale, silent = true})}}
+    }}
+}})
+'''

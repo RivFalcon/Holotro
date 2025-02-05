@@ -1,8 +1,7 @@
 ----
 
-if false then
 SMODS.Tag{
-    key = "Butterfly",
+    key = "butterfly",
     loc_txt = {
         name = 'Butterfly Tag',
         text = {
@@ -12,24 +11,20 @@ SMODS.Tag{
         }
     },
     apply = function (self, tag, context)
-        print(context.setting_blind , G.GAME.blind.boss)
-        if context.setting_blind and G.GAME.blind.boss then
-            print(context.blind.disabled)
-            if context.blind.disabled == false then
-                tag:yep(
-                    localize('ph_boss_disabled'),
-                    G.C.GREEN,
-                    function()
-                        G.GAME.blind:disable()
-                        play_sound('timpani')
-                        return true
-                    end
-                )
-                tag.triggered = true
-            end
+        if (not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss') then
+            -- card_eval_status_text(tag, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+            G.GAME.blind:disable()
+            tag:yep(
+                localize('ph_boss_disabled'),
+                G.C.GREEN, -- borrowed colour code
+                function()
+                    play_sound('timpani')
+                    return true
+                end
+            )
+            tag.triggered = true
         end
     end
 }
-end
 
 ----
