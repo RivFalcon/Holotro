@@ -62,10 +62,10 @@ SMODS.Joker{ -- Usada Pekora
             ease_dollars(-self.ability.extra.fee)
             if pseudorandom('marine') < G.GAME.probabilities.normal / self:get_odds() then
                 self:juice_up()
-                card_eval_status_text(self, 'jokers', nil, 1, nil, {message='JACK POT!',colour=HEX('5d81c7')}) -- borrowed colour code
-                return 777
+                card_eval_status_text(self, 'jokers', nil, 1, nil, {message='JACK POT!',colour=HEX('7dc4fc')})
+                return card.ability.extra.prize
             else
-                card_eval_status_text(self, 'jokers', nil, 1, nil, {message='Aww dang it!',colour=HEX('5d81c7')}) -- borrowed colour code
+                card_eval_status_text(self, 'jokers', nil, 1, nil, {message='Aww dang it!',colour=HEX('7dc4fc')})
             end
         end
     end
@@ -115,7 +115,7 @@ SMODS.Joker{ -- Uruha Rushia
             return {
                 message = localize('k_saved_ex'),
                 saved_by_necromancy = true,
-                colour = G.C.GREEN -- borrowed colour code
+                colour = HEX('04e3cb')
             }
         elseif context.selling_self then
             for i=1, card.ability.extra.summon do
@@ -179,7 +179,7 @@ SMODS.Joker{ -- Shiranui Flare
             for k,v in ipairs(context.scoring_hand) do
                 v:set_ability(G.P_CENTERS.m_gold, nil, true)
                 self:upgrade(card)
-                card_eval_status_text(v, 'jokers', nil, 1, nil, {message="Painted!",colour = HEX("dc3907")}) -- borrowed colour code
+                card_eval_status_text(v, 'jokers', nil, 1, nil, {message="Painted!",colour = HEX("ff5028")})
                 if pseudo('flare') < G.GAME.probabilities.normal / card.ability.extra.odds then
                     v:set_seal('Gold', nil, true)
                 end
@@ -234,7 +234,7 @@ SMODS.Joker{ -- Shirogane Noel
                         message = 'Knight!',
                         repetitions = card.ability.extra.retriggers,
                         card = card,
-                        colour = HEX("373741") -- borrowed colour code
+                        colour = HEX("aebbc3")
                     }
                 end
             end
@@ -280,7 +280,7 @@ SMODS.Joker{ -- Houshou Marine
         card:juice_up()
         play_sound('generic1')
         card.ability.extra.Mmult = card.ability.extra.Mmult + card.ability.extra.Mmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ahoy!",colour = HEX("d2251e")}) -- borrowed colour code
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ahoy!",colour = HEX("923749")})
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.repetition and not context.blueprint then
