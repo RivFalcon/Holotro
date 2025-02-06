@@ -136,13 +136,13 @@ SMODS.Joker{ -- Shiranui Flare
     key = "Relic_Flare",
     talent = "Flare",
     loc_txt = {
-        name = "Paint Splatter of the Fire Elf",
+        name = "Paint Splasher of the Fire Elf",
         text = {
             'Spray {C:attention}Gold{} paint on scored cards',
-            'if played hand contains a {C:attention}Two Pairs{}.',
+            'if played hand contains a {C:attention}Two Pair{}.',
             '{C:green}#3# in #4#{} chance to also give a {C:attention}Gold seal{}',
-            'to the cards when painted.',
-            'Gain {X:mult,C:white}X#2#{} mult per card painted.',
+            'to the cards when sprayed.',
+            'Gain {X:mult,C:white}X#2#{} mult per card sprayed.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
         ,boxes={2,2,2}
@@ -194,7 +194,7 @@ SMODS.Joker{ -- Shirogane Noel
     loc_txt = {
         name = "Mace of the Silver Knight",
         text = {
-            'If played hand contains a {C:attention}Two Pairs{},',
+            'If played hand contains a {C:attention}Two Pair{},',
             'retrigger all {C:attention}metal cards{} held in hand',
             'once per {C:attention}King{} in scored hand.'
         }
