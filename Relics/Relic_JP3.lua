@@ -175,13 +175,15 @@ SMODS.Joker{ -- Shiranui Flare
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
     end,
     calculate = function(self, card, context)
-        if context.before and (next(context.poker_hands['Two Pair']) or next(context.poker_hands['Full House'])) then
-            for k,v in ipairs(context.scoring_hand) do
-                v:set_ability(G.P_CENTERS.m_gold, nil, true)
-                self:upgrade(card)
-                card_eval_status_text(v, 'jokers', nil, 1, nil, {message="Painted!",colour = HEX("ff5028")})
-                if pseudo('flare') < G.GAME.probabilities.normal / card.ability.extra.odds then
-                    v:set_seal('Gold', nil, true)
+        if context.before then
+            if next(context.poker_hands['Two Pair']) then
+                for k,v in ipairs(context.scoring_hand) do
+                    v:set_ability(G.P_CENTERS.m_gold, nil, true)
+                    self:upgrade(card)
+                    card_eval_status_text(v, 'jokers', nil, 1, nil, {message="Painted!",colour = HEX("ff5028")})
+                    if pseudo('flare') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                        v:set_seal('Gold', nil, true)
+                    end
                 end
             end
         end
@@ -220,15 +222,17 @@ SMODS.Joker{ -- Shirogane Noel
     upgrade = function (self, card)
     end,
     calculate = function(self, card, context)
-        if (next(context.poker_hands['Two Pair']) or next(context.poker_hands['Full House'])) then
-            if context.before then
+        if context.before then
+            if next(context.poker_hands['Two Pair']) then
                 card.ability.extra.retriggers = 0
                 for k,v in ipairs(context.scoring_hand) do
                     if v:get_id() == 13 then
                         card.ability.extra.retriggers = card.ability.extra.retriggers + 1
                     end
                 end
-            elseif context.cardarea == G.hand and context.repetition then
+            end
+        elseif context.after and context.cardarea == G.hand and context.repetition then
+            if next(context.poker_hands['Two Pair']) then
                 if SMODS.has_enhancement(v, "m_gold") or SMODS.has_enhancement(v, "m_steel") then
                     return {
                         message = 'Knight!',
