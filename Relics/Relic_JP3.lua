@@ -233,7 +233,7 @@ SMODS.Joker{ -- Shirogane Noel
             end
         elseif context.after and context.cardarea == G.hand and context.repetition then
             if next(context.poker_hands['Two Pair']) then
-                if SMODS.has_enhancement(v, "m_gold") or SMODS.has_enhancement(v, "m_steel") then
+                if SMODS.has_enhancement(context.other_card, "m_gold") or SMODS.has_enhancement(context.other_card, "m_steel") then
                     return {
                         message = 'Knight!',
                         repetitions = card.ability.extra.retriggers,
@@ -242,6 +242,8 @@ SMODS.Joker{ -- Shirogane Noel
                     }
                 end
             end
+        elseif context.end_of_round then
+            card.ability.extra.retriggers = 0
         end
     end
 }
