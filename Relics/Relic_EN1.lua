@@ -191,7 +191,7 @@ SMODS.Joker{ -- Ninomae Ina'nis
         text = {
             'Each played card with a {C:purple}purple seal{}',
             'creates a {C:spectral}Spectral{} card when scored.',
-            '(If no room, {C:attention}accumulate{} until there is)',
+            '(If no room, {C:attention}accumulate{} them until there is)',
             'Gain {X:mult,C:white}X#2#{} mult per {C:spectral}Spectral{} card created.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
