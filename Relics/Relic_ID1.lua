@@ -14,16 +14,20 @@ SMODS.Joker{ -- Ayunda Risu
         name = "\"Deez Nuts\" of the Squirrel",
         text = {
             'Every {C:attention}3{} cards with {C:clubs}Club{} suit held in hand',
-            'will be clubin\' deez nuts and give {X:mult,C:white} X15 {} Mult.'
+            'will be #1# and give {X:mult,C:white} X15 {} Mult.'
         }
     },
-    config = { extra = { clubbin = 3 } },
+    config = { extra = { clubbin = 3, effect = "clubin\' deez nuts" } },
     unlock_condition = {type = '', extra = '', hidden = true},
     add_to_deck = function(self, card, from_debuff)
         card.ability.extra.clubbin = 3
     end,
     loc_vars = function(self, info_queue, card)
-        return { vars = {} }
+        return {
+            vars = {
+                card.ability.extra.effect
+            }
+        }
     end,
     rarity = "hololive_Relic",
     cost = 20,
