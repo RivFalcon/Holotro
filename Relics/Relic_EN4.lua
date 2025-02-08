@@ -11,6 +11,11 @@ SMODS.Joker{ -- Elizabeth Rose Bloodflame
     talent = "Elizabeth",
     loc_txt = {
         name = "Great Sword of the Scarlet Queen",
+        --name = "Thorn the Great Sword of the Scarlet Queen",
+        namelines = {
+            "Thorn the Great Sword",
+            "of the Scarlet Queen"
+        },
         text = {
             'Serve {C:tarot}Justice{} when a {C:attention}blind{}',
             'is either {C:attention}selected{} or {C:attention}skipped{}.',
