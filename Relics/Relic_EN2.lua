@@ -300,12 +300,13 @@ SMODS.Joker{ -- Nanashi Mumei
     loc_txt = {
         name = "Dagger of the Guardian Owl",
         text = {
-            'Each{C:red} discarded {C:attention}non{}-{C:spades}Spade{} card has {C:green}#3# in #4# chance{}',
-            'to be {X:black,C:white}sacrificed{} for the {C:attention}civilization{}.',
+            'Each{C:red} discarded {C:attention}non{}-{C:spades}Spade{} card',
+            'has {C:green}#3# in #4# chance{} to be {X:black,C:white}sacrificed',
+            'for the {C:attention}civilization{}.',
             'Gain {X:mult,C:white}X#2#{} mult for each card destroyed.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
-        ,boxes={2,2}
+        ,boxes={3,2}
     },
     config = { extra = { Xmult = 6, Xmult_mod = 1, odds = 6 } },
     unlock_condition = {type = '', extra = '', hidden = true},
