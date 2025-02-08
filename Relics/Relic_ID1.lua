@@ -87,13 +87,8 @@ SMODS.Joker{ -- Moona Hoshinova
         name = "Phases of the Lunar Diva",
         text = {
             'For every {C:attention}15{} {C:inactive}[#3#]{} scored cards with {C:clubs}Club{} suit',
-
             'create a {C:tarot}#4#{} and gain {X:mult,C:white} X#1# {} Mult.',
             '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult){}'
-
-            --'create a {C:tarot}#4#{}.',
-            --'Each {C:tarot}Moons{} in your {C:attention}consumable{}',
-            --'area gives {X:mult,C:white} X#2# {} Mult.'
         }
     },
     config = { extra = { Xmult = 3, Xmult_mod = 1.5, scored_card = 15, phase = "Full Moon" } },
