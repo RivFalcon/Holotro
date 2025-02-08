@@ -91,12 +91,12 @@ SMODS.Joker{ -- Moona Hoshinova
             '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult){}'
         }
     },
-    config = { extra = { Xmult = 3, Xmult_mod = 1.5, scored_card = 15, phase = "Full Moon" } },
+    config = { extra = { Xmult = 3, Xmult_mod = 1.5, count_down = 15, phase = "Full Moon" } },
     unlock_condition = {type = '', extra = '', hidden = true},
     add_to_deck = function(self, card, from_debuff)
         card.ability.extra.Xmult = 3
         card.ability.extra.Xmult_mod = 1.5
-        card.ability.extra.scored_card = 15
+        card.ability.extra.count_down = 15
         card.ability.extra.phase = "Full Moon"
     end,
     loc_vars = function(self, info_queue, card)
@@ -111,7 +111,7 @@ SMODS.Joker{ -- Moona Hoshinova
             vars = {
                 card.ability.extra.Xmult_mod,
                 card.ability.extra.Xmult,
-                card.ability.extra.scored_card,
+                card.ability.extra.count_down,
                 _phase
             }
         }
@@ -148,9 +148,9 @@ SMODS.Joker{ -- Moona Hoshinova
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.blueprint then
             if not context.other_card.debuff and context.other_card:is_suit("Clubs") then
-                card.ability.extra.scored_card = card.ability.extra.scored_card - 1
-                if card.ability.extra.scored_card <= 0 then
-                    card.ability.extra.scored_card = card.ability.extra.scored_card + 15
+                card.ability.extra.count_down = card.ability.extra.count_down - 1
+                if card.ability.extra.count_down <= 0 then
+                    card.ability.extra.count_down = card.ability.extra.count_down + 15
                     self:upgrade(card)
                 end
             end
@@ -174,13 +174,13 @@ SMODS.Joker{ -- Airani Iofifteen
             '(Currently {X:mult,C:white} X#2# {} Mult)'
         }
     },
-    config = { extra = { Xmult = 3, Xmult_mod = 1.5, scored_card = 3 } },
+    config = { extra = { Xmult = 3, Xmult_mod = 1.5, count_down = 3 } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return { vars = {
             card.ability.extra.Xmult_mod,
             card.ability.extra.Xmult,
-            card.ability.extra.scored_card,
+            card.ability.extra.count_down,
         }}
     end,
     rarity = "hololive_Relic",
@@ -203,9 +203,9 @@ SMODS.Joker{ -- Airani Iofifteen
         if context.before and context.full_hand then
             for i=1, #context.full_hand do
                 if card.full_hand[i]:is_suit("Clubs") and not context.blueprint then
-                    card.ability.extra.scored_card = card.ability.extra.scored_card - 1
-                    if card.ability.extra.scored_card <= 0 then
-                        card.ability.extra.scored_card = 3
+                    card.ability.extra.count_down = card.ability.extra.count_down - 1
+                    if card.ability.extra.count_down <= 0 then
+                        card.ability.extra.count_down = 3
                         self:upgrade(card)
                     end
                 end
