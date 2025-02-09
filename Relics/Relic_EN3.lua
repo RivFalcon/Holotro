@@ -162,7 +162,7 @@ SMODS.Joker{ -- Fuwawa Abyssgard
         text = {
             'Each played card with {C:blue}odd{} rank',
             'is retriggered {C:attention}#1#{} times.',
-            '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#] {C:blue}odd{} cards.',
+            '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#]{} {C:blue}odd{} cards scored.',
             '{C:inactive}(A, 9, 7, 5, 3){}'
         }
     },
@@ -216,7 +216,7 @@ SMODS.Joker{ -- Mococo Abyssgard
         text = {
             'Each played card with {C:red}even{} rank',
             'is retriggered {C:attention}#1#{} times.',
-            '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#] {C:red}even{} cards.',
+            '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#] {C:red}even{} cards scored.',
             '{C:inactive}(10, 8, 6, 4, 2){}'
         }
     },
