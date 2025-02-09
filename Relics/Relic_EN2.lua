@@ -107,7 +107,7 @@ SMODS.Joker{ -- Tsukumo Sana
     soul_pos = { x = 1, y = 1 },
 
     update = function (self, card, dt)
-        -- Release the planets until the consumable slot is full.
+        -- Release the planets from the bag until the consumable slot is full.
         if #card.ability.extra.bag_of_planets > 0 then
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 local _planet = table.remove(card.ability.extra.bag_of_planets,1)
@@ -122,8 +122,8 @@ SMODS.Joker{ -- Tsukumo Sana
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Expand!",colour = HEX("fede4a")})
     end,
     calculate = function(self, card, context)
-        if context.using_consumeable and not context.blueprint then
-            if context.consumeable.ability.set == 'Planet' then
+        if context.using_consumeable then
+            if context.consumeable.ability.set == 'Planet' and not context.blueprint then
                 self:upgrade(card)
             end
         elseif context.cardarea == G.jokers and context.scoring_hand then
