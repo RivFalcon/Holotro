@@ -154,35 +154,29 @@ SMODS.Joker{ -- Cecilia Immergreen
     upgrade = function(self, card)
         card:juice_up(0.5, 0.5)
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        return {
-            message = "Upgrade!",
-            colour = G.C.XMULT,
-            card = card
-        }
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX("109d5b")})
     end,
     calculate = function(self, card, context)
         if context.remove_playing_cards then
             for i, val in ipairs(context.removed) do
                 if SMODS.has_enhancement(val, "m_glass") then
                     if not context.blueprint then
-                        self:upgrade(card)
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                self:upgrade(card)
+                                -- Copied and modified this part from Ship of Theseus, ExtraCredit mod.
+                                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                                local _card = copy_card(val, nil, nil, G.playing_card)
+                                card:add_to_deck()
+                                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                                G.deck:emplace(_card)
+                                table.insert(G.playing_cards, _card)
+                                playing_card_joker_effects({true})
+                                _card:start_materialize()
+                                return true
+                            end
+                        }))
                     end
-                    -- Copied and modified this part from Ship of Theseus, ExtraCredit mod.
-                    G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                    local _card = copy_card(val, nil, nil, G.playing_card)
-                    card:add_to_deck()
-                    G.deck.config.card_limit = G.deck.config.card_limit + 1
-                    G.deck:emplace(_card)
-                    table.insert(G.playing_cards, _card)
-                    playing_card_joker_effects({true})
-
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            _card:start_materialize()
-                            return true
-                        end
-                    }))
-
                 end
             end
         elseif context.joker_main then
