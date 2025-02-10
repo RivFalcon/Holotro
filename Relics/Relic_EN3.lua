@@ -163,13 +163,12 @@ SMODS.Joker{ -- Fuwawa Abyssgard
             'Each played card with {C:blue}odd{} rank',
             'is retriggered {C:attention}#1#{} times.',
             '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#]{} {C:blue}odd{} cards scored.',
-            '{C:inactive}(A, 9, 7, 5, 3){}'
         }
     },
     config = { extra = { retriggers = 2, count_down = 22 } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
-        -- info_queue[#info_queue+1] = {set='Info',key='nfq_odd'}
+        info_queue[#info_queue+1] = {set='Other',key='holo_info_odd'}
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
     end,
     rarity = "hololive_Relic",
@@ -218,13 +217,12 @@ SMODS.Joker{ -- Mococo Abyssgard
             'Each played card with {C:red}even{} rank',
             'is retriggered {C:attention}#1#{} times.',
             '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#] {C:red}even{} cards scored.',
-            '{C:inactive}(10, 8, 6, 4, 2){}'
         }
     },
     config = { extra = { retriggers = 2, count_down = 22 } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
-        -- info_queue[#info_queue+1] = {set='Info',key='nfq_even'}
+        info_queue[#info_queue+1] = {set='Other',key='holo_info_even'}
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
     end,
     rarity = "hololive_Relic",
