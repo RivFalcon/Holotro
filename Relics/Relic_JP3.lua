@@ -140,8 +140,8 @@ SMODS.Joker{ -- Shiranui Flare
         text = {
             'Spray {C:attention}Gold{} paint on scored cards',
             'if played hand contains a {C:attention}Two Pair{}.',
-            '{C:green}#3# in #4#{} chance to also give a {C:attention}Gold seal{}',
-            'to the cards when sprayed.',
+            'Each card has {C:green}#3# in #4#{} chance to receive',
+            'a {C:attention}Gold seal{} when being spray-painted.',
             'Gain {X:mult,C:white}X#2#{} mult per card sprayed.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
