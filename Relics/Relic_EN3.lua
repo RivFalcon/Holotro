@@ -169,6 +169,7 @@ SMODS.Joker{ -- Fuwawa Abyssgard
     config = { extra = { retriggers = 2, count_down = 22 } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
+        -- info_queue[#info_queue+1] = {set='Info',key='nfq_odd'}
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
     end,
     rarity = "hololive_Relic",
@@ -223,6 +224,7 @@ SMODS.Joker{ -- Mococo Abyssgard
     config = { extra = { retriggers = 2, count_down = 22 } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
+        -- info_queue[#info_queue+1] = {set='Info',key='nfq_even'}
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
     end,
     rarity = "hololive_Relic",

@@ -26,7 +26,8 @@ relic_files = {
     "Relics/Relic_EN3.lua",
     "Relics/Relic_EN4.lua"
 }
-
 for _,file in ipairs(relic_files) do assert(SMODS.load_file(file))()end
+
+
 
 ----

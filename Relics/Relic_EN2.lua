@@ -376,9 +376,8 @@ SMODS.Joker{ -- Hakos Baelz
         name = "Rolling Dice of the Scarlet Rat",
         text = {
             'Roll a {C:red}six-sided die{} after each played hand.',
-            'Multiplies all{C:attention} listed {C:green}probabilities{}',
-            'with the number it lands.',
-            '{C:inactive}(Currently {X:green,C:white}X#1#{C:inactive} Chance){}'
+            'Multiplies all{C:attention} listed {C:green}probabilities{} with',
+            'the number it lands. {C:inactive}(Currently {X:green,C:white}X#1#{C:inactive} Chance){}'
         }
     },
     config = { extra = { Pmult = 6 } },
