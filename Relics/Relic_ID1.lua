@@ -9,7 +9,6 @@ SMODS.Atlas{
 SMODS.Joker{ -- Ayunda Risu
     key = "Relic_Risu",
     talent = "Risu",
-    colour = HEX('EF8381'),
     loc_txt = {
         name = "\"Deez Nuts\" of the Squirrel",
         text = {
