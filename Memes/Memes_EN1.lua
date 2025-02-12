@@ -2,7 +2,7 @@
 if false then
 SMODS.Joker{
     key = "Kiara_TUR",
-    talent = "Kiara",
+    member = "Kiara",
     loc_txt = {
         name = "The Usual Room",
         text = {

@@ -8,7 +8,7 @@ SMODS.Atlas{
 
 SMODS.Joker{ -- Ayunda Risu
     key = "Relic_Risu",
-    talent = "Risu",
+    member = "Risu",
     loc_txt = {
         name = "\"Deez Nuts\" of the Squirrel",
         text = {
@@ -81,7 +81,7 @@ SMODS.Joker{ -- Ayunda Risu
 
 SMODS.Joker{ -- Moona Hoshinova
     key = "Relic_Moona",
-    talent = "Moona",
+    member = "Moona",
     loc_txt = {
         name = "Phases of the Lunar Diva",
         text = {
@@ -163,7 +163,7 @@ SMODS.Joker{ -- Moona Hoshinova
 
 SMODS.Joker{ -- Airani Iofifteen
     key = "Relic_Iofi",
-    talent = "Iofi",
+    member = "Iofi",
     loc_txt = {
         name = "Paintbrush of the Alien Artist",
         text = {

@@ -8,7 +8,7 @@ SMODS.Atlas{
 
 SMODS.Joker{ -- Mori Calliope
     key = "Relic_Calli",
-    talent = "Calli",
+    member = "Calli",
     loc_txt = {
         name = "Scythe of the Death Apprentice",
         text = {
@@ -45,7 +45,7 @@ SMODS.Joker{ -- Mori Calliope
     upgrade = function (self, card)
         card:juice_up()
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Guh!",colour = HEX("a1020b")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Guh!",colour = HEX('a1020b')})
     end,
     calculate = function(self, card, context)
         if context.using_consumeable then
@@ -76,7 +76,7 @@ SMODS.Joker{ -- Mori Calliope
                     card:juice_up()
                     if card.ability.extra.count_down <= 1 then
                         card.ability.extra.count_down = 4
-                        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Shin de kudasai!",colour = HEX("a1020b")})
+                        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Shin de kudasai!",colour = HEX('a1020b')})
                         SMODS.add_card({ key = 'c_death', area = G.consumeables, edition = 'e_negative' })
                     else
                         card.ability.extra.count_down = card.ability.extra.count_down - 1
@@ -115,7 +115,7 @@ SMODS.Joker{ -- Mori Calliope
 
 SMODS.Joker{ -- Takanashi Kiara
     key = "Relic_Kiara",
-    talent = "Kiara",
+    member = "Kiara",
     loc_txt = {
         name = "Flaming Sword of the Phoenix",
         text = {
@@ -147,7 +147,7 @@ SMODS.Joker{ -- Takanashi Kiara
         card:juice_up()
         ease_dollars(card.ability.extra.dollars)
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Kikiriki!",colour = HEX("dc3907")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Kikiriki!",colour = HEX('dc3907')})
     end,
     calculate = function(self, card, context)
         if context.after and not context.blueprint then
@@ -171,7 +171,7 @@ SMODS.Joker{ -- Takanashi Kiara
             end
         elseif context.joker_main then
             play_sound('multhit2')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Phoenix!",colour = HEX("dc3907")})
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Phoenix!",colour = HEX('dc3907')})
             return { Xmult = card.ability.extra.Xmult }
         end
     end
@@ -185,7 +185,7 @@ SMODS.Sound{
 
 SMODS.Joker{ -- Ninomae Ina'nis
     key = "Relic_Ina",
-    talent = "Ina",
+    member = "Ina",
     loc_txt = {
         name = "Ancient Tome of the Eldritch Priestess",
         text = {
@@ -235,7 +235,7 @@ SMODS.Joker{ -- Ninomae Ina'nis
         card:juice_up()
         play_sound('hololive_Ina-Wah')
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Wah!",colour = HEX("3f3e69")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Wah!",colour = HEX('3f3e69')})
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
@@ -262,7 +262,7 @@ SMODS.Sound{
 
 SMODS.Joker{ -- Gawr Gura
     key = "Relic_Gura",
-    talent = "Gura",
+    member = "Gura",
     loc_txt = {
         name = "Trident of the Atlantic Shark",
         text = {
@@ -298,7 +298,7 @@ SMODS.Joker{ -- Gawr Gura
         card:juice_up()
         play_sound('hololive_Gura-A')
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="A!",colour = HEX("5d81c7")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="A!",colour = HEX('5d81c7')})
     end,
     uplevel = function (self, card)
         update_hand_text(
@@ -327,7 +327,7 @@ SMODS.Joker{ -- Gawr Gura
             end
         elseif context.before and context.scoring_name == 'Straight Flush' then
             play_sound('hololive_Gura-A')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="A!",colour = HEX("5d81c7")})
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="A!",colour = HEX('5d81c7')})
         elseif context.repetition and context.scoring_name == 'Straight Flush' then
             if #context.scoring_hand < 3 then
                 return {}
@@ -343,13 +343,13 @@ SMODS.Joker{ -- Gawr Gura
                     message = 'A!',
                     repetitions = 2,
                     card = card,
-                    colour = HEX("5d81c7")
+                    colour = HEX('5d81c7')
                 }
             end
         elseif context.joker_main and context.scoring_name == 'Straight Flush' then
             card:juice_up()
             play_sound('multhit2')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Shark!",colour = HEX("5d81c7")})
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Shark!",colour = HEX('5d81c7')})
             return {Xmult=card.ability.extra.Xmult}
         elseif context.level_up_hand == 'Straight Flush' then
             if context.level_up_amount > 0 then
@@ -363,7 +363,7 @@ SMODS.Joker{ -- Gawr Gura
 
 SMODS.Joker{ -- Watson Amelia
     key = "Relic_Ame",
-    talent = "Ame",
+    member = "Ame",
     loc_txt = {
         name = "Magnifying Glass of the Detective",
         text = {
@@ -396,7 +396,7 @@ SMODS.Joker{ -- Watson Amelia
         if card.ability.extra.Xmult_mod > 0 then
             card:juice_up()
             card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Elementary!",colour = HEX("f8db92")})
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Elementary!",colour = HEX('f8db92')})
         end
     end,
     calculate = function(self, card, context)
@@ -410,10 +410,10 @@ SMODS.Joker{ -- Watson Amelia
             end
             if contains_scoring_face_card then
                 card.ability.extra.Xmult_mod = card.ability.extra.Xmult_mod + card.ability.extra.Xmult_mod_mod
-                card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Clues Found!",colour = HEX("f8db92")})
+                card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Clues Found!",colour = HEX('f8db92')})
             else
                 card.ability.extra.Xmult_mod = 0
-                card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Lost the track!",colour = HEX("f8db92")})
+                card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Lost the track!",colour = HEX('f8db92')})
             end
             delay(0.2)
             self:upgrade(card)

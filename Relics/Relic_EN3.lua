@@ -8,7 +8,7 @@ SMODS.Atlas{
 
 SMODS.Joker{ -- Shiori Novella
     key = "Relic_Shiori",
-    talent = "Shiori",
+    member = "Shiori",
     loc_txt = {
         name = "Quill Pen of the Archiver",
         text = {
@@ -35,7 +35,7 @@ SMODS.Joker{ -- Shiori Novella
     upgrade = function(self, card)
         card:juice_up()
         card.ability.extra.retriggers = card.ability.extra.retriggers + 1
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Yoricked!",colour = HEX("373741")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Yoricked!",colour = HEX('373741')})
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.scoring_hand and context.full_hand then
@@ -43,7 +43,7 @@ SMODS.Joker{ -- Shiori Novella
                 message = "Note!",
                 repetitions = card.ability.extra.retriggers,
                 card = card,
-                colour = HEX("373741")
+                colour = HEX('373741')
             }
         elseif context.discard and not context.blueprint then
             card.ability.extra.count_down = card.ability.extra.count_down - 1
@@ -53,7 +53,7 @@ SMODS.Joker{ -- Shiori Novella
             end
             if context.other_card:is_face() then
                 context.other_card:juice_up()
-                card_eval_status_text(context.other_card, 'extra', nil, 1, nil, {message="Archived!",colour = HEX("373741")})
+                card_eval_status_text(context.other_card, 'extra', nil, 1, nil, {message="Archived!",colour = HEX('373741')})
                 context.other_card:start_dissolve(nil, true)
                 -- "No no no, they were not destroyed, silly! I just took them to somewhere else!"
             end
@@ -63,7 +63,7 @@ SMODS.Joker{ -- Shiori Novella
 
 SMODS.Joker{ -- Koseki Bijou
     key = "Relic_Biboo",
-    talent = "Biboo",
+    member = "Biboo",
     loc_txt = {
         name = "Jewel Crown of the Ancient Rock",
         text = {
@@ -93,7 +93,7 @@ SMODS.Joker{ -- Koseki Bijou
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if SMODS.has_enhancement(context.other_card, "m_stone") then
-                card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Biboo!",colour = HEX("6e5bf4")})
+                card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Biboo!",colour = HEX('6e5bf4')})
                 return {
                     card = context.other_card,
                     chips = 81800
@@ -111,7 +111,7 @@ SMODS.Joker{ -- Koseki Bijou
 
 SMODS.Joker{ -- Nerissa Ravencroft
     key = "Relic_Nerissa",
-    talent = "Nerissa",
+    member = "Nerissa",
     loc_txt = {
         name = "Tuning Fork of the Raven Diva",
         text = {
@@ -156,7 +156,7 @@ SMODS.Joker{ -- Nerissa Ravencroft
 
 SMODS.Joker{ -- Fuwawa Abyssgard
     key = "Relic_Fuwawa",
-    talent = "Fuwawa",
+    member = "Fuwawa",
     loc_txt = {
         name = "Claws of the Fluffy Hellhound",
         text = {
@@ -182,7 +182,7 @@ SMODS.Joker{ -- Fuwawa Abyssgard
     upgrade = function(self, card)
         card:juice_up()
         card.ability.extra.retriggers = card.ability.extra.retriggers + 1
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Baubau!",colour = HEX("67b2ff")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Baubau!",colour = HEX('67b2ff')})
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.scoring_hand and context.full_hand then
@@ -192,7 +192,7 @@ SMODS.Joker{ -- Fuwawa Abyssgard
                     message = 'Bau!',
                     repetitions = card.ability.extra.retriggers,
                     card = card,
-                    colour = HEX("67b2ff")
+                    colour = HEX('67b2ff')
                 }
             end
         elseif context.individual and context.cardarea == G.play and not context.blueprint then
@@ -210,7 +210,7 @@ SMODS.Joker{ -- Fuwawa Abyssgard
 
 SMODS.Joker{ -- Mococo Abyssgard
     key = "Relic_Mococo",
-    talent = "Mococo",
+    member = "Mococo",
     loc_txt = {
         name = "Claws of the Fuzzy Hellhound",
         text = {
@@ -236,7 +236,7 @@ SMODS.Joker{ -- Mococo Abyssgard
     upgrade = function(self, card)
         card:juice_up()
         card.ability.extra.retriggers = card.ability.extra.retriggers + 1
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Baubau!",colour = HEX("f7a6ca")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Baubau!",colour = HEX('f7a6ca')})
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.scoring_hand and context.full_hand then
@@ -246,7 +246,7 @@ SMODS.Joker{ -- Mococo Abyssgard
                     message = 'Bau!',
                     repetitions = card.ability.extra.retriggers,
                     card = card,
-                    colour = HEX("f7a6ca")
+                    colour = HEX('f7a6ca')
                 }
             end
         elseif context.individual and context.cardarea == G.play and not context.blueprint then

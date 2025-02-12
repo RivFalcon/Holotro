@@ -8,7 +8,7 @@ SMODS.Atlas{
 }
 SMODS.Joker{
     key = "Ayame_DCDC",
-    talent = "Ayame",
+    member = "Ayame",
     loc_txt = {
         name = "Which way, which way?",
         text = {

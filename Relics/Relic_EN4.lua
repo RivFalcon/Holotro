@@ -8,7 +8,7 @@ SMODS.Atlas{
 
 SMODS.Joker{ -- Elizabeth Rose Bloodflame
     key = "Relic_Elizabeth",
-    talent = "Elizabeth",
+    member = "Elizabeth",
     loc_txt = {
         name = "Great Sword of the Scarlet Queen",
         --name = "Thorn the Great Sword of the Scarlet Queen",
@@ -63,7 +63,7 @@ SMODS.Joker{ -- Elizabeth Rose Bloodflame
 
 SMODS.Joker{ -- Gigi Murin
     key = "Relic_Gigi",
-    talent = "Gigi",
+    member = "Gigi",
     loc_txt = {
         name = "Gauntlet of Da Fister",
         text = {
@@ -126,7 +126,7 @@ SMODS.Joker{ -- Gigi Murin
 
 SMODS.Joker{ -- Cecilia Immergreen
     key = "Relic_Ceci",
-    talent = "Ceci",
+    member = "Ceci",
     loc_txt = {
         name = "Violance of the Automaton",
         text = {
@@ -154,7 +154,7 @@ SMODS.Joker{ -- Cecilia Immergreen
     upgrade = function(self, card)
         card:juice_up(0.5, 0.5)
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX("109d5b")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX('109d5b')})
     end,
     calculate = function(self, card, context)
         if context.remove_playing_cards then
@@ -190,7 +190,7 @@ SMODS.Joker{ -- Cecilia Immergreen
 
 SMODS.Joker{ -- Raora Panthera
     key = "Relic_Raora",
-    talent = "Raora",
+    member = "Raora",
     loc_txt = {
         name = "Sketching Pen of the Pink Panther",
         text = {

@@ -8,7 +8,7 @@ SMODS.Atlas{
 }
 SMODS.Joker{
     key = "Fubuki_MFG",
-    talent = "Fubuki",
+    member = "Fubuki",
     loc_txt = {
         name = "Medical Fee Gamble",
         text = {

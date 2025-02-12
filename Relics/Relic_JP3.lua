@@ -8,7 +8,7 @@ SMODS.Atlas{
 
 SMODS.Joker{ -- Usada Pekora
     key = "Relic_Pekora",
-    talent = "Pekora",
+    member = "Pekora",
     loc_txt = {
         name = "Slot Machine of the Greedy Rabbit",
         text = {
@@ -57,15 +57,16 @@ SMODS.Joker{ -- Usada Pekora
     end,
     upgrade = function (self, card)
     end,
-    calculate_dollar_bonus = function(self)
+    calc_dollar_bonus = function(self)
         if G.GAME.dollars >= self.ability.extra.fee then
             ease_dollars(-self.ability.extra.fee)
             if pseudorandom('marine') < G.GAME.probabilities.normal / self:get_odds() then
                 self:juice_up()
-                card_eval_status_text(self, 'jokers', nil, 1, nil, {message='JACK POT!',colour=HEX('7dc4fc')})
+                card_eval_status_text(self, 'jokers', nil, 1, nil, {message='JACKPOT!',colour=HEX('7dc4fc')})
                 return card.ability.extra.prize
             else
                 card_eval_status_text(self, 'jokers', nil, 1, nil, {message='Aww dang it!',colour=HEX('7dc4fc')})
+                return 0
             end
         end
     end
@@ -73,14 +74,14 @@ SMODS.Joker{ -- Usada Pekora
 
 SMODS.Joker{ -- Uruha Rushia
     key = "Relic_Rushia",
-    talent = "Rushia",
+    member = "Rushia",
     loc_txt = {
         name = "Butterfies of the Necromancer",
         text = {
             'Prevents Death once.',
             '{C:red}self destructs{}',
             'Selling this card spawns',
-            'two {C:attention}Butterfly Tags{}.'
+            '#1# {C:attention}Butterfly Tags{}.'
         }
         ,boxes={2,2}
     },
@@ -90,6 +91,7 @@ SMODS.Joker{ -- Uruha Rushia
         info_queue[#info_queue+1] = G.P_TAGS.tag_hololive_butterfly
         return {
             vars = {
+                card.ability.extra.summon
             }
         }
     end,
@@ -134,7 +136,7 @@ SMODS.Joker{ -- Uruha Rushia
 
 SMODS.Joker{ -- Shiranui Flare
     key = "Relic_Flare",
-    talent = "Flare",
+    member = "Flare",
     loc_txt = {
         name = "Paint Splasher of the Fire Elf",
         text = {
@@ -180,7 +182,7 @@ SMODS.Joker{ -- Shiranui Flare
                 for k,v in ipairs(context.scoring_hand) do
                     v:set_ability(G.P_CENTERS.m_gold, nil, true)
                     self:upgrade(card)
-                    card_eval_status_text(v, 'jokers', nil, 1, nil, {message="Painted!",colour = HEX("ff5028")})
+                    card_eval_status_text(v, 'jokers', nil, 1, nil, {message="Painted!",colour = HEX('ff5028')})
                     if pseudo('flare') < G.GAME.probabilities.normal / card.ability.extra.odds then
                         v:set_seal('Gold', nil, true)
                     end
@@ -192,7 +194,7 @@ SMODS.Joker{ -- Shiranui Flare
 
 SMODS.Joker{ -- Shirogane Noel
     key = "Relic_Noel",
-    talent = "Noel",
+    member = "Noel",
     loc_txt = {
         name = "Mace of the Silver Knight",
         text = {
@@ -238,7 +240,7 @@ SMODS.Joker{ -- Shirogane Noel
                         message = 'Knight!',
                         repetitions = card.ability.extra.retriggers,
                         card = card,
-                        colour = HEX("aebbc3")
+                        colour = HEX('aebbc3')
                     }
                 end
             end
@@ -250,7 +252,7 @@ SMODS.Joker{ -- Shirogane Noel
 
 SMODS.Joker{ -- Houshou Marine
     key = "Relic_Marine",
-    talent = "Marine",
+    member = "Marine",
     loc_txt = {
         name = "Treasure Box of the Pirate Captain",
         text = {
@@ -286,7 +288,7 @@ SMODS.Joker{ -- Houshou Marine
         card:juice_up()
         play_sound('generic1')
         card.ability.extra.Mmult = card.ability.extra.Mmult + card.ability.extra.Mmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ahoy!",colour = HEX("923749")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ahoy!",colour = HEX('923749')})
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.repetition and not context.blueprint then

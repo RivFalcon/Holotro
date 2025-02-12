@@ -8,7 +8,7 @@ SMODS.Atlas{
 
 SMODS.Joker{ -- IRyS
     key = "Relic_IRyS",
-    talent = "IRyS",
+    member = "IRyS",
     loc_txt = {
         name = "Sparklings of the Nephilim",
         text = {
@@ -43,13 +43,13 @@ SMODS.Joker{ -- IRyS
         card:juice_up()
         play_sound('generic1')
         card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Wish!",colour = HEX("3c0024")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Wish!",colour = HEX('3c0024')})
     end,
     calculate = function(self, card, context)
         if context.using_consumeable then
             card:juice_up()
             play_sound('generic1')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Hope!",colour = HEX("3c0024")})
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Hope!",colour = HEX('3c0024')})
             ease_dollars(card.ability.extra.dollars)
             if pseudorandom('IRyS') < G.GAME.probabilities.normal / card.ability.extra.odds and not context.blueprint then
                 self:upgrade(card)
@@ -68,7 +68,7 @@ end
 
 SMODS.Joker{ -- Tsukumo Sana
     key = "Relic_Sana",
-    talent = "Sana",
+    member = "Sana",
     loc_txt = {
         name = "Size Limiter of the Astrogirl",
         text = {
@@ -119,7 +119,7 @@ SMODS.Joker{ -- Tsukumo Sana
         card:juice_up()
         play_sound('generic1')
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Expand!",colour = HEX("fede4a")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Expand!",colour = HEX('fede4a')})
     end,
     calculate = function(self, card, context)
         if context.using_consumeable then
@@ -154,7 +154,7 @@ SMODS.Joker{ -- Tsukumo Sana
 
 SMODS.Joker{ -- Ceres Fauna
     key = "Relic_Fauna",
-    talent = "Fauna",
+    member = "Fauna",
     loc_txt = {
         name = "Golden Fruit of the Mother Nature",
         text = {
@@ -190,7 +190,7 @@ SMODS.Joker{ -- Ceres Fauna
         card:juice_up()
         play_sound('generic1')
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Grow!",colour = HEX("998274")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Grow!",colour = HEX('a4e5cf')})
     end,
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.scoring_hand then
@@ -230,7 +230,7 @@ SMODS.Joker{ -- Ceres Fauna
 
 SMODS.Joker{ -- Ouro Kronii
     key = "Relic_Kronii",
-    talent = "Kronii",
+    member = "Kronii",
     loc_txt = {
         name = "Clock Hands of the Time Warden",
         text = {
@@ -304,7 +304,7 @@ SMODS.Joker{ -- Ouro Kronii
 
 SMODS.Joker{ -- Nanashi Mumei
     key = "Relic_Mumei",
-    talent = "Mumei",
+    member = "Mumei",
     loc_txt = {
         name = "Dagger of the Guardian Owl",
         text = {
@@ -340,7 +340,7 @@ SMODS.Joker{ -- Nanashi Mumei
         card:juice_up()
         play_sound('generic1')
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Develope!",colour = HEX("998274")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Develope!",colour = HEX('998274')})
     end,
     calculate = function(self, card, context)
         if context.remove_playing_cards and not context.blueprint then
@@ -371,7 +371,7 @@ SMODS.Joker{ -- Nanashi Mumei
 
 SMODS.Joker{ -- Hakos Baelz
     key = "Relic_Bae",
-    talent = "Bae",
+    member = "Bae",
     loc_txt = {
         name = "Rolling Dice of the Scarlet Rat",
         text = {
@@ -403,7 +403,7 @@ SMODS.Joker{ -- Hakos Baelz
         card:juice_up()
         play_sound('timpani')
         card.ability.extra.Pmult = pseudorandom('Hakos Baelz', 1, 6)
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Roll!",colour = HEX("d2251e")})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Roll!",colour = HEX('d2251e')})
     end,
     upgrade = function (self, card)
     end,
