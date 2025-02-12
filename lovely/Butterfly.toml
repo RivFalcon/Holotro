@@ -13,7 +13,7 @@ payload = '''
 or (config.saved_by_necromancy and 
 {n=G.UIT.C, config={padding = 0.05, align = 'cm'}, nodes={
     {n=G.UIT.R, config={align = 'cm'}, nodes={
-        {n=G.UIT.O, config={object = DynaText({string = {' '.."Saved by the Necromancer"..' '}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.5*scale, silent = true})}}
+        {n=G.UIT.O, config={object = DynaText({string = {' '..localize('ph_hololive_necromancy')..' '}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.5*scale, silent = true})}}
     }}
 }})
 '''
