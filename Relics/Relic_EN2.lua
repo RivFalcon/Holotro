@@ -43,13 +43,13 @@ SMODS.Joker{ -- IRyS
         card:juice_up()
         play_sound('generic1')
         card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Wish!",colour = HEX('3c0024')})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ascend!",colour = HEX('3c0024')})
     end,
     calculate = function(self, card, context)
         if context.using_consumeable then
             card:juice_up()
             play_sound('generic1')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Hope!",colour = HEX('3c0024')})
+            card_eval_status_text(card, 'dollars', nil, 1, nil, {message="Hope!",colour = HEX('3c0024')})
             ease_dollars(card.ability.extra.dollars)
             if pseudorandom('IRyS') < G.GAME.probabilities.normal / card.ability.extra.odds and not context.blueprint then
                 self:upgrade(card)
@@ -106,15 +106,6 @@ SMODS.Joker{ -- Tsukumo Sana
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
 
-    update = function (self, card, dt)
-        -- Release the planets from the bag until the consumable slot is full.
-        if #card.ability.extra.bag_of_planets > 0 then
-            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                local _planet = table.remove(card.ability.extra.bag_of_planets,1)
-                SMODS.add_card({ key = _planet, area = G.consumeables})
-            end
-        end
-    end,
     upgrade = function(self, card)
         card:juice_up()
         play_sound('generic1')
@@ -126,28 +117,45 @@ SMODS.Joker{ -- Tsukumo Sana
             if context.consumeable.ability.set == 'Planet' and not context.blueprint then
                 self:upgrade(card)
             end
-        elseif context.cardarea == G.jokers and context.scoring_hand then
-            if context.before then
-                if pseudorandom('sanana') < G.GAME.probabilities.normal / card.ability.extra.odds then
-                    -- Store the planet into the bag of planet.
-                    for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                        if v.config.hand_type == context.scoring_name then
-                            card.ability.extra.bag_of_planets[#card.ability.extra.bag_of_planets+1] = v.key
-                            break
-                        end
+        elseif context.before then
+            if pseudorandom('sanana') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                -- Store the planet into the bag of planet.
+                local _planet = 'c_pluto'
+                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+                    if v.config.hand_type == context.scoring_name then
+                        _planet = v.key
+                        break
                     end
-                    card:juice_up()
-                    play_sound('highlight2')
-                    card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Observed!',colour=HEX('fede4a')})
                 end
+                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                    SMODS.add_card({ key = _planet, area = G.consumeables})
+                else
+                    card.ability.extra.bag_of_planets[#card.ability.extra.bag_of_planets+1] = _planet
+                end
+                card:juice_up()
+                card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Observed!',colour=HEX('fede4a'),instant=true})
             end
         elseif context.joker_main then
             card:juice_up()
             play_sound('gong')
             card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Space!',colour=HEX('fede4a')})
             return {
-                Xmult = card.ability.extra.Xmult
+                xmult = card.ability.extra.Xmult
             }
+        end
+        -- Release the planets from the bag until the consumable slot is full.
+        if #card.ability.extra.bag_of_planets > 0 then
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    func = function ()
+                        local _planet = table.remove(card.ability.extra.bag_of_planets,1)
+                        SMODS.add_card({ key = _planet, area = G.consumeables})
+                        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+                        return true
+                    end
+                }))
+            end
         end
     end
 }
