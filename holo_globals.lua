@@ -186,6 +186,16 @@ function Live:init_global_vars()
     }
     for gen_key, gen_data in pairs(self.Generations) do
         self.Branches[gen_data.branch].gens[#self.Branches[gen_data.branch].gens+1] = gen_key
+        
+        if type(gen_data.C) == 'table' then
+            self.C[gen_key] = {back=G.C.WHITE,text=self.C.Hololive}
+            if gen_data.C.back then
+                self.C[gen_key].back = gen_data.C.back
+            end
+            if gen_data.C.text then
+                self.C[gen_key].text = gen_data.C.text
+            end
+        end
     end
 
     self.Members = {
@@ -270,6 +280,7 @@ function Live:init_global_vars()
         Suu      = {order = 75, },
         Chihaya  = {order = 76, },
         Vivi     = {order = 77, },
+
     }
 
     for memb_name,memb_data in pairs(self.Members)do
@@ -290,17 +301,6 @@ function Live:init_global_vars()
         if memb_data.C ~= nil then self.C[memb_name] = memb_data.C end
 
         -- 
-    end
-    for gen_key, gen_data in pairs(self.Generations)do
-        if type(gen_data.C) == 'table' then
-            self.C[gen_key] = {back=G.C.WHITE,text=self.C.Hololive}
-            if gen_data.C.back then
-                self.C[gen_key].back = gen_data.C.back
-            end
-            if gen_data.C.text then
-                self.C[gen_key].text = gen_data.C.text
-            end
-        end
     end
 
     self:inject_loc_colour()
