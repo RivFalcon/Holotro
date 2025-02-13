@@ -41,38 +41,36 @@ SMODS.Joker{ -- Ayunda Risu
     calculate = function(self, card, context)
         if context.before then
             card.ability.extra.clubbin = 3
-        elseif context.individual and context.cardarea == G.hand then
-            if not context.after and not context.end_of_round then
-                if context.other_card:is_suit("Clubs") then
-                    if context.other_card.debuff then
-                        return {
-                            message = localize("k_debuffed"),
-                            colour = G.C.RED,
-                            card = card,
-                        }
-                    elseif card.ability.extra.clubbin == 3 then
-                        card.ability.extra.clubbin = 2
-                        return {
-                            message = 'Clubbin\'',
-                            colour = HEX('EF8381'),
-                            card = context.other_card
-                        }
-                    elseif card.ability.extra.clubbin == 2 then
-                        card.ability.extra.clubbin = 1
-                        return {
-                            message = 'Deez',
-                            colour = HEX('EF8381'),
-                            card = context.other_card
-                        }
-                    elseif card.ability.extra.clubbin == 1 then
-                        card.ability.extra.clubbin = 3
-                        return {
-                            message = 'NUTS!',
-                            colour = HEX('EF8381'),
-                            card = context.other_card,
-                            Xmult_mod = 15
-                        }
-                    end
+        elseif context.individual and context.cardarea == G.hand and not context.end_of_round then
+            if context.other_card:is_suit("Clubs") then
+                if context.other_card.debuff then
+                    return {
+                        message = localize("k_debuffed"),
+                        colour = G.C.RED,
+                        card = card,
+                    }
+                elseif card.ability.extra.clubbin == 3 then
+                    card.ability.extra.clubbin = 2
+                    return {
+                        message = 'Clubbin\'',
+                        colour = HEX('EF8381'),
+                        card = context.other_card
+                    }
+                elseif card.ability.extra.clubbin == 2 then
+                    card.ability.extra.clubbin = 1
+                    return {
+                        message = 'Deez',
+                        colour = HEX('EF8381'),
+                        card = context.other_card
+                    }
+                elseif card.ability.extra.clubbin == 1 then
+                    card.ability.extra.clubbin = 3
+                    return {
+                        message = 'NUTS!',
+                        colour = HEX('EF8381'),
+                        card = context.other_card,
+                        Xmult_mod = 15
+                    }
                 end
             end
         end
@@ -199,7 +197,7 @@ SMODS.Joker{ -- Airani Iofifteen
         }
     end,
     calculate = function(self, card, context)
-        if context.before and context.full_hand then
+        if context.before then
             for i=1, #context.full_hand do
                 if card.full_hand[i]:is_suit("Clubs") and not context.blueprint then
                     card.ability.extra.count_down = card.ability.extra.count_down - 1
@@ -217,7 +215,7 @@ SMODS.Joker{ -- Airani Iofifteen
             }
         elseif context.joker_main then
             return {
-                Xmult_mod = card.ability.extra.Xmult
+                Xmult = card.ability.extra.Xmult
             }
         end
     end

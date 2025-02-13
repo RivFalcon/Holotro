@@ -43,6 +43,7 @@ SMODS.Joker{ -- Elizabeth Rose Bloodflame
     upgrade = function(self, card)
         card:juice_up()
         self.config.extra.Xmult = self.config.extra.Xmult + self.config.extra.Xmult_mod
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX('c63639')})
     end,
     calculate = function(self, card, context)
         if context.using_consumeable then
@@ -91,13 +92,9 @@ SMODS.Joker{ -- Gigi Murin
     soul_pos = { x = 1, y = 1 },
 
     upgrade = function(self, card)
-        card:juice_up(0.5, 0.5)
+        card:juice_up()
         self.config.extra.Xmult = self.config.extra.Xmult + self.config.extra.Xmult_mod
-        return {
-            message = "Upgrade!",
-            colour = G.C.XMULT,
-            card = card
-        }
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX('feb543')})
     end,
     calculate = function(self, card, context)
         if context.cardarea == G.jokers then
@@ -115,9 +112,9 @@ SMODS.Joker{ -- Gigi Murin
                     }
                 end
             elseif context.joker_main then
-                card:juice_up(0.5, 0.5)
+                card:juice_up()
                 return {
-                    Xmult_mod = card.ability.extra.Xmult
+                    Xmult = card.ability.extra.Xmult
                 }
             end
         end
@@ -152,7 +149,7 @@ SMODS.Joker{ -- Cecilia Immergreen
     soul_pos = { x = 2, y = 1 },
 
     upgrade = function(self, card)
-        card:juice_up(0.5, 0.5)
+        card:juice_up()
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX('109d5b')})
     end,
@@ -180,7 +177,7 @@ SMODS.Joker{ -- Cecilia Immergreen
                 end
             end
         elseif context.joker_main then
-            card:juice_up(0.5, 0.5)
+            card:juice_up()
             return {
                 Xmult = card.ability.extra.Xmult
             }
@@ -225,6 +222,7 @@ SMODS.Joker{ -- Raora Panthera
     upgrade = function(self, card)
         card:juice_up()
         self.config.extra.Xmult = self.config.extra.Xmult + self.config.extra.Xmult_mod
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX('f086aa')})
     end,
     calculate = function(self, card, context)
         if context.individual and not context.repetition then

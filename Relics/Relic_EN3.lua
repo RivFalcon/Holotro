@@ -38,7 +38,7 @@ SMODS.Joker{ -- Shiori Novella
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Yoricked!",colour = HEX('373741')})
     end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and context.scoring_hand and context.full_hand then
+        if context.repetition and context.cardarea == G.play then
             return {
                 message = "Note!",
                 repetitions = card.ability.extra.retriggers,
@@ -185,7 +185,7 @@ SMODS.Joker{ -- Fuwawa Abyssgard
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Baubau!",colour = HEX('67b2ff')})
     end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and context.scoring_hand and context.full_hand then
+        if context.repetition and context.cardarea == G.play then
             local _rank = context.other_card:get_id()
             if (_rank == 14)or(_rank == 9)or(_rank == 7)or(_rank == 5)or(_rank == 3) then
                 return {
@@ -239,7 +239,7 @@ SMODS.Joker{ -- Mococo Abyssgard
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Baubau!",colour = HEX('f7a6ca')})
     end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and context.scoring_hand and context.full_hand then
+        if context.repetition and context.cardarea == G.play then
             local _rank = context.other_card:get_id()
             if (_rank == 10)or(_rank == 8)or(_rank == 6)or(_rank == 4)or(_rank == 2) then
                 return {

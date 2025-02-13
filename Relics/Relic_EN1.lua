@@ -45,7 +45,7 @@ SMODS.Joker{ -- Mori Calliope
     upgrade = function (self, card)
         card:juice_up()
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Guh!",colour = HEX('a1020b')})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Guh!",colour = HEX('a1020b'),instant=true})
     end,
     calculate = function(self, card, context)
         if context.using_consumeable then
@@ -76,7 +76,7 @@ SMODS.Joker{ -- Mori Calliope
                     card:juice_up()
                     if card.ability.extra.count_down <= 1 then
                         card.ability.extra.count_down = 4
-                        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Shin de kudasai!",colour = HEX('a1020b')})
+                        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Shin de kudasai!",colour = HEX('a1020b'),instant=true})
                         SMODS.add_card({ key = 'c_death', area = G.consumeables, edition = 'e_negative' })
                     else
                         card.ability.extra.count_down = card.ability.extra.count_down - 1
@@ -105,7 +105,7 @@ SMODS.Joker{ -- Mori Calliope
         elseif context.joker_main then
             card:juice_up()
             play_sound('multhit2')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Death!',colour=HEX('a1020b')})
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Death!',colour=HEX('a1020b'),instant=true})
             return {
                 Xmult = card.ability.extra.Xmult
             }
@@ -147,7 +147,7 @@ SMODS.Joker{ -- Takanashi Kiara
         card:juice_up()
         ease_dollars(card.ability.extra.dollars)
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Kikiriki!",colour = HEX('dc3907')})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Kikiriki!",colour = HEX('dc3907'),instant=true})
     end,
     calculate = function(self, card, context)
         if context.after and not context.blueprint then
@@ -171,7 +171,7 @@ SMODS.Joker{ -- Takanashi Kiara
             end
         elseif context.joker_main then
             play_sound('multhit2')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Phoenix!",colour = HEX('dc3907')})
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Phoenix!",colour = HEX('dc3907'),instant=true})
             return { Xmult = card.ability.extra.Xmult }
         end
     end
@@ -235,7 +235,7 @@ SMODS.Joker{ -- Ninomae Ina'nis
         card:juice_up()
         play_sound('hololive_Ina-Wah')
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Wah!",colour = HEX('3f3e69')})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Wah!",colour = HEX('3f3e69'),instant=true})
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
@@ -246,7 +246,7 @@ SMODS.Joker{ -- Ninomae Ina'nis
         elseif context.joker_main then
             card:juice_up()
             play_sound('hololive_Ina-Wah')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Wah!',colour=HEX('3f3e69')})
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Wah!',colour=HEX('3f3e69'),instant=true})
             return {
                 Xmult = card.ability.extra.Xmult
             }

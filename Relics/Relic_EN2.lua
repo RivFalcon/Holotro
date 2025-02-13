@@ -41,15 +41,13 @@ SMODS.Joker{ -- IRyS
 
     upgrade = function (self, card)
         card:juice_up()
-        play_sound('generic1')
         card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ascend!",colour = HEX('3c0024')})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ascend!",colour = HEX('3c0024'),instant=true})
     end,
     calculate = function(self, card, context)
         if context.using_consumeable then
             card:juice_up()
-            play_sound('generic1')
-            card_eval_status_text(card, 'dollars', nil, 1, nil, {message="Hope!",colour = HEX('3c0024')})
+            card_eval_status_text(card, 'dollars', nil, 1, nil, {message="Hope!",colour = HEX('3c0024'),instant=true})
             ease_dollars(card.ability.extra.dollars)
             if pseudorandom('IRyS') < G.GAME.probabilities.normal / card.ability.extra.odds and not context.blueprint then
                 self:upgrade(card)
@@ -108,16 +106,15 @@ SMODS.Joker{ -- Tsukumo Sana
 
     upgrade = function(self, card)
         card:juice_up()
-        play_sound('generic1')
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Expand!",colour = HEX('fede4a')})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Expand!",colour = HEX('fede4a'),instant=true})
     end,
     calculate = function(self, card, context)
         if context.using_consumeable then
             if context.consumeable.ability.set == 'Planet' and not context.blueprint then
                 self:upgrade(card)
             end
-        elseif context.before then
+        elseif context.before and context.cardarea == G.play then
             if pseudorandom('sanana') < G.GAME.probabilities.normal / card.ability.extra.odds then
                 -- Store the planet into the bag of planet.
                 local _planet = 'c_pluto'
@@ -138,9 +135,9 @@ SMODS.Joker{ -- Tsukumo Sana
         elseif context.joker_main then
             card:juice_up()
             play_sound('gong')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Space!',colour=HEX('fede4a')})
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Space!',colour=HEX('fede4a'),instant=true})
             return {
-                xmult = card.ability.extra.Xmult
+                Xmult = card.ability.extra.Xmult
             }
         end
         -- Release the planets from the bag until the consumable slot is full.
@@ -196,33 +193,30 @@ SMODS.Joker{ -- Ceres Fauna
 
     upgrade = function(self, card)
         card:juice_up()
-        play_sound('generic1')
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Grow!",colour = HEX('a4e5cf')})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Grow!",colour = HEX('a4e5cf'),instant=true})
     end,
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.scoring_hand then
-            if context.before then
-                local house_key = nil
-                local house_message = nil
-                if context.scoring_name == 'Full House' then
-                    house_key = 'c_earth'
-                    house_message = 'Earth!'
-                elseif context.scoring_name == 'Flush House' then
-                    house_key = 'c_ceres'
-                    house_message = 'Ceres!'
-                end
-                if house_key then
-                    card:juice_up()
-                    play_sound('whoosh')
-                    card_eval_status_text(card, 'jokers', nil, 1, nil, {message = house_message, colour=HEX('a4e5cf')})
-                    SMODS.add_card({ key = house_key, area = G.consumeables, edition = 'e_negative' })
-                end
+        if context.before and context.cardarea == G.play then
+            local house_key = nil
+            local house_message = nil
+            if context.scoring_name == 'Full House' then
+                house_key = 'c_earth'
+                house_message = 'Earth!'
+            elseif context.scoring_name == 'Flush House' then
+                house_key = 'c_ceres'
+                house_message = 'Ceres!'
+            end
+            if house_key then
+                card:juice_up()
+                play_sound('whoosh')
+                card_eval_status_text(card, 'jokers', nil, 1, nil, {message = house_message, colour=HEX('a4e5cf'),instant=true})
+                SMODS.add_card({ key = house_key, area = G.consumeables, edition = 'e_negative' })
             end
         elseif context.joker_main then
             card:juice_up()
             play_sound('gong')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Nature!',colour=HEX('a4e5cf')})
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Nature!',colour=HEX('a4e5cf'),instant=true})
             return {
                 Xmult = card.ability.extra.Xmult
             }
@@ -277,20 +271,25 @@ SMODS.Joker{ -- Ouro Kronii
     end,
     upgrade = function (self, card)
         card:juice_up()
-        play_sound('generic1')
+        if card.ability.extra.Xmult % card.ability.extra.Xmult then
+            card.ability.extra.Xmult = card.ability.extra.Xmult - (card.ability.extra.Xmult % card.ability.extra.Xmult_mod)
+        end
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        if card.ability.extra.Xmult % 3 == 1.5 then
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Tick!',colour=HEX('0869ec')})
-        elseif card.ability.extra.Xmult % 3 == 0 then
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Tock!',colour=HEX('0869ec')})
+        if (card.ability.extra.Xmult/card.ability.extra.Xmult_mod) % 2 then
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Tick!',colour=HEX('0869ec'),instant=true})
+        else
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Tock!',colour=HEX('0869ec'),instant=true})
         end
     end,
     calculate = function(self, card, context)
-        if ((context.individual and context.cardarea == G.play) or context.discard)then
+        if card.ability.extra.Xmult_mod ~= 1.5 then
+            card.ability.extra.Xmult_mod = 1.5
+        end
+        if ((context.individual and context.cardarea == G.play) or context.discard) and not context.blueprint then
             if not context.other_card.debuff and context.other_card:is_suit("Spades") then
                 card.ability.extra.count_down = card.ability.extra.count_down - 1
                 if card.ability.extra.count_down <= 0 then
-                    card.ability.extra.count_down = card.ability.extra.count_down + 12
+                    card.ability.extra.count_down = 12
                     card:juice_up()
                     SMODS.add_card({ key = 'c_world', area = G.consumeables, edition = 'e_negative' })
                 end
@@ -302,7 +301,7 @@ SMODS.Joker{ -- Ouro Kronii
         elseif context.joker_main then
             card:juice_up()
             play_sound('gong')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Time!',colour=HEX('0869ec')})
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Time!',colour=HEX('0869ec'),instant=true})
             return {
                 Xmult = card.ability.extra.Xmult
             }
@@ -346,9 +345,8 @@ SMODS.Joker{ -- Nanashi Mumei
 
     upgrade = function(self, card)
         card:juice_up()
-        play_sound('generic1')
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Develope!",colour = HEX('998274')})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Develope!",colour = HEX('998274'),instant=true})
     end,
     calculate = function(self, card, context)
         if context.remove_playing_cards and not context.blueprint then
@@ -369,7 +367,7 @@ SMODS.Joker{ -- Nanashi Mumei
         elseif context.joker_main then
             card:juice_up()
             play_sound('gong')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Civilization!',colour=HEX('998274')})
+            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Civilization!',colour=HEX('998274'),instant=true})
             return {
                 Xmult = card.ability.extra.Xmult
             }
@@ -409,9 +407,8 @@ SMODS.Joker{ -- Hakos Baelz
     end,
     roll = function(self, card)
         card:juice_up()
-        play_sound('timpani')
         card.ability.extra.Pmult = pseudorandom('Hakos Baelz', 1, 6)
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Roll!",colour = HEX('d2251e')})
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Roll!",colour = HEX('d2251e'),instant=true})
     end,
     upgrade = function (self, card)
     end,
