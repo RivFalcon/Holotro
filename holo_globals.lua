@@ -291,6 +291,17 @@ function Live:init_global_vars()
 
         -- 
     end
+    for gen_key, gen_data in pairs(self.Generations)do
+        if type(gen_data.C) == 'table' then
+            self.C[gen_key] = {back=G.C.WHITE,text=self.C.Hololive}
+            if gen_data.C.back then
+                self.C[gen_key].back = gen_data.C.back
+            end
+            if gen_data.C.text then
+                self.C[gen_key].text = gen_data.C.text
+            end
+        end
+    end
 
     self:inject_loc_colour()
 end
