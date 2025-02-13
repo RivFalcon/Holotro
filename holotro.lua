@@ -1,6 +1,7 @@
 ---------------------------------------
 ------------MOD CODE ------------------
 
+assert(SMODS.load_file("holo_globals.lua"))()
 
 SMODS.Atlas({
     key = "modicon",
