@@ -45,7 +45,7 @@ function Live:Relic_Joker(t)
         badges[#badges+1] = create_badge(_branch, G.C.WHITE, self.C[_branch], 1.2 )
         for _,gen_key in ipairs(self.Members[t.member].gen)do
             if self.C[gen_key] then
-                badges[#badges+1] = create_badge(localize('k_hololive_'..gen_key), G.C.WHITE, self.C[gen_key], 1.2 )
+                badges[#badges+1] = create_badge(localize('k_hololive_'..gen_key), self.C[gen_key].back, self.C[gen_key].text, 1.2 )
             else
                 badges[#badges+1] = create_badge(localize('k_hololive_'..gen_key), G.C.WHITE, self.C.Hololive , 1.2 )
             end
