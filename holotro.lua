@@ -1,14 +1,14 @@
 ---------------------------------------
 ------------MOD CODE ------------------
 
-assert(SMODS.load_file("holo_globals.lua"))()
-
 SMODS.Atlas({
     key = "modicon",
     path = "HoloIcon.png",
     px = 32,
     py = 32
 })
+
+assert(SMODS.load_file("holo_globals.lua"))()
 
 mod_dir = ''..SMODS.current_mod.path
 holo_config = SMODS.current_mod.config
