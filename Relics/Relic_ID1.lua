@@ -53,21 +53,21 @@ SMODS.Joker{ -- Ayunda Risu
                     card.ability.extra.clubbin = 2
                     return {
                         message = 'Clubbin\'',
-                        colour = HEX('EF8381'),
+                        colour = HEX('ef8381'),
                         card = context.other_card
                     }
                 elseif card.ability.extra.clubbin == 2 then
                     card.ability.extra.clubbin = 1
                     return {
                         message = 'Deez',
-                        colour = HEX('EF8381'),
+                        colour = HEX('ef8381'),
                         card = context.other_card
                     }
                 elseif card.ability.extra.clubbin == 1 then
                     card.ability.extra.clubbin = 3
                     return {
                         message = 'NUTS!',
-                        colour = HEX('EF8381'),
+                        colour = HEX('ef8381'),
                         card = context.other_card,
                         Xmult_mod = 15
                     }
@@ -88,28 +88,16 @@ SMODS.Joker{ -- Moona Hoshinova
             '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult){}'
         }
     },
-    config = { extra = { Xmult = 3, Xmult_mod = 1.5, count_down = 15, phase = "Full Moon" } },
+    config = { extra = { Xmult = 3, Xmult_mod = 1.5, count_down = 15, phase = "moon_full" } },
     unlock_condition = {type = '', extra = '', hidden = true},
-    add_to_deck = function(self, card, from_debuff)
-        card.ability.extra.Xmult = 3
-        card.ability.extra.Xmult_mod = 1.5
-        card.ability.extra.count_down = 15
-        card.ability.extra.phase = "Full Moon"
-    end,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_moon
-        local _phase
-        if card.ability.extra.phase == "Full Moon" then
-            _phase = "Full Moon"
-        elseif card.ability.extra.phase == "New Moon" then
-            _phase = "New Moon"
-        end
         return {
             vars = {
                 card.ability.extra.Xmult_mod,
                 card.ability.extra.Xmult,
                 card.ability.extra.count_down,
-                _phase
+                localize("k_hololive_"..card.ability.extra.phase)
             }
         }
     end,
@@ -121,37 +109,38 @@ SMODS.Joker{ -- Moona Hoshinova
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1 , y = 1 },
 
+    add_to_deck = function(self, card, from_debuff)
+        card.ability.extra.Xmult = 3
+        card.ability.extra.Xmult_mod = 1.5
+        card.ability.extra.count_down = 15
+        card.ability.extra.phase = "moon_full"
+    end,
     upgrade = function(self, card)
-        card:juice_up(0.5, 0.5)
+        card:juice_up()
+        card_eval_status_text(card, 'jokers', nil, 1, nil, {
+            message=localize("k_hololive_"..card.ability.extra.phase),colour = HEX('cbb3ff'),instant=true
+        })
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        if card.ability.extra.phase == "Full Moon" then
+        if card.ability.extra.phase == "moon_full" then
             SMODS.add_card({ key = 'c_moon', area = G.consumeables })
-            card.ability.extra.phase = "New Moon"
-            return {
-                message = "Full Moon!",
-                colour = G.C.PURPLE,
-                card = card
-            }
-        elseif card.ability.extra.phase == "New Moon" then
+            card.ability.extra.phase = "moon_new"
+        elseif card.ability.extra.phase == "moon_new" then
             SMODS.add_card({ key = 'c_moon', area = G.consumeables , edition = 'e_negative' })
-            card.ability.extra.phase = "Full Moon"
-            return {
-                message = "New Moon!",
-                colour = G.C.PURPLE,
-                card = card
-            }
+            card.ability.extra.phase = "moon_full"
         end
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.blueprint then
             if not context.other_card.debuff and context.other_card:is_suit("Clubs") then
-                card.ability.extra.count_down = card.ability.extra.count_down - 1
-                if card.ability.extra.count_down <= 0 then
-                    card.ability.extra.count_down = card.ability.extra.count_down + 15
+                if card.ability.extra.count_down <= 1 then
+                    card.ability.extra.count_down = 15
                     self:upgrade(card)
+                else
+                    card.ability.extra.count_down = card.ability.extra.count_down - 1
                 end
             end
         elseif context.joker_main then
+            card:juice_up()
             return {
                 Xmult_mod = card.ability.extra.Xmult
             }
@@ -209,11 +198,14 @@ SMODS.Joker{ -- Airani Iofifteen
                 context.full_hand[i]:change_suit("Clubs")
                 context.full_hand[i]:juice_up()
             end
+            card:juice_up()
             return {
                 message = "Painted!",
-                card = card
+                card = card,
+                colour = HEX('bef167')
             }
         elseif context.joker_main then
+            card:juice_up()
             return {
                 Xmult = card.ability.extra.Xmult
             }

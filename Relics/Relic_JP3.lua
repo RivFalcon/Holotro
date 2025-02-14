@@ -57,16 +57,15 @@ SMODS.Joker{ -- Usada Pekora
     end,
     upgrade = function (self, card)
     end,
-    calc_dollar_bonus = function(self)
-        if G.GAME.dollars >= self.ability.extra.fee then
-            ease_dollars(-self.ability.extra.fee)
-            if pseudorandom('marine') < G.GAME.probabilities.normal / self:get_odds() then
-                self:juice_up()
-                card_eval_status_text(self, 'jokers', nil, 1, nil, {message='JACKPOT!',colour=HEX('7dc4fc')})
-                return card.ability.extra.prize
-            else
-                card_eval_status_text(self, 'jokers', nil, 1, nil, {message='Aww dang it!',colour=HEX('7dc4fc')})
-                return 0
+    calculate = function(self, card, context)
+        if context.end_of_round and not context.game_over then
+            if G.GAME.dollars >= card.ability.extra.fee then
+                ease_dollars(-self.ability.extra.fee)
+                if pseudorandom('pekora') < G.GAME.probabilities.normal / self:get_odds(card) then
+                    self:juice_up()
+                    card_eval_status_text(self, 'dollars', nil, 1, nil, {message='JACKPOT!',colour=HEX('7dc4fc')})
+                    ease_dollars(card.ability.extra.prize)
+                end
             end
         end
     end

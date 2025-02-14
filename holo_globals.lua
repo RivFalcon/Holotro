@@ -136,7 +136,7 @@ function Live:init_global_vars()
                 'Iroha'
             },
         },
-        gen_h3ro={
+        gen_holoh3ro={
             order = 13, branch = 'ID', codename =     'H3ro', name = 'HoloH3ro',
             members = {
                 'Zeta',
@@ -198,6 +198,47 @@ function Live:init_global_vars()
         end
     end
 
+    self.Units = {
+        unit_holocanine = {
+            members = {
+                'Fubuki',
+                'Mio',
+                'Korone',
+                'Polka',
+                'Koyori',
+                'Fuwawa',
+                'Mococo',
+            }
+        },
+        unit_holotori = {
+            members = {
+                'Kiara',
+                'Subaru',
+                'Reine',
+                'Mumei',
+                'Lui'
+            }
+        },
+        unit_shiraken = {
+            members = {
+                'Flare',
+                'Polka',
+                'Miko',
+                'Suisei',
+                'Noel'
+            }
+        },
+        unit_umisea = {
+            members = {
+                'Marine',
+                'Aqua',
+                'Ina',
+                'Gura',
+                'Chloe'
+            }
+        },
+    }
+
     self.Members = {
 
         Sora     = {order =  1, },
@@ -229,9 +270,9 @@ function Live:init_global_vars()
         Watame   = {order = 26, },
         Towa     = {order = 27, },
         Luna     = {order = 28, },
-        Risu     = {order = 29, C = HEX('EF8381'), },
-        Moona    = {order = 30, },
-        Iofi     = {order = 31, },
+        Risu     = {order = 29, C = HEX('ef8381'), },
+        Moona    = {order = 30, C = HEX('cbb3ff'), },
+        Iofi     = {order = 31, C = HEX('bef167'), },
         Lamy     = {order = 32, },
         Nene     = {order = 33, },
         Botan    = {order = 34, },
