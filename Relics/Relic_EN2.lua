@@ -126,7 +126,7 @@ SMODS.Joker{ -- Tsukumo Sana
                 end
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     SMODS.add_card({ key = _planet, area = G.consumeables})
-                else
+                elseif not context.blueprint then
                     card.ability.extra.bag_of_planets[#card.ability.extra.bag_of_planets+1] = _planet
                 end
                 card:juice_up()
@@ -209,18 +209,16 @@ SMODS.Joker{ -- Ceres Fauna
             end
             if house_key then
                 card:juice_up()
-                play_sound('whoosh')
                 card_eval_status_text(card, 'jokers', nil, 1, nil, {message = house_message, colour=HEX('a4e5cf'),instant=true})
                 SMODS.add_card({ key = house_key, area = G.consumeables, edition = 'e_negative' })
             end
         elseif context.joker_main then
             card:juice_up()
-            play_sound('gong')
             card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Nature!',colour=HEX('a4e5cf'),instant=true})
             return {
                 Xmult = card.ability.extra.Xmult
             }
-        elseif context.level_up_hand == 'Full House' or context.level_up_hand == 'Flush House' then
+        elseif (context.level_up_hand == 'Full House' or context.level_up_hand == 'Flush House') and not context.blueprint then
             if context.level_up_amount > 0 then
                 for i=1,context.level_up_amount do
                     self:upgrade(card)

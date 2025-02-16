@@ -56,14 +56,14 @@ function Live:Relic_Joker(t)
 end
 
 relic_files = {
-    "Relics/Relic_JP3.lua",
-    "Relics/Relic_ID1.lua",
-    "Relics/Relic_EN1.lua",
-    "Relics/Relic_EN2.lua",
-    "Relics/Relic_EN3.lua",
-    "Relics/Relic_EN4.lua"
+    "JP3",
+    "ID1",
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4",
 }
-for _,file in ipairs(relic_files) do assert(SMODS.load_file(file))()end
+for _,file in ipairs(relic_files) do assert(SMODS.load_file("Relics/Relic_"..file..".lua"))()end
 
 
 

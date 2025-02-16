@@ -104,7 +104,6 @@ SMODS.Joker{ -- Mori Calliope
             end
         elseif context.joker_main then
             card:juice_up()
-            play_sound('multhit2')
             card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Death!',colour=HEX('a1020b'),instant=true})
             return {
                 Xmult = card.ability.extra.Xmult
@@ -170,7 +169,7 @@ SMODS.Joker{ -- Takanashi Kiara
                 self:upgrade(card)
             end
         elseif context.joker_main then
-            play_sound('multhit2')
+            card:juice_up()
             card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Phoenix!",colour = HEX('dc3907'),instant=true})
             return { Xmult = card.ability.extra.Xmult }
         end
@@ -221,16 +220,6 @@ SMODS.Joker{ -- Ninomae Ina'nis
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
 
-    update = function (self, card, dt)
-        -- Release the Spectrals until the consumable slot is full.
-        if #card.ability.extra.tome_of_spectrals > 0 then
-            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                local _spectral = table.remove(card.ability.extra.tome_of_spectrals,1)
-                SMODS.add_card({ key = _spectral, area = G.consumeables})
-                self:upgrade(card)
-            end
-        end
-    end,
     upgrade = function (self, card)
         card:juice_up()
         play_sound('hololive_Ina-Wah')
@@ -250,6 +239,21 @@ SMODS.Joker{ -- Ninomae Ina'nis
             return {
                 Xmult = card.ability.extra.Xmult
             }
+        end
+        -- Release the Spectrals until the consumable slot is full.
+        if #card.ability.extra.tome_of_spectrals > 0 then
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    func = function ()
+                        local _spectral = table.remove(card.ability.extra.tome_of_spectrals,1)
+                        SMODS.add_card({ key = _spectral, area = G.consumeables})
+                        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+                        return true
+                    end
+                }))
+                self:upgrade(card)
+            end
         end
     end
 }

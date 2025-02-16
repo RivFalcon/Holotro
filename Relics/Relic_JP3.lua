@@ -96,7 +96,7 @@ SMODS.Joker{ -- Uruha Rushia
     end,
     rarity = "hololive_Relic",
     cost = 20,
-    blueprint_compat = true,
+    blueprint_compat = false,
 
     atlas = 'Relic_Fantasy',
     pos = { x = 1, y = 0 },
@@ -176,7 +176,7 @@ SMODS.Joker{ -- Shiranui Flare
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
     end,
     calculate = function(self, card, context)
-        if context.before then
+        if context.before and not context.blueprint then
             if next(context.poker_hands['Two Pair']) then
                 for k,v in ipairs(context.scoring_hand) do
                     v:set_ability(G.P_CENTERS.m_gold, nil, true)
@@ -187,6 +187,11 @@ SMODS.Joker{ -- Shiranui Flare
                     end
                 end
             end
+        elseif context.joker_main then
+            card:juice_up()
+            return {
+                Xmult = card.ability.extra.Xmult
+            }
         end
     end
 }
@@ -223,9 +228,9 @@ SMODS.Joker{ -- Shirogane Noel
     upgrade = function (self, card)
     end,
     calculate = function(self, card, context)
-        if context.before then
+        if context.before and not context.blueprint then
+            card.ability.extra.retriggers = 0
             if next(context.poker_hands['Two Pair']) then
-                card.ability.extra.retriggers = 0
                 for k,v in ipairs(context.scoring_hand) do
                     if v:get_id() == 13 then
                         card.ability.extra.retriggers = card.ability.extra.retriggers + 1
@@ -243,8 +248,6 @@ SMODS.Joker{ -- Shirogane Noel
                     }
                 end
             end
-        elseif context.end_of_round then
-            card.ability.extra.retriggers = 0
         end
     end
 }

@@ -30,7 +30,7 @@ SMODS.Joker{ -- Ayunda Risu
     end,
     rarity = "hololive_Relic",
     cost = 20,
-    blueprint_compat = true,
+    blueprint_compat = false,
 
     atlas = 'Relic_Area15',
     pos = { x = 0, y = 0 },
@@ -186,7 +186,7 @@ SMODS.Joker{ -- Airani Iofifteen
         }
     end,
     calculate = function(self, card, context)
-        if context.before then
+        if context.before and not context.blueprint then
             for i=1, #context.full_hand do
                 if card.full_hand[i]:is_suit("Clubs") and not context.blueprint then
                     card.ability.extra.count_down = card.ability.extra.count_down - 1

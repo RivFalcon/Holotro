@@ -13,9 +13,7 @@ assert(SMODS.load_file("holo_globals.lua"))()
 mod_dir = ''..SMODS.current_mod.path
 holo_config = SMODS.current_mod.config
 
-local mfiles = NFS.getDirectoryItems(mod_dir.."Memes")
-for _, file in ipairs(mfiles) do assert(SMODS.load_file("Memes/"..file))()end
-
+assert(SMODS.load_file("Memes/Meme_Loader.lua"))()
 assert(SMODS.load_file("Relics/Relic_Loader.lua"))()
 
 local ffiles = NFS.getDirectoryItems(mod_dir.."Miscellaneous")
