@@ -229,7 +229,7 @@ SMODS.Joker{ -- Ninomae Ina'nis
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.other_card.seal == 'Purple' then
-                local _spectral = pseudorandom_element('ina',G.P_CENTER_POOLS.Spectral)
+                local _spectral = pseudorandom_element(G.P_CENTER_POOLS.Spectral,pseudoseed('ina'))
                 card.ability.extra.tome_of_spectrals[#card.ability.extra.tome_of_spectrals+1] = _spectral.key
             end
         elseif context.joker_main then

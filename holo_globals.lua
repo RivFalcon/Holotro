@@ -198,6 +198,29 @@ function Live:init_global_vars()
         end
     end
 
+    self.gen_order = {
+        'JP0',
+        'JP1',
+        'JP2',
+        'JPG',
+
+        'JP3',
+        'JP4',
+        'ID1',
+        'JP5',
+
+        'EN1',
+        'ID2',
+        'EN2',
+        'JPX',
+        'ID3',
+
+        'EN3',
+        'DI1',
+        'EN4',
+        'DI2',
+    }
+
     self.Units = {
         unit_holocanine = {
             members = {
@@ -226,6 +249,13 @@ function Live:init_global_vars()
                 'Miko',
                 'Suisei',
                 'Noel'
+            }
+        },
+        unit_startend = {
+            members = {
+                'Suisei',
+                'Towa',
+                'Aqua'
             }
         },
         unit_umisea = {
@@ -299,7 +329,7 @@ function Live:init_global_vars()
         Chloe    = {order = 54, },
         Iroha    = {order = 55, },
         Zeta     = {order = 56, },
-        Kaela    = {order = 57, },
+        Kaela    = {order = 57, C = HEX('dc2528'), },
         Kobo     = {order = 58, },
 
         Shiori   = {order = 59, C = HEX('373741'), },

@@ -237,7 +237,7 @@ SMODS.Joker{ -- Shirogane Noel
                     end
                 end
             end
-        elseif context.after and context.cardarea == G.hand and context.repetition then
+        elseif context.repetition and context.cardarea == G.hand then
             if next(context.poker_hands['Two Pair']) then
                 if SMODS.has_enhancement(context.other_card, "m_gold") or SMODS.has_enhancement(context.other_card, "m_steel") then
                     return {
@@ -293,7 +293,7 @@ SMODS.Joker{ -- Houshou Marine
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ahoy!",colour = HEX('923749')})
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and not context.repetition and not context.blueprint then
+        if context.individual and context.cardarea == G.play and not context.blueprint then
             if SMODS.has_enhancement(context.other_card, "m_gold") then
                 card.ability.extra.count_down = card.ability.extra.count_down - 1
                 if card.ability.extra.count_down <= 0 then

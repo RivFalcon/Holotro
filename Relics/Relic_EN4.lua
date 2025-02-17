@@ -225,7 +225,7 @@ SMODS.Joker{ -- Raora Panthera
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX('f086aa')})
     end,
     calculate = function(self, card, context)
-        if context.individual and not context.repetition then
+        if context.individual and context.cardarea == G.play then
             if SMODS.has_enhancement(context.other_card, "m_glass") then
                 context.other_card.ability.x_mult = context.other_card.ability.x_mult + card.ability.extra.Xmult_mod_card
                 self:upgrade(card)
