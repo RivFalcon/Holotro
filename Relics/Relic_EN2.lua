@@ -357,7 +357,7 @@ SMODS.Joker{ -- Nanashi Mumei
                     play_sound('slice1')
                     context.other_card:juice_up()
                     context.other_card:start_dissolve(nil, true)
-                    for _,J in ipairs(G.jokres.cards) do
+                    for _,J in ipairs(G.jokers.cards) do
                         eval_card(J, {cardarea = G.jokers, remove_playing_cards = true, removed = {context.other_card,}})
                     end
                 end
