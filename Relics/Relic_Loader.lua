@@ -18,10 +18,6 @@ SMODS.Atlas{
     py = 95
 }
 
-local RJ_blocklist = {
-    'gen_order',
-}
-
 function Live:Relic_Joker(t)
     _t = {
         key = 'Relic_'..t.member,
@@ -35,9 +31,7 @@ function Live:Relic_Joker(t)
         soul_pos = { x = t.gen_order or 0, y = 1 },
     }
     for k,v in pairs(t)do
-        local skip = false
-        for _,_k in ipairs(RJ_blocklist)do if k==_k then skip=true;break end end
-        if not skip then _t[k]=v end
+        _t[k]=v
     end
 
     _t.set_badges = function(_self, card, badges)
