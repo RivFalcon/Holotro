@@ -282,6 +282,11 @@ Holo.Relic_Joker{ -- Oozora Subaru
     atlas = 'Relic_Exodia',
     gen_order = 4,
 
+    remove_from_deck = function(self, card, from_debuff)
+        for k,v in ipairs(G.playing_cards)do
+            v:remove_sticker('hololive_handcuff')
+        end
+    end,
     upgrade = function(self, card)
         card:juice_up()
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
