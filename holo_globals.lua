@@ -375,6 +375,16 @@ function Live:init_global_vars()
     end
 
     self:inject_loc_colour()
+
+    self.H_Pool = {
+        Fans = {},
+        Mascots = {},
+        Memes = {},
+        Songs = {},
+        Relics = {},
+        Collabs = {},
+        Others = {}
+    }
 end
 
 function Live:get_members(_set)

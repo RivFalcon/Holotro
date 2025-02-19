@@ -6,9 +6,9 @@ SMODS.Atlas{
     py = 95
 }
 
-SMODS.Joker{ -- IRyS
-    key = "Relic_IRyS",
+Holo.Relic_Joker{ -- IRyS
     member = "IRyS",
+    key = "Relic_IRyS",
     loc_txt = {
         name = "Sparklings of the Nephilim",
         text = {
@@ -31,9 +31,6 @@ SMODS.Joker{ -- IRyS
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Promise',
     pos = { x = 0, y = 0 },
@@ -64,9 +61,9 @@ function level_up_hand(card, hand, instant, amount)
     end
 end
 
-SMODS.Joker{ -- Tsukumo Sana
-    key = "Relic_Sana",
+Holo.Relic_Joker{ -- Tsukumo Sana
     member = "Sana",
+    key = "Relic_Sana",
     loc_txt = {
         name = "Size Limiter of the Astrogirl",
         text = {
@@ -96,9 +93,6 @@ SMODS.Joker{ -- Tsukumo Sana
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Promise',
     pos = { x = 1, y = 0 },
@@ -157,9 +151,9 @@ SMODS.Joker{ -- Tsukumo Sana
     end
 }
 
-SMODS.Joker{ -- Ceres Fauna
-    key = "Relic_Fauna",
+Holo.Relic_Joker{ -- Ceres Fauna
     member = "Fauna",
+    key = "Relic_Fauna",
     loc_txt = {
         name = "Golden Fruit of the Mother Nature",
         text = {
@@ -183,9 +177,6 @@ SMODS.Joker{ -- Ceres Fauna
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Promise',
     pos = { x = 2, y = 0 },
@@ -228,9 +219,9 @@ SMODS.Joker{ -- Ceres Fauna
     end
 }
 
-SMODS.Joker{ -- Ouro Kronii
-    key = "Relic_Kronii",
+Holo.Relic_Joker{ -- Ouro Kronii
     member = "Kronii",
+    key = "Relic_Kronii",
     loc_txt = {
         name = "Clock Hands of the Time Warden",
         text = {
@@ -254,9 +245,6 @@ SMODS.Joker{ -- Ouro Kronii
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Promise',
     pos = { x = 3, y = 0 },
@@ -307,9 +295,9 @@ SMODS.Joker{ -- Ouro Kronii
     end
 }
 
-SMODS.Joker{ -- Nanashi Mumei
-    key = "Relic_Mumei",
+Holo.Relic_Joker{ -- Nanashi Mumei
     member = "Mumei",
+    key = "Relic_Mumei",
     loc_txt = {
         name = "Dagger of the Guardian Owl",
         text = {
@@ -333,9 +321,6 @@ SMODS.Joker{ -- Nanashi Mumei
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Promise',
     pos = { x = 4, y = 0 },
@@ -373,9 +358,9 @@ SMODS.Joker{ -- Nanashi Mumei
     end
 }
 
-SMODS.Joker{ -- Hakos Baelz
-    key = "Relic_Bae",
+Holo.Relic_Joker{ -- Hakos Baelz
     member = "Bae",
+    key = "Relic_Bae",
     loc_txt = {
         name = "Rolling Dice of the Scarlet Rat",
         text = {
@@ -389,8 +374,6 @@ SMODS.Joker{ -- Hakos Baelz
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Pmult } }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
     blueprint_compat = false,
 
     atlas = 'Relic_Promise',

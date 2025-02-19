@@ -8,6 +8,7 @@ SMODS.Atlas{
 
 Holo.Relic_Joker{ -- Minato Aqua
     member = "Aqua",
+    key = "Relic_Aqua",
     loc_txt = {
         name = "Cleaning Kits of the House Maid",
         text = {
@@ -15,7 +16,11 @@ Holo.Relic_Joker{ -- Minato Aqua
             'it gives {X:mult,C:white}X#1#{} mult when scored.',
             'Otherwise, lose {C:chips}#2#{} chips',
             'per played card {C:attention}more than one',
-            'due to {C:attention}social awkwardness{}.'
+            'due to {C:inactive}social awkwardness{}.'
+        }
+        ,boxes={2,3}
+        ,unlock={
+            "{E:1,s:1.3}?????",
         }
     },
     config = { extra = { Xmult = 44.5, chip_mod = 10 } },
@@ -29,7 +34,8 @@ Holo.Relic_Joker{ -- Minato Aqua
     end,
 
     atlas = 'Relic_Exodia',
-    gen_order = 0,
+    pos = { x = 0, y = 0 },
+    soul_pos = { x = 0, y = 1 },
 
     upgrade = function(self, card)
     end,
@@ -50,14 +56,19 @@ Holo.Relic_Joker{ -- Minato Aqua
 
 Holo.Relic_Joker{ -- Murasaki Shion
     member = "Shion",
+    key = "Relic_Shion",
     loc_txt = {
         name = "Eye of the Magician",
         text = {
-            '{C:attention}Lucky Aces {C:green}guarantee{} to give {C:mult}+#3#{} mult and',
-            'have {C:green}#4# in #5#{} chance to win {C:money}$#6#{} instead',
-            'when scored.',
+            '{C:attention}Lucky Aces {C:green}guarantee{} to give {C:mult}+#3#{} mult',
+            'and have {C:green}#4# in #5#{} chance to win {C:money}$#6#',
+            'instead when scored.',
             'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Magician{} card used.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)',
+        }
+        ,boxes={3,2}
+        ,unlock={
+            "{E:1,s:1.3}?????",
         }
     },
     config = { extra = { Xmult = 2, Xmult_mod = 0.25, new_mult_odds = 1, new_p_dollars_odds = 3} },
@@ -76,13 +87,22 @@ Holo.Relic_Joker{ -- Murasaki Shion
     end,
 
     atlas = 'Relic_Exodia',
-    gen_order = 1,
+    pos = { x = 1, y = 0 },
+    soul_pos = { x = 1, y = 1 },
 
     add_to_deck = function(self, card, from_debuff)
         for k,v in pairs(G.playing_cards)do
             if SMODS.has_enhancement(v,'m_lucky') and v:get_id()==14 then
                 v.ability.config.mult_odds = card.ability.extra.mult_odds
                 v.ability.config.p_dollars_odds = card.ability.extra.p_dollars_odds
+            end
+        end
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        for k,v in pairs(G.playing_cards)do
+            if SMODS.has_enhancement(v,'m_lucky') then
+                v.ability.config.mult_odds = 5
+                v.ability.config.p_dollars_odds = 15
             end
         end
     end,
@@ -116,6 +136,7 @@ Holo.Relic_Joker{ -- Murasaki Shion
 
 Holo.Relic_Joker{ -- Nagiri Ayame
     member = "Ayame",
+    key = "Relic_Ayame",
     loc_txt = {
         name = "Mask of the Oni",
         text = {
@@ -123,6 +144,10 @@ Holo.Relic_Joker{ -- Nagiri Ayame
             'retrigger each scored card {C:attention}#1#{} times.',
             '+1 retrigger every {C:attention}7 Aces',
             'in your {C:attention}full deck{}.'
+        }
+        ,boxes={2,2}
+        ,unlock={
+            "{E:1,s:1.3}?????",
         }
     },
     config = { extra = { retriggers = 7 } },
@@ -135,12 +160,14 @@ Holo.Relic_Joker{ -- Nagiri Ayame
     end,
     get_retriggers = function(self, card)
         local _retrigger = card.ability.extra.retriggers
-        local _tally = 0
-        for k,v in pairs(G.playing_cards)do
-            if v:get_id()==14 then
-                _tally = _tally + 1
-                if tally%7==0 then
-                    _retrigger = _retrigger + 1
+        if G.playing_cards then
+            local _tally = 0
+            for k,v in pairs(G.playing_cards)do
+                if v:get_id()==14 then
+                    _tally = _tally + 1
+                    if tally%7==0 then
+                        _retrigger = _retrigger + 1
+                    end
                 end
             end
         end
@@ -148,7 +175,8 @@ Holo.Relic_Joker{ -- Nagiri Ayame
     end,
 
     atlas = 'Relic_Exodia',
-    gen_order = 2,
+    pos = { x = 2, y = 0 },
+    soul_pos = { x = 2, y = 1 },
 
     upgrade = function(self, card)
     end,
@@ -168,6 +196,7 @@ Holo.Relic_Joker{ -- Nagiri Ayame
 
 Holo.Relic_Joker{ -- Yuzuki Choco
     member = "Choco",
+    key = "Relic_Choco",
     loc_txt = {
         name = "Syringe of the Demon Nurse",
         text = {
@@ -177,6 +206,10 @@ Holo.Relic_Joker{ -- Yuzuki Choco
             'othrerwise each injected card has',
             '{C:green}#3# in #4#{} chance to increase its {C:attention}rank{}.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+        }
+        ,boxes={2,4}
+        ,unlock={
+            "{E:1,s:1.3}?????",
         }
     },
     config = { extra = { Xmult = 2, Xmult_mod = 0.2, odds = 2 } },
@@ -192,7 +225,8 @@ Holo.Relic_Joker{ -- Yuzuki Choco
     end,
 
     atlas = 'Relic_Exodia',
-    gen_order = 3,
+    pos = { x = 3, y = 0 },
+    soul_pos = { x = 3, y = 1 },
 
     upgrade = function(self, card)
         card:juice_up()
@@ -248,7 +282,8 @@ SMODS.Sticker{ -- Oozora Subaru
             card.ability.arrested,
         }
     end,
-    atlas='hololive_Sticker_Handcuff',pos={0,0},
+    atlas='hololive_Sticker_Handcuff',
+    pos={x=0,y=0},
     hide_badge=true,
     default_compat=true,
     sets={
@@ -259,6 +294,7 @@ SMODS.Sticker{ -- Oozora Subaru
 
 Holo.Relic_Joker{ -- Oozora Subaru
     member = "Subaru",
+    key = "Relic_Subaru",
     loc_txt = {
         name = "Whistle of the Duck Officer",
         text = {
@@ -268,6 +304,9 @@ Holo.Relic_Joker{ -- Oozora Subaru
             'in current played hand. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
         ,boxes={2,2}
+        ,unlock={
+            "{E:1,s:1.3}?????",
+        }
     },
     config = { extra = { Xmult=2, Xmult_mod=0.5 } },
     loc_vars = function(self, info_queue, card)
@@ -280,7 +319,8 @@ Holo.Relic_Joker{ -- Oozora Subaru
     end,
 
     atlas = 'Relic_Exodia',
-    gen_order = 4,
+    pos = { x = 4, y = 0 },
+    soul_pos = { x = 4, y = 1 },
 
     remove_from_deck = function(self, card, from_debuff)
         for k,v in ipairs(G.playing_cards)do

@@ -6,9 +6,9 @@ SMODS.Atlas{
     py = 95
 }
 
-SMODS.Joker{ -- Mori Calliope
-    key = "Relic_Calli",
+Holo.Relic_Joker{ -- Mori Calliope
     member = "Calli",
+    key = "Relic_Calli",
     loc_txt = {
         name = "Scythe of the Death Apprentice",
         text = {
@@ -34,9 +34,6 @@ SMODS.Joker{ -- Mori Calliope
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Myth',
     pos = { x = 0, y = 0 },
@@ -112,9 +109,9 @@ SMODS.Joker{ -- Mori Calliope
     end
 }
 
-SMODS.Joker{ -- Takanashi Kiara
-    key = "Relic_Kiara",
+Holo.Relic_Joker{ -- Takanashi Kiara
     member = "Kiara",
+    key = "Relic_Kiara",
     loc_txt = {
         name = "Flaming Sword of the Phoenix",
         text = {
@@ -134,9 +131,6 @@ SMODS.Joker{ -- Takanashi Kiara
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Myth',
     pos = { x = 1, y = 0 },
@@ -182,9 +176,9 @@ SMODS.Sound{
     -- source: https://www.myinstants.com/en/instant/wah-eco-ninomae-inanis-8589/
 }
 
-SMODS.Joker{ -- Ninomae Ina'nis
-    key = "Relic_Ina",
+Holo.Relic_Joker{ -- Ninomae Ina'nis
     member = "Ina",
+    key = "Relic_Ina",
     loc_txt = {
         name = "Ancient Tome of the Eldritch Priestess",
         text = {
@@ -212,9 +206,6 @@ SMODS.Joker{ -- Ninomae Ina'nis
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Myth',
     pos = { x = 2, y = 0 },
@@ -264,9 +255,9 @@ SMODS.Sound{
     -- source: https://www.myinstants.com/en/instant/gawr-gura-a-66933/
 }
 
-SMODS.Joker{ -- Gawr Gura
-    key = "Relic_Gura",
+Holo.Relic_Joker{ -- Gawr Gura
     member = "Gura",
+    key = "Relic_Gura",
     loc_txt = {
         name = "Trident of the Atlantic Shark",
         text = {
@@ -290,9 +281,6 @@ SMODS.Joker{ -- Gawr Gura
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Myth',
     pos = { x = 3, y = 0 },
@@ -365,9 +353,9 @@ SMODS.Joker{ -- Gawr Gura
     end
 }
 
-SMODS.Joker{ -- Watson Amelia
-    key = "Relic_Ame",
+Holo.Relic_Joker{ -- Watson Amelia
     member = "Ame",
+    key = "Relic_Ame",
     loc_txt = {
         name = "Magnifying Glass of the Detective",
         text = {
@@ -388,9 +376,6 @@ SMODS.Joker{ -- Watson Amelia
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Myth',
     pos = { x = 4, y = 0 },

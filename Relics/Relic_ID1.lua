@@ -6,9 +6,9 @@ SMODS.Atlas{
     py = 95
 }
 
-SMODS.Joker{ -- Ayunda Risu
-    key = "Relic_Risu",
+Holo.Relic_Joker{ -- Ayunda Risu
     member = "Risu",
+    key = "Relic_Risu",
     loc_txt = {
         name = "\"Deez Nuts\" of the Squirrel",
         text = {
@@ -28,8 +28,6 @@ SMODS.Joker{ -- Ayunda Risu
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
     blueprint_compat = false,
 
     atlas = 'Relic_Area15',
@@ -77,9 +75,9 @@ SMODS.Joker{ -- Ayunda Risu
     end
 }
 
-SMODS.Joker{ -- Moona Hoshinova
-    key = "Relic_Moona",
+Holo.Relic_Joker{ -- Moona Hoshinova
     member = "Moona",
+    key = "Relic_Moona",
     loc_txt = {
         name = "Phases of the Lunar Diva",
         text = {
@@ -101,9 +99,6 @@ SMODS.Joker{ -- Moona Hoshinova
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Area15',
     pos = { x = 1, y = 0 },
@@ -148,9 +143,9 @@ SMODS.Joker{ -- Moona Hoshinova
     end
 }
 
-SMODS.Joker{ -- Airani Iofifteen
-    key = "Relic_Iofi",
+Holo.Relic_Joker{ -- Airani Iofifteen
     member = "Iofi",
+    key = "Relic_Iofi",
     loc_txt = {
         name = "Paintbrush of the Alien Artist",
         text = {
@@ -169,9 +164,6 @@ SMODS.Joker{ -- Airani Iofifteen
             card.ability.extra.count_down,
         }}
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Area15',
     pos = { x = 2, y = 0 },

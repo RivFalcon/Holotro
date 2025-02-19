@@ -6,9 +6,9 @@ SMODS.Atlas{
     py = 95
 }
 
-SMODS.Joker{ -- Elizabeth Rose Bloodflame
-    key = "Relic_Elizabeth",
+Holo.Relic_Joker{ -- Elizabeth Rose Bloodflame
     member = "Elizabeth",
+    key = "Relic_Elizabeth",
     loc_txt = {
         name = "Great Sword of the Scarlet Queen",
         --name = "Thorn the Great Sword of the Scarlet Queen",
@@ -32,9 +32,6 @@ SMODS.Joker{ -- Elizabeth Rose Bloodflame
         info_queue[#info_queue+1] = G.P_CENTERS.c_justice
         return { vars = { card.ability.extra.Xmult, card.ability.extra.Xmult_mod} }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Justice',
     pos = { x = 0, y = 0 },
@@ -62,9 +59,9 @@ SMODS.Joker{ -- Elizabeth Rose Bloodflame
     end
 }
 
-SMODS.Joker{ -- Gigi Murin
-    key = "Relic_Gigi",
+Holo.Relic_Joker{ -- Gigi Murin
     member = "Gigi",
+    key = "Relic_Gigi",
     loc_txt = {
         name = "Gauntlet of Da Fister",
         text = {
@@ -83,9 +80,6 @@ SMODS.Joker{ -- Gigi Murin
         info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return { vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult} }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Justice',
     pos = { x = 1, y = 0 },
@@ -97,33 +91,31 @@ SMODS.Joker{ -- Gigi Murin
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX('feb543')})
     end,
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers then
-            if context.before and context.scoring_hand then
-                for i = 1, #context.scoring_hand do
-                    if SMODS.has_enhancement(context.scoring_hand[i], "m_glass") and not context.blueprint then
-                        self:upgrade(card)
-                    else
-                        context.scoring_hand[i]:set_ability(G.P_CENTERS.m_glass, nil, true)
-                    end
-                    return {
-                        message = "Fisted!",
-                        colour = G.C.GREY,
-                        card = context.other_card
-                    }
+        if context.before then
+            for i = 1, #context.scoring_hand do
+                if SMODS.has_enhancement(context.scoring_hand[i], "m_glass") and not context.blueprint then
+                    self:upgrade(card)
+                else
+                    context.scoring_hand[i]:set_ability(G.P_CENTERS.m_glass, nil, true)
                 end
-            elseif context.joker_main then
-                card:juice_up()
                 return {
-                    Xmult = card.ability.extra.Xmult
+                    message = "Fisted!",
+                    colour = G.C.GREY,
+                    card = context.other_card
                 }
             end
+        elseif context.joker_main then
+            card:juice_up()
+            return {
+                Xmult = card.ability.extra.Xmult
+            }
         end
     end
 }
 
-SMODS.Joker{ -- Cecilia Immergreen
-    key = "Relic_Ceci",
+Holo.Relic_Joker{ -- Cecilia Immergreen
     member = "Ceci",
+    key = "Relic_Ceci",
     loc_txt = {
         name = "Violance of the Automaton",
         text = {
@@ -140,9 +132,6 @@ SMODS.Joker{ -- Cecilia Immergreen
         info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return { vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult} }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Justice',
     pos = { x = 2, y = 0 },
@@ -154,26 +143,24 @@ SMODS.Joker{ -- Cecilia Immergreen
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX('109d5b')})
     end,
     calculate = function(self, card, context)
-        if context.remove_playing_cards then
+        if context.remove_playing_cards and not context.blueprint then
             for i, val in ipairs(context.removed) do
                 if SMODS.has_enhancement(val, "m_glass") then
-                    if not context.blueprint then
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                self:upgrade(card)
-                                -- Copied and modified this part from Ship of Theseus, ExtraCredit mod.
-                                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                                local _card = copy_card(val, nil, nil, G.playing_card)
-                                _card:add_to_deck()
-                                G.deck.config.card_limit = G.deck.config.card_limit + 1
-                                G.deck:emplace(_card)
-                                table.insert(G.playing_cards, _card)
-                                playing_card_joker_effects({true})
-                                _card:start_materialize()
-                                return true
-                            end
-                        }))
-                    end
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            self:upgrade(card)
+                            -- Copied and modified this part from Ship of Theseus, ExtraCredit mod.
+                            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                            local _card = copy_card(val, nil, nil, G.playing_card)
+                            _card:add_to_deck()
+                            G.deck.config.card_limit = G.deck.config.card_limit + 1
+                            G.deck:emplace(_card)
+                            table.insert(G.playing_cards, _card)
+                            playing_card_joker_effects({true})
+                            _card:start_materialize()
+                            return true
+                        end
+                    }))
                 end
             end
         elseif context.joker_main then
@@ -185,9 +172,9 @@ SMODS.Joker{ -- Cecilia Immergreen
     end
 }
 
-SMODS.Joker{ -- Raora Panthera
-    key = "Relic_Raora",
+Holo.Relic_Joker{ -- Raora Panthera
     member = "Raora",
+    key = "Relic_Raora",
     loc_txt = {
         name = "Sketching Pen of the Pink Panther",
         text = {
@@ -211,9 +198,6 @@ SMODS.Joker{ -- Raora Panthera
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Justice',
     pos = { x = 3, y = 0 },

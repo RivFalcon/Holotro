@@ -6,9 +6,9 @@ SMODS.Atlas{
     py = 95
 }
 
-SMODS.Joker{ -- Shiori Novella
-    key = "Relic_Shiori",
+Holo.Relic_Joker{ -- Shiori Novella
     member = "Shiori",
+    key = "Relic_Shiori",
     loc_txt = {
         name = "Quill Pen of the Archiver",
         text = {
@@ -24,9 +24,6 @@ SMODS.Joker{ -- Shiori Novella
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Advent',
     pos = { x = 0, y = 0 },
@@ -61,9 +58,9 @@ SMODS.Joker{ -- Shiori Novella
     end
 }
 
-SMODS.Joker{ -- Koseki Bijou
-    key = "Relic_Biboo",
+Holo.Relic_Joker{ -- Koseki Bijou
     member = "Biboo",
+    key = "Relic_Biboo",
     loc_txt = {
         name = "Jewel Crown of the Ancient Rock",
         text = {
@@ -80,9 +77,6 @@ SMODS.Joker{ -- Koseki Bijou
         info_queue[#info_queue+1] = G.P_CENTERS.m_stone
         return { vars = { } }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Advent',
     pos = { x = 1, y = 0 },
@@ -109,9 +103,9 @@ SMODS.Joker{ -- Koseki Bijou
     end
 }
 
-SMODS.Joker{ -- Nerissa Ravencroft
-    key = "Relic_Nerissa",
+Holo.Relic_Joker{ -- Nerissa Ravencroft
     member = "Nerissa",
+    key = "Relic_Nerissa",
     loc_txt = {
         name = "Tuning Fork of the Raven Diva",
         text = {
@@ -127,9 +121,6 @@ SMODS.Joker{ -- Nerissa Ravencroft
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult } }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Advent',
     pos = { x = 2, y = 0 },
@@ -154,9 +145,9 @@ SMODS.Joker{ -- Nerissa Ravencroft
     end
 }
 
-SMODS.Joker{ -- Fuwawa Abyssgard
-    key = "Relic_Fuwawa",
+Holo.Relic_Joker{ -- Fuwawa Abyssgard
     member = "Fuwawa",
+    key = "Relic_Fuwawa",
     loc_txt = {
         name = "Claws of the Fluffy Hellhound",
         text = {
@@ -171,9 +162,6 @@ SMODS.Joker{ -- Fuwawa Abyssgard
         info_queue[#info_queue+1] = {set='Other',key='holo_info_odd'}
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Advent',
     pos = { x = 3, y = 0 },
@@ -208,9 +196,9 @@ SMODS.Joker{ -- Fuwawa Abyssgard
     end
 }
 
-SMODS.Joker{ -- Mococo Abyssgard
-    key = "Relic_Mococo",
+Holo.Relic_Joker{ -- Mococo Abyssgard
     member = "Mococo",
+    key = "Relic_Mococo",
     loc_txt = {
         name = "Claws of the Fuzzy Hellhound",
         text = {
@@ -225,9 +213,6 @@ SMODS.Joker{ -- Mococo Abyssgard
         info_queue[#info_queue+1] = {set='Other',key='holo_info_even'}
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Advent',
     pos = { x = 4, y = 0 },

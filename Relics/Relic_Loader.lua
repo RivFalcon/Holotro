@@ -18,17 +18,27 @@ SMODS.Atlas{
     py = 95
 }
 
-function Live:Relic_Joker(t)
+Live.Relic_Joker = SMODS.Joker:extend{
+    unlocked = false,
+    unlock_condition = {type = '', extra = '', hidden = true},
+
+    rarity = "hololive_Relic",
+    cost = 20,
+    blueprint_compat = true,
+
+    atlas = 'Relic_hololive',
+    pos = { x = 0, y = 0 },
+    soul_pos = { x = 0, y = 1 },
+}
+
+function Live._Relic_Joker(t)
+    if t.member == nil then
+        SMODS.Joker:__call(t)
+        return t
+    end
+
     _t = {
         key = 'Relic_'..t.member,
-        unlocked = false,
-        unlock_condition = {type = '', extra = '', hidden = true},
-        rarity = "hololive_Relic",
-        cost = 20,
-        blueprint_compat = true,
-        atlas = 'Relic_hololive',
-        pos = { x = t.gen_order or 0, y = 0 },
-        soul_pos = { x = t.gen_order or 0, y = 1 },
     }
     for k,v in pairs(t)do
         _t[k]=v
@@ -46,10 +56,10 @@ function Live:Relic_Joker(t)
         end
     end
 
-    SMODS.Joker(_t)
 end
 
 relic_files = {
+    "JP2",
     "JP3",
     "ID1",
     "EN1",

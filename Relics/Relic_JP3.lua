@@ -6,9 +6,9 @@ SMODS.Atlas{
     py = 95
 }
 
-SMODS.Joker{ -- Usada Pekora
-    key = "Relic_Pekora",
+Holo.Relic_Joker{ -- Usada Pekora
     member = "Pekora",
+    key = "Relic_Pekora",
     loc_txt = {
         name = "Slot Machine of the Greedy Rabbit",
         text = {
@@ -31,9 +31,6 @@ SMODS.Joker{ -- Usada Pekora
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Fantasy',
     pos = { x = 0, y = 0 },
@@ -71,9 +68,9 @@ SMODS.Joker{ -- Usada Pekora
     end
 }
 
-SMODS.Joker{ -- Uruha Rushia
-    key = "Relic_Rushia",
+Holo.Relic_Joker{ -- Uruha Rushia
     member = "Rushia",
+    key = "Relic_Rushia",
     loc_txt = {
         name = "Butterfies of the Necromancer",
         text = {
@@ -94,8 +91,6 @@ SMODS.Joker{ -- Uruha Rushia
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
     blueprint_compat = false,
 
     atlas = 'Relic_Fantasy',
@@ -133,9 +128,9 @@ SMODS.Joker{ -- Uruha Rushia
     end
 }
 
-SMODS.Joker{ -- Shiranui Flare
-    key = "Relic_Flare",
+Holo.Relic_Joker{ -- Shiranui Flare
     member = "Flare",
+    key = "Relic_Flare",
     loc_txt = {
         name = "Paint Splasher of the Fire Elf",
         text = {
@@ -162,9 +157,6 @@ SMODS.Joker{ -- Shiranui Flare
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Fantasy',
     pos = { x = 2, y = 0 },
@@ -196,9 +188,9 @@ SMODS.Joker{ -- Shiranui Flare
     end
 }
 
-SMODS.Joker{ -- Shirogane Noel
-    key = "Relic_Noel",
+Holo.Relic_Joker{ -- Shirogane Noel
     member = "Noel",
+    key = "Relic_Noel",
     loc_txt = {
         name = "Mace of the Silver Knight",
         text = {
@@ -217,9 +209,6 @@ SMODS.Joker{ -- Shirogane Noel
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Fantasy',
     pos = { x = 3, y = 0 },
@@ -252,9 +241,9 @@ SMODS.Joker{ -- Shirogane Noel
     end
 }
 
-SMODS.Joker{ -- Houshou Marine
-    key = "Relic_Marine",
+Holo.Relic_Joker{ -- Houshou Marine
     member = "Marine",
+    key = "Relic_Marine",
     loc_txt = {
         name = "Treasure Box of the Pirate Captain",
         text = {
@@ -278,9 +267,6 @@ SMODS.Joker{ -- Houshou Marine
             }
         }
     end,
-    rarity = "hololive_Relic",
-    cost = 20,
-    blueprint_compat = true,
 
     atlas = 'Relic_Fantasy',
     pos = { x = 4, y = 0 },
