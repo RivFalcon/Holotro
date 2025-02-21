@@ -10,13 +10,13 @@ Holo.Relic_Joker{ -- Minato Aqua
     member = "Aqua",
     key = "Relic_Aqua",
     loc_txt = {
-        name = "Cleaning Kits of the House Maid",
+        name = "Headpiece of the House Maid",
         text = {
             'If played hand has only {C:attention}one{} card,',
             'it gives {X:mult,C:white}X#1#{} mult when scored.',
-            'Otherwise, lose {C:chips}#2#{} chips',
-            'per played card {C:attention}more than one',
-            'due to {C:inactive}social awkwardness{}.'
+            'Clean away {C:attention}lowest{} ranked card',
+            'held in hand at {C:attention}end of round',
+            'if your hand contains {C:attention}more than one{} rank.'
         }
         ,boxes={2,3}
         ,unlock={
@@ -43,13 +43,27 @@ Holo.Relic_Joker{ -- Minato Aqua
         if context.individual and context.cardarea == G.play and #context.full_hand <= 1 then
             card:juice_up()
             return {Xmult=card.ability.extra.Xmult}
-        elseif context.before and #context.full_hand > 1 then
-            local lose_chips = card.ability.extra.chips * (#context.full_hand - 1)
-            hand_chips = mod_chips(hand_chips - lose_chips)
-            card_eval_status_text(card, 'jokers', nil, 1, nil,{
-                message= localize{type='variable',key='a_chips_minus',vars={lose_chips}},
-                colour = HEX('3c0024'), instant=true
-            })
+        elseif context.end_of_round and context.cardarea == G.jokers then
+            local _card_min = G.hand.cards[1]
+            local _card_max_rank = G.hand.cards[1]:get_id()
+            for i=2,#G.hand.cards do
+                if not SMODS.has_no_rank(G.hand.cards[i]) then
+                    if G.hand.cards[i]:get_id() <= _card_min:get_id() then
+                        _card_min = G.hand.cards[i]
+                    end
+                    if G.hand.cards[i]:get_id() > _card_max_rank then
+                        _card_max_rank = G.hand.cards[i]:get_id()
+                    end
+                end
+            end
+            if _card_min:get_id() < _card_max_rank then
+                play_sound('whoosh')
+                _card_min:juice_up()
+                _card_min:start_dissolve(nil, true)
+                for _,J in ipairs(G.jokers.cards) do
+                    eval_card(J, {cardarea = G.jokers, remove_playing_cards = true, removed = {_card_min,}})
+                end
+            end
         end
     end
 }
@@ -202,7 +216,7 @@ Holo.Relic_Joker{ -- Yuzuki Choco
         text = {
             'Each card held in hand gets {C:attention}injected',
             'with a syringe at {C:attention}end of round{}.',
-            'If injected card is an {C:attention}Ace{}, gain {X:mult,C:white}X#2#{} mult,',
+            'If injected card is an {C:attention}Ace{}, gain {X:mult,C:white}X#2#{} mult;',
             'othrerwise each injected card has',
             '{C:green}#3# in #4#{} chance to increase its {C:attention}rank{}.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
@@ -239,20 +253,11 @@ Holo.Relic_Joker{ -- Yuzuki Choco
             card_eval_status_text(context.other_card, 'extra', nil, 1, nil, {message="Inject!",colour = HEX('fe739c'),instant=true})
             if context.other_card:get_id()>=14 then
                 self:upgrade(card)
-            elseif pseudorandom('Choco') < G.GAME.probabilities.normal / card.ability.extra.odds then
-                G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                    local _card = context.other_card
-                    local suit_prefix = string.sub(_card.base.suit, 1, 1)..'_'
-                    local rank_suffix = _card.base.id+1
-                    if rank_suffix < 10 then rank_suffix = tostring(rank_suffix)
-                    elseif rank_suffix == 10 then rank_suffix = 'T'
-                    elseif rank_suffix == 11 then rank_suffix = 'J'
-                    elseif rank_suffix == 12 then rank_suffix = 'Q'
-                    elseif rank_suffix == 13 then rank_suffix = 'K'
-                    elseif rank_suffix == 14 then rank_suffix = 'A'
-                    end
-                    _card:set_base(G.P_CARDS[suit_prefix..rank_suffix])
-                return true end }))
+            elseif not SMODS.has_no_rank(context.other_card) then
+                if pseudorandom('choco') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                    local rank_shift_string = {'2','3','4','5','6','7','8','9','10','Jack','Queen','King','Ace'}
+                    assert(SMODS.change_base(context.other_card, nil, rank_shift_string[context.other_card.base.id]))
+                end
             end
         elseif context.joker_main then
             card:juice_up()
