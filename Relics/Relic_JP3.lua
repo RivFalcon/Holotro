@@ -55,7 +55,7 @@ Holo.Relic_Joker{ -- Usada Pekora
     upgrade = function (self, card)
     end,
     calculate = function(self, card, context)
-        if context.end_of_round and not context.game_over then
+        if context.end_of_round and context.cardarea == G.jokers and not context.game_over then
             if G.GAME.dollars >= card.ability.extra.fee then
                 ease_dollars(-self.ability.extra.fee)
                 if pseudorandom('pekora') < G.GAME.probabilities.normal / self:get_odds(card) then
