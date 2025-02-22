@@ -184,25 +184,22 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
         text = {
             'Each played card with a {C:purple}purple seal{}',
             'creates a {C:spectral}Spectral{} card when scored.',
-            '(If no room, {C:attention}accumulate{} them until there is)',
+            '(If no room, {C:attention}accumulate{} them until there is.)',
+            '{C:inactive}(Accumulated spectral cards: #3#)',
             'Gain {X:mult,C:white}X#2#{} mult per {C:spectral}Spectral{} card created.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
         ,boxes={3,2}
     },
-    config = { extra = { Xmult = 2.5, Xmult_mod = 0.5, tome_of_spectrals = {} } },
+    config = { extra = { Xmult = 2.5, Xmult_mod = 0.5, tome_of_spectrals = 0 } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_SEALS.Purple
-        if #card.ability.extra.tome_of_spectrals > 0 then
-            for _, _spectral in ipairs(card.ability.extra.tome_of_spectrals) do
-                info_queue[#info_queue+1] = G.P_CENTERS[_spectral]
-            end
-        end
         return {
             vars = {
                 card.ability.extra.Xmult,
-                card.ability.extra.Xmult_mod
+                card.ability.extra.Xmult_mod,
+                card.ability.extra.tome_of_spectrals
             }
         }
     end,
@@ -220,8 +217,7 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.other_card.seal == 'Purple' then
-                local _spectral = pseudorandom_element(G.P_CENTER_POOLS.Spectral,pseudoseed('ina'))
-                card.ability.extra.tome_of_spectrals[#card.ability.extra.tome_of_spectrals+1] = _spectral.key
+                card.ability.extra.tome_of_spectrals = card.ability.extra.tome_of_spectrals + 1
             end
         elseif context.joker_main then
             card:juice_up()
@@ -232,18 +228,21 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
             }
         end
         -- Release the Spectrals until the consumable slot is full.
-        if #card.ability.extra.tome_of_spectrals > 0 then
+        if card.ability.extra.tome_of_spectrals > 0 then
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                card.ability.extra.tome_of_spectrals = card.ability.extra.tome_of_spectrals - 1
                 G.E_MANAGER:add_event(Event({
                     func = function ()
-                        local _spectral = table.remove(card.ability.extra.tome_of_spectrals,1)
+                        local _spectral = pseudorandom_element(G.P_CENTER_POOLS.Spectral,pseudoseed('ina'))
                         SMODS.add_card({ key = _spectral, area = G.consumeables})
                         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
                         return true
                     end
                 }))
-                self:upgrade(card)
+                if not context.blueprint then
+                    self:upgrade(card)
+                end
             end
         end
     end
