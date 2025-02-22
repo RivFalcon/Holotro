@@ -221,6 +221,52 @@ function Live:init_global_vars()
         'DI2',
     }
 
+    self.Collabs = {
+        collab_micomet = {
+            members = {'Miko','Suisei'}
+        },
+        collab_mikorone = {
+            members = {'Miko','Korone'}
+        },
+        collab_okakoro = {
+            members = {'Okayu','Korone'}
+        },
+        collab_smok = {
+            members = {
+                'Subaru',
+                'Mio',
+                'Okayu',
+                'Korone'
+            }
+        },
+        collab_snot = {
+            members = {
+                'Gura',  -- Shark
+                'Fauna', -- Nature
+                'Mumei', -- Owl
+                'Kronii' -- Time
+            }
+        },
+        collab_soraz = {
+            members = {'Sora','AZKi'}
+        },
+        collab_startend = {
+            members = {
+                'Suisei',
+                'Towa',
+                'Aqua'
+            }
+        },
+        collab_subachocolunatan = {
+            members = {
+                'Subaru',
+                'Choco',
+                'Luna',
+                'Botan'
+            }
+        },
+    }
+
     self.Units = {
         unit_holocanine = {
             members = {
@@ -249,21 +295,6 @@ function Live:init_global_vars()
                 'Miko',
                 'Suisei',
                 'Noel'
-            }
-        },
-        unit_startend = {
-            members = {
-                'Suisei',
-                'Towa',
-                'Aqua'
-            }
-        },
-        unit_subachocolunatan = {
-            members = {
-                'Subaru',
-                'Choco',
-                'Luna',
-                'Botan'
             }
         },
         unit_umisea = {
