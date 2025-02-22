@@ -258,6 +258,14 @@ function Live:init_global_vars()
                 'Aqua'
             }
         },
+        unit_subachocolunatan = {
+            members = {
+                'Subaru',
+                'Choco',
+                'Luna',
+                'Botan'
+            }
+        },
         unit_umisea = {
             members = {
                 'Marine',
