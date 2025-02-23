@@ -179,7 +179,7 @@ Holo.Relic_Joker{ -- Nagiri Ayame
             for k,v in pairs(G.playing_cards)do
                 if v:get_id()==14 then
                     _tally = _tally + 1
-                    if tally%7==0 then
+                    if _tally%7==0 then
                         _retrigger = _retrigger + 1
                     end
                 end
