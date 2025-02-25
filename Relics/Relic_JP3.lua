@@ -12,22 +12,45 @@ Holo.Relic_Joker{ -- Usada Pekora
     loc_txt = {
         name = "Slot Machine of the Greedy Rabbit",
         text = {
-            'At the end of round, take {C:money}$#3#{} to pull the lever,',
-            '{C:inactive}(Must have enough {C:money}${C:inactive})',
-            '{C:green}#1# in #2#{} chance to {C:attention}hit the jackpot{} and gain {C:money}$#4#{}.',
-            '{C:inactive}(The odds goes down per {C:attention}Gold Card{C:inactive} in your deck)'
+            'For each {C:attention}Gold Card{} held in hand at {C:attention}end of round{},',
+            'pay {C:money}$#3#{} to pull the lever.',
+            'Each pull has {C:green}#1# in #2#{} chance to',
+            '{C:attention}hit the jackpot{} and gain {C:money}$#4#{},',
+            'otherwise raise the prize by {C:money}$#5#{}.',
+            '{C:inactive}(Prize resets after each jackpot)',
+            '{C:inactive}(Odds {C:green}-1{} per {C:attention}Gold Card{C:inactive} in your full deck)'
+        }
+        ,boxes={2,3,2}
+    },
+    config = {
+        extra = {
+            odds = 50,
+            fee = 1,
+            prize = 777,
+            prize_mod = 7,
+            get_odds = function(init_odd)
+                local _odds = init_odd or 50
+                if G.playing_cards then
+                    for k,v in pairs(G.playing_cards) do
+                        if SMODS.has_enhancement(v, "m_gold") then
+                            _odds = _odds - 1
+                        end
+                    end
+                end
+                return math.max(_odds,1)
+            end
         }
     },
-    config = { extra = { odds = 50, fee = 7, prize = 777 } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_gold
         return {
             vars = {
                 G.GAME.probabilities.normal,
-                self:get_odds(card),
+                card.ability.extra.get_odds(card.ability.extra.odds),
                 card.ability.extra.fee,
-                card.ability.extra.prize
+                card.ability.extra.prize,
+                card.ability.extra.prize_mod
             }
         }
     end,
@@ -47,21 +70,26 @@ Holo.Relic_Joker{ -- Usada Pekora
         end
         return math.max(_odds,1)
     end,
-    update = function(self, card, dt) -- Anti-rig
-        if card.ability.extra.odds ~= 50 then card.ability.extra.odds = 50 end
-        if card.ability.extra.fee ~= 7 then card.ability.extra.fee = 7 end
-        if card.ability.extra.prize ~= 777 then card.ability.extra.prize = 777 end
-    end,
     upgrade = function (self, card)
+        card:juice_up()
+        card.ability.extra.prize = card.ability.extra.prize + card.ability.extra.prize_mod
+        play_sound('generic1')
     end,
     calculate = function(self, card, context)
-        if context.end_of_round and context.cardarea == G.jokers and not context.game_over then
-            if G.GAME.dollars >= card.ability.extra.fee then
-                ease_dollars(-self.ability.extra.fee)
-                if pseudorandom('pekora') < G.GAME.probabilities.normal / self:get_odds(card) then
-                    self:juice_up()
-                    card_eval_status_text(self, 'dollars', nil, 1, nil, {message='JACKPOT!',colour=HEX('7dc4fc')})
+        if context.end_of_round and context.individual then
+            if SMODS.has_enhancement(context.other_card, "m_gold") then
+                ease_dollars(-card.ability.extra.fee)
+                if pseudorandom('pekora') < G.GAME.probabilities.normal / card.ability.extra.get_odds(card.ability.extra.odds) then
+                    card:juice_up()
                     ease_dollars(card.ability.extra.prize)
+                    card.ability.extra.prize = 777
+                    return {
+                        message='JACKPOT!',
+                        colour=HEX('7dc4fc'),
+                        sound = 'coin2',
+                    }
+                elseif not context.blueprint then
+                    self:upgrade(card)
                 end
             end
         end
@@ -81,7 +109,9 @@ Holo.Relic_Joker{ -- Uruha Rushia
         }
         ,boxes={2,2}
     },
-    config = { extra = { summon = 2 } },
+    config = { extra = {
+        summon = (os.date('%m')==1 or (os.date('%m')==2 and os.date('%d')<24)) and (os.date('%y')-23) or (os.date('%y')-22)
+    } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_TAGS.tag_hololive_butterfly
