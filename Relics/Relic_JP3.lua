@@ -18,7 +18,7 @@ Holo.Relic_Joker{ -- Usada Pekora
             '{C:attention}hit the jackpot{} and gain {C:money}$#4#{},',
             'otherwise raise the prize by {C:money}$#5#{}.',
             '{C:inactive}(Prize resets after each jackpot)',
-            '{C:inactive}(Odds {C:green}-1{} per {C:attention}Gold Card{C:inactive} in your full deck)'
+            '{C:inactive}(Odds {C:green}-1{} per {C:attention}Gold Card{C:inactive} in your {C:attention}full deck{C:inactive})'
         }
         ,boxes={2,3,2}
     },
