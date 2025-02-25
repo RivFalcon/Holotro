@@ -184,8 +184,7 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
         text = {
             'Each played card with a {C:purple}purple seal{}',
             'creates a {C:spectral}Spectral{} card when scored.',
-            '(If no room, {C:attention}accumulate{} them until there is.)',
-            '{C:inactive}(Accumulated spectral cards: #3#)',
+            '(If no room, {C:attention}accumulate{} them {C:inactive}[#3#]{} until there is.)',
             'Gain {X:mult,C:white}X#2#{} mult per {C:spectral}Spectral{} card created.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
