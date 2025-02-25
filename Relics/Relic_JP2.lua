@@ -156,7 +156,7 @@ Holo.Relic_Joker{ -- Nagiri Ayame
         text = {
             'If played hand is a {C:attention}High Card{},',
             'retrigger each scored card {C:attention}#1#{} times.',
-            '+1 retrigger every {C:attention}7 Aces',
+            '+1 retrigger every {C:attention}5 Aces',
             'in your {C:attention}full deck{}.'
         }
         ,boxes={2,2}
@@ -164,28 +164,29 @@ Holo.Relic_Joker{ -- Nagiri Ayame
             "{E:1,s:1.3}?????",
         }
     },
-    config = { extra = { retriggers = 7 } },
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                self:get_retriggers(card),
-            }
-        }
-    end,
-    get_retriggers = function(self, card)
-        local _retrigger = card.ability.extra.retriggers
-        if G.playing_cards then
-            local _tally = 0
-            for k,v in pairs(G.playing_cards)do
-                if v:get_id()==14 then
-                    _tally = _tally + 1
-                    if _tally%7==0 then
-                        _retrigger = _retrigger + 1
+    config = { extra = {
+        get_retriggers = function()
+            local _retrigger = 7
+            if G.playing_cards then
+                local _tally = 0
+                for k,v in pairs(G.playing_cards)do
+                    if v:get_id()==14 then
+                        _tally = _tally + 1
+                        if _tally%5==0 then
+                            _retrigger = _retrigger + 1
+                        end
                     end
                 end
             end
-        end
-        return _retrigger
+            return _retrigger
+        end,
+    } },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.get_retriggers(),
+            }
+        }
     end,
 
     atlas = 'Relic_Exodia',
@@ -199,7 +200,7 @@ Holo.Relic_Joker{ -- Nagiri Ayame
             if context.scoring_name == "High Card" then
                 return {
                     message = 'Hai!',
-                    repetitions = self:get_retriggers(card),
+                    repetitions = card.ability.extra.get_retriggers(),
                     card = card,
                     colour = HEX('c72554')
                 }
