@@ -155,36 +155,31 @@ Holo.Relic_Joker{ -- Nagiri Ayame
         name = "Mask of the Oni",
         text = {
             'If played hand is a {C:attention}High Card{},',
-            'retrigger each scored card {C:attention}#1#{} times.',
-            '+1 retrigger every {C:attention}5 Aces',
-            'in your {C:attention}full deck{}.'
+            'retrigger each scored card {C:attention}#5#{} times.',
+            'Each {C:attention}Ace{} held in hand has',
+            '{C:green}#3# in #4#{} chance to give {X:mult,C:white}X#1#{} Mult.',
+            'Gain {X:mult,C:white}X#2#{} mult when {C:attention}Boss Blind{} is defeated.'
         }
-        ,boxes={2,2}
+        ,boxes={2,3}
         ,unlock={
             "{E:1,s:1.3}?????",
         }
     },
     config = { extra = {
-        get_retriggers = function()
-            local _retrigger = 7
-            if G.playing_cards then
-                local _tally = 0
-                for k,v in pairs(G.playing_cards)do
-                    if v:get_id()==14 then
-                        _tally = _tally + 1
-                        if _tally%5==0 then
-                            _retrigger = _retrigger + 1
-                        end
-                    end
-                end
-            end
-            return _retrigger
-        end,
-    } },
+        Xmult = 2,
+        Xmult_mod = 0.1,
+        retriggers = 7,
+        odds = 2,
+        count_up = 0
+    }},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.get_retriggers(),
+                card.ability.extra.Xmult,
+                card.ability.extra.Xmult_mod,
+                G.GAME.probabilities.normal,
+                card.ability.extra.odds,
+                card.ability.extra.retriggers,
             }
         }
     end,
@@ -194,6 +189,8 @@ Holo.Relic_Joker{ -- Nagiri Ayame
     soul_pos = { x = 2, y = 1 },
 
     upgrade = function(self, card)
+        card:juice_up()
+        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
@@ -205,6 +202,20 @@ Holo.Relic_Joker{ -- Nagiri Ayame
                     colour = HEX('c72554')
                 }
             end
+        elseif context.individual and context.cardarea == G.hand and not context.end_of_round then
+            if pseudorandom('yodayo') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                return {
+                    message='Yo!',
+                    colour=HEX('c72554'),
+                    Xmult=card.ability.extra.Xmult
+                }
+            end
+        elseif context.end_of_round and G.GAME.blind.boss then
+            self:upgrade(card)
+            return {
+                message=localize('k_upgrade_ex'),
+                colour=HEX('c72554')
+            }
         end
     end
 }
