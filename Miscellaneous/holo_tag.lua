@@ -23,7 +23,7 @@ SMODS.Tag{
             G.GAME.blind:disable()
             tag:yep(
                 localize('ph_boss_disabled'),
-                G.C.GREEN, -- borrowed colour code
+                HEX('04e3cb'),
                 function()
                     play_sound('timpani')
                     return true
