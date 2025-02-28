@@ -1,0 +1,43 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "if card.config.center.set == 'Tarot' or card.config.center.set == 'Planet' then"
+position = "before"
+match_indent = true
+payload = '''
+if card.config.center.set == 'Tarot' then 
+    G.E_MANAGER:add_event(Event({
+    trigger = 'immediate',
+    func = function()
+        G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+            G.GAME.last_tarot = card.config.center_key
+            return true
+        end
+        }))
+        return true
+    end
+    }))
+end
+if card.config.center.set == 'Planet' then 
+    G.E_MANAGER:add_event(Event({
+    trigger = 'immediate',
+    func = function()
+        G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+            G.GAME.last_planet = card.config.center_key
+            return true
+        end
+        }))
+        return true
+    end
+    }))
+end
+'''

@@ -203,7 +203,7 @@ Holo.Relic_Joker{ -- Nagiri Ayame
                 }
             end
         elseif context.individual and context.cardarea == G.hand and not context.end_of_round then
-            if pseudorandom('yodayo') < G.GAME.probabilities.normal / card.ability.extra.odds then
+            if holo_chance('Yo~dayo', card.ability.extra.odds) then
                 return {
                     message='Yo!',
                     colour=HEX('c72554'),
@@ -262,15 +262,19 @@ Holo.Relic_Joker{ -- Yuzuki Choco
     calculate = function(self, card, context)
         if context.end_of_round and context.individual then
             context.other_card:juice_up()
-            card_eval_status_text(context.other_card, 'extra', nil, 1, nil, {message="Inject!",colour = HEX('fe739c'),instant=true})
             if context.other_card:get_id()>=14 then
                 self:upgrade(card)
             elseif not SMODS.has_no_rank(context.other_card) then
-                if pseudorandom('choco') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                if holo_chance('Chocosen', card.ability.extra.odds) then
                     local rank_shift_string = {'2','3','4','5','6','7','8','9','10','Jack','Queen','King','Ace'}
                     assert(SMODS.change_base(context.other_card, nil, rank_shift_string[context.other_card.base.id]))
                 end
             end
+            return {
+                message="Inject!",
+                colour = HEX('fe739c'),
+                card=context.other_card
+            }
         elseif context.joker_main then
             card:juice_up()
             return {Xmult=card.ability.extra.Xmult}

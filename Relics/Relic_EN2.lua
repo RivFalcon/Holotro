@@ -42,11 +42,12 @@ Holo.Relic_Joker{ -- IRyS
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ascend!",colour = HEX('3c0024'),instant=true})
     end,
     calculate = function(self, card, context)
+        local cae = holo_cae(card)
         if context.using_consumeable then
             card:juice_up()
-            card_eval_status_text(card, 'dollars', nil, 1, nil, {message="Hope!",colour = HEX('3c0024'),instant=true})
             ease_dollars(card.ability.extra.dollars)
-            if pseudorandom('IRyS') < G.GAME.probabilities.normal / card.ability.extra.odds and not context.blueprint then
+            card_eval_status_text(card, 'dollars', nil, 1, nil, {message="Hope!",colour = HEX('3c0024'),instant=true})
+            if holo_chance('IRyS', cae.odds) and not context.blueprint then
                 self:upgrade(card)
             end
         end
@@ -104,12 +105,13 @@ Holo.Relic_Joker{ -- Tsukumo Sana
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Expand!",colour = HEX('fede4a'),instant=true})
     end,
     calculate = function(self, card, context)
+        local cae = holo_cae(card)
         if context.using_consumeable then
             if context.consumeable.ability.set == 'Planet' and not context.blueprint then
                 self:upgrade(card)
             end
-        elseif context.before and context.cardarea == G.play then
-            if pseudorandom('sanana') < G.GAME.probabilities.normal / card.ability.extra.odds then
+        elseif context.before then
+            if holo_chance('Sanana', cae.odds) then
                 -- Store the planet into the bag of planet.
                 local _planet = 'c_pluto'
                 for k, v in pairs(G.P_CENTER_POOLS.Planet) do
@@ -124,14 +126,18 @@ Holo.Relic_Joker{ -- Tsukumo Sana
                     card.ability.extra.bag_of_planets[#card.ability.extra.bag_of_planets+1] = _planet
                 end
                 card:juice_up()
-                card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Observed!',colour=HEX('fede4a'),instant=true})
+                return {
+                    message = 'Observed!',
+                    colour=HEX('fede4a'),
+                }
             end
         elseif context.joker_main then
             card:juice_up()
-            play_sound('gong')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Space!',colour=HEX('fede4a'),instant=true})
             return {
-                Xmult = card.ability.extra.Xmult
+                Xmult = cae.Xmult,
+                message='Space!',
+                colour=HEX('fede4a'),
+                sound='gong'
             }
         end
         -- Release the planets from the bag until the consumable slot is full.
@@ -338,21 +344,25 @@ Holo.Relic_Joker{ -- Nanashi Mumei
             end
         elseif context.discard then
             if not context.other_card:is_suit("Spades") then
-                if pseudorandom('mumei') < G.GAME.probabilities.normal / card.ability.extra.odds then
-                    play_sound('slice1')
+                if holo_chance('Mumei', cae.odds) then
                     context.other_card:juice_up()
                     context.other_card:start_dissolve(nil, true)
                     for _,J in ipairs(G.jokers.cards) do
                         eval_card(J, {cardarea = G.jokers, remove_playing_cards = true, removed = {context.other_card,}})
                     end
+                    return {
+                        --remove = true,
+                        sound='slice1',
+                    }
                 end
             end
         elseif context.joker_main then
             card:juice_up()
-            play_sound('gong')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Civilization!',colour=HEX('998274'),instant=true})
             return {
-                Xmult = card.ability.extra.Xmult
+                Xmult = card.ability.extra.Xmult,
+                message='Civilization!',
+                sound = 'gong',
+                colour=HEX('998274'),
             }
         end
     end
@@ -364,15 +374,15 @@ Holo.Relic_Joker{ -- Hakos Baelz
     loc_txt = {
         name = "Rolling Dice of the Scarlet Rat",
         text = {
-            'Roll a {C:red}six-sided die{} after each played hand.',
+            'Roll a {C:red}#2#-sided die{} after each played hand.',
             'Multiplies all{C:attention} listed {C:green}probabilities{} with',
             'the number it lands. {C:inactive}(Currently {X:green,C:white}X#1#{C:inactive} Chance){}'
         }
     },
-    config = { extra = { Pmult = 6 } },
+    config = { extra = { Pmult = 6, Pmult_max = 6, Pmult_max_mod = 1 } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Pmult } }
+        return { vars = { card.ability.extra.Pmult, card.ability.extra.Pmult_max} }
     end,
     blueprint_compat = false,
 
@@ -386,18 +396,18 @@ Holo.Relic_Joker{ -- Hakos Baelz
     remove_from_deck = function(self, card, from_debuff)
         G.GAME.probabilities.normal = G.GAME.probabilities.normal / card.ability.extra.Pmult
     end,
-    roll = function(self, card)
-        card:juice_up()
-        card.ability.extra.Pmult = pseudorandom('Hakos Baelz', 1, 6)
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Roll!",colour = HEX('d2251e'),instant=true})
-    end,
     upgrade = function (self, card)
     end,
     calculate = function(self, card, context)
         if context.after and context.cardarea == G.jokers then
             G.GAME.probabilities.normal = G.GAME.probabilities.normal / card.ability.extra.Pmult
-            self:roll(card)
+            card:juice_up()
+            card.ability.extra.Pmult = pseudorandom('Hakos Baelz', 1, 6)
             G.GAME.probabilities.normal = G.GAME.probabilities.normal * card.ability.extra.Pmult
+            return {
+                message="Roll!",
+                colour = HEX('d2251e'),
+            }
         end
     end
 }

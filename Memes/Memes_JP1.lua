@@ -30,7 +30,7 @@ SMODS.Joker{
     calculate = function(self, card, context)
         if context.buying_card or context.buying_booster_pack or context.buying_voucher then
             card:juice_up(0.5, 0.5)
-            if pseudorandom('fubuki') < G.GAME.probabilities.normal / 3 then
+            if holo_chance('Fubuki',3) then
                 context.card.cost = 0
                 return {
                     message = 'Free!',

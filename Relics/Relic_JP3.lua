@@ -59,30 +59,19 @@ Holo.Relic_Joker{ -- Usada Pekora
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
 
-    get_odds = function(self, card)
-        local _odds = card.ability.extra.odds
-        if G.playing_cards then
-            for k,v in pairs(G.playing_cards) do
-                if SMODS.has_enhancement(v, "m_gold") then
-                    _odds = _odds - 1
-                end
-            end
-        end
-        return math.max(_odds,1)
-    end,
     upgrade = function (self, card)
         card:juice_up()
         card.ability.extra.prize = card.ability.extra.prize + card.ability.extra.prize_mod
-        play_sound('generic1')
     end,
     calculate = function(self, card, context)
+        local cae = holo_cae(card)
         if context.end_of_round and context.individual then
             if SMODS.has_enhancement(context.other_card, "m_gold") then
-                ease_dollars(-card.ability.extra.fee)
-                if pseudorandom('pekora') < G.GAME.probabilities.normal / card.ability.extra.get_odds(card.ability.extra.odds) then
+                ease_dollars(-cae.fee)
+                if holo_chance('Pekora', cae.get_odds(cae.odds)) then
                     card:juice_up()
-                    ease_dollars(card.ability.extra.prize)
-                    card.ability.extra.prize = 777
+                    ease_dollars(cae.prize)
+                    cae.prize = 777
                     return {
                         message='JACKPOT!',
                         colour=HEX('7dc4fc'),
@@ -90,6 +79,9 @@ Holo.Relic_Joker{ -- Usada Pekora
                     }
                 elseif not context.blueprint then
                     self:upgrade(card)
+                    return {
+                        sound = 'generic1'
+                    }
                 end
             end
         end

@@ -13,24 +13,29 @@ Holo.Relic_Joker{ -- Mori Calliope
         name = "Scythe of the Death Apprentice",
         text = {
             'When played exactly {C:attention}4 {}cards, each card',
-            'has {C:green}#3# in 4 {}chance to be {C:attention}converted{}',
+            'has {C:green}#3# in #4# {}chance to be {C:attention}converted{}',
             'to the {C:attention}fourth {}card before scoring.',
-            'Create a {C:dark_edition}Negative {C:tarot}Death {}card every {C:attention}4 {C:inactive}[#4#] {}conversions.',
-            'Gain {X:mult,C:white}X#2#{} mult every time using a {C:tarot}Death{} card.',
+            'Create a {C:dark_edition}Negative {C:tarot}Death {}card every {C:attention}#5# {C:inactive}[#6#] {}conversions.',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Death{} used.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
         ,boxes={3,1,2}
     },
-    config = { extra = { Xmult = 4, Xmult_mod = 1, count_down = 4  } },
+    config = { extra = { 
+        Xmult = 4, Xmult_mod = 1,
+        odds = 4,
+        count_down = 4, count = 4,
+        upgrade_message = 'Guh!',
+    } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
+        local cae = holo_cae(card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_death
         return {
             vars = {
-                card.ability.extra.Xmult,
-                card.ability.extra.Xmult_mod,
-                G.GAME.probabilities.normal,
-                card.ability.extra.count_down
+                cae.Xmult, cae.Xmult_mod,
+                ggpn(), cae.odds,
+                cae.count, cae.count_down,
             }
         }
     end,
@@ -45,6 +50,7 @@ Holo.Relic_Joker{ -- Mori Calliope
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Guh!",colour = HEX('a1020b'),instant=true})
     end,
     calculate = function(self, card, context)
+        local cae = holo_cae(card)
         if context.using_consumeable then
             if context.consumeable.config.center.key == 'c_death' and not context.blueprint then
                 self:upgrade(card)
@@ -57,7 +63,7 @@ Holo.Relic_Joker{ -- Mori Calliope
                 if i == 4 then
                     break
                 end
-                if pseudorandom('Calli') < G.GAME.probabilities.normal / 4 then
+                if holo_chance('Calli', cae.odds) then
                     local percent = 1.15 - (i-0.999)/(4-0.998)*0.3
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
