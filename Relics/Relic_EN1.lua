@@ -387,7 +387,11 @@ Holo.Relic_Joker{ -- Watson Amelia
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult, gain {X:mult,C:white}X#2#{C:inactive} Mult next hand){}'
         }
     },
-    config = { extra = { Xmult = 1, Xmult_mod = 0, Xmult_mod_mod = 0.25 } },
+    config = { extra = {
+        Xmult = 1, Xmult_mod = 0, Xmult_mod_mod = 0.25,
+        scale_var = 'Xmult',
+        upgrade_message = 'Elementary!'
+    } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return {
