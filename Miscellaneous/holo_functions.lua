@@ -54,8 +54,8 @@ function holo_card_upgrade(card, scale_var, incr, arg)
     incr = incr or cae[scale_var..'_mod'] or 1
     arg = arg or {}
 
-    cae[scale_var] = cae[scale_var] + incr
-    
+    cae[scale_var] = cae[scale_var] + incr -- The core of this entire function
+
     if type(arg.func) == 'function'then
         arg.func(card, arg)
     end
@@ -67,12 +67,14 @@ function holo_card_upgrade(card, scale_var, incr, arg)
     local _colour = Holo.C.hololive
     if card.center.config.member then _colour = Holo.C[card.center.config.member] end
     if arg.colour then _colour = arg.colour end
-    return {
-        message = _message,
-        colour = _colour,
-        sound = arg.sound or 'generic1',
-        card = card
-    }
+    SMODS.calculate_effect(
+        {
+            message = _message,
+            colour = _colour,
+            sound = arg.sound or 'generic1',
+        },
+        card
+    )
 end
 
 function holo_card_counting(card, context, decr, func, elsefunc)
