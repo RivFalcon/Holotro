@@ -11,8 +11,8 @@ function holo_ctx(context)
     if context.other_joker then return 'other_joker' end
     if context.post_joker then return 'post_joker' end
     if context.final_scoring_step then return 'before the score is totalled' end
-    if context.destroy_card and context.cardarea == G.play then return 'destroy played card' end
-    if context.remove_playing_cards then return 'remove_playing_cards' end
+    if context.destroy_card and context.cardarea == G.play then return 'destroy scored card' end
+    if context.remove_playing_cards then return 'when playing cards are removed' end
     if context.after then return 'after scoring' end
     -- Discard
     if context.pre_discard and context.cardarea == G.play then return 'before discard' end
@@ -43,57 +43,46 @@ function holo_ctx(context)
     if context.post_trigger then return 'post_trigger' end
 end
 
-function holo_cae(card) -- Get card.ability.extra
-    if card == nil then return{}end
-    if card.ability == nil then return{}end
-    if card.ability.extra == nil then return{}end
-    return card.ability.extra
-end
-
-function holo_card_upgrade(card, arg)
-    local cae = holo_cae(card)
-    arg = arg or {}
+function holo_card_upgrade(card, scale_var, incr, arg)
+    if card == nil then return end
+    if card.ability == nil then return end
+    if card.ability.extra == nil then return end
+    local cae = card.ability.extra
     if #cae==0 then return end
-    local _tick = false
-    if type(cae.scale_var)=='string' then
-        cae[cae.scale_var] = cae[cae.scale_var] + cae[cae.scale_var..'_mod']
-        _tick = true
-    elseif type(arg.scale_vars)=='table' then
-        local scale_vars = arg.scale_vars
-        for _,var in ipairs(scale_vars)do
-            cae[var] = cae[var] + cae[var..'_mod']
-        end
-        _tick = true
-    else
-        for k,v in pairs(cae)do
-            if cae[k..'_mod'] then
-                cae[k] = cae[k] + cae[k..'_mod']
-                _tick = true
-            end
-        end
-    end
+    if type(scale_var)~='string'then return end
+    if cae[scale_var]==nil then return end
+    incr = incr or cae[scale_var..'_mod'] or 1
+    arg = arg or {}
+
+    cae[scale_var] = cae[scale_var] + incr
+    
     if type(arg.func) == 'function'then
         arg.func(card, arg)
-        _tick = true
     end
-    if _tick then
-        card:juice_up()
-        local _message = localize('k_upgrade_ex')
-        if cae.upgrade_message then _message = cae.upgrade_message end
-        if cae.upgrade_message_loc then _message = localize(cae.upgrade_message_loc) end
-        if arg.message then _message = arg.message end
-        return {
-            message = _message,
-            colour = arg.colour,
-            sound = arg.sound
-        }
-    end
+    card:juice_up()
+    local _message = localize('k_upgrade_ex')
+    if cae.upgrade_message then _message = cae.upgrade_message end
+    if cae.upgrade_message_loc then _message = localize(cae.upgrade_message_loc) end
+    if arg.message then _message = arg.message end
+    local _colour = Holo.C.hololive
+    if card.center.config.member then _colour = Holo.C[card.center.config.member] end
+    if arg.colour then _colour = arg.colour end
+    return {
+        message = _message,
+        colour = _colour,
+        sound = arg.sound or 'generic1',
+        card = card
+    }
 end
 
 function holo_card_counting(card, context, decr, func, elsefunc)
-    local cae = holo_cae(card)
+    if card == nil then return end
+    if card.ability == nil then return end
+    if card.ability.extra == nil then return end
+    local cae = card.ability.extra
     if cae.count_init == nil then return end
     if cae.count_down == nil then return end
+
     decr = decr or 1
     func = func or (function(_card,_ctx)end)
     elsefunc = elsefunc or (function(_card,_ctx)end)

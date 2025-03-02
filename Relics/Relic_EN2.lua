@@ -42,7 +42,7 @@ Holo.Relic_Joker{ -- IRyS
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ascend!",colour = HEX('3c0024'),instant=true})
     end,
     calculate = function(self, card, context)
-        local cae = holo_cae(card)
+        local cae = card.ability.extra
         if context.using_consumeable then
             card:juice_up()
             ease_dollars(card.ability.extra.dollars)
@@ -53,14 +53,6 @@ Holo.Relic_Joker{ -- IRyS
         end
     end
 }
-
-local LUH = level_up_hand
-function level_up_hand(card, hand, instant, amount)
-    LUH(card, hand, instant, amount)
-    for _,J in ipairs(G.jokers.cards) do
-        J:calculate_joker({level_up_hand = hand, level_up_amount = amount})
-    end
-end
 
 Holo.Relic_Joker{ -- Tsukumo Sana
     member = "Sana",
@@ -105,7 +97,7 @@ Holo.Relic_Joker{ -- Tsukumo Sana
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Expand!",colour = HEX('fede4a'),instant=true})
     end,
     calculate = function(self, card, context)
-        local cae = holo_cae(card)
+        local cae = card.ability.extra
         if context.using_consumeable then
             if context.consumeable.ability.set == 'Planet' and not context.blueprint then
                 self:upgrade(card)

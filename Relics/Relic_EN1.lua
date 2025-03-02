@@ -21,21 +21,22 @@ Holo.Relic_Joker{ -- Mori Calliope
         }
         ,boxes={3,1,2}
     },
-    config = { extra = { 
+    config = { extra = {
         Xmult = 4, Xmult_mod = 1,
         odds = 4,
-        count_down = 4, count = 4,
+        count_down = 4, count_init = 4,
+        scale_var = 'Xmult',
         upgrade_message = 'Guh!',
     } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
-        local cae = holo_cae(card)
+        local cae = card.ability.extra
         info_queue[#info_queue+1] = G.P_CENTERS.c_death
         return {
             vars = {
                 cae.Xmult, cae.Xmult_mod,
                 ggpn(), cae.odds,
-                cae.count, cae.count_down,
+                cae.count_init, cae.count_down,
             }
         }
     end,
@@ -50,7 +51,7 @@ Holo.Relic_Joker{ -- Mori Calliope
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Guh!",colour = HEX('a1020b'),instant=true})
     end,
     calculate = function(self, card, context)
-        local cae = holo_cae(card)
+        local cae = card.ability.extra
         if context.using_consumeable then
             if context.consumeable.config.center.key == 'c_death' and not context.blueprint then
                 self:upgrade(card)
@@ -77,12 +78,12 @@ Holo.Relic_Joker{ -- Mori Calliope
                     }))
                     delay(0.2)
                     card:juice_up()
-                    if card.ability.extra.count_down <= 1 then
-                        card.ability.extra.count_down = 4
+                    if cae.count_down <= 1 then
+                        cae.count_down = cae.count_init
                         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Shin de kudasai!",colour = HEX('a1020b'),instant=true})
                         SMODS.add_card({ key = 'c_death', area = G.consumeables, edition = 'e_negative' })
                     else
-                        card.ability.extra.count_down = card.ability.extra.count_down - 1
+                        cae.count_down = cae.count_down - 1
                     end
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
@@ -126,14 +127,19 @@ Holo.Relic_Joker{ -- Takanashi Kiara
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
     },
-    config = { extra = { Xmult = 4, Xmult_mod = 0.4, dollars = 4 } },
+    config = { extra = {
+        Xmult = 4, Xmult_mod = 0.4,
+        dollars = 4,
+        scale_var = 'Xmult',
+        upgrade_message = 'Kikiriki!'
+    } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
-                card.ability.extra.Xmult,
-                card.ability.extra.Xmult_mod,
-                card.ability.extra.dollars
+                cae.Xmult, cae.Xmult_mod,
+                cae.dollars,
             }
         }
     end,
@@ -196,7 +202,12 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
         }
         ,boxes={3,2}
     },
-    config = { extra = { Xmult = 2.5, Xmult_mod = 0.5, tome_of_spectrals = 0 } },
+    config = { extra = {
+        Xmult = 2.5, Xmult_mod = 0.5,
+        tome_of_spectrals = 0,
+        scale_var = 'Xmult',
+        upgrade_message = 'WAH!'
+    } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_SEALS.Purple
@@ -259,6 +270,14 @@ SMODS.Sound{
     -- source: https://www.myinstants.com/en/instant/gawr-gura-a-66933/
 }
 
+local LUH = level_up_hand
+function level_up_hand(card, hand, instant, amount)
+    LUH(card, hand, instant, amount)
+    for _,J in ipairs(G.jokers.cards) do
+        J:calculate_joker({level_up_hand = hand, level_up_amount = amount})
+    end
+end
+
 Holo.Relic_Joker{ -- Gawr Gura
     member = "Gura",
     key = "Relic_Gura",
@@ -268,13 +287,17 @@ Holo.Relic_Joker{ -- Gawr Gura
             'Retrigger {C:blue}first {C:attention}3 {}scored cards {C:attention}2{} additional times',
             'if played hand is a {C:attention}Straight Flush{}.',
             'Gain {X:mult,C:white}X#2#{} mult every time {C:attention}Straight Flush{}',
-            'is leveled up. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}',
+            'is leveled {C:attention}up{}. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}',
             '{s:0.8}Using a {C:planet,s:0.8}Neptune{s:0.8} levels up {C:attention,s:0.8}Straight Flush {C:blue,s:0.8}2{s:0.8} additional times.',
             '{s:0.8}Using a {C:planet,s:0.8}Jupiter{s:0.8} or a {C:planet,s:0.8}Saturn{s:0.8} also levels up {C:attention,s:0.8}Straight Flush{s:0.8}.'
         }
         ,boxes={2,2,2}
     },
-    config = { extra = { Xmult = 3, Xmult_mod = 0.3 } },
+    config = { extra = {
+        Xmult = 3, Xmult_mod = 0.3,
+        scale_var = 'Xmult',
+        upgrade_message = 'A!'
+    } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_neptune
@@ -296,30 +319,25 @@ Holo.Relic_Joker{ -- Gawr Gura
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="A!",colour = HEX('5d81c7')})
     end,
-    uplevel = function (self, card)
-        update_hand_text(
-            { sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
-            {
-                handname=localize('Straight Flush', 'poker_hands'),
-                chips = G.GAME.hands['Straight Flush'].chips,
-                mult = G.GAME.hands['Straight Flush'].mult,
-                level=G.GAME.hands['Straight Flush'].level
-            }
-        )
-        level_up_hand(card, 'Straight Flush')
-        update_hand_text(
-            { sound = 'button', volume = 0.7, pitch = 1.1, delay = 0 },
-            { mult = 0, chips = 0, handname = '', level = '' }
-        )
-    end,
     calculate = function(self, card, context)
         if context.using_consumeable then
             local _p = context.consumeable.config.center.key
-            if _p == 'c_jupiter' or _p == 'c_saturn' then
-                self:uplevel(card)
-            elseif _p == 'c_neptune' then
-                self:uplevel(card)
-                self:uplevel(card)
+            if _p == 'c_jupiter' or _p == 'c_saturn' or _p == 'c_neptune' then
+                update_hand_text(
+                    { sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
+                    {
+                        handname=localize('Straight Flush', 'poker_hands'),
+                        chips = G.GAME.hands['Straight Flush'].chips,
+                        mult = G.GAME.hands['Straight Flush'].mult,
+                        level=G.GAME.hands['Straight Flush'].level
+                    }
+                )
+                level_up_hand(card, 'Straight Flush')
+                if _p == 'c_neptune' then level_up_hand(card, 'Straight Flush') end
+                update_hand_text(
+                    { sound = 'button', volume = 0.7, pitch = 1.1, delay = 0 },
+                    { mult = 0, chips = 0, handname = '', level = '' }
+                )
             end
         elseif context.before and context.scoring_name == 'Straight Flush' then
             play_sound('hololive_Gura-A')

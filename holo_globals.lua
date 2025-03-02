@@ -309,26 +309,26 @@ function Live:init_global_vars()
     }
 
     self.Members = {
-
-        Sora     = {order =  1, },
-        Roboco   = {order =  2, },
-        Suisei   = {order =  3, },
+        -- JP012G.
+        Sora     = {order =  1, C = HEX('2a69fb'), },
+        Roboco   = {order =  2, C = HEX('ffa3cf'), },
+        Suisei   = {order =  3, C = HEX('7bacec'), },
         Mel      = {order =  4, },
         Fubuki   = {order =  5, C = HEX('53c7ea'), },
         Matsuri  = {order =  6, },
         Aki      = {order =  7, },
         Haato    = {order =  8, },
-        Miko     = {order =  9, },
+        Miko     = {order =  9, C = HEX('ff9cb4'), },
         Aqua     = {order = 10, C = HEX('eaabdc'), },
         Shion    = {order = 11, C = HEX('8565fc'), },
         Ayame    = {order = 12, C = HEX('c72554'), },
         Choco    = {order = 13, C = HEX('fe739c'), },
         Subaru   = {order = 14, C = HEX('e5ed76'), },
-        AZKi     = {order = 15, },
+        AZKi     = {order = 15, C = HEX('fa3689'), },
         Mio      = {order = 16, C = HEX('dc1935'), },
         Okayu    = {order = 17, C = HEX('b190fa'), },
         Korone   = {order = 18, C = HEX('fae13f'), },
-
+        -- JP34, ID1, JP5.
         Pekora   = {order = 19, C = HEX('7dc4fc'), },
         Rushia   = {order = 20, C = HEX('04e3cb'), },
         Flare    = {order = 21, C = HEX('ff5028'), },
@@ -347,7 +347,7 @@ function Live:init_global_vars()
         Botan    = {order = 34, },
         Aloe     = {order = 35, },
         Polka    = {order = 36, },
-
+        -- EN1, ID2, EN2, JPX, ID3.
         Calli    = {order = 37, C = HEX('a1020b'), },
         Kiara    = {order = 38, C = HEX('dc3907'), },
         Ina      = {order = 39, C = HEX('3f3e69'), },
@@ -370,7 +370,7 @@ function Live:init_global_vars()
         Zeta     = {order = 56, },
         Kaela    = {order = 57, C = HEX('dc2528'), },
         Kobo     = {order = 58, },
-
+        -- EN3, DI1, EN4, DI2.
         Shiori   = {order = 59, C = HEX('373741'), },
         Biboo    = {order = 60, C = HEX('6e5bf4'), },
         Nerissa  = {order = 61, C = HEX('2233fb'), },

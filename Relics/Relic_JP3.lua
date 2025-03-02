@@ -64,7 +64,7 @@ Holo.Relic_Joker{ -- Usada Pekora
         card.ability.extra.prize = card.ability.extra.prize + card.ability.extra.prize_mod
     end,
     calculate = function(self, card, context)
-        local cae = holo_cae(card)
+        local cae = card.ability.extra
         if context.end_of_round and context.individual then
             if SMODS.has_enhancement(context.other_card, "m_gold") then
                 ease_dollars(-cae.fee)
