@@ -237,10 +237,11 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
             end
         elseif context.joker_main then
             card:juice_up()
-            play_sound('hololive_Ina-Wah')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Wah!',colour=HEX('3f3e69'),instant=true})
             return {
-                Xmult = card.ability.extra.Xmult
+                Xmult = card.ability.extra.Xmult,
+                message='Wah!',
+                colour=HEX('3f3e69'),
+                sound = 'hololive_Ina-Wah',
             }
         end
         -- Release the Spectrals until the consumable slot is full.
@@ -340,8 +341,11 @@ Holo.Relic_Joker{ -- Gawr Gura
                 )
             end
         elseif context.before and context.scoring_name == 'Straight Flush' then
-            play_sound('hololive_Gura-A')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="A!",colour = HEX('5d81c7')})
+            return {
+                message="A!",
+                colour = HEX('5d81c7'),
+                sound='hololive_Gura-A'
+            }
         elseif context.repetition and context.scoring_name == 'Straight Flush' then
             if #context.scoring_hand < 3 then
                 return {}
@@ -362,9 +366,12 @@ Holo.Relic_Joker{ -- Gawr Gura
             end
         elseif context.joker_main and context.scoring_name == 'Straight Flush' then
             card:juice_up()
-            play_sound('multhit2')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Shark!",colour = HEX('5d81c7')})
-            return {Xmult=card.ability.extra.Xmult}
+            return {
+                Xmult=card.ability.extra.Xmult,
+                message="Shark!",
+                colour = HEX('5d81c7'),
+                sound='multhit2'
+            }
         elseif context.level_up_hand == 'Straight Flush' then
             if context.level_up_amount > 0 then
                 for i=1,context.level_up_amount do
