@@ -316,9 +316,12 @@ Holo.Relic_Joker{ -- Gawr Gura
 
     upgrade = function (self, card)
         card:juice_up()
-        play_sound('hololive_Gura-A')
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="A!",colour = HEX('5d81c7')})
+        SMODS.calculate_effect( {
+            message="A!",
+            colour = HEX('5d81c7'),
+            sound='hololive_Gura-A'
+        },card)
     end,
     calculate = function(self, card, context)
         if context.using_consumeable then

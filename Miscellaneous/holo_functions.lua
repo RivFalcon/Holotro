@@ -49,13 +49,24 @@ function holo_card_upgrade(card, scale_var, incr, arg)
     if card.ability.extra == nil then return end
     local cae = card.ability.extra
     if #cae==0 then return end
-    if type(scale_var)~='string'then return end
-    if cae[scale_var]==nil then return end
-    incr = incr or cae[scale_var..'_mod'] or 1
+    if scale_var then
+        if type(scale_var)~='string'then return end
+        if cae[scale_var]==nil then return end
+    elseif cae.scale_var then
+        scale_var = cae.scale_var
+    else
+        for var,val in pairs(cae) do
+            if cae[var..'_mod'] then
+                scale_var = var
+                break
+            end
+        end
+    end
+
+    -- The core of this entire function
+    cae[scale_var] = cae[scale_var] + (incr or cae[scale_var..'_mod'] or 1)
+
     arg = arg or {}
-
-    cae[scale_var] = cae[scale_var] + incr -- The core of this entire function
-
     if type(arg.func) == 'function'then
         arg.func(card, arg)
     end
@@ -64,14 +75,11 @@ function holo_card_upgrade(card, scale_var, incr, arg)
     if cae.upgrade_message then _message = cae.upgrade_message end
     if cae.upgrade_message_loc then _message = localize(cae.upgrade_message_loc) end
     if arg.message then _message = arg.message end
-    local _colour = Holo.C.hololive
-    if card.center.config.member then _colour = Holo.C[card.center.config.member] end
-    if arg.colour then _colour = arg.colour end
     SMODS.calculate_effect(
         {
             message = _message,
-            colour = _colour,
-            sound = arg.sound or 'generic1',
+            colour = arg.colour or Holo.C[card.center.config.member or 'Hololive'],
+            sound = arg.sound or cae.upgrade_sound or 'generic1',
         },
         card
     )
