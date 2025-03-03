@@ -115,3 +115,10 @@ end
 function holo_chance(seed, odds)
     return (pseudorandom(seed) < ggpn() / odds)
 end
+
+local holo_always_scores = SMODS.always_scores
+function SMODS.always_scores(card)
+    if holo_always_scores(card)then return true end
+    if next(find_joker('j_hololive_Relic_Biboo')) and not card:is_face() then return true end
+    return false
+end

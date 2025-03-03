@@ -64,18 +64,25 @@ Holo.Relic_Joker{ -- Koseki Bijou
     loc_txt = {
         name = "Jewel Crown of the Ancient Rock",
         text = {
-            '{C:attention}Stone cards{} become {C:attention}Rock Hard{}',
-            'and give {C:chips}81,800{} extra chips when scored.',
-            '{C:attention}Face cards{} held in hand',
-            'get {X:black,C:white}petrified{} at end of round.'
+            '{C:attention}Stone cards{} become {C:attention}More Solid{},',
+            'permanently gain {C:chips}+#1#{} chips when scored.',
+            'Chip gain increases by {C:chips}+#2#{} chips',
+            'per {C:tarot}The Tower{} used.',
+            '{C:attention}Non-face cards{} will always score.'
         }
-        ,boxes={2,2}
+        ,boxes={2,2,1}
     },
-    config = { extra = { } },
+    config = { extra = {
+        bonus_mod = 50, bonus_mod_mod = 10,
+        upgrade_message = 'Rock!',
+    } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         info_queue[#info_queue+1] = G.P_CENTERS.m_stone
-        return { vars = { } }
+        return { vars = {
+            cae.bonus_mod, cae.bonus_mod_mod
+        } }
     end,
 
     atlas = 'Relic_Advent',
@@ -87,17 +94,12 @@ Holo.Relic_Joker{ -- Koseki Bijou
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if SMODS.has_enhancement(context.other_card, "m_stone") then
-                card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Biboo!",colour = HEX('6e5bf4')})
-                return {
-                    card = context.other_card,
-                    chips = 81800
-                }
+                context.other_card.ability.config.bonus = context.other_card.ability.config.bonus + card.ability.extra.bonus_mod
+                SMODS.calculate_effect({message="Biboo!",colour = HEX('6e5bf4')},card)
             end
-        elseif context.individual and context.cardarea == G.hand and context.end_of_round then
-            if context.other_card:is_face() then
-                context.other_card:juice_up()
-                play_sound('cancel')
-                context.other_card:set_ability(G.P_CENTERS.m_stone, nil, true)
+        elseif context.using_consumeable then
+            if context.consumeable.config.center.key == 'c_tower' and not context.blueprint then
+                holo_card_upgrade(card)
             end
         end
     end
