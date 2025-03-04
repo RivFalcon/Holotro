@@ -37,15 +37,15 @@ SMODS.Joker{ -- Talalala -- https://youtu.be/_RPkBzv2jYc
 
 SMODS.Atlas{
     key = "Miko_GMKRTA",
-    path = "Memes/Meme_Miko_GMKRTA.png",
+    path = "Memes/Meme_Miko_GMKRTA_alt.png",
     px = 71,
     py = 95
 }
 SMODS.Joker{ -- Gomoku RTA -- https://youtu.be/0IYqY9I2LzI
     key = "Meme_Miko_GMKRTA",
-    member = "Suisei",
+    member = "Miko",
     loc_txt = {
-        name = "Gomoku RTA",
+        name = "Connect-Five Speedrun",
         text = {
             "{C:mult}+23.76{} Mult",
             "on {C:attention}first hand{} of round",

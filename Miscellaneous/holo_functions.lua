@@ -43,6 +43,22 @@ function holo_ctx(context)
     if context.post_trigger then return 'post_trigger' end
 end
 
+function Card:upgrade(scale_var, incr, arg)
+    local cae = self.ability.extra
+    if type(cae)~='table' then return end
+
+    cae[scale_var] = (cae[scale_var] or 0) + (incr or cae[scale_var..'_mod'] or 1)
+    arg = arg or {}
+    SMODS.calculate_effect(
+        {
+            message = arg.message or cae.upgrade_message or localize('k_upgrade_ex'),
+            colour = arg.colour,
+            sound = arg.sound
+        },
+        self
+    )
+end
+
 function holo_card_upgrade(card, scale_var, incr, arg)
     if card == nil then return end
     if card.ability == nil then return end
@@ -121,4 +137,20 @@ function SMODS.always_scores(card)
     if holo_always_scores(card)then return true end
     if next(find_joker('j_hololive_Relic_Biboo')) and not card:is_face() then return true end
     return false
+end
+
+function holo_card_disaccumulate(_cae, _key)
+    if _cae.accumulate>=1 then
+        if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            _cae.accumulate = _cae.accumulate - 1
+            G.E_MANAGER:add_event(Event({
+                func = function ()
+                    SMODS.add_card({ key = _key, area = G.consumeables})
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+                    return true
+                end
+            }))
+        end
+    end
 end
