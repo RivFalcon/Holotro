@@ -46,8 +46,10 @@ end
 function Card:upgrade(scale_var, incr, arg)
     local cae = self.ability.extra
     if type(cae)~='table' then return end
+    if type(scale_var)~='string'then return end
+    if cae[scale_var]==nil then return end
 
-    cae[scale_var] = (cae[scale_var] or 0) + (incr or cae[scale_var..'_mod'] or 1)
+    cae[scale_var] = cae[scale_var] + (incr or cae[scale_var..'_mod'] or 1)
     arg = arg or {}
     SMODS.calculate_effect(
         {
@@ -129,7 +131,10 @@ function ggpn()
 end
 
 function holo_chance(seed, odds)
-    return (pseudorandom(seed) < ggpn() / odds)
+    local _pseurand = pseudorandom(seed)
+    local _result = _pseurand < ggpn() / (odds or 1)
+
+    return _result
 end
 
 local holo_always_scores = SMODS.always_scores
