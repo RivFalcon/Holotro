@@ -1,3 +1,87 @@
+local fullname = {
+    Sora = "Tokino Sora",
+    Roboco = "Roboco-san",
+    Suisei = "Hoshimachi Suisei",
+    Mel = "Yozora Mel",
+    Fubuki = "Shiragami Fubuki",
+    Matsuri = "Natsuiro Matsuri",
+    Aki = "Aki Rosenthal",
+    Haato = "Akai Haato",
+    Miko = "Sakura Miko",
+    Aqua = "Minato Aqua",
+    Shion = "Murasaki Shion",
+    Ayame = "Nagiri Ayame",
+    Choco = "Yuzuki Choco",
+    Subaru = "Oozora Subaru",
+    AZKi = "AZKi",
+    Mio = "Ookami Mio",
+    Okayu = "Nekomata Okayu",
+    Korone = "Inugami Korone",
+
+    Pekora = "Usada Pekora",
+    Rushia = "{C:inactive}Uruha Rushia",
+    Flare = "Shiranui Flare",
+    Noel = "Shirogane Noel",
+    Marine = "Houshou Marine",
+    Kanata = "Amane Kanata",
+    Coco = "Kiryu Coco",
+    Watame = "Tsunomaki Watame",
+    Towa = "Tokoyami Towa",
+    Luna = "Himemori Luna",
+    Risu = "Ayunda Risu",
+    Moona = "Moona Hoshinova",
+    Iofi = "Airani Iofifteen",
+    Lamy = "Yukihana Lamy",
+    Nene = "Momosuzu Nene",
+    Botan = "Shishiro Botan",
+    Aloe = "Mano Aloe",
+    Polka = "Omaru Polka",
+
+    Calli = "Mori Calliope",
+    Kiara = "Takanashi Kiara",
+    Ina = "Ninomae Ina'nis",
+    Gura = "Gawr Gura",
+    Ame = "Watson Amelia",
+    Ollie = "Kureiji Ollie",
+    Anya = "Anya Melfissa",
+    Reine = "Pavolia Reine",
+    IRyS = "IRyS",
+    Sana = "Tsukumo Sana",
+    Fauna = "Ceres Fauna",
+    Kronii = "Ouro Kronii",
+    Mumei = "Nanashi Mumei",
+    Bae = "Hakos Baelz",
+    Laplus = "La+ Darkness",
+    Lui = "Takane Lui",
+    Koyori = "Hakui Koyori",
+    Chloe = "Sakamata Chloe",
+    Iroha = "Kazama Iroha",
+    Zeta = "Vestia Zeta",
+    Kaela = "Kaela Kovalskia",
+    Kobo = "Kobo Kanaeru",
+
+    Shiori = "Shiori Novella",
+    Biboo = "Koseki Bijou",
+    Nerissa = "Nerissa Ravencroft",
+    Fuwawa = "Fuwawa Abyssgard",
+    Mococo = "Mococo Abyssgard",
+    Ao = "Hiodoshi Ao",
+    Kanade = "Otonose Kanade",
+    Ririka = "Ichijou Ririka",
+    Raden = "Juufuutei Raden",
+    Hajime = "Todoroki Hajime",
+    Elizabeth = "Elizabeth Rose Bloodflame",
+    Gigi = "Gigi Murin",
+    Ceci = "Cecilia Immergreen",
+    Raora = "Raora Panthera",
+    Riona = "Isaki Riona",
+    Niko = "Koganei Niko",
+    Suu = "Mizumiya Su",
+    Chihaya = "Rindo Chihaya",
+    Vivi = "Kikirara Vivi",
+
+}
+
 return {
     descriptions={
         Other={
@@ -5,164 +89,164 @@ return {
             hololive_gen_origin={
                 name="Hololive 0th Generation",
                 text={
-                    "Tokino Sora",
-                    "Roboco-san",
-                    "Hoshimachi Suisei",
-                    "Sakura Miko",
-                    "AZKi"
+                    fullname.Sora,
+                    fullname.Roboco,
+                    fullname.Suisei,
+                    fullname.Miko,
+                    fullname.AZKi
                 }
             },
             hololive_gen_first={
                 name="Hololive 1st Generation",
                 text={
-                    "Yozora Mel",
-                    "Shiragami Fubuki",
-                    "Natsuiro Matsuri",
-                    "Aki Rosenthal",
-                    "Akai Haato"
+                    fullname.Mel,
+                    fullname.Fubuki,
+                    fullname.Matsuri,
+                    fullname.Aki,
+                    fullname.Haato
                 }
             },
             hololive_gen_exodia={
                 name="Hololive 2nd Generation",
                 text={
-                    "Minato Aqua",
-                    "Murasaki Shion",
-                    "Nagiri Ayame",
-                    "Yuzuki Choco",
-                    "Oozora Subaru"
+                    fullname.Aqua,
+                    fullname.Shion,
+                    fullname.Ayame,
+                    fullname.Choco,
+                    fullname.Subaru
                 }
             },
             hololive_gen_gamers={
                 name="hololive Gamers",
                 text={
-                    "Shiragami Fubuki",
-                    "Ookami Mio",
-                    "Nekomata Okayu",
-                    "Inugami Korone"
+                    fullname.Fubuki,
+                    fullname.Mio,
+                    fullname.Okayu,
+                    fullname.Korone
                 }
             },
             hololive_gen_fantasy={
                 name="Hololive 3rd Generation: Fantasy",
                 text={
-                    "Usada Pekora",
-                    "{C:inactive}Uruha Rushia",
-                    "Shiranui Flare",
-                    "Shirogane Noel",
-                    "Houshou Marine"
+                    fullname.Pekora,
+                    fullname.Rushia,
+                    fullname.Flare,
+                    fullname.Noel,
+                    fullname.Marine
                 }
             },
             hololive_gen_force={
                 name="Hololive 4th Generation",
                 text={
-                    "Amane Kanata",
-                    "Kiryu Coco",
-                    "Tsunomaki Watame",
-                    "Tokoyami Towa",
-                    "Himemori Luna"
+                    fullname.Kanata,
+                    fullname.Coco,
+                    fullname.Watame,
+                    fullname.Towa,
+                    fullname.Luna
                 }
             },
             hololive_gen_area15={
                 name="Hololive Indonesia 1st Generation -Area 15-",
                 text={
-                    "Ayunda Risu",
-                    "Moona Hoshinova",
-                    "Airani Iofifteen"
+                    fullname.Risu,
+                    fullname.Moona,
+                    fullname.Iofi
                 }
             },
             hololive_gen_nplab={
                 name="Hololive 5th Generation",
                 text={
-                    "Yukihana Lamy",
-                    "Momosuzu Nene",
-                    "Shishiro Botan",
-                    "Mano Aloe",
-                    "Omaru Polka"
+                    fullname.Lamy,
+                    fullname.Nene,
+                    fullname.Botan,
+                    fullname.Aloe,
+                    fullname.Polka
                 }
             },
             hololive_gen_myth={
                 name="Hololive English -Myth-",
                 text={
-                    "Mori Calliope",
-                    "Takanashi Kiara",
-                    "Ninomae Ina'nis",
-                    "Gawr Gura",
-                    "Watson Amelia"
+                    fullname.Calli,
+                    fullname.Kiara,
+                    fullname.Ina,
+                    fullname.Gura,
+                    fullname.Ame
                 }
             },
             hololive_gen_holoro={
                 name="Hololive Indonesia 2nd Generation -Holoro-",
                 text={
-                    "Kureiji Ollie",
-                    "Anya Melfissa",
-                    "Pavolia Reine"
+                    fullname.Ollie,
+                    fullname.Anya,
+                    fullname.Reine
                 }
             },
             hololive_gen_promise={
                 name="Hololive English -Promise-",
                 text={
-                    "IRyS",
-                    "Tsukumo Sana",
-                    "Ceres Fauna",
-                    "Ouro Kronii",
-                    "Nanashi Mumei",
-                    "Hakos Baelz"
+                    fullname.IRyS,
+                    fullname.Sana,
+                    fullname.Fauna,
+                    fullname.Kronii,
+                    fullname.Mumei,
+                    fullname.Bae
                 }
             },
             hololive_gen_holox={
                 name="Hololive 6th Generation: holoX",
                 text={
-                    "La+ Darkness",
-                    "Takane Lui",
-                    "Hakui Koyori",
-                    "Sakamata Chloe",
-                    "Kazama Iroha"
+                    fullname.Laplus,
+                    fullname.Lui,
+                    fullname.Koyori,
+                    fullname.Chloe,
+                    fullname.Iroha
                 }
             },
             hololive_gen_holoh3ro={
                 name="Hololive Indonesia 3rd Generation -HoloH3ro-",
                 text={
-                    "Vestia Zeta",
-                    "Kaela Kovalskia",
-                    "Kobo Kanaeru"
+                    fullname.Zeta,
+                    fullname.Kaela,
+                    fullname.Kobo
                 }
             },
             hololive_gen_advent={
                 name="Hololive English -Advent-",
                 text={
-                    "Shiori Novella",
-                    "Koseki Bijou",
-                    "Nerissa Ravencroft",
-                    "Fuwawa Abyssgard",
-                    "Mococo Abyssgard"
+                    fullname.Shiori,
+                    fullname.Biboo,
+                    fullname.Nerissa,
+                    fullname.Fuwawa,
+                    fullname.Mococo
                 }
             },
             hololive_gen_regloss={
                 name="Hololive DEV_IS: ReGLOSS",
                 text={
-                    "Hiodoshi Ao",
-                    "Otonose Kanade",
-                    "Ichijou Ririka",
-                    "Juufuutei Raden",
-                    "Todoroki Hajime"
+                    fullname.Ao,
+                    fullname.Kanade,
+                    fullname.Ririka,
+                    fullname.Raden,
+                    fullname.Hajime
                 }
             },
             hololive_gen_justice={
                 name="Hololive English -Justice-",
                 text={
-                    "Elizabeth Rose Bloodflame",
-                    "Gigi Murin",
-                    "Cecilia Immergreen",
-                    "Raora Panthera"
+                    fullname.Elizabeth,
+                    fullname.Gigi,
+                    fullname.Ceci,
+                    fullname.Raora
                 }
             },
             hololive_gen_flowglow={
                 name="Hololive DEV_IS: FLOW GLOW",
                 text={
-                    "Isaki Riona",
-                    "Koganei Niko",
-                    "Mizumiya Su",
-                    "Rindo Chihaya",
-                    "Kikirara Vivi"
+                    fullname.Riona,
+                    fullname.Niko,
+                    fullname.Suu,
+                    fullname.Chihaya,
+                    fullname.Vivi
                 }
             },
             ---
@@ -216,7 +300,7 @@ return {
             k_hololive_moon_full="Full Moon",
             k_hololive_moon_new="New Moon",
 
-            ph_hololive_necromancy="Saved by the Necromancer",
+            ph_hololive_necromancy="Saved by Necromancy",
         },
         labels={
             k_hololive_relic="Relic",
