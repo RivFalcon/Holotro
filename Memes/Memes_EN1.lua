@@ -1,8 +1,9 @@
 ----
-if false then
+
+--[[
 SMODS.Joker{
-    key = "Kiara_TUR",
     member = "Kiara",
+    key = "Kiara_TUR",
     loc_txt = {
         name = "The Usual Room",
         text = {
@@ -20,6 +21,6 @@ SMODS.Joker{
     calculate = function(self, card, context)
     end
 }
-end
+]]--
 
 ----
