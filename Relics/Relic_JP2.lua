@@ -104,22 +104,6 @@ Holo.Relic_Joker{ -- Murasaki Shion
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
 
-    add_to_deck = function(self, card, from_debuff)
-        for k,v in pairs(G.playing_cards)do
-            if SMODS.has_enhancement(v,'m_lucky') and v:get_id()==14 then
-                v.ability.config.mult_odds = card.ability.extra.mult_odds
-                v.ability.config.p_dollars_odds = card.ability.extra.p_dollars_odds
-            end
-        end
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        for k,v in pairs(G.playing_cards)do
-            if SMODS.has_enhancement(v,'m_lucky') then
-                v.ability.config.mult_odds = 5
-                v.ability.config.p_dollars_odds = 15
-            end
-        end
-    end,
     upgrade = function(self, card)
         card:juice_up()
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
@@ -133,17 +117,6 @@ Holo.Relic_Joker{ -- Murasaki Shion
         elseif context.joker_main then
             card:juice_up()
             return {Xmult=card.ability.extra.Xmult}
-        end
-        for k,v in pairs(G.playing_cards)do
-            if SMODS.has_enhancement(v,'m_lucky') then
-                if v:get_id()==14 then
-                    v.ability.config.mult_odds = card.ability.extra.mult_odds
-                    v.ability.config.p_dollars_odds = card.ability.extra.p_dollars_odds
-                else
-                    v.ability.config.mult_odds = 5
-                    v.ability.config.p_dollars_odds = 15
-                end
-            end
         end
     end
 }

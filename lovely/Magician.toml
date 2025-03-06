@@ -6,23 +6,15 @@ priority = 0
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "pseudorandom('lucky_mult') < G.GAME.probabilities.normal/5"
+pattern = "if pseudorandom('lucky_mult') < G.GAME.probabilities.normal/5 then"
 position = "at"
 match_indent = true
-payload = "pseudorandom('lucky_mult') < G.GAME.probabilities.normal/self.ability.mult_odds"
+payload = "if pseudorandom('lucky_mult') < G.GAME.probabilities.normal/(next(find_joker('j_hololive_Relic_Shion')) and self:get_id()==14 and 1 or 5) then"
 
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "pseudorandom('lucky_money') < G.GAME.probabilities.normal/15"
+pattern = "if pseudorandom('lucky_money') < G.GAME.probabilities.normal/15 then"
 position = "at"
 match_indent = true
-payload = "pseudorandom('lucky_money') < G.GAME.probabilities.normal/self.ability.p_dollars_odds"
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "elseif _c.effect == 'Lucky Card' then loc_vars = {G.GAME.probabilities.normal, _c.config.mult, 5, _c.config.p_dollars, 15}"
-position = "at"
-match_indent = true
-payload = "elseif _c.effect == 'Lucky Card' then loc_vars = {G.GAME.probabilities.normal, _c.config.mult, _c.config.mult_odds, _c.config.p_dollars, _c.config.p_dollars_odds}"
+payload = "if pseudorandom('lucky_money') < G.GAME.probabilities.normal/(next(find_joker('j_hololive_Relic_Shion')) and self:get_id()==14 and 3 or 15) then"

@@ -22,10 +22,14 @@ SMODS.Atlas{
 SMODS.Enhancement:take_ownership(
     'm_lucky',
     {
-        config = {
-            mult=20, p_dollars = 20,
-            mult_odds=5, p_dollars_odds=15
-        },
+        loc_vars = function(self, info_queue, card)
+            local is_eyed = next(find_joker('j_hololive_Relic_Shion')) and card:get_id()==14
+            return { vars = {
+                G.GAME.probabilities.normal,
+                card.ability.extra.mult, is_eyed and 1 or 5,
+                card.ability.extra.p_dollars, is_eyed and 3 or 15,
+            } }
+        end,
         atlas = "Lucky_Eye",
         pos = {x=0,y=0}
     }
