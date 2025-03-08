@@ -18,7 +18,7 @@ SMODS.Atlas{
     py = 95
 }
 
-Live.Relic_Joker = SMODS.Joker:extend{
+Holo.Relic_Joker = SMODS.Joker:extend{
     unlocked = false,
     unlock_condition = {type = '', extra = '', hidden = true},
 
@@ -31,7 +31,7 @@ Live.Relic_Joker = SMODS.Joker:extend{
     soul_pos = { x = 0, y = 1 },
 }
 
-function Live._Relic_Joker(t)
+function Holo._Relic_Joker(t)
     if t.member == nil then
         SMODS.Joker:__call(t)
         return t
