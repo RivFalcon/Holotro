@@ -35,7 +35,7 @@ Holo.Relic_Joker{ -- Mori Calliope
         return {
             vars = {
                 cae.Xmult, cae.Xmult_mod,
-                ggpn(), cae.odds,
+                Holo.prob_norm(), cae.odds,
                 cae.count_init, cae.count_down,
             }
         }
@@ -64,7 +64,7 @@ Holo.Relic_Joker{ -- Mori Calliope
                 if i == 4 then
                     break
                 end
-                if holo_chance('Calli', cae.odds) then
+                if Holo.chance('Calli', cae.odds) then
                     local percent = 1.15 - (i-0.999)/(4-0.998)*0.3
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',

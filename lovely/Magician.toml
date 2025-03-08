@@ -9,7 +9,7 @@ target = "card.lua"
 pattern = "if pseudorandom('lucky_mult') < G.GAME.probabilities.normal/5 then"
 position = "at"
 match_indent = true
-payload = "if pseudorandom('lucky_mult') < G.GAME.probabilities.normal/(next(find_joker('j_hololive_Relic_Shion')) and self:get_id()==14 and 1 or 5) then"
+payload = "if pseudorandom('lucky_mult') < Holo.prob_norm()/(next(find_joker('j_hololive_Relic_Shion')) and self:get_id()==14 and 1 or 5) then"
 
 [[patches]]
 [patches.pattern]
@@ -17,4 +17,4 @@ target = "card.lua"
 pattern = "if pseudorandom('lucky_money') < G.GAME.probabilities.normal/15 then"
 position = "at"
 match_indent = true
-payload = "if pseudorandom('lucky_money') < G.GAME.probabilities.normal/(next(find_joker('j_hololive_Relic_Shion')) and self:get_id()==14 and 3 or 15) then"
+payload = "if pseudorandom('lucky_money') < Holo.prob_norm()/(next(find_joker('j_hololive_Relic_Shion')) and self:get_id()==14 and 3 or 15) then"

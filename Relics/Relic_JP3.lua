@@ -46,7 +46,7 @@ Holo.Relic_Joker{ -- Usada Pekora
         info_queue[#info_queue+1] = G.P_CENTERS.m_gold
         return {
             vars = {
-                G.GAME.probabilities.normal,
+                Holo.prob_norm(),
                 card.ability.extra.get_odds(card.ability.extra.odds),
                 card.ability.extra.fee,
                 card.ability.extra.prize,
@@ -68,7 +68,7 @@ Holo.Relic_Joker{ -- Usada Pekora
         if context.end_of_round and context.individual then
             if SMODS.has_enhancement(context.other_card, "m_gold") then
                 ease_dollars(-cae.fee)
-                if holo_chance('Pekora', cae.get_odds(cae.odds)) then
+                if Holo.chance('Pekora', cae.get_odds(cae.odds)) then
                     card:juice_up()
                     ease_dollars(cae.prize)
                     cae.prize = 777
@@ -174,7 +174,7 @@ Holo.Relic_Joker{ -- Shiranui Flare
             vars = {
                 card.ability.extra.Xmult,
                 card.ability.extra.Xmult_mod,
-                G.GAME.probabilities.normal,
+                Holo.prob_norm(),
                 card.ability.extra.odds
             }
         }
@@ -196,7 +196,7 @@ Holo.Relic_Joker{ -- Shiranui Flare
                     v:set_ability(G.P_CENTERS.m_gold, nil, true)
                     self:upgrade(card)
                     card_eval_status_text(v, 'jokers', nil, 1, nil, {message="Painted!",colour = HEX('ff5028')})
-                    if pseudo('flare') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                    if Holo.chance('Flare', card.ability.extra.odds) then
                         v:set_seal('Gold', nil, true)
                     end
                 end

@@ -163,6 +163,8 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
                     }))
                 end
             end
+        elseif context.shatter_check then
+            holo_card_upgrade(card,'Xmult',nil,{message="For Justice!",colour = HEX('109d5b')})
         elseif context.joker_main then
             card:juice_up()
             return {

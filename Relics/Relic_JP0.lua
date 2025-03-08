@@ -65,7 +65,7 @@ Holo.Relic_Joker{ -- Roboco-san
             vars = {
                 card.ability.extra.Xmult_mod,
                 card.ability.extra.Xmult_mod_mod,
-                G.GAME.probabilities.normal,
+                Holo.prob_norm(),
                 card.ability.extra.odds
             }
         }
@@ -83,7 +83,7 @@ Holo.Relic_Joker{ -- Roboco-san
                 local _tick = false
                 if context.other_card:is_suit('Diamonds') then
                     _tick = true
-                elseif holo_chance('Roboco', card.ability.extra.odds) then
+                elseif Holo.chance('Roboco', card.ability.extra.odds) then
                     _tick = true
                 end
                 if _tick then

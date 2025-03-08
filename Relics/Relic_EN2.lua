@@ -26,7 +26,7 @@ Holo.Relic_Joker{ -- IRyS
             vars = {
                 card.ability.extra.dollars,
                 card.ability.extra.dollars_mod,
-                G.GAME.probabilities.normal,
+                Holo.prob_norm(),
                 card.ability.extra.odds
             }
         }
@@ -47,7 +47,7 @@ Holo.Relic_Joker{ -- IRyS
             card:juice_up()
             ease_dollars(card.ability.extra.dollars)
             card_eval_status_text(card, 'dollars', nil, 1, nil, {message="Hope!",colour = HEX('3c0024'),instant=true})
-            if holo_chance('IRyS', cae.odds) and not context.blueprint then
+            if Holo.chance('IRyS', cae.odds) and not context.blueprint then
                 self:upgrade(card)
             end
         end
@@ -81,7 +81,7 @@ Holo.Relic_Joker{ -- Tsukumo Sana
             vars = {
                 card.ability.extra.Xmult,
                 card.ability.extra.Xmult_mod,
-                G.GAME.probabilities.normal,
+                Holo.prob_norm(),
                 card.ability.extra.odds
             }
         }
@@ -103,7 +103,7 @@ Holo.Relic_Joker{ -- Tsukumo Sana
                 self:upgrade(card)
             end
         elseif context.before then
-            if holo_chance('Sanana', cae.odds) then
+            if Holo.chance('Sanana', cae.odds) then
                 -- Store the planet into the bag of planet.
                 local _planet = 'c_pluto'
                 for k, v in pairs(G.P_CENTER_POOLS.Planet) do
@@ -314,7 +314,7 @@ Holo.Relic_Joker{ -- Nanashi Mumei
             vars = {
                 card.ability.extra.Xmult,
                 card.ability.extra.Xmult_mod,
-                G.GAME.probabilities.normal,
+                Holo.prob_norm(),
                 card.ability.extra.odds
             }
         }
@@ -336,7 +336,7 @@ Holo.Relic_Joker{ -- Nanashi Mumei
             end
         elseif context.discard then
             if not context.other_card:is_suit("Spades") then
-                if holo_chance('Mumei', cae.odds) then
+                if Holo.chance('Mumei', cae.odds) then
                     context.other_card:juice_up()
                     context.other_card:start_dissolve(nil, true)
                     for _,J in ipairs(G.jokers.cards) do

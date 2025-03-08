@@ -25,12 +25,12 @@ SMODS.Joker{
     atlas = 'Fubuki_MFG',
     pos = { x = 0, y = 0 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { math.min(G.GAME.probabilities.normal * 2 , 6 ) , } }
+        return { vars = { math.min(Holo.prob_norm() * 2 , 6 ) , } }
     end,
     calculate = function(self, card, context)
         if context.buying_card or context.buying_booster_pack or context.buying_voucher then
             card:juice_up(0.5, 0.5)
-            if holo_chance('Fubuki',3) then
+            if Holo.chance('Fubuki',3) then
                 context.card.cost = 0
                 return {
                     message = 'Free!',

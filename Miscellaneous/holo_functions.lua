@@ -126,14 +126,26 @@ function holo_card_counting(card, context, decr, func, elsefunc)
     return _effect
 end
 
-function ggpn()
-    return G.GAME.probabilities.normal
+function Holo.prob_norm()
+    local _prob = {norm = G.GAME.probabilities.normal}
+    if G.jokers and G.jokers.cards then
+        for _,J in ipairs(G.jokers.cards) do
+            J:calculate_joker({calc_prob = true, prob = _prob})
+        end
+    end
+    return _prob.norm
 end
 
-function holo_chance(seed, odds)
+function Holo.chance(seed, odds)
     local _pseurand = pseudorandom(seed)
-    local _result = _pseurand < ggpn() / (odds or 1)
+    local _result = _pseurand < Holo.prob_norm() / (odds or 1)
 
+    if _result and seed == 'glass' and next(find_joker('j_hololive_Relic_Ceci')) then
+        for _,J in ipairs(SMODS.find_card('j_hololive_Relic_Ceci')) do
+            J:calculate_joker({shatter_check = true})
+        end
+        --return false
+    end
     return _result
 end
 

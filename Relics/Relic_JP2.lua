@@ -93,7 +93,7 @@ Holo.Relic_Joker{ -- Murasaki Shion
                 card.ability.extra.Xmult,
                 card.ability.extra.Xmult_mod,
                 G.P_CENTERS.m_lucky.config.mult,
-                G.GAME.probabilities.normal,
+                Holo.prob_norm(),
                 card.ability.extra.new_p_dollars_odds,
                 G.P_CENTERS.m_lucky.config.p_dollars
             }
@@ -150,7 +150,7 @@ Holo.Relic_Joker{ -- Nagiri Ayame
             vars = {
                 card.ability.extra.Xmult,
                 card.ability.extra.Xmult_mod,
-                G.GAME.probabilities.normal,
+                Holo.prob_norm(),
                 card.ability.extra.odds,
                 card.ability.extra.retriggers,
             }
@@ -176,7 +176,7 @@ Holo.Relic_Joker{ -- Nagiri Ayame
                 }
             end
         elseif context.individual and context.cardarea == G.hand and not context.end_of_round then
-            if holo_chance('Yo~dayo', card.ability.extra.odds) then
+            if Holo.chance('Yo~dayo', card.ability.extra.odds) then
                 return {
                     message='Yo!',
                     colour=HEX('c72554'),
@@ -217,7 +217,7 @@ Holo.Relic_Joker{ -- Yuzuki Choco
             vars = {
                 card.ability.extra.Xmult,
                 card.ability.extra.Xmult_mod,
-                G.GAME.probabilities.normal,
+                Holo.prob_norm(),
                 card.ability.extra.odds
             }
         }
@@ -238,7 +238,7 @@ Holo.Relic_Joker{ -- Yuzuki Choco
             if context.other_card:get_id()>=14 then
                 self:upgrade(card)
             elseif not SMODS.has_no_rank(context.other_card) then
-                if holo_chance('Chocosen', card.ability.extra.odds) then
+                if Holo.chance('Chocosen', card.ability.extra.odds) then
                     local rank_shift_string = {'2','3','4','5','6','7','8','9','10','Jack','Queen','King','Ace'}
                     assert(SMODS.change_base(context.other_card, nil, rank_shift_string[context.other_card.base.id]))
                 end
