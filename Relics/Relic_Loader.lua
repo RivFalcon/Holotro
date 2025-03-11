@@ -101,11 +101,15 @@ function Holo._Relic_Joker(t)
 end
 
 relic_files = {
+    "JP0",
     "JP2",
+
     "JP3",
     "ID1",
+
     "EN1",
     "EN2",
+
     "EN3",
     "EN4",
 }

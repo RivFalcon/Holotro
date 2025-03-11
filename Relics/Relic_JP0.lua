@@ -52,11 +52,12 @@ Holo.Relic_Joker{ -- Roboco-san
     loc_txt = {
         name = "Maintainance Tool of the High-spec Robot",
         text = {
-            'Steel cards held in hand has #3# in #4# chance to',
-            'upgrade their Xmult by X#1# mult when triggered.',
-            'Steel cards with Diamond suit are instead',
-            'guaranteed to be upgraded.'
+            '{C:attention}Steel cards{} held in hand has {C:green}#3# in #4#{} chance to',
+            'upgrade their Xmult by {X:mult,C:white}X#1#{} mult when triggered.',
+            '{C:attention}Steel cards{} with {C:diamonds}Diamond{} suit are instead',
+            '{C:green}guaranteed{} to be upgraded.'
         }
+        ,boxes={2,2}
     },
     config = { extra = { Xmult_mod=0.1, Xmult_mod_mod=0.02, odds=5 } },
     loc_vars = function(self, info_queue, card)
@@ -112,6 +113,7 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
             'Gain {X:mult,C:white}X#2#{} mult every time {C:tarot}The Star',
             'card is used. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
+        ,boxes={4,2}
     },
     config = { extra = { Xmult=3, Xmult_mod=1, dust_min=1, dust_max=3, count_down=18, accumulate=0 } },
     loc_vars = function(self, info_queue, card)
@@ -202,10 +204,10 @@ Holo.Relic_Joker{ -- Sakura Miko
         name = "Gohei of the Shrine Maiden",
         text = {
             'Each {C:red}discarded{} card with {C:attention}non{}-{C:diamonds}Diamond{} suits',
-            'is thrown into {C:attention}lava{} and burned into {C:attention}#2#~#3#{} crisps.',
-            'Collect {C:attention}#1# {C:inactive}[]{} burnt crisp to create a {C:dark_edition}Negative {C:tarot}Star{}.',
+            'is thrown into {C:attention}lava{} and burned into {C:attention}#3#~#4#{} crisps.',
+            'Collect {C:attention}#1# {C:inactive}[#2#]{} burnt crisp to create a {C:dark_edition}Negative {C:tarot}Star{}.',
             'Earn {C:money}$#1#{} at end of round if your {C:attention}full deck',
-            'has more {C:attention}Diamond{} cards than other suits combined.'
+            'has more {C:diamonds}Diamond{} cards than other suits combined.'
         }
         ,boxes={3,2}
     },
@@ -215,8 +217,9 @@ Holo.Relic_Joker{ -- Sakura Miko
         return {
             vars = {
                 35,
+                card.ability.extra.count_down,
                 card.ability.extra.crisp_min,
-                ard.ability.extra.crisp_max
+                card.ability.extra.crisp_max
             }
         }
     end,
@@ -247,11 +250,9 @@ Holo.Relic_Joker{ -- Sakura Miko
     calc_dollar_bonus = function(self, card)
         local D=0
         for _,v in ipairs(G.playing_cards)do
-            if v:is_suit('Diamonds') then D=D+1
-            else D=D-1
-            end
+            if v:is_suit('Diamonds') then D=D+1 end
         end
-        if D>0 then return 35 end
+        if D*2>#G.playing_cards then return 35 end
     end
 }
 
@@ -269,7 +270,7 @@ Holo.Relic_Joker{ -- AZKi
         }
         ,boxes={2,3}
     },
-    config = { extra = { retriggers=2, rank=14, count=5, count_down=5 } },
+    config = { extra = { retriggers=2, rank='Ace', id = 14, count=5, count_down=5 } },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -305,7 +306,7 @@ Holo.Relic_Joker{ -- AZKi
         elseif context.before then
             if G.GAME.current_round.hands_played == 0 then
                 for _,v in ipairs(context.full_hand)do
-                    if v:get_id()==card.ability.extra.rank and v:is_suit('Diamonds') then
+                    if v:get_id()==card.ability.extra.id and v:is_suit('Diamonds') then
                         card.ability.extra.count_down = card.ability.extra.count_down - 1
                         if card.ability.extra.count_down<=0 then
                             card.ability.extra.count_down = card.ability.extra.count_down + card.ability.extra.count
@@ -317,14 +318,17 @@ Holo.Relic_Joker{ -- AZKi
         elseif context.end_of_round and context.cardarea == G.jokers then
             local pool = {}
             for _,v in ipairs(G.playing_cards)do
-                if v:is_suit('Diamonds') then
-                    pool[#pool+1] = v:get_id()
+                if v:is_suit('Diamonds') and not SMODS.has_no_rank(v) then
+                    pool[#pool+1] = v.base
                 end
             end
-            if pool then
-                card.ability.extra.rank = pseudorandom_element(pool, pseudoseed('azki'))
+            if pool[1] then
+                local _base = pseudorandom_element(pool, pseudoseed('AZKi'))
+                card.ability.extra.rank = _base.value
+                card.ability.extra.id = _base.id
             else
-                card.ability.extra.rank = 14
+                card.ability.extra.rank = 'Ace'
+                card.ability.extra.id = 14
             end
         end
     end
