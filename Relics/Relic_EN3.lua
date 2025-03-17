@@ -18,6 +18,7 @@ Holo.Relic_Joker{ -- Shiori Novella
             'and will be properly {X:black,C:white}archived{}.'
         }
         ,boxes={2,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { retriggers = 1, count_down = 23 } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -71,6 +72,7 @@ Holo.Relic_Joker{ -- Koseki Bijou
             '{C:attention}Non-face cards{} will always score.'
         }
         ,boxes={2,2,1}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
         bonus_mod = 50, bonus_mod_mod = 10,
@@ -117,6 +119,7 @@ Holo.Relic_Joker{ -- Nerissa Ravencroft
             'will fall victim into {X:black,C:white}craziness{}.'
         }
         ,boxes={2,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 3 } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -157,6 +160,7 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
             'is retriggered {C:attention}#1#{} times.',
             '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#]{} {C:blue}odd{} cards scored.',
         }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { retriggers = 2, count_down = 22 } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -208,6 +212,7 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
             'is retriggered {C:attention}#1#{} times.',
             '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#] {C:red}even{} cards scored.',
         }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { retriggers = 2, count_down = 22 } },
     unlock_condition = {type = '', extra = '', hidden = true},

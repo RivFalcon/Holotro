@@ -16,6 +16,7 @@ Holo.Relic_Joker{ -- Tokino Sora
             'has the {C:attention}same rank{} as the {C:attention}first played card',
             'gives {X:mult,C:white}X#1#{} Mult when scored.'
         }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult=2, Xmult_mod=0.2 } },
     loc_vars = function(self, info_queue, card)
@@ -58,6 +59,7 @@ Holo.Relic_Joker{ -- Roboco-san
             '{C:green}guaranteed{} to be upgraded.'
         }
         ,boxes={2,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult_mod=0.1, Xmult_mod_mod=0.02, odds=5 } },
     loc_vars = function(self, info_queue, card)
@@ -114,6 +116,7 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
             'card is used. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
         ,boxes={4,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult=3, Xmult_mod=1, dust_min=1, dust_max=3, count_down=18, accumulate=0 } },
     loc_vars = function(self, info_queue, card)
@@ -210,6 +213,7 @@ Holo.Relic_Joker{ -- Sakura Miko
             'has more {C:diamonds}Diamond{} cards than other suits combined.'
         }
         ,boxes={3,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { crisp_min=3, crisp_max=5, count_down=35 } },
     loc_vars = function(self, info_queue, card)
@@ -250,9 +254,9 @@ Holo.Relic_Joker{ -- Sakura Miko
     calc_dollar_bonus = function(self, card)
         local D=0
         for _,v in ipairs(G.playing_cards)do
-            if v:is_suit('Diamonds') then D=D+1 end
+            if v:is_suit('Diamonds') then D=D+2 end
         end
-        if D*2>#G.playing_cards then return 35 end
+        if D>#G.playing_cards then return 35 end
     end
 }
 
@@ -269,6 +273,7 @@ Holo.Relic_Joker{ -- AZKi
             'Rank changes at end of round.'
         }
         ,boxes={2,3}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { retriggers=2, rank='Ace', id = 14, count=5, count_down=5 } },
     loc_vars = function(self, info_queue, card)

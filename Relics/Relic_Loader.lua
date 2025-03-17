@@ -31,6 +31,8 @@ Holo.Relic_Joker = SMODS.Joker:extend{
     soul_pos = { x = 0, y = 1 },
 }
 
+Holo.Relic_unlock_text = {"{E:1,s:1.3}?????",}
+
 function Holo._Relic_Joker(t)
     if t.member == nil then
         SMODS.Joker:__call(t)

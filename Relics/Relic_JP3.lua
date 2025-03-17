@@ -21,6 +21,7 @@ Holo.Relic_Joker{ -- Usada Pekora
             '{C:inactive}(Odds {C:green}-1{} per {C:attention}Gold Card{C:inactive} in your {C:attention}full deck{C:inactive})'
         }
         ,boxes={2,3,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = {
         extra = {
@@ -100,6 +101,7 @@ Holo.Relic_Joker{ -- Uruha Rushia
             '#1# {C:attention}Butterfly Tags{}.'
         }
         ,boxes={2,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
         summon = (os.date('%m')==1 or (os.date('%m')==2 and os.date('%d')<24)) and (os.date('%y')-23) or (os.date('%y')-22)
@@ -164,6 +166,7 @@ Holo.Relic_Joker{ -- Shiranui Flare
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
         ,boxes={2,2,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.25, odds = 4 } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -220,6 +223,7 @@ Holo.Relic_Joker{ -- Shirogane Noel
             'retrigger all {C:attention}metal cards{} held in hand',
             'once per {C:attention}King{} in scored hand.'
         }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { retriggers = 0 } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -276,6 +280,7 @@ Holo.Relic_Joker{ -- Houshou Marine
             '{C:inactive}[#3#]{} triggered {C:attention}Gold cards{} held in hand.'
         }
         ,boxes={3,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Mmult = 2, Mmult_mod = 1, count_down = 17, treasure = 0 } },
     unlock_condition = {type = '', extra = '', hidden = true},

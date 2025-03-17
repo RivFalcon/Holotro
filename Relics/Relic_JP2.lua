@@ -19,9 +19,7 @@ Holo.Relic_Joker{ -- Minato Aqua
             'if your hand contains {C:attention}more than one{} rank.'
         }
         ,boxes={2,3}
-        ,unlock={
-            "{E:1,s:1.3}?????",
-        }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 44.5, chip_mod = 10 } },
     loc_vars = function(self, info_queue, card)
@@ -81,9 +79,7 @@ Holo.Relic_Joker{ -- Murasaki Shion
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)',
         }
         ,boxes={3,2}
-        ,unlock={
-            "{E:1,s:1.3}?????",
-        }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 2, Xmult_mod = 0.25, new_mult_odds = 1, new_p_dollars_odds = 3} },
     loc_vars = function(self, info_queue, card)
@@ -134,9 +130,7 @@ Holo.Relic_Joker{ -- Nagiri Ayame
             'Gain {X:mult,C:white}X#2#{} mult when {C:attention}Boss Blind{} is defeated.'
         }
         ,boxes={2,3}
-        ,unlock={
-            "{E:1,s:1.3}?????",
-        }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
         Xmult = 2,
@@ -207,9 +201,7 @@ Holo.Relic_Joker{ -- Yuzuki Choco
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
         ,boxes={2,4}
-        ,unlock={
-            "{E:1,s:1.3}?????",
-        }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 2, Xmult_mod = 0.2, odds = 2 } },
     loc_vars = function(self, info_queue, card)
@@ -298,9 +290,7 @@ Holo.Relic_Joker{ -- Oozora Subaru
             'in current played hand. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
         ,boxes={2,2}
-        ,unlock={
-            "{E:1,s:1.3}?????",
-        }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult=2, Xmult_mod=0.5 } },
     loc_vars = function(self, info_queue, card)

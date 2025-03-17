@@ -20,6 +20,7 @@ SMODS.Joker{
     config = { extra = {} },
     rarity = 3,
     cost = 7,
+    blueprint_compat = true,
     atlas = 'Ayame_DCDC',
     pos = { x = 0, y = 0 },
     calculate = function(self, card, context)

@@ -21,6 +21,7 @@ SMODS.Joker{ -- Suisei -- Talalala -- https://youtu.be/_RPkBzv2jYc
     config = { extra = { mult = 10 } },
     rarity = 2,
     cost = 5,
+    blueprint_compat = true,
     atlas = 'Suisei_TLLL',
     pos = { x = 0, y = 0 },
     loc_vars = function(self, info_queue, card)
@@ -56,6 +57,7 @@ SMODS.Joker{ -- Miko -- Gomoku RTA -- https://youtu.be/0IYqY9I2LzI
     config = { extra = {  } },
     rarity = 2,
     cost = 5,
+    blueprint_compat = true,
     atlas = 'Miko_GMKRTA',
     pos = { x = 0, y = 0 },
     loc_vars = function(self, info_queue, card)

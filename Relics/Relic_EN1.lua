@@ -20,6 +20,7 @@ Holo.Relic_Joker{ -- Mori Calliope
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
         ,boxes={3,1,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
         Xmult = 4, Xmult_mod = 1,
@@ -126,6 +127,7 @@ Holo.Relic_Joker{ -- Takanashi Kiara
             'Gain {X:mult,C:white}X#2#{} mult and {C:money}$#3#{} per card burned.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
         Xmult = 4, Xmult_mod = 0.4,
@@ -201,6 +203,7 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
         ,boxes={3,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
         Xmult = 2.5, Xmult_mod = 0.5,
@@ -288,11 +291,12 @@ Holo.Relic_Joker{ -- Gawr Gura
             'Retrigger {C:blue}first {C:attention}3 {}scored cards {C:attention}2{} additional times',
             'if played hand is a {C:attention}Straight Flush{}.',
             'Gain {X:mult,C:white}X#2#{} mult every time {C:attention}Straight Flush{}',
-            'is leveled {C:attention}up{}. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}',
+            'is {C:planet}leveled up{}. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}',
             '{s:0.8}Using a {C:planet,s:0.8}Neptune{s:0.8} levels up {C:attention,s:0.8}Straight Flush {C:blue,s:0.8}2{s:0.8} additional times.',
             '{s:0.8}Using a {C:planet,s:0.8}Jupiter{s:0.8} or a {C:planet,s:0.8}Saturn{s:0.8} also levels up {C:attention,s:0.8}Straight Flush{s:0.8}.'
         }
         ,boxes={2,2,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
         Xmult = 3, Xmult_mod = 0.3,
@@ -396,6 +400,7 @@ Holo.Relic_Joker{ -- Watson Amelia
             'at least one scoring {C:attention}face card{}.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult, gain {X:mult,C:white}X#2#{C:inactive} Mult next hand){}'
         }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
         Xmult = 1, Xmult_mod = 0, Xmult_mod_mod = 0.25,

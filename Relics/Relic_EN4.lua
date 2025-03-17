@@ -10,21 +10,15 @@ Holo.Relic_Joker{ -- Elizabeth Rose Bloodflame
     member = "Elizabeth",
     key = "Relic_Elizabeth",
     loc_txt = {
-        name = "Great Sword of the Scarlet Queen",
-        --name = "Thorn the Great Sword of the Scarlet Queen",
-        namelines = {
-            "Thorn the Great Sword",
-            "of the Scarlet Queen"
-        },
+        name = "Thorn the Great Sword of the Scarlet Queen",
         text = {
-            'Serve {C:tarot}Justice{} when a {C:attention}blind{}',
-            'is either {C:attention}selected{} or {C:attention}skipped{}.',
-            '{C:inactive}(Must have room){}',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Justice{}',
-            'rightfully delivered.',
+            'Serve {C:tarot}Justice{} when a {C:attention}blind{} is either',
+            '{C:attention}selected{} or {C:attention}skipped{}. {C:inactive}(Must have room){}',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Justice{} rightfully delivered.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
-        ,boxes = { 3, 3 }
+        ,boxes={2,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.5 } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -70,9 +64,10 @@ Holo.Relic_Joker{ -- Gigi Murin
             'Gain {X:mult,C:white} X#1# {} Mult every time a card',
             'is already a {C:attention}Glass Card{}',
             'before getting {C:attention}fisted{}.',
-            '(Currently {X:mult,C:white} X#2# {} Mult)'
+            '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'
         }
         ,boxes = { 2, 4 }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.25 } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -122,9 +117,10 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
             'All {C:attention}Glass cards{} become {C:attention}very durable{}.',
             'Gain {X:mult,C:white} X#1# {} Mult every time a {C:attention}Glass Card{}',
             'is prevented from shattering.',
-            '(Currently {X:mult,C:white} X#2# {} Mult)'
+            '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'
         }
         ,boxes = { 1, 3 }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 4, Xmult_mod = 1 } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -187,6 +183,7 @@ Holo.Relic_Joker{ -- Raora Panthera
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
         ,boxes = { 3, 2 }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.25, Xmult_mod_card = 0.1 } },
     unlock_condition = {type = '', extra = '', hidden = true},

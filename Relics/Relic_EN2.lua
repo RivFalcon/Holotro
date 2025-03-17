@@ -18,6 +18,7 @@ Holo.Relic_Joker{ -- IRyS
             'to increase said income by {C:money}$#2#{}.',
             '{C:inactive}(Currently {X:money,C:white}$#1#{C:inactive} income){}'
         }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { dollars = 6, dollars_mod = 1, odds = 6 } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -68,6 +69,7 @@ Holo.Relic_Joker{ -- Tsukumo Sana
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
         ,boxes={3,3}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 6, Xmult_mod = 0.6, odds = 3, bag_of_planets = {} } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -162,6 +164,7 @@ Holo.Relic_Joker{ -- Ceres Fauna
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
         ,boxes={2,3}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 6, Xmult_mod = 1 } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -230,6 +233,7 @@ Holo.Relic_Joker{ -- Ouro Kronii
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
         ,boxes={2,3}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 6, Xmult_mod = 1.5, count_down = 12} },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -306,6 +310,7 @@ Holo.Relic_Joker{ -- Nanashi Mumei
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
         ,boxes={3,2}
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 6, Xmult_mod = 1, odds = 6 } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -370,6 +375,7 @@ Holo.Relic_Joker{ -- Hakos Baelz
             'Multiplies all{C:attention} listed {C:green}probabilities{} with',
             'the number it lands. {C:inactive}(Currently {X:green,C:white}X#1#{C:inactive} Chance){}'
         }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Pmult = 6, Pmult_max = 6, Pmult_max_mod = 1 } },
     unlock_condition = {type = '', extra = '', hidden = true},

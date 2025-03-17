@@ -22,6 +22,7 @@ SMODS.Joker{
     config = { extra = {} },
     rarity = 2,
     cost = 8,
+    blueprint_compat = true,
     atlas = 'Fubuki_MFG',
     pos = { x = 0, y = 0 },
     loc_vars = function(self, info_queue, card)

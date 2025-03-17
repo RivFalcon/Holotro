@@ -15,6 +15,7 @@ Holo.Relic_Joker{ -- Ayunda Risu
             'Every {C:attention}3{} cards with {C:clubs}Club{} suit held in hand',
             'will be #1# and give {X:mult,C:white} X15 {} Mult.'
         }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { clubbin = 3, effect = "clubin\' deez nuts" } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -85,6 +86,7 @@ Holo.Relic_Joker{ -- Moona Hoshinova
             'create a {C:tarot}#4#{} and gain {X:mult,C:white} X#1# {} Mult.',
             '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult){}'
         }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 3, Xmult_mod = 1.5, count_down = 15, phase = "moon_full" } },
     unlock_condition = {type = '', extra = '', hidden = true},
@@ -154,6 +156,7 @@ Holo.Relic_Joker{ -- Airani Iofifteen
             'get painted with {C:clubs}Club{} suit again.',
             '(Currently {X:mult,C:white} X#2# {} Mult)'
         }
+        ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 3, Xmult_mod = 1.5, count_down = 3 } },
     unlock_condition = {type = '', extra = '', hidden = true},
