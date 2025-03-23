@@ -13,9 +13,12 @@ Holo.Relic_Joker{ -- Tokino Sora
         name = "Starlight of the First Idol",
         text = {
             'Each played card with {C:diamonds}Diamond{} suit that',
-            'has the {C:attention}same rank{} as the {C:attention}first played card',
-            'gives {X:mult,C:white}X#1#{} Mult when scored.'
+            'has the {C:attention}same rank{} as the {C:attention}first{} played card',
+            'gives {X:mult,C:white}X#1#{} Mult when scored.',
+            'Gain {X:mult,C:white}X#2#{} Mult before scoring',
+            'if first played card is {C:diamonds}Diamond{} suit.'
         }
+        ,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult=2, Xmult_mod=0.2 } },
@@ -23,6 +26,7 @@ Holo.Relic_Joker{ -- Tokino Sora
         return {
             vars = {
                 card.ability.extra.Xmult,
+                card.ability.extra.Xmult_mod,
             }
         }
     end,
@@ -31,23 +35,24 @@ Holo.Relic_Joker{ -- Tokino Sora
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.other_card:is_suit('Diamonds') and context.other_card:get_id()==context.full_hand[1]:get_id() then
                 card:juice_up()
                 return {
                     Xmult=card.ability.extra.Xmult,
+                    colour=Holo.C.Sora
                 }
+            end
+        elseif context.before then
+            if context.full_hand[1]:is_suit('Diamonds') then
+                holo_card_upgrade(card)
             end
         end
     end
 }
 
-Holo.Relic_Joker{ -- Roboco-san
+Holo.Relic_Joker{ -- Roboco
     member = "Roboco",
     key = "Relic_Roboco",
     loc_txt = {

@@ -1,14 +1,14 @@
 ----
 
 --[[
-SMODS.Joker{
+SMODS.Joker{ -- Kiara: The Usual Room
     member = "Kiara",
     key = "Kiara_TUR",
     loc_txt = {
         name = "The Usual Room",
         text = {
-            'If first discard of',
-            'round has only {C:attention}1{} card,',
+            'If first discard of round',
+            'has only {C:attention}1{} card,',
             'send it to {C:attention}The Usual Room{}',
             'and create a {C:holofan}KFP{}.'
         }

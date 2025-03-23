@@ -380,7 +380,8 @@ Holo.Relic_Joker{ -- Hakos Baelz
     config = { extra = { Pmult = 6, Pmult_max = 6, Pmult_max_mod = 1 } },
     unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Pmult, card.ability.extra.Pmult_max} }
+        local cae = card.ability.extra
+        return { vars = { cae.Pmult, (cae.Pmult_max==6) and 'six' or cae.Pmult_max} }
     end,
     blueprint_compat = false,
 
@@ -400,7 +401,7 @@ Holo.Relic_Joker{ -- Hakos Baelz
         if context.after and context.cardarea == G.jokers then
             G.GAME.probabilities.normal = G.GAME.probabilities.normal / card.ability.extra.Pmult
             card:juice_up()
-            card.ability.extra.Pmult = pseudorandom('Hakos Baelz', 1, 6)
+            card.ability.extra.Pmult = pseudorandom('Hakos Baelz', 1, card.ability.extra.Pmult_max)
             G.GAME.probabilities.normal = G.GAME.probabilities.normal * card.ability.extra.Pmult
             return {
                 message="Roll!",

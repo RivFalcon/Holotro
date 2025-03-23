@@ -1,6 +1,6 @@
 local fullname = {
     Sora = "Tokino Sora",
-    Roboco = "Roboco-san",
+    Roboco = "Roboco",
     Suisei = "Hoshimachi Suisei",
     Mel = "Yozora Mel",
     Fubuki = "Shiragami Fubuki",
