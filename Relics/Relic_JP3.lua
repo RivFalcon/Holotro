@@ -116,6 +116,7 @@ Holo.Relic_Joker{ -- Uruha Rushia
         }
     end,
     blueprint_compat = false,
+    eternal_compat = false,
 
     atlas = 'Relic_Fantasy',
     pos = { x = 1, y = 0 },
