@@ -2,7 +2,7 @@
 
 SMODS.Atlas{
     key = "Ayame_DCDC",
-    path = "Ayame_DCDC.png",
+    path = "Memes/Meme_Ayame_DCDC.png",
     px = 71,
     py = 95
 }

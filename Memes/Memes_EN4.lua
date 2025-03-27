@@ -18,7 +18,7 @@ SMODS.Joker{
         return {
             vars = {
                 colours = {
-                    Holo.C.hololive,
+                    Holo.C.Hololive,
                     Holo.C.Elizabeth
                 }
             }

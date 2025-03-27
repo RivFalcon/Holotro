@@ -2,7 +2,7 @@
 
 SMODS.Atlas{
     key = "Fubuki_MFG",
-    path = "Fubuki_MFG.png",
+    path = "Memes/Meme_Fubuki_MFG.png",
     px = 71,
     py = 95
 }

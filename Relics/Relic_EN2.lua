@@ -64,8 +64,8 @@ Holo.Relic_Joker{ -- Tsukumo Sana
             '{C:green}#3# in #4#{} chance to create the',
             '{C:planet}Planet{} card of played poker hand.',
             '(If no room, {C:attention}accumulate{} them until there is.)',
-            'Gain {X:mult,C:white}X#2#{} mult every time a {C:planet}Planet{} card',
-            'is used since taking this relic.',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:planet}Planet{} card used',
+            'since taking this relic.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
         ,boxes={3,3}

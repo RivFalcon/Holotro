@@ -2,7 +2,7 @@
 
 SMODS.Atlas{
     key = "Suisei_TLLL",
-    path = "Meme_Suisei_TLLL.png",
+    path = "Memes/Meme_Suisei_TLLL.png",
     px = 71,
     py = 95
 }

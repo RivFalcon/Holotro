@@ -75,4 +75,12 @@ function Card:hover()
     card_hover(self)
 end
 
+local doot_play_sound = play_sound
+function play_sound(sound_code, per, vol)
+    if sound_code~='hololive_Kaela_Doot' and next(find_joker('j_hololive_Meme_Kaela_DOOT')) then
+        doot_play_sound('hololive_Kaela_Doot', per, vol)
+    end
+    doot_play_sound(sound_code, per, vol)
+end
+
 ----
