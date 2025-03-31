@@ -35,14 +35,16 @@ SMODS.Joker{
         }
     },
     config = { extra = { vol = 1, vol_mod = 0.01 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {} }
+    end,
+
     rarity = 1,
     cost = 0,
     blueprint_compat = true,
     atlas = 'Kaela_Doot',
     pos = { x = 0, y = 0 },
-    loc_vars = function(self, info_queue, card)
-        return { vars = {} }
-    end,
+    
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if not context.blueprint then
