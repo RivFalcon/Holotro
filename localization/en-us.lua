@@ -252,6 +252,15 @@ return {
             ---
 
             --- Info tips ---
+            holo_info_english_speaking_members={
+                name="English Speaking Members",
+                text={
+                    "All of EN and ID,",
+                    fullname.Haato..",",
+                    fullname.Coco..",",
+                    fullname.Ririka..".",
+                }
+            },
             holo_info_even={
                 name="Even Cards",
                 text={

@@ -39,55 +39,6 @@ function Holo._Relic_Joker(t)
         return t
     end
 
-    _t = {
-        key = 'Relic_'..t.member,
-    }
-    for k,v in pairs(t)do
-        _t[k]=v
-    end
-
-    if t.anti_rig_add and (type(t.add_to_deck)=='function') then
-        _t.add_to_deck = function(_self, card, from_debuff)
-            for eff,val in pairs(card.center.config.anti_rig_add)do
-                if card.ability.extra[eff]~=val then
-                    card.ability.extra[eff]=val
-                end
-            end
-            t.add_to_deck(_self, card, from_debuff)
-        end
-    elseif t.anti_rig_add then
-        _t.add_to_deck = function(_self, card, from_debuff)
-            for eff,val in ipairs(card.center.config.anti_rig_add)do
-                if card.ability.extra[eff]~=val then
-                    card.ability.extra[eff]=val
-                end
-            end
-        end
-    elseif type(t.add_to_deck)=='function' then
-        _t.add_to_deck = t.add_to_deck
-    end
-
-    if t.anti_rig_calc and (type(t.calculate)=='function') then
-        _t.calculate = function(_self, card, context)
-            for eff,val in ipairs(card.center.config.anti_rig_calc)do
-                if card.ability.extra[eff]~=val then
-                    card.ability.extra[eff]=val
-                end
-            end
-            return t.calculate(_self, card, context)
-        end
-    elseif t.anti_rig_calc then
-        _t.calculate = function(_self, card, context)
-            for eff,val in ipairs(card.center.config.anti_rig_calc)do
-                if card.ability.extra[eff]~=val then
-                    card.ability.extra[eff]=val
-                end
-            end
-        end
-    elseif type(t.calculate)=='function' then
-        _t.calculate = t.calculate
-    end --
-
     _t.set_badges = function(_self, card, badges)
         local _branch = self.Members[t.member].branch
         badges[#badges+1] = create_badge(_branch, G.C.WHITE, self.C[_branch], 1.2 )
