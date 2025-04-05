@@ -21,7 +21,6 @@ Holo.Relic_Joker{ -- Shiori Novella
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { retriggers = 1, count_down = 23 } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
     end,
@@ -78,7 +77,6 @@ Holo.Relic_Joker{ -- Koseki Bijou
         bonus_mod = 50, bonus_mod_mod = 10,
         upgrade_message = 'Rock!',
     } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
         info_queue[#info_queue+1] = G.P_CENTERS.m_stone
@@ -122,7 +120,6 @@ Holo.Relic_Joker{ -- Nerissa Ravencroft
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 3 } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult } }
     end,
@@ -163,7 +160,6 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { retriggers = 2, count_down = 22 } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set='Other',key='holo_info_odd'}
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
@@ -215,7 +211,6 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { retriggers = 2, count_down = 22 } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set='Other',key='holo_info_even'}
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }

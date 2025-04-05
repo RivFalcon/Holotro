@@ -21,7 +21,6 @@ Holo.Relic_Joker{ -- IRyS
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { dollars = 6, dollars_mod = 1, odds = 6 } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -38,16 +37,28 @@ Holo.Relic_Joker{ -- IRyS
     soul_pos = { x = 0, y = 1 },
 
     upgrade = function (self, card)
-        card:juice_up()
         card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ascend!",colour = HEX('3c0024'),instant=true})
+        SMODS.calculate_effect(
+            {
+                message = "Ascend!",
+                colour = HEX('3c0024'),
+                sound = 'generic1',
+            },
+            card
+        )
     end,
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.using_consumeable then
-            card:juice_up()
             ease_dollars(card.ability.extra.dollars)
-            card_eval_status_text(card, 'dollars', nil, 1, nil, {message="Hope!",colour = HEX('3c0024'),instant=true})
+            SMODS.calculate_effect(
+                {
+                    message = 'Hope!',
+                    colour = HEX('3c0024'),
+                    sound = 'generic1',
+                },
+                card
+            )
             if Holo.chance('IRyS', cae.odds) and not context.blueprint then
                 self:upgrade(card)
             end
@@ -72,7 +83,6 @@ Holo.Relic_Joker{ -- Tsukumo Sana
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 6, Xmult_mod = 0.6, odds = 3, bag_of_planets = {} } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         if card.ability.extra.bag_of_planets then
             for _, _planet in ipairs(card.ability.extra.bag_of_planets) do
@@ -167,7 +177,6 @@ Holo.Relic_Joker{ -- Ceres Fauna
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 6, Xmult_mod = 1 } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_earth
         info_queue[#info_queue+1] = G.P_CENTERS.c_ceres
@@ -236,7 +245,6 @@ Holo.Relic_Joker{ -- Ouro Kronii
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 6, Xmult_mod = 1.5, count_down = 12} },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_world
         return {
@@ -313,7 +321,6 @@ Holo.Relic_Joker{ -- Nanashi Mumei
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 6, Xmult_mod = 1, odds = 6 } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -378,7 +385,6 @@ Holo.Relic_Joker{ -- Hakos Baelz
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Pmult = 6, Pmult_max = 6, Pmult_max_mod = 1 } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
         return { vars = { cae.Pmult, (cae.Pmult_max==6) and 'six' or cae.Pmult_max} }

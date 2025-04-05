@@ -262,6 +262,7 @@ Holo.Relic_Joker{ -- Sakura Miko
             if v:is_suit('Diamonds') then D=D+2 end
         end
         if D>#G.playing_cards then return 35 end
+        return 0
     end
 }
 

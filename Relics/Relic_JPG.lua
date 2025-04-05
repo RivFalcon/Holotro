@@ -6,10 +6,8 @@ Holo.Relic_Joker{ -- Ookami Mio
     loc_txt = {
         name = "Tarot Deck of the Wolf",
         text = {
-            'Create a {C:tarot}Tarot card{} per:',
-            '{C:attention}blind{} either {C:blue}selected{} or {C:red}skipped{};',
-            '{C:attention}booster pack{} of any type opened in shop; or',
-            '{C:dark_edition}purple seal{} card held in hand at {C:attention}end of round{}.',
+            'When a {C:tarot}Tarot card{} is used,',
+            'create another {C:tarot}Tarot card{}.',
             '(If no room, {C:attention}accumulate{} them {C:inactive}[#3#]{} until there is.)',
             'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Tarot card{} used.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
@@ -28,23 +26,20 @@ Holo.Relic_Joker{ -- Ookami Mio
         }
     end,
 
-    --atlas = 'Relic_Gamers',
-    --pos = { x = 1, y = 0 },
-    --soul_pos = { x = 1, y = 1 },
+    atlas = 'Relic_Gamers',
+    pos      = { x = 1, y = 0 },
+    soul_pos = { x = 1, y = 1 },
 
     upgrade = function(self, card)
         card:juice_up()
+        card.ability.extra.deck_of_tarots = card.ability.extra.deck_of_tarots + 1
         card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
         card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Mion!",colour = HEX('dc1935'),instant=true})
     end,
     calculate = function(self, card, context)
-        if context.setting_blind or context.skip_blind then
-            card.ability.extra.deck_of_tarots = card.ability.extra.deck_of_tarots + 1
-        elseif context.buying_booster_pack then
-            card.ability.extra.deck_of_tarots = card.ability.extra.deck_of_tarots + 1
-        elseif context.end_of_round and context.individual then
-            if context.other_card.seal == 'Purple' then
-                card.ability.extra.deck_of_tarots = card.ability.extra.deck_of_tarots + 1
+        if context.using_consumeable then
+            if context.consumeable.ability.set == 'Planet' and not context.blueprint then
+                self:upgrade(card)
             end
         elseif context.joker_main then
             return {Xmult = card.ability.extra.Xmult, colour = HEX('dc1935')}
@@ -62,11 +57,60 @@ Holo.Relic_Joker{ -- Ookami Mio
                         return true
                     end
                 }))
-                if not context.blueprint then
-                    self:upgrade(card)
-                end
             end
         end
+    end
+}
+
+Holo.Relic_Joker{ -- Nekomata Okayu
+    member = "Okayu",
+    key = "Relic_Okayu",
+    loc_txt = {
+        name = "Mealbox of the Hungry Cat",
+        text = Holo.Relic_dummytext or {
+            ''
+        }
+    },
+    config = { extra = {
+    }},
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+            }
+        }
+    end,
+
+    atlas = 'Relic_Gamers',
+    pos      = { x = 2, y = 0 },
+    soul_pos = { x = 2, y = 1 },
+
+    calculate = function(self, card, context)
+    end
+}
+
+Holo.Relic_Joker{ -- Inugami Korone
+    member = "Korone",
+    key = "Relic_Korone",
+    loc_txt = {
+        name = "Boxing Glove of the Energetic Dog",
+        text = Holo.Relic_dummytext or {
+            ''
+        }
+    },
+    config = { extra = {
+    }},
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+            }
+        }
+    end,
+
+    atlas = 'Relic_Gamers',
+    pos      = { x = 3, y = 0 },
+    soul_pos = { x = 3, y = 1 },
+
+    calculate = function(self, card, context)
     end
 }
 

@@ -1,12 +1,12 @@
 -- Global Variable "Holo"
 Holo = {}
 
-Holo.C = {Hololive = HEX('33C9FE'),}
+Holo.C = {Hololive = HEX('33C9FE'), Hololive_bright = HEX('81cefd'), Hololive_dark = HEX('008be3')}
 Holo.Branches = {
-    JP = {order = 1, name = 'hololive JP' , gens={},members={}, C = Holo.C.Hololive, },
-    ID = {order = 2, name = 'INDONESIA'   , gens={},members={}, C = HEX('ff7c4d'), },
-    EN = {order = 3, name = 'ENGLISH'     , gens={},members={}, C = HEX('c283b6'), },
-    DI = {order = 4, name = 'DEV_IS'      , gens={},members={}, C = HEX('010101'), },
+    JP = {order = 1, name = 'hololive' , gens={},members={}, C = Holo.C.Hololive, },
+    ID = {order = 2, name = 'holoID'   , gens={},members={}, C = HEX('ff7c4d'), },
+    EN = {order = 3, name = 'holoEN'   , gens={},members={}, C = HEX('c283b6'), },
+    DI = {order = 4, name = 'DEV_IS'   , gens={},members={}, C = HEX('010101'), },
 }
 for branch_name,branch_data in pairs(Holo.Branches)do
     Holo.C[branch_name] = branch_data.C
@@ -178,16 +178,6 @@ Holo.Generations = {
 }
 for gen_key, gen_data in pairs(Holo.Generations) do
     Holo.Branches[gen_data.branch].gens[#Holo.Branches[gen_data.branch].gens+1] = gen_key
-
-    if type(gen_data.C) == 'table' then
-        Holo.C[gen_key] = {back=G.C.WHITE,text=Holo.C.Hololive}
-        if gen_data.C.back then
-            Holo.C[gen_key].back = gen_data.C.back
-        end
-        if gen_data.C.text then
-            Holo.C[gen_key].text = gen_data.C.text
-        end
-    end
 end
 
 Holo.gen_order = {
@@ -385,6 +375,8 @@ Holo.Members = {
 
 }
 
+Holo.memberlist = {}
+
 for memb_name,memb_data in pairs(Holo.Members)do
     memb_data.gens={}
     for gen_key, gen_data in pairs(Holo.Generations)do
@@ -399,7 +391,8 @@ for memb_name,memb_data in pairs(Holo.Members)do
         end
     end
 
-    if memb_data.C ~= nil then Holo.C[memb_name] = memb_data.C end
+    Holo.memberlist[memb_data.order] = memb_name
+    Holo.C[memb_name] = memb_data.C
 
     -- 
 end
@@ -469,7 +462,7 @@ Holo.badge_colours = {
     Korone   = { back = Holo.C.Korone   , text = HEX('a7492f')},
     -- JP34, ID1, JP5.
     Pekora   = { back = Holo.C.Pekora   , text = HEX('ffac4c')},
-    Rushia   = { back = Holo.C.Rushia   , text = HEX('04e3cb')},
+    Rushia   = { back = Holo.C.Rushia   , text = HEX('255073')},
     Flare    = { back = Holo.C.Flare    , text = HEX('ffd081')},
     Noel     = { back = Holo.C.Noel     , text = HEX('2b3e5c')},
     Marine   = { back = Holo.C.Marine   , text = HEX('ffd765')},
@@ -493,10 +486,10 @@ Holo.badge_colours = {
     Gura     = { back = Holo.C.Gura     , text = HEX('83c5e5')},
     Ame      = { back = Holo.C.Ame      , text = HEX('a56d6e')},
     Ollie    = { back = Holo.C.Ollie    , text = HEX('d1c6ca')},
-    Anya     = { back = Holo.C.Anya     , text = HEX('9c8285')},
+    Anya     = { text = Holo.C.Anya     , back = HEX('9c8285')},
     Reine    = { back = Holo.C.Reine    , text = HEX('eee1e8')},
     IRyS     = { back = Holo.C.IRyS     , text = HEX('fdfdfd')},
-    Sana     = { back = Holo.C.Sana     , text = HEX('c8946b')},
+    Sana     = { back = Holo.C.Sana     , text = HEX('ff4baf')},
     Fauna    = { back = Holo.C.Fauna    , text = HEX('ffff72')},
     Kronii   = { back = Holo.C.Kronii   , text = HEX('5c607a')},
     Mumei    = { back = Holo.C.Mumei    , text = HEX('4799a5')},
@@ -531,21 +524,130 @@ Holo.badge_colours = {
     Vivi     = { back = Holo.C.Vivi     , text = HEX('7f72aa')},
 }
 
+Holo.type_colour = {
+    Mascot = Holo.C.Hololive,
+
+    Meme = Holo.C.Hololive_bright,
+
+    Song = Holo.C.Hololive_dark,
+    Unit = Holo.C.Hololive_dark,
+    Collab = Holo.C.Hololive_dark,
+}
+
+function Holo.set_type_badge(card, badges, type)
+    if type==nil then return end
+    badges[#badges+1] = create_badge(type, Holo.type_colour[type], G.C.WHITE, 1 )
+end
+
 function Holo.set_member_badges(card, badges, member)
     member = member or card.config.center.member
     if member == nil then return end
     if Holo.Members[member] == nil then return end
-    local member_badge_colour = Holo.badge_colours[member] or {back = G.C.WHITE, text = Holo.C.Hololive}
-    badges[#badges+1] = create_badge(member, member_badge_colour.back, member_badge_colour.text, 1.2 )
 
-    for _,gen_key in ipairs(Holo.Members[member].gen)do
-        if Holo.C[gen_key] then
-            badges[#badges+1] = create_badge(localize('k_hololive_'..gen_key), Holo.C[gen_key].back, Holo.C[gen_key].text, 1.2 )
-        else
-            badges[#badges+1] = create_badge(localize('k_hololive_'..gen_key), G.C.WHITE, Holo.C.Hololive , 1.2 )
-        end
+    -- Member
+    local member_name = localize('k_hololive_fullname_table')[member]
+    if member == 'Haato' then
+        member_name = member_name.." / "..localize('k_hololive_fullname_table')['Haachama']
     end
+    local member_badge_colour = Holo.badge_colours[member] or {back = G.C.WHITE, text = Holo.C.Hololive}
+    badges[#badges+1] = create_badge(member_name, member_badge_colour.back, member_badge_colour.text, 1.2 )
 
+    -- Branch-Generation
     local _branch = Holo.Members[member].branch
-    badges[#badges+1] = create_badge(Holo.Branches[_branch].name, G.C.WHITE, Holo.C[_branch], 1.2 )
+    for _,gen_key in ipairs(Holo.Members[member].gens)do
+        local gen_text = Holo.Branches[_branch].name..' '..localize('k_hololive_'..gen_key)
+        badges[#badges+1] = create_badge(gen_text, G.C.WHITE, Holo.C[_branch], 0.9 )
+    end
 end
+
+Holo.birthday_chart = {
+    -- January
+    ['0106'] = 'Ame',
+    ['0112'] = 'Pekora',
+    ['0115'] = 'Risu',
+    ['0122'] = 'Rushia',
+    ['0130'] = 'Polka',
+    -- Febuary
+    ['0201'] = 'Fuwawa',
+    ['0202'] = 'Mococo',
+    ['0204'] = 'Raden',
+    ['0214'] = 'Choco',
+    ['0215'] = 'Moona',
+    ['0217'] = 'Aki',
+    ['0222'] = 'Okayu',
+    ['0227'] = 'Ao',
+    ['0229'] = 'Bae',
+    -- March
+    ['0302'] = 'Nene',
+    ['0305'] = 'Miko',
+    ['0307'] = 'IRyS',
+    ['0312'] = 'Anya',
+    ['0314'] = 'Kronii',
+    ['0315'] = 'Koyori',
+    ['0321'] = 'Fauna',
+    ['0322'] = 'Suisei',
+    -- April
+    ['0402'] = 'Flare',
+    ['0404'] = 'Calli',
+    ['0414'] = 'Biboo',
+    ['0420'] = 'Kanade',
+    ['0422'] = 'Kanata',
+    ['0425'] = 'Elizabeth',
+    -- May
+    ['0502'] = 'Shiori',
+    ['0511'] = 'Raora',
+    ['0512'] = 'Ririka',
+    ['0515'] = 'Sora',
+    ['0518'] = 'Chloe',
+    ['0520'] = 'Ina',
+    ['0523'] = 'Roboco',
+    ['0525'] = 'Laplus',
+    ['0529'] = 'Riona',
+    -- June
+    ['0606'] = 'Watame',
+    ['0607'] = 'Hajime',
+    ['0610'] = 'Sana',
+    ['0611'] = 'Lui',
+    ['0616'] = 'Suu',
+    ['0617'] = 'Coco',
+    ['0618'] = 'Iroha',
+    ['0620'] = 'Gura',
+    -- July
+    ['0701'] = 'AZKi',
+    ['0702'] = 'Subaru',
+    ['0706'] = 'Kiara',
+    ['0708'] = 'Chihaya',
+    ['0715'] = 'Iofi',
+    ['0722'] = 'Matsuri',
+    ['0725'] = 'Niko',
+    ['0730'] = 'Marine',
+    -- August
+    ['0804'] = 'Mumei',
+    ['0808'] = 'Towa',
+    ['0810'] = 'Haato',
+    ['0820'] = 'Mio',
+    ['0827'] = 'Vivi',
+    ['0830'] = 'Kaela',
+    -- September
+    ['0908'] = 'Botan',
+    ['0909'] = 'Reine',
+    -- October
+    ['1001'] = 'Korone',
+    ['1005'] = 'Fubuki',
+    ['1010'] = 'Luna',
+    ['1013'] = 'Ollie',
+    ['1018'] = 'Gigi',
+    ['1028'] = 'Aloe',
+    ['1031'] = 'Mel',
+    -- November
+    ['1107'] = 'Zeta',
+    ['1111'] = 'Ceci',
+    ['1115'] = 'Lamy',
+    ['1121'] = 'Nerissa',
+    ['1124'] = 'Noel',
+    -- December
+    ['1201'] = 'Aqua',
+    ['1208'] = 'Shion',
+    ['1212'] = 'Kobo',
+    ['1213'] = 'Ayame',
+}

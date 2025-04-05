@@ -42,7 +42,6 @@ Holo.Relic_Joker{ -- Usada Pekora
             end
         }
     },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_gold
         return {
@@ -104,9 +103,8 @@ Holo.Relic_Joker{ -- Uruha Rushia
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-        summon = (os.date('%m')==1 or (os.date('%m')==2 and os.date('%d')<24)) and (os.date('%y')-23) or (os.date('%y')-22)
+        summon = math.floor((os.date('%y%m%d')-220224)/10000)
     } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_TAGS.tag_hololive_butterfly
         return {
@@ -170,7 +168,6 @@ Holo.Relic_Joker{ -- Shiranui Flare
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 4, Xmult_mod = 0.25, odds = 4 } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_gold
         info_queue[#info_queue+1] = G.P_SEALS.Gold
@@ -227,7 +224,6 @@ Holo.Relic_Joker{ -- Shirogane Noel
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { retriggers = 0 } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_gold
         info_queue[#info_queue+1] = G.P_CENTERS.m_steel
@@ -284,7 +280,6 @@ Holo.Relic_Joker{ -- Houshou Marine
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Mmult = 2, Mmult_mod = 1, count_down = 17, treasure = 0 } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {

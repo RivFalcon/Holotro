@@ -18,7 +18,6 @@ Holo.Relic_Joker{ -- Ayunda Risu
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { clubbin = 3, effect = "clubin\' deez nuts" } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     add_to_deck = function(self, card, from_debuff)
         card.ability.extra.clubbin = 3
     end,
@@ -89,7 +88,6 @@ Holo.Relic_Joker{ -- Moona Hoshinova
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 3, Xmult_mod = 1.5, count_down = 15, phase = "moon_full" } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_moon
         return {
@@ -159,7 +157,6 @@ Holo.Relic_Joker{ -- Airani Iofifteen
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 3, Xmult_mod = 1.5, count_down = 3 } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return { vars = {
             card.ability.extra.Xmult_mod,

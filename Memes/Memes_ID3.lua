@@ -38,10 +38,15 @@ SMODS.Joker{
     loc_vars = function(self, info_queue, card)
         return { vars = {} }
     end,
+    set_badges = function(self, card, badges)
+        Holo.set_type_badge(card, badges, 'Meme')
+        Holo.set_member_badges(card, badges)
+    end,
 
     rarity = 1,
     cost = 0,
     blueprint_compat = true,
+
     atlas = 'Kaela_Doot',
     pos = { x = 0, y = 0 },
 

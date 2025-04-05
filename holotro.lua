@@ -8,6 +8,9 @@ SMODS.Atlas({
     py = 32
 })
 
+SMODS.current_mod.optional_features = {
+}
+
 assert(SMODS.load_file("holo_globals.lua"))()
 
 mod_dir = ''..SMODS.current_mod.path

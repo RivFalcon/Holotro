@@ -62,9 +62,7 @@ function Card:upgrade(scale_var, incr, arg)
 end
 
 function holo_card_upgrade(card, scale_var, incr, arg)
-    if card == nil then return end
-    if card.ability == nil then return end
-    if card.ability.extra == nil then return end
+    if ((card or {})['ability'] or {})['extra'] == nil then return end
     local cae = card.ability.extra
     if #cae==0 then return end
     if scale_var then
@@ -104,9 +102,7 @@ function holo_card_upgrade(card, scale_var, incr, arg)
 end
 
 function holo_card_counting(card, context, decr, func, elsefunc)
-    if card == nil then return end
-    if card.ability == nil then return end
-    if card.ability.extra == nil then return end
+    if ((card or {})['ability'] or {})['extra'] == nil then return end
     local cae = card.ability.extra
     if cae.count_init == nil then return end
     if cae.count_down == nil then return end

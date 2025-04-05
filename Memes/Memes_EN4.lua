@@ -30,16 +30,14 @@ SMODS.Joker{
     calculate = function(self, card, context)
         for _,J in ipair(G.jokers.cards)do
             local _tick = false
-            local _members = J.config.center.members or (J.config.center.member and {J.config.center.member,}) or nil
-            if _members then
-                for _,_member in ipairs(_members) do
-                    if Holo.get_branch(_member)=='EN' and _member~='Elizabeth'then
-                        _tick = true
-                    elseif Holo.get_branch(_member)=='ID'then
-                        _tick = true
-                    elseif _member=='Haato' or _member=='Coco' or _member=='Ririka' then
-                        _tick = true
-                    end
+            local _members = J.config.center.members or (J.config.center.member and {J.config.center.member,}) or {}
+            for _,_member in ipairs(_members) do
+                if Holo.get_branch(_member)=='EN' and _member~='Elizabeth'then
+                    _tick = true
+                elseif Holo.get_branch(_member)=='ID'then
+                    _tick = true
+                elseif _member=='Haato' or _member=='Coco' or _member=='Ririka' then
+                    _tick = true
                 end
             end
             if _tick then

@@ -26,10 +26,14 @@ Holo.Relic_Joker{ -- Mori Calliope
         Xmult = 4, Xmult_mod = 1,
         odds = 4,
         count_down = 4, count_init = 4,
+        upgrade_arg = {
+            scale_var = 'Xmult',
+            message = 'Guh!',
+            colour = Holo.C.Calli,
+        },
         scale_var = 'Xmult',
         upgrade_message = 'Guh!',
     } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
         info_queue[#info_queue+1] = G.P_CENTERS.c_death
@@ -41,6 +45,10 @@ Holo.Relic_Joker{ -- Mori Calliope
             }
         }
     end,
+    pools = {
+        Relic_Myth = true,
+        Relic_EN = true
+    },
 
     atlas = 'Relic_Myth',
     pos = { x = 0, y = 0 },
@@ -135,7 +143,6 @@ Holo.Relic_Joker{ -- Takanashi Kiara
         scale_var = 'Xmult',
         upgrade_message = 'Kikiriki!'
     } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
         return {
@@ -145,6 +152,10 @@ Holo.Relic_Joker{ -- Takanashi Kiara
             }
         }
     end,
+    pools = {
+        Relic_Myth = true,
+        Relic_EN = true
+    },
 
     atlas = 'Relic_Myth',
     pos = { x = 1, y = 0 },
@@ -211,7 +222,6 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
         scale_var = 'Xmult',
         upgrade_message = 'WAH!'
     } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_SEALS.Purple
         return {
@@ -222,6 +232,10 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
             }
         }
     end,
+    pools = {
+        Relic_Myth = true,
+        Relic_EN = true
+    },
 
     atlas = 'Relic_Myth',
     pos = { x = 2, y = 0 },
@@ -303,7 +317,6 @@ Holo.Relic_Joker{ -- Gawr Gura
         scale_var = 'Xmult',
         upgrade_message = 'A!'
     } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_neptune
         return {
@@ -313,6 +326,10 @@ Holo.Relic_Joker{ -- Gawr Gura
             }
         }
     end,
+    pools = {
+        Relic_Myth = true,
+        Relic_EN = true
+    },
 
     atlas = 'Relic_Myth',
     pos = { x = 3, y = 0 },
@@ -407,7 +424,6 @@ Holo.Relic_Joker{ -- Watson Amelia
         scale_var = 'Xmult',
         upgrade_message = 'Elementary!'
     } },
-    unlock_condition = {type = '', extra = '', hidden = true},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -417,6 +433,10 @@ Holo.Relic_Joker{ -- Watson Amelia
             }
         }
     end,
+    pools = {
+        Relic_Myth = true,
+        Relic_EN = true
+    },
 
     atlas = 'Relic_Myth',
     pos = { x = 4, y = 0 },

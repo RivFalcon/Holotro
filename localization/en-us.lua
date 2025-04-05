@@ -6,7 +6,7 @@ local fullname = {
     Fubuki = "Shiragami Fubuki",
     Matsuri = "Natsuiro Matsuri",
     Aki = "Aki Rosenthal",
-    Haato = "Akai Haato",
+    Haato = "Akai Haato", Haachama = "Haachama",
     Miko = "Sakura Miko",
     Aqua = "Minato Aqua",
     Shion = "Murasaki Shion",
@@ -19,7 +19,7 @@ local fullname = {
     Korone = "Inugami Korone",
 
     Pekora = "Usada Pekora",
-    Rushia = "{C:inactive}Uruha Rushia",
+    Rushia = "Uruha Rushia",
     Flare = "Shiranui Flare",
     Noel = "Shirogane Noel",
     Marine = "Houshou Marine",
@@ -129,7 +129,7 @@ return {
                 name="Hololive 3rd Generation: Fantasy",
                 text={
                     fullname.Pekora,
-                    fullname.Rushia,
+                    "{C:inactive}"..fullname.Rushia,
                     fullname.Flare,
                     fullname.Noel,
                     fullname.Marine
@@ -281,7 +281,7 @@ return {
             k_hololive_branch_id="Indonesia",
             k_hololive_branch_en="English",
             k_hololive_branch_di="DEV_IS",
-            
+
             k_hololive_gen_origin="0th Generation",
             k_hololive_gen_first="1st Generation",
             k_hololive_gen_exodia="2nd Generation",
@@ -299,6 +299,8 @@ return {
             k_hololive_gen_regloss="ReGLOSS",
             k_hololive_gen_justice="-Justice-",
             k_hololive_gen_flowglow="FLOW GLOW",
+
+            k_hololive_fullname_table=fullname,
 
             k_hololive_fan="Fan",
             k_hololive_mascot="Mascot",

@@ -6,6 +6,82 @@ SMODS.Atlas{
     py = 95
 }
 
+Holo.Relic_Joker{ -- Kureiji Ollie
+    member = "Ollie",
+    key = "Relic_Ollie",
+    loc_txt = {
+        name = "\"Serenity\" of the Undead",
+        text = Holo.Relic_dummytext or {
+            ''
+        }
+    },
+    config = { extra = {
+    }},
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+            }
+        }
+    end,
 
+    atlas = 'Relic_Holoro',
+    pos      = { x = 0, y = 0 },
+    soul_pos = { x = 0, y = 1 },
+
+    calculate = function(self, card, context)
+    end
+}
+
+Holo.Relic_Joker{ -- Anya Melfissa
+    member = "Anya",
+    key = "Relic_Anya",
+    loc_txt = {
+        name = "True Form of the Ancient Keris",
+        text = Holo.Relic_dummytext or {
+            ''
+        }
+    },
+    config = { extra = {
+    }},
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+            }
+        }
+    end,
+
+    atlas = 'Relic_Holoro',
+    pos      = { x = 1, y = 0 },
+    soul_pos = { x = 1, y = 1 },
+
+    calculate = function(self, card, context)
+    end
+}
+
+Holo.Relic_Joker{ -- Pavolia Reine
+    member = "Reine",
+    key = "Relic_Reine",
+    loc_txt = {
+        name = "Megaphone of the Attendant Peafowl",
+        text = Holo.Relic_dummytext or {
+            ''
+        }
+    },
+    config = { extra = {
+    }},
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+            }
+        }
+    end,
+
+    atlas = 'Relic_Holoro',
+    pos      = { x = 2, y = 0 },
+    soul_pos = { x = 2, y = 1 },
+
+    calculate = function(self, card, context)
+    end
+}
 
 ----
