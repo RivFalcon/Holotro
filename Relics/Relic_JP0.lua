@@ -21,7 +21,12 @@ Holo.Relic_Joker{ -- Tokino Sora
         ,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult=2, Xmult_mod=0.2 } },
+    config = { extra = {
+        Xmult=2, Xmult_mod=0.2,
+        upgrade_args = {
+            scale_var = 'Xmult',
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -83,8 +88,6 @@ Holo.Relic_Joker{ -- Roboco
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
 
-    upgrade = function(self, card)
-    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand and not context.end_of_round then
             if SMODS.has_enhancement(context.other_card, 'm_steel') then
@@ -123,7 +126,14 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
         ,boxes={4,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult=3, Xmult_mod=1, dust_min=1, dust_max=3, count_down=18, accumulate=0 } },
+    config = { extra = {
+        Xmult=3, Xmult_mod=1,
+        dust_min=1, dust_max=3,
+        count_down=18, accumulate=0,
+        upgrade_args = {
+            scale_var = 'Xmult',
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_star
         return {
@@ -142,11 +152,8 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-    end,
     calculate = function(self, card, context)
+        holo_card_upgrade_by_consumeable(card, context, 'c_star')
         if context.individual and context.cardarea == G.play then
             if context.other_card:is_suit('Diamonds') then
                 local stardust = pseudorandom('Suisei', card.ability.extra.dust_min, card.ability.extra.dust_max)
@@ -174,14 +181,6 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
                         message='Stardust! +'..stardust
                     }
                 end
-            end
-        elseif context.using_consumeable and not context.blueprint then
-            if context.consumeable.config.center.key == 'c_star' then
-                self:upgrade(card)
-                return {
-                    message=localize('k_upgrade_ex'),
-                    colour=HEX('7bacec')
-                }
             end
         elseif context.joker_main then
             card:juice_up()
@@ -220,7 +219,17 @@ Holo.Relic_Joker{ -- Sakura Miko
         ,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { crisp_min=3, crisp_max=5, count_down=35 } },
+    config = { extra = {
+        crisp_min=3, crisp_max=5,
+        count_down=35,
+        dummy_parameter = 0,
+        upgrade_args = {
+            scale_var = 'dummy_parameter',
+            func = function(card)
+                SMODS.add_card({ key = 'c_star', area = G.consumeables, edition = 'e_negative' })
+            end
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_star
         return {
@@ -237,9 +246,6 @@ Holo.Relic_Joker{ -- Sakura Miko
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
 
-    upgrade = function(self, card)
-        SMODS.add_card({ key = 'c_star', area = G.consumeables, edition = 'e_negative' })
-    end,
     calculate = function(self, card, context)
         if context.discard then
             if not context.other_card:is_suit('Diamonds')then
@@ -247,7 +253,7 @@ Holo.Relic_Joker{ -- Sakura Miko
                 card.ability.extra.count_down = card.ability.extra.count_down - lavacrisp
                 if card.ability.extra.count_down <=0 then
                     card.ability.extra.count_down = card.ability.extra.count_down + 35
-                    self:upgrade(card)
+                    holo_card_upgrade(card)
                 end
                 return {
                     message='BURN! +'..lavacrisp,
@@ -281,7 +287,14 @@ Holo.Relic_Joker{ -- AZKi
         ,boxes={2,3}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { retriggers=2, rank='Ace', id = 14, count=5, count_down=5 } },
+    config = { extra = {
+        retriggers=2, rank='Ace', id = 14,
+        count=5, count_down=5,
+        upgrade_args = {
+            scale_var = 'retriggers',
+            message = 'Guess!',
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -297,14 +310,6 @@ Holo.Relic_Joker{ -- AZKi
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.retriggers = card.ability.extra.retriggers + 1
-        return {
-            message='Guess!',
-            colour=HEX('fa3689')
-        }
-    end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.hand and not context.end_of_round then
             if context.other_card:is_suit('Diamonds') then
@@ -321,7 +326,7 @@ Holo.Relic_Joker{ -- AZKi
                         card.ability.extra.count_down = card.ability.extra.count_down - 1
                         if card.ability.extra.count_down<=0 then
                             card.ability.extra.count_down = card.ability.extra.count_down + card.ability.extra.count
-                            self:upgrade(card)
+                            holo_card_upgrade(card)
                         end
                     end
                 end

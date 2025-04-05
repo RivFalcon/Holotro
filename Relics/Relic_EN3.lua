@@ -20,7 +20,13 @@ Holo.Relic_Joker{ -- Shiori Novella
         ,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { retriggers = 1, count_down = 23 } },
+    config = { extra = {
+        retriggers = 1, count_down = 23,
+        upgrade_args = {
+            scale_var = 'retriggers',
+            message="Yoricked!",
+        }
+    } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
     end,
@@ -29,11 +35,6 @@ Holo.Relic_Joker{ -- Shiori Novella
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.retriggers = card.ability.extra.retriggers + 1
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Yoricked!",colour = HEX('373741')})
-    end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
             return {
@@ -46,7 +47,7 @@ Holo.Relic_Joker{ -- Shiori Novella
             card.ability.extra.count_down = card.ability.extra.count_down - 1
             if card.ability.extra.count_down <= 0 then
                 card.ability.extra.count_down = card.ability.extra.count_down + 23
-                self:upgrade(card)
+                holo_card_upgrade(card)
             end
             if context.other_card:is_face() then
                 context.other_card:juice_up()
@@ -75,7 +76,10 @@ Holo.Relic_Joker{ -- Koseki Bijou
     },
     config = { extra = {
         bonus_mod = 50, bonus_mod_mod = 10,
-        upgrade_message = 'Rock!',
+        upgrade_args = {
+            scale_var = 'bonus_mod',
+            message = 'Rock!',
+        },
     } },
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
@@ -89,17 +93,12 @@ Holo.Relic_Joker{ -- Koseki Bijou
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
 
-    upgrade = function (self, card)
-    end,
     calculate = function(self, card, context)
+        holo_card_upgrade_by_consumeable(card, context, 'c_tower')
         if context.individual and context.cardarea == G.play then
             if SMODS.has_enhancement(context.other_card, "m_stone") then
                 context.other_card.ability.config.bonus = context.other_card.ability.config.bonus + card.ability.extra.bonus_mod
                 SMODS.calculate_effect({message="Biboo!",colour = HEX('6e5bf4')},card)
-            end
-        elseif context.using_consumeable then
-            if context.consumeable.config.center.key == 'c_tower' and not context.blueprint then
-                holo_card_upgrade(card)
             end
         end
     end
@@ -128,8 +127,6 @@ Holo.Relic_Joker{ -- Nerissa Ravencroft
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
 
-    upgrade = function (self, card)
-    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             return {
@@ -159,7 +156,13 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
         }
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { retriggers = 2, count_down = 22 } },
+    config = { extra = {
+        retriggers = 2, count_down = 22,
+        upgrade_args = {
+            scale_var = 'retriggers',
+            message = 'Baubau!'
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set='Other',key='holo_info_odd'}
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
@@ -169,11 +172,6 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.retriggers = card.ability.extra.retriggers + 1
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Baubau!",colour = HEX('67b2ff')})
-    end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
             local _rank = context.other_card:get_id()
@@ -191,7 +189,7 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
                 card.ability.extra.count_down = card.ability.extra.count_down - 1
                 if card.ability.extra.count_down <= 0 then
                     card.ability.extra.count_down = card.ability.extra.count_down + 22
-                    self:upgrade(card)
+                    holo_card_upgrade(card)
                 end
             end
         end
@@ -210,7 +208,13 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
         }
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { retriggers = 2, count_down = 22 } },
+    config = { extra = {
+        retriggers = 2, count_down = 22,
+        upgrade_args = {
+            scale_var = 'retriggers',
+            message = 'Baubau!'
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set='Other',key='holo_info_even'}
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
@@ -220,11 +224,6 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.retriggers = card.ability.extra.retriggers + 1
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Baubau!",colour = HEX('f7a6ca')})
-    end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
             local _rank = context.other_card:get_id()
@@ -242,7 +241,7 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
                 card.ability.extra.count_down = card.ability.extra.count_down - 1
                 if card.ability.extra.count_down <= 0 then
                     card.ability.extra.count_down = card.ability.extra.count_down + 22
-                    self:upgrade(card)
+                    holo_card_upgrade(card)
                 end
             end
         end

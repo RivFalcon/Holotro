@@ -35,8 +35,6 @@ Holo.Relic_Joker{ -- Minato Aqua
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
 
-    upgrade = function(self, card)
-    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and #context.full_hand <= 1 then
             card:juice_up()
@@ -81,7 +79,14 @@ Holo.Relic_Joker{ -- Murasaki Shion
         ,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 2, Xmult_mod = 0.25, new_mult_odds = 1, new_p_dollars_odds = 3} },
+    config = { extra = {
+        Xmult = 2, Xmult_mod = 0.25,
+        new_mult_odds = 1, new_p_dollars_odds = 3,
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = 'Magic!',
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_magician
         return {
@@ -90,7 +95,7 @@ Holo.Relic_Joker{ -- Murasaki Shion
                 card.ability.extra.Xmult_mod,
                 G.P_CENTERS.m_lucky.config.mult,
                 Holo.prob_norm(),
-                card.ability.extra.new_p_dollars_odds,
+                3,
                 G.P_CENTERS.m_lucky.config.p_dollars
             }
         }
@@ -100,17 +105,9 @@ Holo.Relic_Joker{ -- Murasaki Shion
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Magic!",colour = HEX('8565fc')})
-    end,
     calculate = function(self, card, context)
-        if context.using_consumeable then
-            if context.consumeable.config.center.key == 'c_magician' then
-                self:upgrade(card)
-            end
-        elseif context.joker_main then
+        holo_card_upgrade_by_consumeable(card, context, 'c_magician')
+        if context.joker_main then
             card:juice_up()
             return {Xmult=card.ability.extra.Xmult}
         end
@@ -133,11 +130,13 @@ Holo.Relic_Joker{ -- Nagiri Ayame
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-        Xmult = 2,
-        Xmult_mod = 0.1,
+        Xmult = 2, Xmult_mod = 0.1,
         retriggers = 7,
         odds = 2,
-        count_up = 0
+        count_up = 0,
+        upgrade_args = {
+            scale_var = 'Xmult',
+        }
     }},
     loc_vars = function(self, info_queue, card)
         return {
@@ -155,16 +154,12 @@ Holo.Relic_Joker{ -- Nagiri Ayame
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-    end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
             if context.scoring_name == "High Card" then
                 return {
                     message = 'Hai!',
-                    repetitions = card.ability.extra.get_retriggers(),
+                    repetitions = card.ability.extra.retriggers,
                     card = card,
                     colour = HEX('c72554')
                 }
@@ -178,11 +173,7 @@ Holo.Relic_Joker{ -- Nagiri Ayame
                 }
             end
         elseif context.end_of_round and G.GAME.blind.boss then
-            self:upgrade(card)
-            return {
-                message=localize('k_upgrade_ex'),
-                colour=HEX('c72554')
-            }
+            holo_card_upgrade(card)
         end
     end
 }
@@ -203,7 +194,14 @@ Holo.Relic_Joker{ -- Yuzuki Choco
         ,boxes={2,4}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 2, Xmult_mod = 0.2, odds = 2 } },
+    config = { extra = {
+        Xmult = 2, Xmult_mod = 0.2,
+        odds = 2,
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = 'Love!',
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -219,16 +217,11 @@ Holo.Relic_Joker{ -- Yuzuki Choco
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Love!",colour = HEX('fe739c')})
-    end,
     calculate = function(self, card, context)
         if context.end_of_round and context.individual then
             context.other_card:juice_up()
             if context.other_card:get_id()>=14 then
-                self:upgrade(card)
+                holo_card_upgrade(card)
             elseif not SMODS.has_no_rank(context.other_card) then
                 if Holo.chance('Chocosen', card.ability.extra.odds) then
                     local rank_shift_string = {'2','3','4','5','6','7','8','9','10','Jack','Queen','King','Ace'}
@@ -292,7 +285,13 @@ Holo.Relic_Joker{ -- Oozora Subaru
         ,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult=2, Xmult_mod=0.5 } },
+    config = { extra = {
+        Xmult=2, Xmult_mod=0.5,
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = 'Peace!'
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -310,11 +309,6 @@ Holo.Relic_Joker{ -- Oozora Subaru
         for k,v in ipairs(G.playing_cards)do
             v:remove_sticker('hololive_handcuff')
         end
-    end,
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Peace!",colour = HEX('e5ed76')})
     end,
     calculate = function(self, card, context)
         if context.after then
@@ -338,7 +332,7 @@ Holo.Relic_Joker{ -- Oozora Subaru
                     eval_card(J, {cardarea = G.jokers, remove_playing_cards = true, removed = removed_cards})
                 end
             else
-                self:upgrade(card)
+                holo_card_upgrade(card)
             end
         elseif context.joker_main then
             card:juice_up()

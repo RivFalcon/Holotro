@@ -20,7 +20,15 @@ Holo.Relic_Joker{ -- IRyS
         }
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { dollars = 6, dollars_mod = 1, odds = 6 } },
+    config = { extra = {
+        dollars = 6, dollars_mod = 1,
+        odds = 6,
+        upgrade_args = {
+            scale_var = 'dollars',
+            message = "Ascend!",
+            sound = 'coin2'
+        }
+    } },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -36,17 +44,6 @@ Holo.Relic_Joker{ -- IRyS
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
 
-    upgrade = function (self, card)
-        card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_mod
-        SMODS.calculate_effect(
-            {
-                message = "Ascend!",
-                colour = HEX('3c0024'),
-                sound = 'generic1',
-            },
-            card
-        )
-    end,
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.using_consumeable then
@@ -54,13 +51,12 @@ Holo.Relic_Joker{ -- IRyS
             SMODS.calculate_effect(
                 {
                     message = 'Hope!',
-                    colour = HEX('3c0024'),
-                    sound = 'generic1',
+                    colour = Holo.C.IRyS,
                 },
                 card
             )
             if Holo.chance('IRyS', cae.odds) and not context.blueprint then
-                self:upgrade(card)
+                holo_card_upgrade(card)
             end
         end
     end
@@ -82,7 +78,14 @@ Holo.Relic_Joker{ -- Tsukumo Sana
         ,boxes={3,3}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 6, Xmult_mod = 0.6, odds = 3, bag_of_planets = {} } },
+    config = { extra = {
+        Xmult = 6, Xmult_mod = 0.6,
+        odds = 3, bag_of_planets = {},
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = 'Expand!',
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         if card.ability.extra.bag_of_planets then
             for _, _planet in ipairs(card.ability.extra.bag_of_planets) do
@@ -103,16 +106,11 @@ Holo.Relic_Joker{ -- Tsukumo Sana
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Expand!",colour = HEX('fede4a'),instant=true})
-    end,
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.using_consumeable then
             if context.consumeable.ability.set == 'Planet' and not context.blueprint then
-                self:upgrade(card)
+                holo_card_upgrade(card)
             end
         elseif context.before then
             if Holo.chance('Sanana', cae.odds) then
@@ -132,7 +130,7 @@ Holo.Relic_Joker{ -- Tsukumo Sana
                 card:juice_up()
                 return {
                     message = 'Observed!',
-                    colour=HEX('fede4a'),
+                    colour=Holo.C.Sana,
                 }
             end
         elseif context.joker_main then
@@ -140,7 +138,7 @@ Holo.Relic_Joker{ -- Tsukumo Sana
             return {
                 Xmult = cae.Xmult,
                 message='Space!',
-                colour=HEX('fede4a'),
+                colour=Holo.C.Sana,
                 sound='gong'
             }
         end
@@ -176,7 +174,13 @@ Holo.Relic_Joker{ -- Ceres Fauna
         ,boxes={2,3}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 6, Xmult_mod = 1 } },
+    config = { extra = {
+        Xmult = 6, Xmult_mod = 1,
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = "Grow!",
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_earth
         info_queue[#info_queue+1] = G.P_CENTERS.c_ceres
@@ -192,11 +196,6 @@ Holo.Relic_Joker{ -- Ceres Fauna
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Grow!",colour = HEX('a4e5cf'),instant=true})
-    end,
     calculate = function(self, card, context)
         if context.before and context.cardarea == G.play then
             local house_key = nil
@@ -215,14 +214,16 @@ Holo.Relic_Joker{ -- Ceres Fauna
             end
         elseif context.joker_main then
             card:juice_up()
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Nature!',colour=HEX('a4e5cf'),instant=true})
             return {
-                Xmult = card.ability.extra.Xmult
+                Xmult = card.ability.extra.Xmult,
+                message='Nature!',
+                colour=Holo.C.Fauna,
+                sound = 'gong',
             }
         elseif (context.level_up_hand == 'Full House' or context.level_up_hand == 'Flush House') and not context.blueprint then
             if context.level_up_amount > 0 then
                 for i=1,context.level_up_amount do
-                    self:upgrade(card)
+                    holo_card_upgrade(card)
                 end
             end
         end
@@ -244,7 +245,21 @@ Holo.Relic_Joker{ -- Ouro Kronii
         ,boxes={2,3}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 6, Xmult_mod = 1.5, count_down = 12} },
+    config = { extra = {
+        Xmult = 6, Xmult_mod = 1.5,
+        count_down = 12,
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = 'Tock!',
+            func = function(card)
+                if card.ability.extra.upgrade_args.message == 'Tick!' then
+                    card.ability.extra.upgrade_args.message = 'Tock!'
+                elseif card.ability.extra.upgrade_args.message == 'Tock!' then
+                    card.ability.extra.upgrade_args.message = 'Tick!'
+                end
+            end
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_world
         return {
@@ -265,22 +280,8 @@ Holo.Relic_Joker{ -- Ouro Kronii
         card.ability.extra.Xmult_mod = 1.5
         card.ability.extra.count_down = 12
     end,
-    upgrade = function (self, card)
-        card:juice_up()
-        if card.ability.extra.Xmult % card.ability.extra.Xmult then
-            card.ability.extra.Xmult = card.ability.extra.Xmult - (card.ability.extra.Xmult % card.ability.extra.Xmult_mod)
-        end
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        if (card.ability.extra.Xmult/card.ability.extra.Xmult_mod) % 2 then
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Tick!',colour=HEX('0869ec'),instant=true})
-        else
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Tock!',colour=HEX('0869ec'),instant=true})
-        end
-    end,
     calculate = function(self, card, context)
-        if card.ability.extra.Xmult_mod ~= 1.5 then
-            card.ability.extra.Xmult_mod = 1.5
-        end
+        holo_card_upgrade_by_consumeable(card, context, 'c_world')
         if ((context.individual and context.cardarea == G.play) or context.discard) and not context.blueprint then
             if not context.other_card.debuff and context.other_card:is_suit("Spades") then
                 card.ability.extra.count_down = card.ability.extra.count_down - 1
@@ -290,16 +291,13 @@ Holo.Relic_Joker{ -- Ouro Kronii
                     SMODS.add_card({ key = 'c_world', area = G.consumeables, edition = 'e_negative' })
                 end
             end
-        elseif context.using_consumeable and not context.blueprint then
-            if context.consumeable.config.center.key == 'c_world' then
-                self:upgrade(card)
-            end
         elseif context.joker_main then
             card:juice_up()
-            play_sound('gong')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Time!',colour=HEX('0869ec'),instant=true})
             return {
-                Xmult = card.ability.extra.Xmult
+                Xmult = card.ability.extra.Xmult,
+                message='Time!',
+                colour=Holo.C.Kronii,
+                sound = 'gong',
             }
         end
     end
@@ -320,7 +318,14 @@ Holo.Relic_Joker{ -- Nanashi Mumei
         ,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 6, Xmult_mod = 1, odds = 6 } },
+    config = { extra = {
+        Xmult = 6, Xmult_mod = 1,
+        odds = 6,
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = "Develope!",
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -336,15 +341,10 @@ Holo.Relic_Joker{ -- Nanashi Mumei
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Develope!",colour = HEX('998274'),instant=true})
-    end,
     calculate = function(self, card, context)
         if context.remove_playing_cards and not context.blueprint then
             for i=1, #context.removed do
-                self:upgrade(card)
+                holo_card_upgrade(card)
             end
         elseif context.discard then
             if not context.other_card:is_suit("Spades") then
@@ -365,8 +365,8 @@ Holo.Relic_Joker{ -- Nanashi Mumei
             return {
                 Xmult = card.ability.extra.Xmult,
                 message='Civilization!',
+                colour=Holo.C.Mumei,
                 sound = 'gong',
-                colour=HEX('998274'),
             }
         end
     end
@@ -384,7 +384,13 @@ Holo.Relic_Joker{ -- Hakos Baelz
         }
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Pmult = 6, Pmult_max = 6, Pmult_max_mod = 1 } },
+    config = { extra = {
+        Pmult = 6,
+        Pmult_max = 6, Pmult_max_mod = 1,
+        upgrade_args = {
+            scale_var = 'Pmult_max',
+        }
+    } },
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
         return { vars = { cae.Pmult, (cae.Pmult_max==6) and 'six' or cae.Pmult_max} }
@@ -401,8 +407,6 @@ Holo.Relic_Joker{ -- Hakos Baelz
     remove_from_deck = function(self, card, from_debuff)
         G.GAME.probabilities.normal = G.GAME.probabilities.normal / card.ability.extra.Pmult
     end,
-    upgrade = function (self, card)
-    end,
     calculate = function(self, card, context)
         if context.after and context.cardarea == G.jokers then
             G.GAME.probabilities.normal = G.GAME.probabilities.normal / card.ability.extra.Pmult
@@ -411,7 +415,7 @@ Holo.Relic_Joker{ -- Hakos Baelz
             G.GAME.probabilities.normal = G.GAME.probabilities.normal * card.ability.extra.Pmult
             return {
                 message="Roll!",
-                colour = HEX('d2251e'),
+                colour = Holo.C.Bae,
             }
         end
     end

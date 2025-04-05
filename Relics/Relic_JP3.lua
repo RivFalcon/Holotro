@@ -39,7 +39,10 @@ Holo.Relic_Joker{ -- Usada Pekora
                     end
                 end
                 return math.max(_odds,1)
-            end
+            end,
+            upgrade_args = {
+                scale_var = 'prize',
+            }
         }
     },
     loc_vars = function(self, info_queue, card)
@@ -59,10 +62,6 @@ Holo.Relic_Joker{ -- Usada Pekora
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
 
-    upgrade = function (self, card)
-        card:juice_up()
-        card.ability.extra.prize = card.ability.extra.prize + card.ability.extra.prize_mod
-    end,
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.end_of_round and context.individual then
@@ -78,10 +77,7 @@ Holo.Relic_Joker{ -- Usada Pekora
                         sound = 'coin2',
                     }
                 elseif not context.blueprint then
-                    self:upgrade(card)
-                    return {
-                        sound = 'generic1'
-                    }
+                    holo_card_upgrade(card)
                 end
             end
         end
@@ -167,7 +163,13 @@ Holo.Relic_Joker{ -- Shiranui Flare
         ,boxes={2,2,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 4, Xmult_mod = 0.25, odds = 4 } },
+    config = { extra = {
+        Xmult = 4, Xmult_mod = 0.25,
+        odds = 4,
+        upgrade_args = {
+            scale_var = 'Xmult',
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_gold
         info_queue[#info_queue+1] = G.P_SEALS.Gold
@@ -185,21 +187,16 @@ Holo.Relic_Joker{ -- Shiranui Flare
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
 
-    upgrade = function (self, card)
-        card:juice_up()
-        play_sound('generic1')
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-    end,
     calculate = function(self, card, context)
-        if context.before and not context.blueprint then
-            if next(context.poker_hands['Two Pair']) then
-                for k,v in ipairs(context.scoring_hand) do
+        if context.before and next(context.poker_hands['Two Pair']) then
+            for k,v in ipairs(context.scoring_hand) do
+                if not context.blueprint then
                     v:set_ability(G.P_CENTERS.m_gold, nil, true)
-                    self:upgrade(card)
-                    card_eval_status_text(v, 'jokers', nil, 1, nil, {message="Painted!",colour = HEX('ff5028')})
-                    if Holo.chance('Flare', card.ability.extra.odds) then
-                        v:set_seal('Gold', nil, true)
-                    end
+                    holo_card_upgrade(card)
+                    SMODS.calculate_effect({message="Painted!",colour = HEX('ff5028')},v)
+                end
+                if Holo.chance('Flare', card.ability.extra.odds) then
+                    v:set_seal('Gold', nil, true)
                 end
             end
         elseif context.joker_main then
@@ -237,8 +234,6 @@ Holo.Relic_Joker{ -- Shirogane Noel
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
 
-    upgrade = function (self, card)
-    end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
             card.ability.extra.retriggers = 0
@@ -279,7 +274,14 @@ Holo.Relic_Joker{ -- Houshou Marine
         ,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Mmult = 2, Mmult_mod = 1, count_down = 17, treasure = 0 } },
+    config = { extra = {
+        Mmult = 2, Mmult_mod = 1,
+        count_down = 17, treasure = 0,
+        upgrade_args = {
+            scale_var = 'Mmult',
+            message = 'Ahoy!',
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -295,19 +297,13 @@ Holo.Relic_Joker{ -- Houshou Marine
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
 
-    upgrade = function (self, card)
-        card:juice_up()
-        play_sound('generic1')
-        card.ability.extra.Mmult = card.ability.extra.Mmult + card.ability.extra.Mmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Ahoy!",colour = HEX('923749')})
-    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.blueprint then
             if SMODS.has_enhancement(context.other_card, "m_gold") then
                 card.ability.extra.count_down = card.ability.extra.count_down - 1
                 if card.ability.extra.count_down <= 0 then
                     card.ability.extra.count_down = 17
-                    self:upgrade(card)
+                    holo_card_upgrade(card)
                 end
             end
         elseif context.buying_card then

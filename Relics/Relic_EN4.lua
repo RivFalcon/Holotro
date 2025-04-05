@@ -20,7 +20,13 @@ Holo.Relic_Joker{ -- Elizabeth Rose Bloodflame
         ,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 4, Xmult_mod = 0.5 } },
+    config = { extra = {
+        Xmult = 4, Xmult_mod = 0.5,
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = 'For Justice!'
+        }
+    } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_justice
         return { vars = { card.ability.extra.Xmult, card.ability.extra.Xmult_mod} }
@@ -30,17 +36,9 @@ Holo.Relic_Joker{ -- Elizabeth Rose Bloodflame
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        self.config.extra.Xmult = self.config.extra.Xmult + self.config.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX('c63639')})
-    end,
     calculate = function(self, card, context)
-        if context.using_consumeable then
-            if context.consumeable.config.center.key == 'c_justice' and not context.blueprint then
-                self:upgrade(card)
-            end
-        elseif context.setting_blind or context.skip_blind then
+        holo_card_upgrade_by_consumeable(card, context, 'c_justice')
+        if context.setting_blind or context.skip_blind then
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 SMODS.add_card({ key = 'c_justice', area = G.consumeables })
             end
@@ -68,7 +66,13 @@ Holo.Relic_Joker{ -- Gigi Murin
         ,boxes = { 2, 4 }
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 4, Xmult_mod = 0.25 } },
+    config = { extra = {
+        Xmult = 4, Xmult_mod = 0.25,
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message="For Justice!",
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return { vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult} }
@@ -78,16 +82,11 @@ Holo.Relic_Joker{ -- Gigi Murin
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        self.config.extra.Xmult = self.config.extra.Xmult + self.config.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX('feb543')})
-    end,
     calculate = function(self, card, context)
         if context.before then
             for i = 1, #context.scoring_hand do
                 if SMODS.has_enhancement(context.scoring_hand[i], "m_glass") and not context.blueprint then
-                    self:upgrade(card)
+                    holo_card_upgrade(card)
                 else
                     context.scoring_hand[i]:set_ability(G.P_CENTERS.m_glass, nil, true)
                 end
@@ -120,7 +119,13 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
         ,boxes = { 1, 3 }
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 4, Xmult_mod = 1 } },
+    config = { extra = {
+        Xmult = 4, Xmult_mod = 1,
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = 'For Justice!',
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return { vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult} }
@@ -130,18 +135,13 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX('109d5b')})
-    end,
     calculate = function(self, card, context)
         if context.remove_playing_cards and not context.blueprint then
             for i, val in ipairs(context.removed) do
                 if SMODS.has_enhancement(val, "m_glass") then
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            self:upgrade(card)
+                            holo_card_upgrade(card)
                             -- Copied and modified this part from Ship of Theseus, ExtraCredit mod.
                             G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                             local _card = copy_card(val, nil, nil, G.playing_card)
@@ -157,7 +157,7 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
                 end
             end
         elseif context.shatter_check then
-            holo_card_upgrade(card,'Xmult',nil,{message="For Justice!",colour = HEX('109d5b')})
+            holo_card_upgrade(card)
         elseif context.joker_main then
             card:juice_up()
             return {
@@ -182,7 +182,14 @@ Holo.Relic_Joker{ -- Raora Panthera
         ,boxes = { 3, 2 }
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 4, Xmult_mod = 0.25, Xmult_mod_card = 0.1 } },
+    config = { extra = {
+        Xmult = 4, Xmult_mod = 0.25,
+        Xmult_mod_card = 0.1,
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = 'For Justice!',
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return {
@@ -198,16 +205,11 @@ Holo.Relic_Joker{ -- Raora Panthera
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        self.config.extra.Xmult = self.config.extra.Xmult + self.config.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="For Justice!",colour = HEX('f086aa')})
-    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if SMODS.has_enhancement(context.other_card, "m_glass") then
                 context.other_card.ability.x_mult = context.other_card.ability.x_mult + card.ability.extra.Xmult_mod_card
-                self:upgrade(card)
+                holo_card_upgrade(card)
             end
         elseif context.joker_main then
             return {

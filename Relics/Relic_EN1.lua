@@ -26,13 +26,10 @@ Holo.Relic_Joker{ -- Mori Calliope
         Xmult = 4, Xmult_mod = 1,
         odds = 4,
         count_down = 4, count_init = 4,
-        upgrade_arg = {
+        upgrade_args = {
             scale_var = 'Xmult',
             message = 'Guh!',
-            colour = Holo.C.Calli,
         },
-        scale_var = 'Xmult',
-        upgrade_message = 'Guh!',
     } },
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
@@ -54,18 +51,10 @@ Holo.Relic_Joker{ -- Mori Calliope
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
 
-    upgrade = function (self, card)
-        card:juice_up()
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Guh!",colour = HEX('a1020b'),instant=true})
-    end,
     calculate = function(self, card, context)
+        holo_card_upgrade_by_consumeable(card, context, 'c_death')
         local cae = card.ability.extra
-        if context.using_consumeable then
-            if context.consumeable.config.center.key == 'c_death' and not context.blueprint then
-                self:upgrade(card)
-            end
-        elseif context.before and #context.full_hand == 4 and not context.blueprint then
+        if context.before and #context.full_hand == 4 and not context.blueprint then
             card:juice_up()
             play_sound('tarot1')
             local rightmost = context.full_hand[4]
@@ -117,9 +106,10 @@ Holo.Relic_Joker{ -- Mori Calliope
             end
         elseif context.joker_main then
             card:juice_up()
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Death!',colour=HEX('a1020b'),instant=true})
             return {
-                Xmult = card.ability.extra.Xmult
+                Xmult = card.ability.extra.Xmult,
+                message='Death!',
+                colour=HEX('a1020b'),
             }
         end
     end
@@ -140,8 +130,13 @@ Holo.Relic_Joker{ -- Takanashi Kiara
     config = { extra = {
         Xmult = 4, Xmult_mod = 0.4,
         dollars = 4,
-        scale_var = 'Xmult',
-        upgrade_message = 'Kikiriki!'
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = 'Kikiriki!',
+            func = function(card)
+                ease_dollars(card.ability.extra.dollars)
+            end
+        },
     } },
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
@@ -161,12 +156,6 @@ Holo.Relic_Joker{ -- Takanashi Kiara
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
 
-    upgrade = function (self, card)
-        card:juice_up()
-        ease_dollars(card.ability.extra.dollars)
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Kikiriki!",colour = HEX('dc3907'),instant=true})
-    end,
     calculate = function(self, card, context)
         if context.after and not context.blueprint then
             local cards_burned = {}
@@ -185,12 +174,15 @@ Holo.Relic_Joker{ -- Takanashi Kiara
             end
         elseif context.remove_playing_cards and context.burned and not context.blueprint then
             for i=1, #context.removed do
-                self:upgrade(card)
+                holo_card_upgrade(card)
             end
         elseif context.joker_main then
             card:juice_up()
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Phoenix!",colour = HEX('dc3907'),instant=true})
-            return { Xmult = card.ability.extra.Xmult }
+            return {
+                Xmult = card.ability.extra.Xmult,
+                message="Phoenix!",
+                colour = Holo.C.Kiara,
+            }
         end
     end
 }
@@ -219,8 +211,11 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
     config = { extra = {
         Xmult = 2.5, Xmult_mod = 0.5,
         tome_of_spectrals = 0,
-        scale_var = 'Xmult',
-        upgrade_message = 'WAH!'
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = 'WAH!',
+            sound = 'hololive_Ina-Wah'
+        },
     } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_SEALS.Purple
@@ -241,12 +236,6 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
 
-    upgrade = function (self, card)
-        card:juice_up()
-        play_sound('hololive_Ina-Wah')
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Wah!",colour = HEX('3f3e69'),instant=true})
-    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.other_card.seal == 'Purple' then
@@ -269,13 +258,13 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
                 G.E_MANAGER:add_event(Event({
                     func = function ()
                         local _spectral = pseudorandom_element(G.P_CENTER_POOLS.Spectral,pseudoseed('ina'))
-                        SMODS.add_card({ key = _spectral, area = G.consumeables})
+                        SMODS.add_card({ key = _spectral.key, area = G.consumeables})
                         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
                         return true
                     end
                 }))
                 if not context.blueprint then
-                    self:upgrade(card)
+                    holo_card_upgrade(card)
                 end
             end
         end
@@ -314,8 +303,11 @@ Holo.Relic_Joker{ -- Gawr Gura
     },
     config = { extra = {
         Xmult = 3, Xmult_mod = 0.3,
-        scale_var = 'Xmult',
-        upgrade_message = 'A!'
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = 'A!',
+            sound='hololive_Gura-A',
+        },
     } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_neptune
@@ -335,15 +327,6 @@ Holo.Relic_Joker{ -- Gawr Gura
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
 
-    upgrade = function (self, card)
-        card:juice_up()
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        SMODS.calculate_effect( {
-            message="A!",
-            colour = HEX('5d81c7'),
-            sound='hololive_Gura-A'
-        },card)
-    end,
     calculate = function(self, card, context)
         if context.using_consumeable then
             local _p = context.consumeable.config.center.key
@@ -399,7 +382,7 @@ Holo.Relic_Joker{ -- Gawr Gura
         elseif context.level_up_hand == 'Straight Flush' then
             if context.level_up_amount > 0 then
                 for i=1,context.level_up_amount do
-                    self:upgrade(card)
+                    holo_card_upgrade(card)
                 end
             end
         end
@@ -421,8 +404,10 @@ Holo.Relic_Joker{ -- Watson Amelia
     },
     config = { extra = {
         Xmult = 1, Xmult_mod = 0, Xmult_mod_mod = 0.25,
-        scale_var = 'Xmult',
-        upgrade_message = 'Elementary!'
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = 'Elementary!',
+        }
     } },
     loc_vars = function(self, info_queue, card)
         return {
@@ -442,13 +427,6 @@ Holo.Relic_Joker{ -- Watson Amelia
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
 
-    upgrade = function (self, card)
-        if card.ability.extra.Xmult_mod > 0 then
-            card:juice_up()
-            card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Elementary!",colour = HEX('f8db92')})
-        end
-    end,
     calculate = function(self, card, context)
         if context.after and not context.blueprint then
             card:juice_up()
@@ -466,7 +444,7 @@ Holo.Relic_Joker{ -- Watson Amelia
                 card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Lost the track!",colour = HEX('f8db92')})
             end
             delay(0.2)
-            self:upgrade(card)
+            holo_card_upgrade(card)
         elseif context.joker_main then
             card:juice_up()
             play_sound('gong')

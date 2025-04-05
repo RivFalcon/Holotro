@@ -43,62 +43,35 @@ function holo_ctx(context)
     if context.post_trigger then return 'post_trigger' end
 end
 
-function Card:upgrade(scale_var, incr, arg)
-    local cae = self.ability.extra
-    if type(cae)~='table' then return end
-    if type(scale_var)~='string'then return end
-    if cae[scale_var]==nil then return end
-
-    cae[scale_var] = cae[scale_var] + (incr or cae[scale_var..'_mod'] or 1)
-    arg = arg or {}
-    SMODS.calculate_effect(
-        {
-            message = arg.message or cae.upgrade_message or localize('k_upgrade_ex'),
-            colour = arg.colour,
-            sound = arg.sound
-        },
-        self
-    )
-end
-
-function holo_card_upgrade(card, scale_var, incr, arg)
-    if ((card or {})['ability'] or {})['extra'] == nil then return end
-    local cae = card.ability.extra
+function holo_card_upgrade(card)
+    local cae = ((card or {})['ability'] or {})['extra'] or {}
     if #cae==0 then return end
-    if scale_var then
-        if type(scale_var)~='string'then return end
-        if cae[scale_var]==nil then return end
-    elseif cae.scale_var then
-        scale_var = cae.scale_var
-    else
-        for var,val in pairs(cae) do
-            if cae[var..'_mod'] then
-                scale_var = var
-                break
-            end
-        end
-    end
+    local args = cae.upgrade_args or {}
+    local scale_var = args.scale_var
+    if type(scale_var) ~= 'string' then return end
+    if type(cae[scale_var]) ~= 'number' then return end
 
     -- The core of this entire function
-    cae[scale_var] = cae[scale_var] + (incr or cae[scale_var..'_mod'] or 1)
+    cae[scale_var] = cae[scale_var] + (args.incr or cae[args.incr_var or scale_var..'_mod'] or 1)
 
-    arg = arg or {}
-    if type(arg.func) == 'function'then
-        arg.func(card, arg)
+    if type(args.func) == 'function'then
+        args.func(card)
     end
-    card:juice_up()
-    local _message = localize('k_upgrade_ex')
-    if cae.upgrade_message then _message = cae.upgrade_message end
-    if cae.upgrade_message_loc then _message = localize(cae.upgrade_message_loc) end
-    if arg.message then _message = arg.message end
     SMODS.calculate_effect(
         {
-            message = _message,
-            colour = arg.colour or Holo.C[card.center.config.member or 'Hololive'],
-            sound = arg.sound or cae.upgrade_sound or 'generic1',
+            message = args.message or localize(args.message_loc or 'k_upgrade_ex'),
+            colour = args.colour or Holo.C[card.config.center.member or 'Hololive'],
+            sound = args.sound or 'generic1',
         },
         card
     )
+end
+
+function holo_card_upgrade_by_consumeable(card, context, consumeable_key)
+    if context.blueprint then return end
+    if context.using_consumeable ~= true then return end
+    if (((context.consumeable or{})['config']or{})['center']or{}).key ~= consumeable_key then return end
+    holo_card_upgrade(card)
 end
 
 function holo_card_counting(card, context, decr, func, elsefunc)
@@ -120,6 +93,27 @@ function holo_card_counting(card, context, decr, func, elsefunc)
         _effect = elsefunc(card, context)
     end
     return _effect
+end
+
+function holo_card_expired(card)
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            play_sound('tarot1')
+            card.T.r = -0.2
+            card:juice_up(0.3, 0.4)
+            card.states.drag.is = true
+            card.children.center.pinch.x = true
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                func = function()
+                    G.jokers:remove_card(card)
+                    card:remove()
+                    card = nil
+                    return true
+                end
+            }))
+            return true
+        end
+    }))
 end
 
 function Holo.prob_norm()

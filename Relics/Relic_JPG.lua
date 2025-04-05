@@ -15,7 +15,17 @@ Holo.Relic_Joker{ -- Ookami Mio
         ,boxes={5,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 1, Xmult_mod = 0.2, deck_of_tarots = 0 } },
+    config = { extra = {
+        Xmult = 1, Xmult_mod = 0.2,
+        deck_of_tarots = 0,
+        upgrade_args = {
+            scale_var = 'Xmult',
+            message = 'Mion!',
+            func = function(card)
+                card.ability.extra.deck_of_tarots = card.ability.extra.deck_of_tarots + 1
+            end
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -30,16 +40,10 @@ Holo.Relic_Joker{ -- Ookami Mio
     pos      = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
 
-    upgrade = function(self, card)
-        card:juice_up()
-        card.ability.extra.deck_of_tarots = card.ability.extra.deck_of_tarots + 1
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Mion!",colour = HEX('dc1935'),instant=true})
-    end,
     calculate = function(self, card, context)
         if context.using_consumeable then
-            if context.consumeable.ability.set == 'Planet' and not context.blueprint then
-                self:upgrade(card)
+            if context.consumeable.ability.set == 'Tarot' and not context.blueprint then
+                holo_card_upgrade(card)
             end
         elseif context.joker_main then
             return {Xmult = card.ability.extra.Xmult, colour = HEX('dc1935')}
@@ -52,7 +56,7 @@ Holo.Relic_Joker{ -- Ookami Mio
                 G.E_MANAGER:add_event(Event({
                     func = function ()
                         local _tarot = pseudorandom_element(G.P_CENTER_POOLS.Tarot,pseudoseed('Miosha'))
-                        SMODS.add_card({ key = _tarot, area = G.consumeables})
+                        SMODS.add_card({ key = _tarot.key, area = G.consumeables})
                         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
                         return true
                     end
