@@ -12,7 +12,7 @@ SMODS.ConsumableType{
 
 Holo.Relic_Gacha = SMODS.Consumable:extend{
     set = 'relicgacha',
-    unlocked = false,
+    unlocked = true,
     discovered = false,
     gachapool = {key = 'order'},
 
@@ -118,7 +118,6 @@ Holo.Relic_Gacha{ -- JP
             }
         }
     end,
-    unlocked = true,
     soul_rate = Gacha_default_rate*#Holo.Branches.JP.members,
     gachapool = {key = 'branch', val = 'JP'},
 
@@ -150,7 +149,6 @@ Holo.Relic_Gacha{ -- ID
             }
         }
     end,
-    unlocked = true,
     soul_rate = Gacha_default_rate*#Holo.Branches.ID.members,
     gachapool = {key = 'branch', val = 'ID'},
 
@@ -182,7 +180,6 @@ Holo.Relic_Gacha{ -- EN
             }
         }
     end,
-    unlocked = true,
     soul_rate = Gacha_default_rate*#Holo.Branches.EN.members,
     gachapool = {key = 'branch', val = 'EN'},
 
@@ -214,7 +211,6 @@ Holo.Relic_Gacha{ -- DI
             }
         }
     end,
-    unlocked = true,
     soul_rate = Gacha_default_rate*#Holo.Branches.DI.members,
     gachapool = {key = 'branch', val = 'DI'},
 
