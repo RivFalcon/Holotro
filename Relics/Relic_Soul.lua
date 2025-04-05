@@ -55,7 +55,7 @@ SMODS.Atlas{
     py = 95
 }
 
-local Gacha_default_rate = 0.02/#Holo.Members
+local Gacha_default_rate = 0.04/#Holo.Members
 
 Holo.Relic_Gacha{ -- Hololive
     key = 'RelicGacha_Hololive',

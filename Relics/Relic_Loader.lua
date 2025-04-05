@@ -37,8 +37,8 @@ Holo.Relic_Joker = SMODS.Joker:extend{
 
 Holo.Relic_dummytext = {
     'This relic {C:red}doesn\'t{} have',
-    'any assigned effect {C:attention}yet{}.',
-    '{C:dark_edition}Please wait{} for more',
+    'any assigned effects {C:attention}yet{}.',
+    '{C:dark_edition}Please wait{} for more contents',
     'in {C:attention}future updates{}.'
 }
 Holo.Relic_unlock_text = {"{E:1,s:1.3}?????",}
