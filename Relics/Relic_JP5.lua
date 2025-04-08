@@ -36,7 +36,7 @@ Holo.Relic_Joker{ -- Momosuzu Nene
     member = "Nene",
     key = "Relic_Nene",
     loc_txt = {
-        name = "Pet Beetle of the Orange Seal",
+        name = "Entomology Set of the Orange Seal",
         text = Holo.Relic_dummytext or {
             ''
         }
