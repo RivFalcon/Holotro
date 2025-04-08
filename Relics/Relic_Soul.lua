@@ -41,12 +41,12 @@ Holo.Relic_Gacha = SMODS.Consumable:extend{
 
     in_pool = function(self, args)
         local _tick = 0
-        for _,m in ipairs(self.memberlist) do
+        for _,m in ipairs(self.center.memberlist) do
             if next(find_joker('j_hololive_Relic_'..m))then
                 _tick = _tick + 1
             end
         end
-        if _tick > 0 and ((_tick < #self.memberlist) or next(find_joker('Showman'))) then
+        if _tick > 0 and ((_tick < #self.center.memberlist) or next(find_joker('Showman'))) then
             return true
         else
             return false
@@ -65,14 +65,14 @@ Holo.Relic_Gacha = SMODS.Consumable:extend{
     use = function(self, card, area, copier)
         local _pool = {}
         if next(find_joker('Showman')) then
-            _pool = self.memberlist
+            _pool = self.center.memberlist
         else
-            for _,m in ipairs(self.memberlist) do
+            for _,m in ipairs(self.center.memberlist) do
                 if not next(find_joker('j_hololive_Relic_'..m)) then
                     _pool[#_pool+1] = m
                 end
             end
-            if #_pool == 0 then _pool = self.memberlist end
+            if #_pool == 0 then _pool = self.center.memberlist end
         end
         local _member = pseudorandom_element(_pool, pseudoseed(card.ability.extra.group_name))
         local _key = 'j_hololive_Relic_'.._member
