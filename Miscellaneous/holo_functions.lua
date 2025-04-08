@@ -44,8 +44,7 @@ function holo_ctx(context)
 end
 
 function holo_card_upgrade(card)
-    local cae = ((card or {})['ability'] or {})['extra'] or {}
-    if #cae==0 then return end
+    local cae = ((card or {}).ability or {}).extra or {}
     local args = cae.upgrade_args or {}
     local scale_var = args.scale_var
     if type(scale_var) ~= 'string' then return end
@@ -70,7 +69,7 @@ end
 function holo_card_upgrade_by_consumeable(card, context, consumeable_key)
     if context.blueprint then return end
     if context.using_consumeable ~= true then return end
-    if (((context.consumeable or{})['config']or{})['center']or{}).key ~= consumeable_key then return end
+    if (((context.consumeable or {}).config or {}).center or {}).key ~= consumeable_key then return end
     holo_card_upgrade(card)
 end
 
