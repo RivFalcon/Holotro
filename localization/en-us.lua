@@ -268,13 +268,13 @@ return {
                 }
             },
             holo_info_even={
-                name="Even Cards",
+                name="Even Ranks",
                 text={
                     " 10, 8, 6, 4, 2 ",
                 }
             },
             holo_info_odd={
-                name="Odd Cards",
+                name="Odd Ranks",
                 text={
                     " A, 9, 7, 5, 3 ",
                 }
