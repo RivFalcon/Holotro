@@ -82,6 +82,12 @@ local fullname = {
 
 }
 
+local relicgacha_text={
+    "Creates a",
+    "{V:1,E:1}#1# Relic",
+    "{C:inactive}(Must have room)",
+}
+
 return {
     descriptions={
         Other={

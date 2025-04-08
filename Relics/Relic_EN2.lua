@@ -275,18 +275,14 @@ Holo.Relic_Joker{ -- Ouro Kronii
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
 
-    add_to_deck = function (self, card, from_debuff)
-        card.ability.extra.Xmult = 6
-        card.ability.extra.Xmult_mod = 1.5
-        card.ability.extra.count_down = 12
-    end,
     calculate = function(self, card, context)
+        local cae = card.ability.extra
         holo_card_upgrade_by_consumeable(card, context, 'c_world')
         if ((context.individual and context.cardarea == G.play) or context.discard) and not context.blueprint then
             if not context.other_card.debuff and context.other_card:is_suit("Spades") then
-                card.ability.extra.count_down = card.ability.extra.count_down - 1
-                if card.ability.extra.count_down <= 0 then
-                    card.ability.extra.count_down = 12
+                cae.count_down = cae.count_down - 1
+                if ce.count_down <= 0 then
+                    cae.count_down = cae.count_down + 12
                     card:juice_up()
                     SMODS.add_card({ key = 'c_world', area = G.consumeables, edition = 'e_negative' })
                 end
@@ -294,7 +290,7 @@ Holo.Relic_Joker{ -- Ouro Kronii
         elseif context.joker_main then
             card:juice_up()
             return {
-                Xmult = card.ability.extra.Xmult,
+                Xmult = cae.Xmult,
                 message='Time!',
                 colour=Holo.C.Kronii,
                 sound = 'gong',
