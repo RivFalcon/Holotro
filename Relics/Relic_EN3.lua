@@ -50,9 +50,12 @@ Holo.Relic_Joker{ -- Shiori Novella
                 holo_card_upgrade(card)
             end
             if context.other_card:is_face() then
-                context.other_card:juice_up()
-                card_eval_status_text(context.other_card, 'extra', nil, 1, nil, {message="Archived!",colour = HEX('373741')})
-                context.other_card:start_dissolve(nil, true)
+                return {
+                    remove = true,
+                    message="Archived!",
+                    colour = HEX('373741'),
+                    card = context.other_card
+                }
                 -- "No no no, they were not destroyed, silly! I just took them to somewhere else!"
             end
         end
