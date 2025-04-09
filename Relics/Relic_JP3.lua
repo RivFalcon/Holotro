@@ -132,8 +132,9 @@ Holo.Relic_Joker{ -- Uruha Rushia
             }))
             return {
                 message = localize('k_saved_ex'),
-                saved_by_necromancy = true,
-                colour = HEX('04e3cb')
+                saved = true,
+                saved_message = localize('ph_hololive_necromancy'),
+                colour = Holo.C.Rushia
             }
         elseif context.selling_self then
             for i=1, card.ability.extra.summon do
