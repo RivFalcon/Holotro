@@ -227,7 +227,7 @@ Wah_Joker{ -- Ina: WAH 04
     calculate = function(self, card, context)
         if context.discard then
             if SMODS.has_enhancement(context.other_card, "m_mult") and context.other_card.seal == 'Purple' then
-                context.other_card.ability.config.mult = context.other_card.ability.config.mult + card.ability.extra.horny
+                context.other_card.ability.mult = context.other_card.ability.mult + card.ability.extra.horny
                 return {
                     message = 'WAH!',
                     colour = Holo.C.Ina,

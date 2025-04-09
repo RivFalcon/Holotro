@@ -97,7 +97,7 @@ Holo.Relic_Joker{ -- Koseki Bijou
         holo_card_upgrade_by_consumeable(card, context, 'c_tower')
         if context.individual and context.cardarea == G.play then
             if SMODS.has_enhancement(context.other_card, "m_stone") then
-                context.other_card.ability.config.bonus = context.other_card.ability.config.bonus + card.ability.extra.bonus_mod
+                context.other_card.ability.bonus = context.other_card.ability.bonus + card.ability.extra.bonus_mod
                 SMODS.calculate_effect({message="Biboo!",colour = HEX('6e5bf4')},card)
             end
         end

@@ -181,25 +181,24 @@ Holo.Relic_Joker{ -- Airani Iofifteen
 
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
-            for i=1, #context.full_hand do
-                if card.full_hand[i]:is_suit("Clubs") and not context.blueprint then
+            for i,v in ipairs(context.full_hand) do
+                if v:is_suit("Clubs") then
                     card.ability.extra.count_down = card.ability.extra.count_down - 1
                     if card.ability.extra.count_down <= 0 then
                         card.ability.extra.count_down = 3
                         holo_card_upgrade(card)
                     end
+                else
+                    v:change_suit("Clubs")
                 end
-                context.full_hand[i]:change_suit("Clubs")
-                context.full_hand[i]:juice_up()
+                v:juice_up()
             end
-            card:juice_up()
             return {
                 message = "Painted!",
                 card = card,
-                colour = HEX('bef167')
+                colour = Holo.C.Iofi
             }
         elseif context.joker_main then
-            card:juice_up()
             return {
                 Xmult = card.ability.extra.Xmult
             }

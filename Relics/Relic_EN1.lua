@@ -177,7 +177,6 @@ Holo.Relic_Joker{ -- Takanashi Kiara
                 holo_card_upgrade(card)
             end
         elseif context.joker_main then
-            card:juice_up()
             return {
                 Xmult = card.ability.extra.Xmult,
                 message="Phoenix!",
@@ -202,14 +201,14 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
             'Each played card with a {C:purple}purple seal{}',
             'creates a {C:spectral}Spectral{} card when scored.',
             '(If no room, {C:attention}accumulate{} them {C:inactive}[#3#]{} until there is.)',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:spectral}Spectral{} card created.',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:spectral}Spectral{} card used.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
         ,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-        Xmult = 2.5, Xmult_mod = 0.5,
+        Xmult = 2.5, Xmult_mod = 1.25,
         tome_of_spectrals = 0,
         upgrade_args = {
             scale_var = 'Xmult',
@@ -237,7 +236,11 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
     soul_pos = { x = 2, y = 1 },
 
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
+        if context.using_consumeable then
+            if context.consumeable.ability.set == 'Spectral' and not context.blueprint then
+                holo_card_upgrade(card)
+            end
+        elseif context.individual and context.cardarea == G.play then
             if context.other_card.seal == 'Purple' then
                 card.ability.extra.tome_of_spectrals = card.ability.extra.tome_of_spectrals + 1
             end
@@ -263,9 +266,6 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
                         return true
                     end
                 }))
-                if not context.blueprint then
-                    holo_card_upgrade(card)
-                end
             end
         end
     end
@@ -371,15 +371,14 @@ Holo.Relic_Joker{ -- Gawr Gura
                     colour = HEX('5d81c7')
                 }
             end
-        elseif context.joker_main and context.scoring_name == 'Straight Flush' then
-            card:juice_up()
+        elseif context.joker_main then
             return {
                 Xmult=card.ability.extra.Xmult,
                 message="Shark!",
                 colour = HEX('5d81c7'),
                 sound='multhit2'
             }
-        elseif context.level_up_hand == 'Straight Flush' then
+        elseif context.level_up_hand == 'Straight Flush' and not context.blueprint then
             if context.level_up_amount > 0 then
                 for i=1,context.level_up_amount do
                     holo_card_upgrade(card)
