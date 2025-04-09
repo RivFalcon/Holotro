@@ -20,12 +20,12 @@ Holo.Relic_Joker{ -- Ookami Mio
         deck_of_tarots = 0,
         upgrade_args = {
             scale_var = 'Xmult',
-            message = 'Mion!',
-            func = function(card)
-                card.ability.extra.deck_of_tarots = card.ability.extra.deck_of_tarots + 1
-            end
+            message = 'Mion!'
         }
     }},
+    upgrade_func = function(card)
+        card.ability.extra.deck_of_tarots = card.ability.extra.deck_of_tarots + 1
+    end,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {

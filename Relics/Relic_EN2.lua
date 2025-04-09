@@ -251,15 +251,15 @@ Holo.Relic_Joker{ -- Ouro Kronii
         upgrade_args = {
             scale_var = 'Xmult',
             message = 'Tock!',
-            func = function(card)
-                if card.ability.extra.upgrade_args.message == 'Tick!' then
-                    card.ability.extra.upgrade_args.message = 'Tock!'
-                elseif card.ability.extra.upgrade_args.message == 'Tock!' then
-                    card.ability.extra.upgrade_args.message = 'Tick!'
-                end
-            end
         }
     }},
+    upgrade_func = function(card)
+        if card.ability.extra.upgrade_args.message == 'Tick!' then
+            card.ability.extra.upgrade_args.message = 'Tock!'
+        elseif card.ability.extra.upgrade_args.message == 'Tock!' then
+            card.ability.extra.upgrade_args.message = 'Tick!'
+        end
+    end,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_world
         return {
@@ -281,7 +281,7 @@ Holo.Relic_Joker{ -- Ouro Kronii
         if ((context.individual and context.cardarea == G.play) or context.discard) and not context.blueprint then
             if not context.other_card.debuff and context.other_card:is_suit("Spades") then
                 cae.count_down = cae.count_down - 1
-                if ce.count_down <= 0 then
+                if cae.count_down <= 0 then
                     cae.count_down = cae.count_down + 12
                     card:juice_up()
                     SMODS.add_card({ key = 'c_world', area = G.consumeables, edition = 'e_negative' })

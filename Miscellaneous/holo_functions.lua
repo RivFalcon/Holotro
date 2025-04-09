@@ -43,18 +43,33 @@ function holo_ctx(context)
     if context.post_trigger then return 'post_trigger' end
 end
 
+function Holo.nil_check(var, fields)
+    local ret = {var,}
+    for _,field in ipairs(fields)do
+        ret[#ret+1] = ret[#ret][field] or {}
+    end
+    return ret[#ret]
+end
+
+function Holo.mod_check(card)
+    return Holo.nil_check(card,{'config','center','mod','id'})=='Holotro'
+end
+
+function Holo.cae(card)
+    return Holo.nil_check(card,{'ability','extra'})
+end
+
 function holo_card_upgrade(card)
-    local cae = ((card or {}).ability or {}).extra or {}
+    local cae = Holo.cae(card)
     local args = cae.upgrade_args or {}
-    local scale_var = args.scale_var
-    if type(scale_var) ~= 'string' then return end
+    local scale_var = args.scale_var or ''
     if type(cae[scale_var]) ~= 'number' then return end
 
     -- The core of this entire function
     cae[scale_var] = cae[scale_var] + (args.incr or cae[args.incr_var or scale_var..'_mod'] or 1)
 
-    if type(args.func) == 'function'then
-        args.func(card)
+    if type(card.config.center.upgrade_func) == 'function'then
+        card.config.center.upgrade_func(card)
     end
     SMODS.calculate_effect(
         {
@@ -69,19 +84,19 @@ end
 function holo_card_upgrade_by_consumeable(card, context, consumeable_key)
     if context.blueprint then return end
     if context.using_consumeable ~= true then return end
-    if (((context.consumeable or {}).config or {}).center or {}).key ~= consumeable_key then return end
+    if Holo.nil_check(context.consumeable,{'config','center','key'}) ~= consumeable_key then return end
     holo_card_upgrade(card)
 end
 
 function holo_card_counting(card, context, decr)
-    local cae = ((card or {}).ability or {}).extra or {}
+    local cae = Holo.cae(card)
     local args = cae.count_args or {}
     if cae.count_init == nil then return end
     if cae.count_down == nil then return end
 
     decr = decr or args.decr or 1
-    local func = args.func or (function(_card,_ctx)end)
-    local elsefunc = args.elsefunc or (function(_card,_ctx)end)
+    local func = card.config.center.count_func or (function(_card,_ctx)end)
+    local elsefunc = card.config.center.count_elsefunc or (function(_card,_ctx)end)
 
     cae.count_down = cae.count_down - decr
     local _effect = nil

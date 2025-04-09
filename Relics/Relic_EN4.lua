@@ -90,11 +90,13 @@ Holo.Relic_Joker{ -- Gigi Murin
                 else
                     context.scoring_hand[i]:set_ability(G.P_CENTERS.m_glass, nil, true)
                 end
-                return {
-                    message = "Fisted!",
-                    colour = G.C.GREY,
-                    card = context.other_card
-                }
+                SMODS.calculate_effect(
+                    {
+                        message = "Fisted!",
+                        colour = Holo.C.Gigi,
+                    },
+                    context.other_card
+                )
             end
         elseif context.joker_main then
             card:juice_up()

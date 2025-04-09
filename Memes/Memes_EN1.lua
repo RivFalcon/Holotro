@@ -30,8 +30,24 @@ SMODS.Atlas{
     py = 95
 }
 
-SMODS.Joker{ -- Ina: WAH 00
+local Wah_Joker = SMODS.Joker:extend{
     member = "Ina",
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = true,
+    in_pool = function(self, args)
+        local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
+        if pool_flags_WAH[self.WAH_index] then
+            return true
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
+        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
+    end,
+}
+
+Wah_Joker{ -- Ina: WAH 00
     key = "Ina_WAH_00",
     loc_txt = {
         name = 'We Are Hololive',
@@ -47,16 +63,12 @@ SMODS.Joker{ -- Ina: WAH 00
     WAH_index = 0,
     rarity = 1,
     cost = 5,
-    unlocked = true,
     discovered = true,
-    blueprint_compat = true,
-
     atlas = 'Ina_WAH',
     pos = {y=0,x=0},
 
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
+    in_pool = function(self, args)
+        return true
     end,
     calculate = function(self, card, context)
         local joker_to_the_right = nil
@@ -66,14 +78,13 @@ SMODS.Joker{ -- Ina: WAH 00
                 break
             end
         end
-        if ((joker_to_the_right or {}).mod or {}).id == 'Holotro' then
+        if Holo.mod_check(joker_to_the_right) then
             SMODS.calculate_effect(SMODS.blueprint_effect(card, joker_to_the_right, context), card)
         end
     end
 }
 
-SMODS.Joker{ -- Ina: WAH 01
-    member = "Ina",
+Wah_Joker{ -- Ina: WAH 01
     key = "Ina_WAH_01",
     loc_txt = {
         name = 'We Are Happy',
@@ -94,23 +105,9 @@ SMODS.Joker{ -- Ina: WAH 01
     WAH_index = 1,
     rarity = 1,
     cost = 5,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-
     atlas = 'Ina_WAH',
     pos = {y=0,x=1},
 
-    in_pool = function(self, args)
-        local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
-        if pool_flags_WAH[self.WAH_index] then
-            return true
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
-    end,
     calculate = function(self, card, context)
         if context.repetition then
             if context.other_card:is_face() then
@@ -124,8 +121,7 @@ SMODS.Joker{ -- Ina: WAH 01
     end
 }
 
-SMODS.Joker{ -- Ina: WAH 02
-    member = "Ina",
+Wah_Joker{ -- Ina: WAH 02
     key = "Ina_WAH_02",
     loc_txt = {
         name = 'We Are Hype',
@@ -146,23 +142,9 @@ SMODS.Joker{ -- Ina: WAH 02
     WAH_index = 2,
     rarity = 1,
     cost = 5,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-
     atlas = 'Ina_WAH',
     pos = {y=0,x=2},
 
-    in_pool = function(self, args)
-        local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
-        if pool_flags_WAH[self.WAH_index] then
-            return true
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
-    end,
     calculate = function(self, card, context)
         if context.setting_blind then
             card:juice_up()
@@ -177,8 +159,7 @@ SMODS.Joker{ -- Ina: WAH 02
     end
 }
 
-SMODS.Joker{ -- Ina: WAH 03
-    member = "Ina",
+Wah_Joker{ -- Ina: WAH 03
     key = "Ina_WAH_03",
     loc_txt = {
         name = 'We Are Here',
@@ -199,23 +180,9 @@ SMODS.Joker{ -- Ina: WAH 03
     WAH_index = 3,
     rarity = 1,
     cost = 5,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-
     atlas = 'Ina_WAH',
     pos = {y=0,x=3},
 
-    in_pool = function(self, args)
-        local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
-        if pool_flags_WAH[self.WAH_index] then
-            return true
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
-    end,
     calculate = function(self, card, context)
         if context.joker_main then
             for _,v in ipairs(context.full_hand)do
@@ -231,8 +198,7 @@ SMODS.Joker{ -- Ina: WAH 03
     end
 }
 
-SMODS.Joker{ -- Ina: WAH 04
-    member = "Ina",
+Wah_Joker{ -- Ina: WAH 04
     key = "Ina_WAH_04",
     loc_txt = {
         name = 'We Are Ho**y',
@@ -255,23 +221,9 @@ SMODS.Joker{ -- Ina: WAH 04
     WAH_index = 4,
     rarity = 1,
     cost = 5,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-
     atlas = 'Ina_WAH',
     pos = {y=0,x=4},
 
-    in_pool = function(self, args)
-        local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
-        if pool_flags_WAH[self.WAH_index] then
-            return true
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
-    end,
     calculate = function(self, card, context)
         if context.discard then
             if SMODS.has_enhancement(context.other_card, "m_mult") and context.other_card.seal == 'Purple' then
@@ -285,8 +237,7 @@ SMODS.Joker{ -- Ina: WAH 04
     end
 }
 
-SMODS.Joker{ -- Ina: WAH 05
-    member = "Ina",
+Wah_Joker{ -- Ina: WAH 05
     key = "Ina_WAH_05",
     loc_txt = {
         name = 'Win All Hearts',
@@ -309,23 +260,9 @@ SMODS.Joker{ -- Ina: WAH 05
     WAH_index = 5,
     rarity = 1,
     cost = 5,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-
     atlas = 'Ina_WAH',
     pos = {y=1,x=0},
 
-    in_pool = function(self, args)
-        local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
-        if pool_flags_WAH[self.WAH_index] then
-            return true
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
-    end,
     calculate = function(self, card, context)
         if context.card_drawn and G.GAME.facing_blind and not context.blueprint then
             if context.card_drawn:is_suit('Hearts') and context.card_drawn.seal == 'Purple' then
@@ -349,8 +286,7 @@ SMODS.Joker{ -- Ina: WAH 05
     end
 }
 
-SMODS.Joker{ -- Ina: WAH 06
-    member = "Ina",
+Wah_Joker{ -- Ina: WAH 06
     key = "Ina_WAH_06",
     loc_txt = {
         name = 'Work At Home',
@@ -371,23 +307,9 @@ SMODS.Joker{ -- Ina: WAH 06
     WAH_index = 6,
     rarity = 2,
     cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-
     atlas = 'Ina_WAH',
     pos = {y=1,x=1},
 
-    in_pool = function(self, args)
-        local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
-        if pool_flags_WAH[self.WAH_index] then
-            return true
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
-    end,
     calculate = function(self, card, context)
         if context.end_of_round and context.individual then
             if context.other_card.seal == 'Purple' then
@@ -401,8 +323,7 @@ SMODS.Joker{ -- Ina: WAH 06
     end
 }
 
-SMODS.Joker{ -- Ina: WAH 07
-    member = "Ina",
+Wah_Joker{ -- Ina: WAH 07
     key = "Ina_WAH_07",
     loc_txt = {
         name = 'We Are Honor students',
@@ -423,23 +344,9 @@ SMODS.Joker{ -- Ina: WAH 07
     WAH_index = 7,
     rarity = 2,
     cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-
     atlas = 'Ina_WAH',
     pos = {y=1,x=2},
 
-    in_pool = function(self, args)
-        local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
-        if pool_flags_WAH[self.WAH_index] then
-            return true
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
-    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.other_card:get_id() == 14 and context.other_card.seal == 'Purple' then
@@ -452,8 +359,7 @@ SMODS.Joker{ -- Ina: WAH 07
     end
 }
 
-SMODS.Joker{ -- Ina: WAH 08
-    member = "Ina",
+Wah_Joker{ -- Ina: WAH 08
     key = "Ina_WAH_08",
     loc_txt = {
         name = 'We Adore Her',
@@ -476,23 +382,9 @@ SMODS.Joker{ -- Ina: WAH 08
     WAH_index = 8,
     rarity = 2,
     cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-
     atlas = 'Ina_WAH',
     pos = {y=1,x=3},
 
-    in_pool = function(self, args)
-        local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
-        if pool_flags_WAH[self.WAH_index] then
-            return true
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
-    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.other_card.seal == 'Purple' then
@@ -511,8 +403,7 @@ SMODS.Joker{ -- Ina: WAH 08
     end
 }
 
-SMODS.Joker{ -- Ina: WAH 09
-    member = "Ina",
+Wah_Joker{ -- Ina: WAH 09
     key = "Ina_WAH_09",
     loc_txt = {
         name = 'We Are Healthy',
@@ -536,23 +427,9 @@ SMODS.Joker{ -- Ina: WAH 09
     WAH_index = 9,
     rarity = 2,
     cost = 7,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-
     atlas = 'Ina_WAH',
     pos = {y=1,x=4},
 
-    in_pool = function(self, args)
-        local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
-        if pool_flags_WAH[self.WAH_index] then
-            return true
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
-    end,
     calculate = function(self, card, context)
         if context.end_of_round and context.cardarea == G.jokers and not context.blueprint then
             if card.ability.extra.we > 0 then card:juice_up() end
@@ -578,8 +455,7 @@ SMODS.Joker{ -- Ina: WAH 09
     end
 }
 
-SMODS.Joker{ -- Ina: WAH 10
-    member = "Ina",
+Wah_Joker{ -- Ina: WAH 10
     key = "Ina_WAH_10",
     loc_txt = {
         name = 'We Are Hidden',
@@ -602,23 +478,9 @@ SMODS.Joker{ -- Ina: WAH 10
     WAH_index = 10,
     rarity = 2,
     cost = 7,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-
     atlas = 'Ina_WAH',
     pos = {y=2,x=0},
 
-    in_pool = function(self, args)
-        local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
-        if pool_flags_WAH[self.WAH_index] then
-            return true
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
-    end,
     calculate = function(self, card, context)
         if context.card_drawn and context.card_drawn.facing == 'front' and not context.blueprint then
             if Holo.chance('We Are Hidden', card.ability.extra.hidden) then
@@ -634,16 +496,15 @@ SMODS.Joker{ -- Ina: WAH 10
     end
 }
 
-SMODS.Joker{ -- Ina: WAH 11
-    member = "Ina",
+Wah_Joker{ -- Ina: WAH 11
     key = "Ina_WAH_11",
     loc_txt = {
         name = 'We Are Horrified',
         text = {
             'Face cards with {C:purple}purple{} seal',
             'give {C:chips}+#1#{} chips when scored.',
-            'Increase by {C:chips}+#2#{} chips per {C:attention}consecutive{} hand',
-            'that contains {C:attention}face cards{} with {C:purple}purple{} seal.'
+            'Increase by {C:chips}+#2#{} chips per {C:attention}consecutive{} played hand',
+            'that contains cards with {C:purple}purple{} seal.'
         }
     },
     config = { extra = { we = 0, horror = 11 } },
@@ -659,26 +520,12 @@ SMODS.Joker{ -- Ina: WAH 11
     WAH_index = 11,
     rarity = 3,
     cost = 8,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-
     atlas = 'Ina_WAH',
     pos = {y=2,x=1},
 
-    in_pool = function(self, args)
-        local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
-        if pool_flags_WAH[self.WAH_index] then
-            return true
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
-    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            if context.other_card:is_face() and context.other_card.seal == 'Purple' then
+            if context.other_card.seal == 'Purple' then
                 return {
                     chips = card.ability.extra.we,
                 }
@@ -707,8 +554,7 @@ SMODS.Joker{ -- Ina: WAH 11
     end
 }
 
-SMODS.Joker{ -- Ina: WAH 12
-    member = "Ina",
+Wah_Joker{ -- Ina: WAH 12
     key = "Ina_WAH_12",
     loc_txt = {
         name = 'We Are Hot soup',
@@ -732,23 +578,9 @@ SMODS.Joker{ -- Ina: WAH 12
     WAH_index = 12,
     rarity = 3,
     cost = 8,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-
     atlas = 'Ina_WAH',
     pos = {y=2,x=2},
 
-    in_pool = function(self, args)
-        local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
-        if pool_flags_WAH[self.WAH_index] then
-            return true
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
-    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.other_card.seal == 'Purple' then

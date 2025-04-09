@@ -224,12 +224,12 @@ Holo.Relic_Joker{ -- Sakura Miko
         count_down=35,
         dummy_parameter = 0,
         upgrade_args = {
-            scale_var = 'dummy_parameter',
-            func = function(card)
-                SMODS.add_card({ key = 'c_star', area = G.consumeables, edition = 'e_negative' })
-            end
+            scale_var = 'dummy_parameter'
         }
     }},
+    upgrade_func = function(card)
+        SMODS.add_card({ key = 'c_star', area = G.consumeables, edition = 'e_negative' })
+    end,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_star
         return {

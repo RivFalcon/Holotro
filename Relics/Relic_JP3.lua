@@ -29,28 +29,31 @@ Holo.Relic_Joker{ -- Usada Pekora
             fee = 1,
             prize = 777,
             prize_mod = 7,
-            get_odds = function(init_odd)
-                local _odds = init_odd or 50
-                if G.playing_cards then
-                    for k,v in pairs(G.playing_cards) do
-                        if SMODS.has_enhancement(v, "m_gold") then
-                            _odds = _odds - 1
-                        end
-                    end
-                end
-                return math.max(_odds,1)
-            end,
             upgrade_args = {
                 scale_var = 'prize',
             }
         }
     },
+    get_odds = function(init_odd)
+        local _odds = init_odd or 50
+        if G.playing_cards then
+            for k,v in pairs(G.playing_cards) do
+                if SMODS.has_enhancement(v, "m_gold") then
+                    _odds = _odds - 1
+                end
+                if _odds < 2 then
+                    return _odds
+                end
+            end
+        end
+        return math.max(_odds,1)
+    end,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_gold
         return {
             vars = {
                 Holo.prob_norm(),
-                card.ability.extra.get_odds(card.ability.extra.odds),
+                card.config.center.get_odds(card.ability.extra.odds),
                 card.ability.extra.fee,
                 card.ability.extra.prize,
                 card.ability.extra.prize_mod
@@ -67,7 +70,7 @@ Holo.Relic_Joker{ -- Usada Pekora
         if context.end_of_round and context.individual then
             if SMODS.has_enhancement(context.other_card, "m_gold") then
                 ease_dollars(-cae.fee)
-                if Holo.chance('Pekora', cae.get_odds(cae.odds)) then
+                if Holo.chance('Pekora', card.config.center.get_odds(cae.odds)) then
                     card:juice_up()
                     ease_dollars(cae.prize)
                     cae.prize = 777
@@ -135,12 +138,12 @@ Holo.Relic_Joker{ -- Uruha Rushia
         elseif context.selling_self then
             for i=1, card.ability.extra.summon do
                 G.E_MANAGER:add_event(Event({
-                    func = (function()
+                    func = function()
                         add_tag(Tag('tag_hololive_butterfly'))
                         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
                         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
                         return true
-                    end)
+                    end
                 }))
             end
         end

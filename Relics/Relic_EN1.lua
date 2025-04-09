@@ -132,12 +132,12 @@ Holo.Relic_Joker{ -- Takanashi Kiara
         dollars = 4,
         upgrade_args = {
             scale_var = 'Xmult',
-            message = 'Kikiriki!',
-            func = function(card)
-                ease_dollars(card.ability.extra.dollars)
-            end
+            message = 'Kikiriki!'
         },
     } },
+    upgrade_func = function(card)
+        ease_dollars(card.ability.extra.dollars)
+    end,
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
         return {
