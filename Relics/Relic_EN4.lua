@@ -95,7 +95,7 @@ Holo.Relic_Joker{ -- Gigi Murin
                         message = "Fisted!",
                         colour = Holo.C.Gigi,
                     },
-                    context.other_card
+                    context.scoring_hand[i]
                 )
             end
         elseif context.joker_main then
