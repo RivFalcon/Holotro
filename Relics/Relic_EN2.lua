@@ -344,14 +344,9 @@ Holo.Relic_Joker{ -- Nanashi Mumei
             end
         elseif context.discard then
             if not context.other_card:is_suit("Spades") then
-                if Holo.chance('Mumei', cae.odds) then
-                    context.other_card:juice_up()
-                    context.other_card:start_dissolve(nil, true)
-                    for _,J in ipairs(G.jokers.cards) do
-                        eval_card(J, {cardarea = G.jokers, remove_playing_cards = true, removed = {context.other_card,}})
-                    end
+                if Holo.chance('Mumei', card.ability.extra.odds) then
                     return {
-                        --remove = true,
+                        remove = true,
                         sound='slice1',
                     }
                 end
