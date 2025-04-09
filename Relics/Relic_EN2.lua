@@ -197,7 +197,7 @@ Holo.Relic_Joker{ -- Ceres Fauna
     soul_pos = { x = 2, y = 1 },
 
     calculate = function(self, card, context)
-        if context.before and context.cardarea == G.play then
+        if context.before then
             local house_key = nil
             local house_message = nil
             if context.scoring_name == 'Full House' then
