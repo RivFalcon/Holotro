@@ -12,15 +12,5 @@ pattern = '''
 position = "at"
 match_indent = true
 payload = '''
-{n=G.UIT.O, config={object = DynaText({string = {' '..(config.saved_message or 'Saved!')..' '}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.5*scale, silent = true})}}
-'''
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "saved = true,"
-position = "after"
-match_indent = true
-payload = '''
-saved_message = localize('ph_mr_bones'),
+{n=G.UIT.O, config={object = DynaText({string = {' '..(config.saved_message or localize('ph_mr_bones'))..' '}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.5*scale, silent = true})}}
 '''
