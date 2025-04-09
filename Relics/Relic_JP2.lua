@@ -161,18 +161,20 @@ Holo.Relic_Joker{ -- Nagiri Ayame
                     message = 'Hai!',
                     repetitions = card.ability.extra.retriggers,
                     card = card,
-                    colour = HEX('c72554')
+                    colour = Holo.C.Ayame
                 }
             end
         elseif context.individual and context.cardarea == G.hand and not context.end_of_round then
-            if Holo.chance('Yo~dayo', card.ability.extra.odds) then
-                return {
-                    message='Yo!',
-                    colour=HEX('c72554'),
-                    Xmult=card.ability.extra.Xmult
-                }
+            if context.other_card:get_id()==14 then
+                if Holo.chance('Yo~dayo', card.ability.extra.odds) then
+                    return {
+                        message='Yo!',
+                        colour=Holo.C.Ayame,
+                        Xmult=card.ability.extra.Xmult
+                    }
+                end
             end
-        elseif context.end_of_round and G.GAME.blind.boss then
+        elseif context.end_of_round and context.cardarea == G.jokers and G.GAME.blind.boss and not context.blueprint then
             holo_card_upgrade(card)
         end
     end
