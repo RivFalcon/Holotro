@@ -43,7 +43,6 @@ Holo.Relic_Joker{ -- Tokino Sora
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.other_card:is_suit('Diamonds') and context.other_card:get_id()==context.full_hand[1]:get_id() then
-                card:juice_up()
                 return {
                     Xmult=card.ability.extra.Xmult,
                     colour=Holo.C.Sora
@@ -98,7 +97,6 @@ Holo.Relic_Joker{ -- Roboco
                     _tick = true
                 end
                 if _tick then
-                    card:juice_up()
                     context.other_card.ability.h_x_mult = context.other_card.ability.h_x_mult + card.ability.extra.Xmult_mod
                     return {
                         message = localize('k_upgrade_ex'),

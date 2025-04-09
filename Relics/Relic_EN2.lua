@@ -208,12 +208,18 @@ Holo.Relic_Joker{ -- Ceres Fauna
                 house_message = 'Ceres!'
             end
             if house_key then
-                card:juice_up()
-                card_eval_status_text(card, 'jokers', nil, 1, nil, {message = house_message, colour=HEX('a4e5cf'),instant=true})
-                SMODS.add_card({ key = house_key, area = G.consumeables, edition = 'e_negative' })
+                G.E_MANAGER:add_event(Event({
+                    func = function ()
+                        SMODS.add_card({ key = house_key, area = G.consumeables, edition = 'e_negative' })
+                        return true
+                    end
+                }))
+                return {
+                    message = house_message,
+                    colour=Holo.C.Fauna
+                }
             end
         elseif context.joker_main then
-            card:juice_up()
             return {
                 Xmult = card.ability.extra.Xmult,
                 message='Nature!',
