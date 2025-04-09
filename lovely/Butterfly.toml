@@ -12,7 +12,7 @@ pattern = '''
 position = "at"
 match_indent = true
 payload = '''
-{n=G.UIT.O, config={object = DynaText({string = {' '..config.saved_message..' '}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.5*scale, silent = true})}}
+{n=G.UIT.O, config={object = DynaText({string = {' '..(config.saved_message or 'Saved!')..' '}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.5*scale, silent = true})}}
 '''
 
 [[patches]]
