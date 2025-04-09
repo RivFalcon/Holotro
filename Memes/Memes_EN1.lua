@@ -112,7 +112,7 @@ Wah_Joker{ -- Ina: WAH 01
         if context.repetition then
             if context.other_card:is_face() then
                 return {
-                    retrigger = card.ability.extra.happy,
+                    repetitions = card.ability.extra.happy,
                     message = 'WAH!',
                     colour = Holo.C.Ina,
                 }
