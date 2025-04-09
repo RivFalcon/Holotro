@@ -79,7 +79,7 @@ Wah_Joker{ -- Ina: WAH 00
             end
         end
         if Holo.mod_check(joker_to_the_right) then
-            SMODS.calculate_effect(SMODS.blueprint_effect(card, joker_to_the_right, context), card)
+            SMODS.calculate_effect(SMODS.blueprint_effect(card, joker_to_the_right, context)or{}, card)
         end
     end
 }

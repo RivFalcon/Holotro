@@ -44,7 +44,7 @@ function holo_ctx(context)
 end
 
 function Holo.nil_check(var, fields)
-    local ret = {var,}
+    local ret = {var or {},}
     for _,field in ipairs(fields)do
         ret[#ret+1] = ret[#ret][field] or {}
     end
