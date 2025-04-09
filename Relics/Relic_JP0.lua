@@ -99,7 +99,7 @@ Holo.Relic_Joker{ -- Roboco
                 end
                 if _tick then
                     card:juice_up()
-                    context.other_card.ability.config.h_x_mult = context.other_card.ability.config.h_x_mult + card.ability.extra.Xmult_mod
+                    context.other_card.ability.h_x_mult = context.other_card.ability.h_x_mult + card.ability.extra.Xmult_mod
                     return {
                         message = localize('k_upgrade_ex'),
                         card = context.other_card
