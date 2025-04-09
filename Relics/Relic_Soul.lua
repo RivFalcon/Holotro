@@ -205,7 +205,7 @@ Holo.Relic_Gacha{ -- Hololive
 
                 -- Suits
                 for suit,counter in pairs(card_stats.suits)do
-                    if c:is_suit(suit) then card_stats.suits[suit] = conter + 1 end
+                    if c:is_suit(suit) then card_stats.suits[suit] = counter + 1 end
                 end
 
                 -- Ranks
@@ -395,7 +395,7 @@ Holo.Relic_Gacha{ -- Hololive
                 Vivi     = false,
             }
             for member,condition in pairs(syn_table)do
-                if contition then _pool[#_pool+1] = member end
+                if condition then _pool[#_pool+1] = member end
             end
 
         elseif pool_mode == 'Genmates' then
@@ -453,7 +453,6 @@ Holo.Relic_Gacha{ -- Hololive
         -- Final step of this whole process.
         local _member
         if pool_mode == 'Birthday' then _member = hbd_member
-        elseif #_pool==1 then _member = _pool[1]
         else _member = pseudorandom_element(_pool, pseudoseed('Hololive'))
         end
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
