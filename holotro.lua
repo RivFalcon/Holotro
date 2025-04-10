@@ -13,6 +13,7 @@ SMODS.current_mod.optional_features = {
 }
 
 assert(SMODS.load_file("holo_globals.lua"))()
+assert(SMODS.load_file("holo_functions.lua"))()
 
 mod_dir = ''..SMODS.current_mod.path
 holo_config = SMODS.current_mod.config
