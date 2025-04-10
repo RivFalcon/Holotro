@@ -405,17 +405,32 @@ Holo.Relic_Gacha{ -- Hololive
                     sample_pool[#sample_pool+1] = J.config.center.member
                 end
             end
-            local target_member = (#sample_pool==1) and sample_pool[1] or pseudorandom_element(sample_pool,pseudoseed('RelicGacha GenmateMode'))
-            for _, memb in ipairs(Holo.get_genmates(target_member)) do
-                if next(find_joker("Showman")) or not next(find_joker('j_hololive_Relic_'..memb))then
+            local target_member = sample_pool[1]
+            if #sample_pool>1 then target_member = pseudorandom_element(sample_pool,pseudoseed('RelicGacha GenmateMode'))end
+
+            if next(find_joker('Showman')) then
+                for _, memb in ipairs(Holo.get_genmates(target_member)) do
                     _pool[#_pool+1] = memb
                 end
+            else
+                for _, memb in ipairs(Holo.get_genmates(target_member)) do
+                    if not next(find_joker('j_hololive_Relic_'..memb))then
+                        _pool[#_pool+1] = memb
+                    end
+                end
             end
+            -- If the relics of all the genmates have been obtained:
             if #_pool == 0 then
                 local _branch = Holo.Members[target_member].branch
-                for _, memb in ipairs(Holo.Branches[_branch].members)do
-                    if next(find_joker("Showman")) or not next(find_joker('j_hololive_Relic_'..memb))then
+                if next(find_joker('Showman')) then
+                    for _, memb in ipairs(Holo.Branches[_branch].members)do
                         _pool[#_pool+1] = memb
+                    end
+                else
+                    for _, memb in ipairs(Holo.Branches[_branch].members)do
+                        if not next(find_joker('j_hololive_Relic_'..memb))then
+                            _pool[#_pool+1] = memb
+                        end
                     end
                 end
             end
