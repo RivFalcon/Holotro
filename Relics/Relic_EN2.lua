@@ -244,11 +244,10 @@ Holo.Relic_Joker{ -- Ouro Kronii
         text = {
             'Create a {C:dark_edition}Negative {C:tarot}World{} card every {C:attention}12 {C:inactive}[#3#]{}',
             '{C:blue}played{} or {C:red}discarded{} cards with {C:spades}Spade{} suit.',
-            'Gain {X:mult,C:white}X#2#{} mult every time a {C:tarot}World{} card',
-            'is used since taking this relic.',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The World{} used.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
-        ,boxes={2,3}
+        ,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {

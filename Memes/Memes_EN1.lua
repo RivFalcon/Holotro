@@ -89,7 +89,7 @@ Wah_Joker{ -- Ina: WAH 01
     loc_txt = {
         name = 'We Are Happy',
         text = {
-            '{C:attention}Face cards{} are',
+            'Cards with {C:purple}purple{} seals are',
             'retriggered {C:attention}#1#{} time.'
         }
     },
@@ -110,11 +110,12 @@ Wah_Joker{ -- Ina: WAH 01
 
     calculate = function(self, card, context)
         if context.repetition then
-            if context.other_card:is_face() then
+            if context.other_card.seal=='Purple' then
                 return {
                     repetitions = card.ability.extra.happy,
                     message = 'WAH!',
                     colour = Holo.C.Ina,
+                    card = card,
                 }
             end
         end
@@ -449,6 +450,7 @@ Wah_Joker{ -- Ina: WAH 09
                     retrigger = 1,
                     message = 'WAH!',
                     colour = Holo.C.Ina,
+                    card = card,
                 }
             end
         end

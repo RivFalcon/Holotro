@@ -121,29 +121,34 @@ Holo.Relic_Joker{ -- Takanashi Kiara
     loc_txt = {
         name = "Flaming Sword of the Phoenix",
         text = {
-            'Played cards that {C:red}did not score{} get {C:red}burned{}.',
-            'Gain {X:mult,C:white}X#2#{} mult and {C:money}$#3#{} per card burned.',
+            'Ignite {C:attention}1{V:1} fire charge {C:inactive}(#3#/4)',
+            'when the scoring board is {V:1,E:1}on fire{}.',
+            'When {C:attention}discard{}, spend {C:attention}1{V:1} fire charge',
+            'to destroy {C:attention}all{} discarded cards.',
+            'Gain {X:mult,C:white}X#2#{} mult per burned discard',
+            'and {C:money}$#3#{} per burning card.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
+        ,boxes={4,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
         Xmult = 4, Xmult_mod = 0.4,
+        flame = 0,
         dollars = 4,
         upgrade_args = {
             scale_var = 'Xmult',
             message = 'Kikiriki!'
         },
     } },
-    upgrade_func = function(card)
-        ease_dollars(card.ability.extra.dollars)
-    end,
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
         return {
             vars = {
                 cae.Xmult, cae.Xmult_mod,
                 cae.dollars,
+                cae.flame,
+                colours = {Holo.C.Kiara}
             }
         }
     end,
@@ -157,28 +162,28 @@ Holo.Relic_Joker{ -- Takanashi Kiara
     soul_pos = { x = 1, y = 1 },
 
     calculate = function(self, card, context)
-        if context.after and not context.blueprint then
-            local cards_burned = {}
-            local _i = 0
-            for i,_card in ipairs(context.full_hand) do
-                if _card ~= context.scoring_hand[i-_i] then
-                    cards_burned[#cards_burned+1] = _card
-                    _i = _i + 1
-                end
+        local cae = Holo.cae(card)
+        cae.flame = math.round(cae.flame)
+        if context.after then
+            if hand_chips*mult >= G.GAME.blind.chips and cae.flame < 4 then
+                cae.flame = math.min(cae.flame + 1, 4)
             end
-            for _,J in ipairs(G.jokers.cards) do
-                eval_card(J, {cardarea = G.jokers, remove_playing_cards = true, removed = cards_burned, burned = true})
-            end
-            for i,_card in ipairs(cards_burned) do
-                _card:start_dissolve()
-            end
-        elseif context.remove_playing_cards and context.burned and not context.blueprint then
-            for i=1, #context.removed do
+        elseif context.pre_discard and not context.blueprint then
+            if cae.flame>=1 then
                 holo_card_upgrade(card)
+                cae.flame = math.max(cae.flame - 1, 0)
+                cae.burn = true
+            else
+                cae.burn = false
             end
+        elseif context.discard and cae.burn then
+            ease_dollars(cae.dollars)
+            return {
+                remove = true,
+            }
         elseif context.joker_main then
             return {
-                Xmult = card.ability.extra.Xmult,
+                Xmult = cae.Xmult,
                 message="Phoenix!",
                 colour = Holo.C.Kiara,
             }

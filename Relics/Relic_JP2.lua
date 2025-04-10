@@ -253,15 +253,14 @@ SMODS.Sticker{ -- Oozora Subaru
     loc_txt = {
         name = "Handcuff mark",
         text = {
-            'Arrested time: #1#',
-            'This card will go to jail',
-            'on its third arrest.'
+            'Get sent to jail',
+            'when discarded.',
+            '{C:inactive}(Remove this sticker',
+            '{C:inactive}by scoring this card.)'
         }
     },
     loc_vars = function(self, info_queue, card)
-        return {
-            card.ability.arrested,
-        }
+        return {}
     end,
     atlas='hololive_Sticker_Handcuff',
     pos={x=0,y=0},
@@ -280,9 +279,10 @@ Holo.Relic_Joker{ -- Oozora Subaru
         name = "Whistle of the Duck Officer",
         text = {
             'Played card that did not score will be {C:attention}arrested{}.',
-            'Playing cards {C:red}go to jail{} on their {C:attention}third{} arrest.',
-            'Gain {X:mult,C:white}X#2#{} mult if {C:attention}no card{} is arrested',
-            'in current played hand. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            'Playing cards with {C:attention}handcuffs{} will',
+            'be {C:red}sent to jail{} when discarded.',
+            'Gain {X:mult,C:white}X#2#{} mult when playing a hand',
+            'with {C:attention}no{} cards arrested. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
         ,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
@@ -308,36 +308,27 @@ Holo.Relic_Joker{ -- Oozora Subaru
     soul_pos = { x = 4, y = 1 },
 
     remove_from_deck = function(self, card, from_debuff)
-        for k,v in ipairs(G.playing_cards)do
+        for _,v in ipairs(G.playing_cards)do
             v:remove_sticker('hololive_handcuff')
         end
     end,
     calculate = function(self, card, context)
         if context.after then
-            if #context.full_hand > #context.scoring_hand then
-                local removed_cards = {}
-                for _,played_card in ipairs(context.full_hand)do
-                    if not SMODS.in_scoring(played_card, context.scoring_hand) then
-                        if played_card.ability.arrested == nil then
-                            played_card:add_sticker('hololive_handcuff')
-                            played_card.ability.arrested = 1
-                        elseif played_card.ability.arrested == 1 then
-                            played_card.ability.arrested = 2
-                        elseif played_card.ability.arrested == 2 then
-                            played_card:juice_up()
-                            played_card:start_dissolve(nil, true)
-                            removed_cards[#removed_cards+1] = played_card
-                        end
-                    end
+            for _,played_card in ipairs(context.full_hand)do
+                if SMODS.in_scoring(played_card, context.scoring_hand) then
+                    played_card:remove_sticker('hololive_handcuff')
+                else
+                    played_card:add_sticker('hololive_handcuff')
                 end
-                for _,J in ipairs(G.jokers.cards) do
-                    eval_card(J, {cardarea = G.jokers, remove_playing_cards = true, removed = removed_cards})
-                end
-            else
+            end
+            if #context.full_hand == #context.scoring_hand then
                 holo_card_upgrade(card)
             end
+        elseif context.discard then
+            if context.other_card.ability.hololive_handcuff then
+                return {remove=true}
+            end
         elseif context.joker_main then
-            card:juice_up()
             return{Xmult=card.ability.extra.Xmult}
         end
     end

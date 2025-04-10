@@ -218,18 +218,26 @@ Holo.Relic_Joker{ -- Shirogane Noel
     loc_txt = {
         name = "Mace of the Silver Knight",
         text = {
-            'If played hand contains a {C:attention}Two Pair{},',
+            'If last played hand contains a {C:attention}Two Pair{},',
             'retrigger all {C:attention}metal cards{} held in hand',
-            'once per {C:attention}King{} in scored hand.'
+            'once per {C:attention}King{} in said last scoring hand.',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Chariot{} used.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
+        ,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { retriggers = 0 } },
+    config = { extra = {
+        Xmult = 3, Xmult_mod = 0.5,
+        retriggers = 0
+    }},
     loc_vars = function(self, info_queue, card)
+        local cae = Holo.cae(card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_gold
         info_queue[#info_queue+1] = G.P_CENTERS.m_steel
         return {
             vars = {
+                cae.Xmult, cae.Xmult_mod,
             }
         }
     end,
@@ -239,26 +247,33 @@ Holo.Relic_Joker{ -- Shirogane Noel
     soul_pos = { x = 3, y = 1 },
 
     calculate = function(self, card, context)
-        if context.before and not context.blueprint then
-            card.ability.extra.retriggers = 0
+        local cae = Holo.cae(card)
+        holo_card_upgrade_by_consumeable(card, context, 'c_chariot')
+        if context.before then
+            cae.retriggers = 0
             if next(context.poker_hands['Two Pair']) then
-                for k,v in ipairs(context.scoring_hand) do
-                    if v:get_id() == 13 then
-                        card.ability.extra.retriggers = card.ability.extra.retriggers + 1
+                for _,v in ipairs(context.scoring_hand)do
+                    if v:get_id()==13 then
+                        cae.retriggers = cae.retriggers + 1
                     end
                 end
             end
         elseif context.repetition and context.cardarea == G.hand then
-            if next(context.poker_hands['Two Pair']) then
-                if SMODS.has_enhancement(context.other_card, "m_gold") or SMODS.has_enhancement(context.other_card, "m_steel") then
-                    return {
-                        message = 'Knight!',
-                        repetitions = card.ability.extra.retriggers,
-                        card = card,
-                        colour = HEX('aebbc3')
-                    }
-                end
+            local is_metal = SMODS.has_enhancement(context.other_card, "m_gold") or SMODS.has_enhancement(context.other_card, "m_steel")
+            if is_metal and cae.retriggers>0 then
+                return {
+                    message = 'Muscle!',
+                    repetitions = cae.retriggers,
+                    colour = Holo.C.Noel,
+                    card = card
+                }
             end
+        elseif context.joker_main then
+            return{
+                Xmult=cae.Xmult,
+                message="Knight!",
+                colour=Holo.C.Noel
+            }
         end
     end
 }

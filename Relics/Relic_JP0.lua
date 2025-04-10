@@ -278,8 +278,8 @@ Holo.Relic_Joker{ -- AZKi
         text = {
             'Each {C:diamonds}Diamond{} card held in hand',
             'is retriggered {C:attention}#1#{} times.',
-            'Gain {C:attention}1{} retrigger for every {C:attention}#3# {C:inactive}[#4#]{} played',
-            '{C:attention}#2#{} of {C:diamonds}Diamonds{} in first hand.',
+            'Gain {C:attention}1{} retrigger if {C:attention}first drawn hand{} of round',
+            'contains a {C:attention}#2#{} of {C:diamonds}Diamond{}.',
             'Rank changes at end of round.'
         }
         ,boxes={2,3}
@@ -287,7 +287,6 @@ Holo.Relic_Joker{ -- AZKi
     },
     config = { extra = {
         retriggers=2, rank='Ace', id = 14,
-        count=5, count_down=5,
         upgrade_args = {
             scale_var = 'retriggers',
             message = 'Guess!',
@@ -298,8 +297,6 @@ Holo.Relic_Joker{ -- AZKi
             vars = {
                 card.ability.extra.retriggers,
                 localize(card.ability.extra.rank, 'ranks'),
-                card.ability.extra.count,
-                card.ability.extra.count_down,
             }
         }
     end,
@@ -309,24 +306,22 @@ Holo.Relic_Joker{ -- AZKi
     soul_pos = { x = 4, y = 1 },
 
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.hand and not context.end_of_round then
+        if context.repetition and context.cardarea == G.hand then
+            print('test01')
             if context.other_card:is_suit('Diamonds') then
+                print('test02')
                 return {
-                    message=localize('k_again_ex'),
-                    retriggers = card.ability.extra.retriggers,
-                    colour=HEX('fa3689')
+                    message=localize('k_upgrade_ex'),
+                    repetitions = card.ability.extra.retriggers,
+                    card = card,
+                    colour=Holo.C.AZKi
                 }
             end
-        elseif context.before then
-            if G.GAME.current_round.hands_played == 0 then
-                for _,v in ipairs(context.full_hand)do
-                    if v:get_id()==card.ability.extra.id and v:is_suit('Diamonds') then
-                        card.ability.extra.count_down = card.ability.extra.count_down - 1
-                        if card.ability.extra.count_down<=0 then
-                            card.ability.extra.count_down = card.ability.extra.count_down + card.ability.extra.count
-                            holo_card_upgrade(card)
-                        end
-                    end
+        elseif context.first_hand_drawn then
+            for _,v in ipairs(G.hand.cards) do
+                if v:get_id()==card.ability.extra.id and v:is_suit('Diamonds') then
+                    holo_card_upgrade(card)
+                    break
                 end
             end
         elseif context.end_of_round and context.cardarea == G.jokers then
