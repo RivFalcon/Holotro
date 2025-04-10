@@ -163,7 +163,7 @@ Holo.Relic_Joker{ -- Takanashi Kiara
 
     calculate = function(self, card, context)
         local cae = Holo.cae(card)
-        cae.flame = math.round(cae.flame)
+        cae.flame = math.floor(cae.flame+0.5)
         if context.after then
             if hand_chips*mult >= G.GAME.blind.chips and cae.flame < 4 then
                 cae.flame = math.min(cae.flame + 1, 4)
