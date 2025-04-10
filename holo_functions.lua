@@ -175,3 +175,51 @@ function holo_card_disaccumulate(_cae, _key)
         end
     end
 end
+
+function Holo.pseudorandom_weighted_element(weight_table, seed)
+    local pool = {}
+    local sum = 0
+    for element, weight in pairs(weight_table)do
+        pool[#pool+1] = { e = element, acc_w = sum }
+        sum = sum + weight
+    end
+    local index = sum*pseudorandom(seed)
+    for i=#pool,1,-1 do
+        local v=pool[i]
+        if index>=v.acc_w then return v.e end
+    end
+    return pool[1].e
+end
+
+function Holo.hand_contained_usage()
+    local ret={}
+    for hand,data in pairs(Holo.nil_check(G,{'GAME','hand_usage'}))do
+        ret[hand]=true
+    end
+    if ret['Flush Five'] then
+        ret['Five of a Kind']=true
+        ret['Flush']=true
+    end
+    if ret['Flush House'] then
+        ret['Full House']=true
+        ret['Flush']=true
+    end
+    if ret['Five of a Kind'] then
+        ret['Four of a Kind']=true
+    end
+    if ret['Straight Flush'] then
+        ret['Flush']=true
+        ret['Straight']=true
+    end
+    if ret['Four of a Kind'] then
+        ret['Three of a Kind']=true
+    end
+    if ret['Full House'] then
+        ret['Three of a Kind']=true
+        ret['Two Pair']=true
+    end
+    if ret['Three of a Kind'] or ret['Two Pair'] then
+        ret['Pair']=true
+    end
+    return ret
+end
