@@ -36,14 +36,34 @@ local Wah_Joker = SMODS.Joker:extend{
     discovered = false,
     blueprint_compat = true,
     in_pool = function(self, args)
+        local wah = self.WAH_index
+        if wah == 0 then return true end
+
         local pool_flags_WAH = G.GAME.pool_flags.WAH or {}
-        if pool_flags_WAH[self.WAH_index] then
+        if wah>=1 and wah<=5 and pool_flags_WAH[0]then
+            if wah==4 then return pseudorandom('forbidden WAH')<1/4 end
             return true
         end
+
+        local common_wah_flag_counter = 0
+        for w=1,5 do
+            if pool_flags_WAH[w] then
+                common_wah_flag_counter = common_wah_flag_counter + 1
+            end
+        end
+        if wah>=6 and wah<=10 and common_wah_flag_counter>=3 then return true end
+
+        local uncommon_wah_flag_counter = 0
+        for w=6,10 do
+            if pool_flags_WAH[w] then
+                uncommon_wah_flag_counter = uncommon_wah_flag_counter + 1
+            end
+        end
+        if wah>=11 and wah<=15 and uncommon_wah_flag_counter>=1 then return true end
     end,
     add_to_deck = function(self, card, from_debuff)
         G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
-        G.GAME.pool_flags.WAH[self.WAH_index+1] = true
+        G.GAME.pool_flags.WAH[self.WAH_index] = true
     end,
 }
 
@@ -67,9 +87,6 @@ Wah_Joker{ -- Ina: WAH 00
     atlas = 'Ina_WAH',
     pos = {y=0,x=0},
 
-    in_pool = function(self, args)
-        return true
-    end,
     calculate = function(self, card, context)
         local joker_to_the_right = nil
         for i,J in ipairs(G.jokers.cards)do
