@@ -121,7 +121,7 @@ Holo.Relic_Joker{ -- Takanashi Kiara
     loc_txt = {
         name = "Flaming Sword of the Phoenix",
         text = {
-            'Ignite {C:attention}1{V:1} fire charge {C:inactive}(#3#/4)',
+            'Ignite {C:attention}1{V:1} fire charge {C:inactive}(#4#/4)',
             'when the scoring board is {V:1,E:1}on fire{}.',
             'When {C:attention}discard{}, spend {C:attention}1{V:1} fire charge',
             'to destroy {C:attention}all{} discarded cards.',
@@ -134,7 +134,7 @@ Holo.Relic_Joker{ -- Takanashi Kiara
     },
     config = { extra = {
         Xmult = 4, Xmult_mod = 0.4,
-        flame = 0,
+        flame = 0, burn = false,
         dollars = 4,
         upgrade_args = {
             scale_var = 'Xmult',
@@ -162,9 +162,12 @@ Holo.Relic_Joker{ -- Takanashi Kiara
     soul_pos = { x = 1, y = 1 },
 
     calculate = function(self, card, context)
-        local cae = Holo.cae(card)
-        cae.flame = math.floor(cae.flame+0.5)
-        if context.after then
+        local cae = card.ability.extra
+        if context.first_hand_drawn then
+            local charge = cae.flame
+            local eval = function() return G.GAME.current_round.discards_used < charge and not G.RESET_JIGGLES end
+            juice_card_until(self, eval, true)
+        elseif context.after then
             if hand_chips*mult >= G.GAME.blind.chips and cae.flame < 4 then
                 cae.flame = math.min(cae.flame + 1, 4)
             end

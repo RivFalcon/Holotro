@@ -10,5 +10,11 @@ pattern = "if card and card.playing_card then SMODS.drawn_cards[#SMODS.drawn_car
 position = "after"
 match_indent = true
 payload = '''
-SMODS.calculate_context({card_drawn = card, facing_blind = G.GAME.facing_blind})
+if (from==G.deck)and(to==G.hand) then
+    SMODS.calculate_context({
+        draw_from_deck_to_hand = (from==G.deck)and(to==G.hand),
+        card_drawn = card,
+        facing_blind = G.GAME.facing_blind,
+    })
+end
 '''

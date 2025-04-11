@@ -248,7 +248,13 @@ Wah_Joker{ -- Ina: WAH 05
             '{C:inactive}(Currently {C:mult}+#1#{C:inactive} mult)'
         }
     },
-    config = { extra = { win = 0, heart = 5 } },
+    config = { extra = {
+        win = 0, heart = 5,
+        upgrade_args={
+            scale_var='win',
+            incr_car='heart',
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_SEALS.Purple
         return {
@@ -265,19 +271,11 @@ Wah_Joker{ -- Ina: WAH 05
     pos = {y=1,x=0},
 
     calculate = function(self, card, context)
-        if context.card_drawn and G.GAME.facing_blind and not context.blueprint then
-            if context.card_drawn:is_suit('Hearts') and context.card_drawn.seal == 'Purple' then
-                card.ability.extra.win = card.ability.extra.win + card.ability.extra.heart
-                SMODS.calculate_effect(
-                    {
-                        message = localize('k_upgrade_ex'),
-                        colour = Holo.C.Ina,
-                    },
-                    card
-                )
+        if context.draw_from_deck_to_hand and G.GAME.facing_blind then
+            if context.card_drawn:is_suit('Hearts') and context.card_drawn.seal == 'Purple' and not context.blueprint then
+                holo_card_upgrade(card)
             end
         elseif context.joker_main then
-            card:juice_up()
             return {
                 mult = card.ability.extra.win,
                 message = 'WAH!',
@@ -447,7 +445,7 @@ Wah_Joker{ -- Ina: WAH 09
         elseif context.repetition and context.cardarea == G.play then
             if card.ability.extra.we > 0 then
                 return {
-                    retrigger = 1,
+                    repetitions = 1,
                     message = 'WAH!',
                     colour = Holo.C.Ina,
                     card = card,
@@ -484,7 +482,7 @@ Wah_Joker{ -- Ina: WAH 10
     pos = {y=2,x=0},
 
     calculate = function(self, card, context)
-        if context.card_drawn and context.card_drawn.facing == 'front' and not context.blueprint then
+        if context.draw_from_deck_to_hand and context.card_drawn.facing == 'front' and not context.blueprint then
             if Holo.chance('We Are Hidden', card.ability.extra.hidden) then
                 context.card_drawn:flip()
             end

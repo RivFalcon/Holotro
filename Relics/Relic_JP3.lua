@@ -229,10 +229,13 @@ Holo.Relic_Joker{ -- Shirogane Noel
     },
     config = { extra = {
         Xmult = 3, Xmult_mod = 0.5,
-        retriggers = 0
+        retriggers = 0,
+        upgrade_args = {
+            scale_var = 'Xmult',
+        }
     }},
     loc_vars = function(self, info_queue, card)
-        local cae = Holo.cae(card)
+        local cae = card.ability.extra
         info_queue[#info_queue+1] = G.P_CENTERS.m_gold
         info_queue[#info_queue+1] = G.P_CENTERS.m_steel
         return {
@@ -247,7 +250,7 @@ Holo.Relic_Joker{ -- Shirogane Noel
     soul_pos = { x = 3, y = 1 },
 
     calculate = function(self, card, context)
-        local cae = Holo.cae(card)
+        local cae = card.ability.extra
         holo_card_upgrade_by_consumeable(card, context, 'c_chariot')
         if context.before then
             cae.retriggers = 0

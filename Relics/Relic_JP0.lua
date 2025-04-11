@@ -307,11 +307,9 @@ Holo.Relic_Joker{ -- AZKi
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.hand then
-            print('test01')
             if context.other_card:is_suit('Diamonds') then
-                print('test02')
                 return {
-                    message=localize('k_upgrade_ex'),
+                    message=localize('k_again_ex'),
                     repetitions = card.ability.extra.retriggers,
                     card = card,
                     colour=Holo.C.AZKi

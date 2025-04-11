@@ -122,12 +122,11 @@ Holo.Relic_Joker{ -- Tsukumo Sana
                         break
                     end
                 end
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                if #G.consumeables.cards < G.consumeables.config.card_limit then
                     SMODS.add_card({ key = _planet, area = G.consumeables})
                 elseif not context.blueprint then
-                    card.ability.extra.bag_of_planets[#card.ability.extra.bag_of_planets+1] = _planet
+                    cae.bag_of_planets[#cae.bag_of_planets+1] = _planet
                 end
-                card:juice_up()
                 return {
                     message = 'Observed!',
                     colour=Holo.C.Sana,
@@ -143,18 +142,18 @@ Holo.Relic_Joker{ -- Tsukumo Sana
             }
         end
         -- Release the planets from the bag until the consumable slot is full.
-        if #card.ability.extra.bag_of_planets > 0 then
-            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                G.E_MANAGER:add_event(Event({
-                    func = function ()
-                        local _planet = table.remove(card.ability.extra.bag_of_planets,1)
-                        SMODS.add_card({ key = _planet, area = G.consumeables})
-                        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
-                        return true
-                    end
-                }))
-            end
+        local empty_consumable_slot_number = G.consumeables.config.card_limit - (#G.consumeables.cards + G.GAME.consumeable_buffer)
+        local _iter = math.min(#cae.bag_of_planets, empty_consumable_slot_number)
+        for _=1,_iter do
+            local _planet = table.remove(cae.bag_of_planets,1)
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            G.E_MANAGER:add_event(Event({
+                func = function ()
+                    SMODS.add_card({ key = _planet, area = G.consumeables})
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+                    return true
+                end
+            }))
         end
     end
 }

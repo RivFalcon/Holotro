@@ -315,7 +315,14 @@ Holo.Relic_Joker{ -- Oozora Subaru
     calculate = function(self, card, context)
         if context.after then
             for _,played_card in ipairs(context.full_hand)do
-                if SMODS.in_scoring(played_card, context.scoring_hand) then
+                local in_scoring = false
+                for _,scoring_card in ipairs(context.scoring_hand)do
+                    if played_card==scoring_card then
+                        in_scoring = true
+                        break
+                    end
+                end
+                if in_scoring then
                     played_card:remove_sticker('hololive_handcuff')
                 else
                     played_card:add_sticker('hololive_handcuff')
