@@ -252,7 +252,7 @@ Wah_Joker{ -- Ina: WAH 05
         win = 0, heart = 5,
         upgrade_args={
             scale_var='win',
-            incr_car='heart',
+            incr_var='heart',
         }
     }},
     loc_vars = function(self, info_queue, card)
