@@ -279,6 +279,13 @@ return {
                     " A, 9, 7, 5, 3 ",
                 }
             },
+            holo_info_forbiddenSpectrals={
+                name=" ! Notice ! ",
+                text={
+                    'If you see some {C:dark_edition}forbidden {C:spectral}Spectrals{},',
+                    'no, they are intentional features.'
+                }
+            }
         },
     },
     misc={

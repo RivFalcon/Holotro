@@ -165,7 +165,7 @@ Holo.Relic_Joker{ -- Takanashi Kiara
         local cae = card.ability.extra
         if context.first_hand_drawn then
             local charge = cae.flame
-            local eval = function() return G.GAME.current_round.discards_used < charge and not G.RESET_JIGGLES end
+            local eval = function(_c) return _c.ability.extra.flame>0 and G.GAME.facing_blind and not G.RESET_JIGGLES end
             juice_card_until(self, eval, true)
         elseif context.after then
             if hand_chips*mult >= G.GAME.blind.chips and cae.flame < 4 then
@@ -226,6 +226,7 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
     } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_SEALS.Purple
+        info_queue[#info_queue+1] = {set='Other',key='holo_info_forbiddenSpectrals'}
         return {
             vars = {
                 card.ability.extra.Xmult,
