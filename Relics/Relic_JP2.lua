@@ -306,43 +306,39 @@ Holo.Relic_Joker{ -- Oozora Subaru
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
 
-    remove_from_deck = function(self, card, from_debuff)
-        for _,v in ipairs(G.playing_cards)do
-            v:remove_sticker('hololive_handcuff')
-        end
-    end,
     calculate = function(self, card, context)
         if context.after then
             local peace = true
             for _,played_card in ipairs(context.full_hand)do
-                local in_scoring = false
-                for _,scoring_card in ipairs(context.scoring_hand)do
-                    if played_card==scoring_card then
-                        in_scoring = true
-                        break
+                local is_cuffed = played_card.ability.hololive_handcuff
+                if SMODS.in_scoring(played_card, context.scoring_hand) then
+                    if is_cuffed then
+                        SMODS.calculate_effect(
+                            {
+                                message='Released!',
+                                colour=Holo.C.Subaru,
+                                func = function()
+                                    played_card:remove_sticker('hololive_handcuff')
+                                    return true
+                                end
+                            },
+                            played_card
+                        )
                     end
-                end
-                local cuffed = (played_card.ability.hololive_handcuff~=nil)
-                if in_scoring then
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            if cuffed then
-                                played_card:juice_up()
-                                played_card:remove_sticker('hololive_handcuff')
-                            end
-                            return true
-                        end
-                    }))
                 else
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            if not cuffed then
-                                played_card:juice_up()
-                                played_card:add_sticker('hololive_handcuff')
-                            end
-                            return true
-                        end
-                    }))
+                    if not is_cuffed then
+                        SMODS.calculate_effect(
+                            {
+                                message='Arrested!',
+                                colour=Holo.C.Subaru,
+                                func = function()
+                                    played_card:add_sticker('hololive_handcuff')
+                                    return true
+                                end
+                            },
+                            played_card
+                        )
+                    end
                     peace = false
                 end
             end
