@@ -264,23 +264,20 @@ SMODS.Sticker{ -- Oozora Subaru
     pos={x=0,y=0},
     default_compat=true,
     should_apply = function(self, card, center, area, bypass_roll)
-        if area==G.play then
-            return true
-        end
-        return false
+        return (area==G.play)
     end,
     calculate = function(self, card, context)
-        if context.after and SMODS.in_scoring(card, context.scoring_hand) then
-            SMODS.calculate_effect(
-                {
-                    message='Released!',
-                    colour=Holo.C.Subaru,
-                    func = function()
-                        played_card:remove_sticker('hololive_handcuff')
-                    end
-                },
-                played_card
-            )
+        if context.before and SMODS.in_scoring(card, context.scoring_hand) then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card:remove_sticker('hololive_handcuff')
+                    return true
+                end
+            }))
+            return {
+                message='Released!',
+                colour=Holo.C.Subaru,
+            }
         elseif context.discard then
             return {remove=true}
         end
@@ -310,7 +307,7 @@ Holo.Relic_Joker{ -- Oozora Subaru
         }
     }},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = {set='Sticker',key='hololive_handcuff'}
+        --info_queue[#info_queue+1] = {set='Sticker',key='hololive_handcuff'}
         return {
             vars = {
                 card.ability.extra.Xmult,
@@ -324,7 +321,7 @@ Holo.Relic_Joker{ -- Oozora Subaru
     soul_pos = { x = 4, y = 1 },
 
     calculate = function(self, card, context)
-        if context.after then
+        if context.before then
             local peace = true
             for _,played_card in ipairs(context.full_hand)do
                 if not SMODS.in_scoring(played_card, context.scoring_hand) then
@@ -333,13 +330,16 @@ Holo.Relic_Joker{ -- Oozora Subaru
                         SMODS.calculate_effect(
                             {
                                 message='Arrested!',
-                                colour=Holo.C.Subaru,
-                                func = function()
-                                    played_card:add_sticker('hololive_handcuff')
-                                end
+                                colour=Holo.C.Subaru
                             },
                             played_card
                         )
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                played_card:remove_sticker('hololive_handcuff')
+                                return true
+                            end
+                        }))
                     end
                 end
             end
