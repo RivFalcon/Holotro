@@ -279,7 +279,9 @@ SMODS.Sticker{ -- Oozora Subaru
                 colour=Holo.C.Subaru,
             }
         elseif context.discard then
-            return {remove=true}
+            if context.other_card == card then
+                return {remove=true}
+            end
         end
     end
 }
