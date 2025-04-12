@@ -43,6 +43,28 @@ function holo_ctx(context)
     if context.post_trigger then return 'post_trigger' end
 end
 
+function Holo.series_and(list, criteria_func)
+    criteria_func = (type(criteria_func)=='function') and criteria_func or function(v)return v end
+    for _,item in ipairs(list)do
+        if not criteria_func(item)then return false end
+    end
+    return true
+end
+function Holo.series_or(list, criteria_func)
+    criteria_func = (type(criteria_func)=='function') and criteria_func or function(v)return v end
+    for _,item in ipairs(list)do
+        if criteria_func(item)then return true end
+    end
+    return false
+end
+function Holo.series_count(list, criteria_func)
+    local sum = 0
+    for _,item in ipairs(list)do
+        if criteria_func(item)then sum=sum+1 end
+    end
+    return sum
+end
+
 function Holo.nil_check(var, fields)
     local ret = {var or {},}
     for _,field in ipairs(fields)do
