@@ -320,7 +320,7 @@ Holo.Relic_Joker{ -- Houshou Marine
     soul_pos = { x = 4, y = 1 },
 
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand and not context.blueprint then
+        if context.end_of_round and context.individual and context.cardarea == G.hand and not context.blueprint then
             if SMODS.has_enhancement(context.other_card, "m_gold") then
                 card.ability.extra.count_down = card.ability.extra.count_down - 1
                 if card.ability.extra.count_down <= 0 then
