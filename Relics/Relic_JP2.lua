@@ -338,7 +338,7 @@ Holo.Relic_Joker{ -- Oozora Subaru
                         )
                         G.E_MANAGER:add_event(Event({
                             func = function()
-                                played_card:remove_sticker('hololive_handcuff')
+                                played_card:add_sticker('hololive_handcuff')
                                 return true
                             end
                         }))
