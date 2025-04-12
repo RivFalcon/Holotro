@@ -253,8 +253,8 @@ SMODS.Sticker{ -- Oozora Subaru
     loc_txt = {
         name = "Handcuff mark",
         text = {
-            'Get sent to jail',
-            'when discarded.',
+            'The card with this mark',
+            'get sent to jail when discarded.',
             '{C:inactive}(Remove this sticker',
             '{C:inactive}by scoring this card.)'
         }
@@ -269,6 +269,22 @@ SMODS.Sticker{ -- Oozora Subaru
         end
         return false
     end,
+    calculate = function(self, card, context)
+        if context.after and SMODS.in_scoring(card, context.scoring_hand) then
+            SMODS.calculate_effect(
+                {
+                    message='Released!',
+                    colour=Holo.C.Subaru,
+                    func = function()
+                        played_card:remove_sticker('hololive_handcuff')
+                    end
+                },
+                played_card
+            )
+        elseif context.discard then
+            return {remove=true}
+        end
+    end
 }
 
 Holo.Relic_Joker{ -- Oozora Subaru
@@ -277,13 +293,13 @@ Holo.Relic_Joker{ -- Oozora Subaru
     loc_txt = {
         name = "Whistle of the Duck Officer",
         text = {
-            'Played card that did not score will be {C:attention}arrested{}.',
-            'Playing cards with {C:attention}handcuffs{} will',
-            'be {C:red}sent to jail{} when discarded.',
+            'Played card that {C:red}did not score',
+            'will be {C:attention}arrested{}.',
             'Gain {X:mult,C:white}X#2#{} mult when playing a hand',
-            'with {C:attention}no{} cards arrested. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            'with {C:attention}no{} cards arrested.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
-        ,boxes={2,2}
+        ,boxes={2,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -294,6 +310,7 @@ Holo.Relic_Joker{ -- Oozora Subaru
         }
     }},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set='Sticker',key='hololive_handcuff'}
         return {
             vars = {
                 card.ability.extra.Xmult,
@@ -310,49 +327,31 @@ Holo.Relic_Joker{ -- Oozora Subaru
         if context.after then
             local peace = true
             for _,played_card in ipairs(context.full_hand)do
-                local is_cuffed = played_card.ability.hololive_handcuff
-                if SMODS.in_scoring(played_card, context.scoring_hand) then
-                    if is_cuffed then
-                        SMODS.calculate_effect(
-                            {
-                                message='Released!',
-                                colour=Holo.C.Subaru,
-                                func = function()
-                                    played_card:remove_sticker('hololive_handcuff')
-                                    return true
-                                end
-                            },
-                            played_card
-                        )
-                    end
-                else
-                    if not is_cuffed then
+                if not SMODS.in_scoring(played_card, context.scoring_hand) then
+                    peace = false
+                    if not played_card.ability.hololive_handcuff then
                         SMODS.calculate_effect(
                             {
                                 message='Arrested!',
                                 colour=Holo.C.Subaru,
                                 func = function()
                                     played_card:add_sticker('hololive_handcuff')
-                                    return true
                                 end
                             },
                             played_card
                         )
                     end
-                    peace = false
                 end
             end
             if peace then
+                -- This can also be "if #context.full_hand==#context.scoring_hand then",
+                -- but I'm very afraid if something would go wrong, so...
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         holo_card_upgrade(card)
                         return true
                     end
                 }))
-            end
-        elseif context.discard then
-            if context.other_card.ability.hololive_handcuff then
-                return {remove=true}
             end
         elseif context.joker_main then
             return{Xmult=card.ability.extra.Xmult}
