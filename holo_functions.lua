@@ -112,23 +112,19 @@ end
 
 function holo_card_counting(card, context, decr)
     local cae = Holo.cae(card)
-    local args = cae.count_args or {}
-    if cae.count_init == nil then return end
-    if cae.count_down == nil then return end
+    if cae.count_args == nil then return false end
+    local args = cae.count_args
+    if args.init == nil then return false end
+    if args.down == nil then return false end
 
-    decr = decr or args.decr or 1
-    local func = card.config.center.count_func or (function(_card,_ctx)end)
-    local elsefunc = card.config.center.count_elsefunc or (function(_card,_ctx)end)
-
-    cae.count_down = cae.count_down - decr
+    args.down = args.down - (decr or args.decr or 1)
     local _effect = nil
-    if cae.count_down <= 0 then
-        cae.count_down = cae.count_down + cae.count_init
-        _effect = func(card, context)
+    if args.down <= 0 then
+        args.down = args.down + args.init
+        return true
     else
-        _effect = elsefunc(card, context)
+        return false
     end
-    return _effect
 end
 
 function holo_card_expired(card)
