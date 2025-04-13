@@ -2,11 +2,12 @@
 function holo_ctx(context)
     -- Main Scoring Loop
     if context.before then return 'before scoring' end
+    if context.repetition and context.cardarea == G.play then return 'retrigger scoring' end
     if context.main_scoring and context.cardarea == G.play then return 'card modifier scoring effect' end
     if context.individual and context.cardarea == G.play then return 'when scored' end
-    if context.repetition and context.cardarea == G.play then return 'retrigger scoring' end
-    if context.individual and context.cardarea == G.hand and not context.end_of_round then return 'held in hand for scoring' end
     if context.repetition and context.cardarea == G.hand and not context.end_of_round then return 'retrigger in hand for scoring' end
+    if context.individual and context.cardarea == G.hand and not context.end_of_round then return 'held in hand for scoring' end
+    if context.pre_joker then return 'pre_joker' end
     if context.joker_main then return 'joker_main' end
     if context.other_joker then return 'other_joker' end
     if context.post_joker then return 'post_joker' end
@@ -19,12 +20,12 @@ function holo_ctx(context)
     if context.discard then return 'when discard' end
     -- End Of Round
     if context.end_of_round and context.cardarea == G.jokers then return 'joker at end of round' end
-    if context.end_of_round and context.individual then return 'held in hand at end of round' end
     if context.end_of_round and context.repetition then return 'retrigger in hand at end of round' end
+    if context.end_of_round and context.individual then return 'held in hand at end of round' end
     -- Blind
-    if context.debuffed_hand then return 'hand debuffed by the blind' end
     if context.setting_blind then return 'select a blind' end
     if context.skip_blind then return 'skip a blind' end
+    if context.debuffed_hand then return 'hand debuffed by the blind' end
     -- Shop
     if context.reroll_shop then return 'shop reroll' end
     if context.buying_card then return 'buy a card' end
@@ -40,6 +41,8 @@ function holo_ctx(context)
     -- Others
     if context.using_consumeable then return 'use a consumeable' end
     if context.playing_card_added then return 'add a playing card' end
+    if context.card_added then return 'add a non-playing card' end
+    if context.check_enhancement then return 'quantum enhancements' end
     if context.post_trigger then return 'post_trigger' end
 end
 
@@ -261,5 +264,23 @@ function Holo.blueprint_update(card, joker_to_copy, extra_criteria)
         card.ability.blueprint_compat = 'compatible'
     else
         card.ability.blueprint_compat = 'incompatible'
+    end
+end
+
+function Holo.add_consumeable(_key, _neg)
+    if (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) or _neg then
+        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + (_neg and 0 or 1)
+        G.E_MANAGER:add_event(Event({
+            func = function ()
+                SMODS.add_card({
+                    key = _key,
+                    area = G.consumeables,
+                    edition = _neg and 'e_negative' or nil,
+                })
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - (_neg and 0 or 1)
+                return true
+            end
+        }))
+        return true
     end
 end

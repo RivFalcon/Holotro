@@ -151,13 +151,14 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
     soul_pos = { x = 2, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
         holo_card_upgrade_by_consumeable(card, context, 'c_star')
         if context.individual and context.cardarea == G.play then
             if context.other_card:is_suit('Diamonds') then
-                local stardust = pseudorandom('Suisei', card.ability.extra.dust_min, card.ability.extra.dust_max)
-                card.ability.extra.count_down = card.ability.extra.count_down - stardust
-                if card.ability.extra.count_down <=0 then
-                    card.ability.extra.count_down = card.ability.extra.count_down + 18
+                local stardust = pseudorandom('Suisei', cae.dust_min, cae.dust_max)
+                cae.count_down = cae.count_down - stardust
+                if cae.count_down <=0 then
+                    cae.count_down = cae.count_down + 18
                     if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                         G.E_MANAGER:add_event(Event({
@@ -168,7 +169,7 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
                             end
                         }))
                     else
-                        card.ability.extra.accumulate = card.ability.extra.accumulate + 1
+                        cae.accumulate = cae.accumulate + 1
                     end
                     return {
                         message='Star!',
@@ -183,13 +184,13 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
         elseif context.joker_main then
             card:juice_up()
             return {
-                Xmult=card.ability.extra.Xmult
+                Xmult=cae.Xmult
             }
         end
-        if card.ability.extra.accumulate>=1 then
+        if cae.accumulate>=1 then
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                card.ability.extra.accumulate = card.ability.extra.accumulate - 1
+                cae.accumulate = cae.accumulate - 1
                 G.E_MANAGER:add_event(Event({
                     func = function ()
                         SMODS.add_card({ key = 'c_star', area = G.consumeables})
@@ -210,8 +211,9 @@ Holo.Relic_Joker{ -- Sakura Miko
         text = {
             'Each {C:red}discarded{} card with {C:attention}non{}-{C:diamonds}Diamond{} suits',
             'is thrown into {C:attention}lava{} and burned into {C:attention}#3#~#4#{} crisps.',
-            'Collect {C:attention}#1# {C:inactive}[#2#]{} burnt crisp to create a {C:dark_edition}Negative {C:tarot}Star{}.',
-            'Earn {C:money}$#1#{} at end of round if your {C:attention}full deck',
+            'Collect {C:attention}#1# {C:inactive}[#2#]{} burnt crisp to create a {C:tarot}Star{}.',
+            '(If no room, accumulate them {C:inactive}[#5#]{} until there is.)',
+            'Earn {C:money}$35{} at end of round if your {C:attention}full deck',
             'has more {C:diamonds}Diamond{} cards than other suits combined.'
         }
         ,boxes={3,2}
@@ -219,23 +221,30 @@ Holo.Relic_Joker{ -- Sakura Miko
     },
     config = { extra = {
         crisp_min=3, crisp_max=5,
-        count_down=35,
+        count_args={
+            down=35, init=35
+        },
         dummy_parameter = 0,
+        accumulate = 0,
         upgrade_args = {
             scale_var = 'dummy_parameter'
         }
     }},
     upgrade_func = function(card)
-        SMODS.add_card({ key = 'c_star', area = G.consumeables, edition = 'e_negative' })
+        if not Holo.add_consumeable('c_star') then
+            card.ability.extra.accumulate = card.ability.extra.accumulate + 1
+        end
     end,
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         info_queue[#info_queue+1] = G.P_CENTERS.c_star
         return {
             vars = {
-                35,
-                card.ability.extra.count_down,
-                card.ability.extra.crisp_min,
-                card.ability.extra.crisp_max
+                cae.count_args.init,
+                cae.count_args.down,
+                cae.crisp_min,
+                cae.crisp_max,
+                cae.accumulate,
             }
         }
     end,
@@ -245,18 +254,22 @@ Holo.Relic_Joker{ -- Sakura Miko
     soul_pos = { x = 3, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
         if context.discard then
             if not context.other_card:is_suit('Diamonds')then
-                local lavacrisp = pseudorandom('Miko', card.ability.extra.crisp_min, card.ability.extra.crisp_max)
-                card.ability.extra.count_down = card.ability.extra.count_down - lavacrisp
-                if card.ability.extra.count_down <=0 then
-                    card.ability.extra.count_down = card.ability.extra.count_down + 35
+                local lavacrisp = pseudorandom('Miko', cae.crisp_min, cae.crisp_max)
+                if holo_card_counting(card, context, lavacrisp) then
                     holo_card_upgrade(card)
                 end
                 return {
                     message='BURN! +'..lavacrisp,
                     remove=true
                 }
+            end
+        end
+        if cae.accumulate>=1 then
+            if Holo.add_consumeable('c_star')then
+                cae.accumulate = cae.accumulate - 1
             end
         end
     end,

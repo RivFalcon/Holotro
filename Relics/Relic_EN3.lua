@@ -68,7 +68,7 @@ Holo.Relic_Joker{ -- Koseki Bijou
     loc_txt = {
         name = "Jewel Crown of the Ancient Rock",
         text = {
-            '{C:attention}Stone cards{} become {C:attention}More Solid{},',
+            '{C:attention}Stone cards{} become {C:attention}Rock Hard{},',
             'permanently gain {C:chips}+#1#{} chips when scored.',
             'Chip gain increases by {C:chips}+#2#{} chips',
             'per {C:tarot}The Tower{} used.',
@@ -86,7 +86,7 @@ Holo.Relic_Joker{ -- Koseki Bijou
     } },
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
-        info_queue[#info_queue+1] = G.P_CENTERS.m_stone
+        info_queue[#info_queue+1] = G.P_CENTERS.c_tower
         return { vars = {
             cae.bonus_mod, cae.bonus_mod_mod
         } }

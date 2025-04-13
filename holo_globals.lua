@@ -651,3 +651,5 @@ Holo.birthday_chart = {
     ['1212'] = 'Kobo',
     ['1213'] = 'Ayame',
 }
+
+Holo.Atlas_7195 = SMODS.Atlas:extend{px=71,py=95}

@@ -242,13 +242,13 @@ Holo.Relic_Joker{ -- Yuzuki Choco
     end
 }
 
-SMODS.Atlas{ -- Oozora Subaru
+SMODS.Atlas{ -- Oozora Subaru: Handcuff Sprite
     key = "Sticker_Handcuff",
     path = "textures/Sticker_Handcuff.png",
     px = 71,
     py = 95
 }
-SMODS.Sticker{ -- Oozora Subaru
+SMODS.Sticker{ -- Oozora Subaru: Handcuff
     key = "handcuff",
     loc_txt = {
         name = "Handcuff mark",
