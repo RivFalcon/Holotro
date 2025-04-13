@@ -245,3 +245,25 @@ function Holo.hand_contained_usage()
     end
     return ret
 end
+
+function Holo.blueprint_node(card)
+    card.ability.blueprint_compat_ui = card.ability.blueprint_compat_ui or ''
+    card.ability.blueprint_compat_check = nil
+    return card.ability.blueprint_compat and {
+        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={ref_table = card, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
+                {n=G.UIT.T, config={ref_table = card.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            }}
+        }}
+    } or nil
+end
+
+function Holo.blueprint_update(card, joker_to_copy, extra_criteria)
+    if joker_to_copy==nil then
+        card.ability.blueprint_compat = false
+    elseif Holo.nil_check(joker_to_copy,{'config','center'}).blueprint_compat and extra_criteria then
+        card.ability.blueprint_compat = 'compatible'
+    else
+        card.ability.blueprint_compat = 'incompatible'
+    end
+end

@@ -78,7 +78,10 @@ Wah_Joker{ -- Ina: WAH 00
     },
     config = { extra = { } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { colours = { Holo.C.Hololive } } }
+        return {
+            vars = { colours = { Holo.C.Hololive } },
+            main_end = Holo.blueprint_node(card)
+        }
     end,
     WAH_index = 0,
     rarity = 1,
@@ -87,15 +90,26 @@ Wah_Joker{ -- Ina: WAH 00
     atlas = 'Ina_WAH',
     pos = {y=0,x=0},
 
+    update = function(self, card, dt)
+        local joker_to_the_right = nil
+        local joker_cards = (G.jokers or {}).cards or {}
+        for i,J in ipairs(joker_cards)do
+            if J == card then
+                joker_to_the_right = joker_cards[i+1]
+                break
+            end
+        end
+        Holo.blueprint_update(card, joker_to_the_right, Holo.mod_check(joker_to_the_right))
+    end,
     calculate = function(self, card, context)
         local joker_to_the_right = nil
         for i,J in ipairs(G.jokers.cards)do
-            if J == card and i<#G.jokers.cards then
+            if J == card then
                 joker_to_the_right = G.jokers.cards[i+1]
                 break
             end
         end
-        if Holo.mod_check(joker_to_the_right) then
+        if joker_to_the_right and Holo.mod_check(joker_to_the_right) then
             SMODS.calculate_effect(SMODS.blueprint_effect(card, joker_to_the_right, context)or{}, card)
         end
     end
