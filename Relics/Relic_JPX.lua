@@ -6,7 +6,7 @@ SMODS.Atlas{
     py = 95
 }
 
-Holo.Relic_Joker{ -- La+ Darkness
+Holo.Relic_Joker{ -- La+ Darknesss
     member = "Laplus",
     key = "Relic_Laplus",
     loc_txt = {
