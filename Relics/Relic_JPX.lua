@@ -195,7 +195,7 @@ Koyori_Potion{ -- Hakui Koyori: Cyan Flask
     loc_txt={
         name='Cyan flask',
         text={
-            '{C:chips}+54{} mult',
+            '{C:chips}+54{} chips',
             'when played.'
         }
     },
