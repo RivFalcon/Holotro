@@ -143,7 +143,7 @@ local Koyori_Potion = SMODS.Sticker:extend{
         return ((area==G.hand)or bypass_roll)and(card and card.playing_card and card:get_id()==10)
     end,
     calculate = function(self, card, context)
-        if context.before then
+        if context.before and context.cardarea==G.play then
             if self.key == 'hololive_potion_cyan' then
                 card.ability.has_given_chips=false
             elseif self.key == 'hololive_potion_green' then
@@ -162,7 +162,7 @@ local Koyori_Potion = SMODS.Sticker:extend{
                 card.potion_trigger=true
                 return{repetitions=2,colour=HEX('e97896')}
             end
-        elseif context.main_scoring then
+        elseif context.main_scoring and context.cardarea==G.play then
             if self.key == 'hololive_potion_red' then
                 card.potion_trigger=true
                 return{mult=10,colour=G.C.RED}
@@ -171,11 +171,18 @@ local Koyori_Potion = SMODS.Sticker:extend{
                 card.potion_trigger=true
                 return{chips=54,colour=G.C.CHIPS}
             end
-        elseif context.after then
+        elseif context.after and context.cardarea==G.play then
             if self.key == 'hololive_potion_green' then
                 G.GAME.probabilities.normal = G.GAME.probabilities.normal / 5.4
             end
             card.potion_trigger=false
+            local pc = self.key
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card:remove_sticker(pc)
+                    return true
+                end
+            }))
         end
     end
 }
