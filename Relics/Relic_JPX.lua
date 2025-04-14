@@ -162,7 +162,7 @@ local Koyori_Potion = SMODS.Sticker:extend{
                 card.potion_trigger=true
                 return{repetitions=2,colour=HEX('e97896')}
             end
-        elseif context.individual and context.cardarea==G.play then
+        elseif context.main_scoring then
             if self.key == 'hololive_potion_red' then
                 card.potion_trigger=true
                 return{mult=10,colour=G.C.RED}
@@ -176,14 +176,6 @@ local Koyori_Potion = SMODS.Sticker:extend{
                 G.GAME.probabilities.normal = G.GAME.probabilities.normal / 5.4
             end
             card.potion_trigger=false
-        elseif context.end_of_round then
-            local pc = self.key
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    card:remove_sticker(pc)
-                    return true
-                end
-            }))
         end
     end
 }
@@ -319,18 +311,20 @@ Holo.Relic_Joker{ -- Hakui Koyori
             for _,v in ipairs(context.full_hand)do
                 if v.potion_trigger then -- Green, Gold, Blue
                     holo_card_upgrade(card)
+                    v.potion_trigger=false
                 end
             end
         elseif (context.individual or context.repetition) and context.cardarea==G.play then
             if context.other_card.potion_trigger then -- Red, Cyan, Pink
                 holo_card_upgrade(card)
-            end--[[
+                context.other_card.potion_trigger=false
+            end
         elseif context.end_of_round and context.cardarea==G.jokers then
             for _,v in ipairs(G.playing_cards)do
                 for _,pc in ipairs({'red','cyan','pink','green','gold','blue'})do
                     v:remove_sticker('hololive_potion_'..pc)
                 end
-            end]]
+            end
         elseif context.joker_main then
             return{
                 Xmult = cae.Xmult,
@@ -452,7 +446,7 @@ Holo.Relic_Joker{ -- Kazama Iroha
             if holo_card_counting(card, context) then
                 SMODS.add_card({ key = 'c_star', area = G.consumeables, edition = 'e_negative' })
             end
-        elseif context.destroy_card then
+        elseif context.destroy_card and context.cardarea == G.play then
             if context.destroy_card:get_id()~=10 then
                 if Holo.chance('Iroha', cae.odds) then
                     return{remove=true,message='Sha-kin!',colour=Holo.C.Iroha}
