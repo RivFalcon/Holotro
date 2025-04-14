@@ -61,6 +61,7 @@ Holo.Relic_Joker{ -- Shiragami Fubuki
     soul_pos = { x = 0, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 
@@ -76,6 +77,7 @@ Holo.Relic_Joker{ -- Natsuiro Matsuri
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -87,6 +89,7 @@ Holo.Relic_Joker{ -- Natsuiro Matsuri
     soul_pos = { x = 1, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 
@@ -94,7 +97,7 @@ Holo.Relic_Joker{ -- Aki Rosenthal
     member = "Aki",
     key = "Relic_Aki",
     loc_txt = {
-        name = "??? of the ??? Elf",
+        name = "??? of the Exotic Elf",
         text = Holo.Relic_dummytext or {
             ''
         }
@@ -102,6 +105,7 @@ Holo.Relic_Joker{ -- Aki Rosenthal
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -113,6 +117,7 @@ Holo.Relic_Joker{ -- Aki Rosenthal
     soul_pos = { x = 2, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 
@@ -128,6 +133,7 @@ Holo.Relic_Joker{ -- Akai Haato / Haachama
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
