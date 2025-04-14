@@ -410,7 +410,7 @@ Holo.Relic_Joker{ -- Kazama Iroha
         text = {
             'Played cards with ranks {C:attention}other than 10',
             'have {C:green}#5# in #6#{} chance to get {C:red}slashed{} after scoring.',
-            'Create a {C:dark_edition}Negative {C:tarot}Star{} every {C:attention}#4# {C:inactive}[#3#]{} discards.',
+            'Create a {C:dark_edition}Negative {C:tarot}Star{} every {C:attention}#4# {C:inactive}[#3#]{} played hand.',
             'Gain {X:mult,C:white}X#2#{} mult per played hand with no card',
             'needed to be slashed. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
