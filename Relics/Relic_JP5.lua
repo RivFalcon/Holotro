@@ -18,6 +18,7 @@ Holo.Relic_Joker{ -- Yukihana Lamy
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -29,6 +30,7 @@ Holo.Relic_Joker{ -- Yukihana Lamy
     soul_pos = { x = 0, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 
@@ -44,6 +46,7 @@ Holo.Relic_Joker{ -- Momosuzu Nene
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -55,6 +58,7 @@ Holo.Relic_Joker{ -- Momosuzu Nene
     soul_pos = { x = 1, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 
@@ -70,6 +74,7 @@ Holo.Relic_Joker{ -- Shishiro Botan
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -81,6 +86,7 @@ Holo.Relic_Joker{ -- Shishiro Botan
     soul_pos = { x = 2, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 
@@ -96,6 +102,7 @@ Holo.Relic_Joker{ -- Mano Aloe
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -107,6 +114,7 @@ Holo.Relic_Joker{ -- Mano Aloe
     soul_pos = { x = 3, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 
@@ -122,6 +130,7 @@ Holo.Relic_Joker{ -- Omaru Polka
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -133,6 +142,7 @@ Holo.Relic_Joker{ -- Omaru Polka
     soul_pos = { x = 4, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 

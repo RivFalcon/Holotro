@@ -82,6 +82,7 @@ Holo.Relic_Joker{ -- Nekomata Okayu
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -93,6 +94,7 @@ Holo.Relic_Joker{ -- Nekomata Okayu
     soul_pos = { x = 2, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 
@@ -108,6 +110,7 @@ Holo.Relic_Joker{ -- Inugami Korone
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -119,6 +122,7 @@ Holo.Relic_Joker{ -- Inugami Korone
     soul_pos = { x = 3, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 

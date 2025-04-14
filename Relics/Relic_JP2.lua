@@ -249,6 +249,7 @@ SMODS.Atlas{ -- Oozora Subaru: Handcuff Sprite
     py = 95
 }
 SMODS.Sticker{ -- Oozora Subaru: Handcuff
+    member = "Subaru",
     key = "handcuff",
     loc_txt = {
         name = "Handcuff mark",

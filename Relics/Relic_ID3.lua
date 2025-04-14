@@ -18,6 +18,7 @@ Holo.Relic_Joker{ -- Vestia Zeta
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -29,6 +30,7 @@ Holo.Relic_Joker{ -- Vestia Zeta
     soul_pos = { x = 0, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 
@@ -44,6 +46,7 @@ Holo.Relic_Joker{ -- Kaela Kovalskia
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -55,6 +58,7 @@ Holo.Relic_Joker{ -- Kaela Kovalskia
     soul_pos = { x = 1, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 
@@ -70,6 +74,7 @@ Holo.Relic_Joker{ -- Kobo Kanaeru
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -81,6 +86,7 @@ Holo.Relic_Joker{ -- Kobo Kanaeru
     soul_pos = { x = 2, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 

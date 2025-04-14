@@ -201,15 +201,14 @@ function Holo.pseudorandom_weighted_element(weight_table, seed)
     local pool = {}
     local sum = 0
     for element, weight in pairs(weight_table)do
-        pool[#pool+1] = { e = element, acc_w = sum }
         sum = sum + weight
+        pool[#pool+1] = { e = element, acc_w = sum }
     end
     local index = sum*pseudorandom(seed)
-    for i=#pool,1,-1 do
-        local v=pool[i]
-        if index>=v.acc_w then return v.e end
+    for i,v in ipairs(pool) do
+        if index<v.acc_w then return v.e end
     end
-    return pool[1].e
+    return pool[#pool].e
 end
 
 function Holo.hand_contained_usage()

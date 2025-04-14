@@ -18,6 +18,7 @@ Holo.Relic_Joker{ -- Kureiji Ollie
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -29,6 +30,7 @@ Holo.Relic_Joker{ -- Kureiji Ollie
     soul_pos = { x = 0, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 
@@ -44,6 +46,7 @@ Holo.Relic_Joker{ -- Anya Melfissa
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -55,6 +58,7 @@ Holo.Relic_Joker{ -- Anya Melfissa
     soul_pos = { x = 1, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 
@@ -70,6 +74,7 @@ Holo.Relic_Joker{ -- Pavolia Reine
     config = { extra = {
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
             }
@@ -81,6 +86,7 @@ Holo.Relic_Joker{ -- Pavolia Reine
     soul_pos = { x = 2, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
     end
 }
 
