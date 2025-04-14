@@ -28,10 +28,11 @@ Holo.Relic_Joker{ -- La+ Darkness
         if x_unlock then
             info_queue[#info_queue+1] = G.P_CENTERS.c_planet_x
         end
+        local local_x = localize({key='c_planet_x', set='Planet', type='name_text'})
         return {
             vars = {
                 card.ability.extra.retriggers,
-                x_unlock and "Planet X" or '?????',
+                x_unlock and local_x or '?????',
                 colours= {x_unlock and G.C.SECONDARY_SET.Planet or G.C.UI.TEXT_DARK}
             }
         }
@@ -44,10 +45,12 @@ Holo.Relic_Joker{ -- La+ Darkness
     calculate = function(self, card, context)
         holo_card_upgrade_by_consumeable(card, context, 'c_planet_x')
         if context.repetition and context.cardarea==G.play then
-            return{
-                repetitions = card.ability.extra.retriggers,
-                colour=Holo.C.Laplus
-            }
+            if context.other_card:get_id()==10 then
+                return{
+                    repetitions = card.ability.extra.retriggers,
+                    colour=Holo.C.Laplus
+                }
+            end
         end
     end
 }
@@ -128,6 +131,7 @@ SMODS.Atlas{ -- Hakui Koyori: Potion Sprites
     py = 95
 }
 local Koyori_Potion = SMODS.Sticker:extend{
+    member = "Koyori",
     atlas="hololive_Sticker_Potions",
     hide_badge=true,
     should_apply = function(self, card, center, area, bypass_roll)
@@ -354,7 +358,7 @@ Holo.Relic_Joker{ -- Sakamata Chloe
         Xmult=5, Xmult_mod=0.5,
         odds=5,
         count_args = {
-            dowm = 5, init = 5
+            down = 5, init = 5
         }
     }},
     loc_vars = function(self, info_queue, card)
@@ -413,7 +417,7 @@ Holo.Relic_Joker{ -- Kazama Iroha
         Xmult=5, Xmult_mod=0.5,
         odds=5,
         count_args = {
-            dowm = 5, init = 5
+            down = 5, init = 5
         }
     }},
     loc_vars = function(self, info_queue, card)
@@ -443,7 +447,7 @@ Holo.Relic_Joker{ -- Kazama Iroha
                 SMODS.add_card({ key = 'c_star', area = G.consumeables, edition = 'e_negative' })
             end
         elseif context.destroy_card then
-            if context.other_card:get_id()~=10 then
+            if context.destroy_card:get_id()~=10 then
                 if Holo.chance('Chloe', cae.odds) then
                     return{remove=true,message='Sha-kin!'}
                 end
