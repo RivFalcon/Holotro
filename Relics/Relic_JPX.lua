@@ -357,6 +357,9 @@ Holo.Relic_Joker{ -- Sakamata Chloe
     config = { extra = {
         Xmult=5, Xmult_mod=0.5,
         odds=5,
+        upgrade_args = {
+            scale_var = 'Xmult',
+        },
         count_args = {
             down = 5, init = 5
         }
@@ -390,7 +393,7 @@ Holo.Relic_Joker{ -- Sakamata Chloe
         elseif context.discard then
             if context.other_card:get_id()~=10 then
                 if Holo.chance('Chloe', cae.odds) then
-                    return{remove=true,message='Baku!'}
+                    return{remove=true,message='Baku!',colour=Holo.C.Chloe}
                 end
             end
         elseif context.joker_main then
@@ -416,6 +419,9 @@ Holo.Relic_Joker{ -- Kazama Iroha
     config = { extra = {
         Xmult=5, Xmult_mod=0.5,
         odds=5,
+        upgrade_args = {
+            scale_var = 'Xmult',
+        },
         count_args = {
             down = 5, init = 5
         }
@@ -440,7 +446,7 @@ Holo.Relic_Joker{ -- Kazama Iroha
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.before then
-            if Holo.series_and(context.full_hand, function(v)return(v:get_id()==10)end)then
+            if Holo.series_and(context.scoring_hand, function(v)return(v:get_id()==10)end)then
                 holo_card_upgrade(card)
             end
             if holo_card_counting(card, context) then
@@ -448,12 +454,12 @@ Holo.Relic_Joker{ -- Kazama Iroha
             end
         elseif context.destroy_card then
             if context.destroy_card:get_id()~=10 then
-                if Holo.chance('Chloe', cae.odds) then
-                    return{remove=true,message='Sha-kin!'}
+                if Holo.chance('Iroha', cae.odds) then
+                    return{remove=true,message='Sha-kin!',colour=Holo.C.Iroha}
                 end
             end
         elseif context.joker_main then
-            return{Xmult=cae.Xmult,colour=Holo.C.Chloe}
+            return{Xmult=cae.Xmult,colour=Holo.C.Iroha}
         end
     end
 }
