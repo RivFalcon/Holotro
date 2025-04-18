@@ -30,7 +30,7 @@ SMODS.Sticker{ -- Yozora Mel: Bite Mark
     --pos = {x=0,y=0},
     badge_colour=Holo.C.Mel,
     should_apply = function(self, card, center, area, bypass_roll)
-        local not_enhanced = card and card.playing_card and(center ~= G.P_CENTERS.c_base)or false
+        local not_enhanced = card and card.playing_card and(center == G.P_CENTERS.c_base)or false
         return ((area==G.play)or bypass_roll)and not_enhanced
     end,
     calculate = function(self, card, context)
@@ -90,11 +90,12 @@ Holo.Relic_Joker{ -- Yozora Mel
             for k, v in ipairs(context.scoring_hand) do
                 if not SMODS.has_enhancement(v, 'c_base') and not v.debuff and not v.vampired then
                     v.vampired = true
+                    v:set_ability(G.P_CENTERS.c_base, nil, true)
+                    v:add_sticker('hololive_kapumark')
                     holo_card_upgrade(card)
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            v:set_ability(G.P_CENTERS.c_base, nil, true)
-                            v:add_sticker('hololive_kapumark')
+                            v:juice_up()
                             v.vampired = nil
                             return true
                         end
@@ -233,7 +234,7 @@ Holo.Relic_Joker{ -- Natsuiro Matsuri
                     sound = 'timpani'
                 }
             end
-        elseif context.end_of_round and G.GAME.blind.boss and not context.blueprint then
+        elseif context.end_of_round and context.cardarea==G.jokers and G.GAME.blind.boss and not context.blueprint then
             holo_card_upgrade(card)
         end
     end
@@ -296,11 +297,10 @@ Holo.Relic_Joker{ -- Aki Rosenthal
                 colour=Holo.C.Aki,
                 --sound='hololive_sound_Aki_Gulp',
             }
-        elseif context.individual and card.cardarea==G.play and cae.sipped then
+        elseif context.individual and context.cardarea==G.play and cae.sipped then
             if SMODS.has_enhancement(context.other_card, 'c_base') then
                 return {
                     Xmult=cae.Xmult,
-                    message = 'Cheers!',
                     colour=Holo.C.Aki,
                     --sound='hololive_sound_Aki_MugClinking'
                 }
@@ -359,7 +359,7 @@ Holo.Relic_Joker{ -- Akai Haato / Haachama
     calculate = function(self, card, context)
         local cae = card.ability.extra
         holo_card_upgrade_by_consumeable(card, context, 'c_sun')
-        if context.before then
+        if context.before and not context.blueprint then
             for _,v in ipairs(context.scoring_hand)do
                 if v:is_suit('Hearts') and SMODS.has_enhancement(v, 'c_base') then
                     local enh = Holo.pseudorandom_weighted_element(cae.enhance_table,'Haachama')
