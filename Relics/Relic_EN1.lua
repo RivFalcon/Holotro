@@ -166,7 +166,7 @@ Holo.Relic_Joker{ -- Takanashi Kiara
         if context.first_hand_drawn then
             local charge = cae.flame
             local eval = function(_c) return _c.ability.extra.flame>0 and G.GAME.facing_blind and not G.RESET_JIGGLES end
-            juice_card_until(self, eval, true)
+            juice_card_until(card, eval, true)
         elseif context.after then
             if hand_chips*mult >= G.GAME.blind.chips and cae.flame < 4 then
                 cae.flame = math.min(cae.flame + 1, 4)
