@@ -389,9 +389,9 @@ Holo.Relic_Joker{ -- Hakos Baelz
         local cae = card.ability.extra
         return { vars = {
             cae.Pmult,
-            (cae.Pmult_max==6) and 'six' or cae.Pmult_max},
+            (cae.Pmult_max==6) and 'six' or cae.Pmult_max,
             colours = {Holo.C.Bae}
-        }
+        }}
     end,
     blueprint_compat = false,
 
