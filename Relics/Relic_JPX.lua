@@ -49,7 +49,8 @@ Holo.Relic_Joker{ -- La+ Darknesss
             if context.other_card:get_id()==10 then
                 return{
                     repetitions = card.ability.extra.retriggers,
-                    colour=Holo.C.Laplus
+                    colour=Holo.C.Laplus,
+                    card = card,
                 }
             end
         end
@@ -185,7 +186,7 @@ local Koyori_Potion = SMODS.Sticker:extend{
         elseif context.repetition and context.cardarea==G.play then
             if self.key == 'hololive_potion_pink' then
                 card.potion_trigger=true
-                return{repetitions=pt_cfg.pink,colour=HEX('e97896')}
+                return{repetitions=pt_cfg.pink,colour=HEX('e97896'),card=card}
             end
         elseif context.main_scoring and context.cardarea==G.play then
             if self.key == 'hololive_potion_red' then

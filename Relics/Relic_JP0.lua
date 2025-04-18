@@ -127,9 +127,13 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
     config = { extra = {
         Xmult=3, Xmult_mod=1,
         dust_min=1, dust_max=3,
-        count_down=18, accumulate=0,
+        accumulate=0,
         upgrade_args = {
             scale_var = 'Xmult',
+        },
+        count_args = {
+            down = 18,
+            init = 18
         }
     }},
     loc_vars = function(self, info_queue, card)
@@ -140,7 +144,7 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
                 card.ability.extra.Xmult_mod,
                 card.ability.extra.dust_min,
                 card.ability.extra.dust_max,
-                card.ability.extra.count_down,
+                card.ability.extra.count_args.down,
                 card.ability.extra.accumulate
             }
         }
@@ -156,9 +160,7 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
         if context.individual and context.cardarea == G.play then
             if context.other_card:is_suit('Diamonds') then
                 local stardust = pseudorandom('Suisei', cae.dust_min, cae.dust_max)
-                cae.count_down = cae.count_down - stardust
-                if cae.count_down <=0 then
-                    cae.count_down = cae.count_down + 18
+                if holo_card_counting(card, stardust) then
                     if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                         G.E_MANAGER:add_event(Event({

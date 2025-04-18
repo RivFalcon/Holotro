@@ -3,7 +3,7 @@
 --[[
 SMODS.Joker{ -- Kiara: The Usual Room
     member = "Kiara",
-    key = "Kiara_TUR",
+    key = "Meme_Kiara_TUR",
     loc_txt = {
         name = "The Usual Room",
         text = {
@@ -23,7 +23,7 @@ SMODS.Joker{ -- Kiara: The Usual Room
 }
 ]]--
 
-SMODS.Atlas{
+SMODS.Atlas{ -- Ina_WAH
     key = "Ina_WAH",
     path = "Memes/Meme_Ina_WAHs.png",
     px = 71,
@@ -32,6 +32,10 @@ SMODS.Atlas{
 
 local Wah_Joker = SMODS.Joker:extend{
     member = "Ina",
+    set_badges = function(self, card, badges)
+        Holo.set_type_badge(card, badges, 'Meme')
+        Holo.set_member_badges(card, badges)
+    end,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
@@ -68,7 +72,7 @@ local Wah_Joker = SMODS.Joker:extend{
 }
 
 Wah_Joker{ -- Ina: WAH 00
-    key = "Ina_WAH_00",
+    key = "Meme_Ina_WAH_00",
     loc_txt = {
         name = 'We Are Hololive',
         text = {
@@ -118,7 +122,7 @@ Wah_Joker{ -- Ina: WAH 00
 }
 
 Wah_Joker{ -- Ina: WAH 01
-    key = "Ina_WAH_01",
+    key = "Meme_Ina_WAH_01",
     loc_txt = {
         name = 'We Are Happy',
         text = {
@@ -156,7 +160,7 @@ Wah_Joker{ -- Ina: WAH 01
 }
 
 Wah_Joker{ -- Ina: WAH 02
-    key = "Ina_WAH_02",
+    key = "Meme_Ina_WAH_02",
     loc_txt = {
         name = 'We Are Hype',
         text = {
@@ -194,7 +198,7 @@ Wah_Joker{ -- Ina: WAH 02
 }
 
 Wah_Joker{ -- Ina: WAH 03
-    key = "Ina_WAH_03",
+    key = "Meme_Ina_WAH_03",
     loc_txt = {
         name = 'We Are Here',
         text = {
@@ -233,7 +237,7 @@ Wah_Joker{ -- Ina: WAH 03
 }
 
 Wah_Joker{ -- Ina: WAH 04
-    key = "Ina_WAH_04",
+    key = "Meme_Ina_WAH_04",
     loc_txt = {
         name = 'We Are Ho**y',
         text = {
@@ -272,7 +276,7 @@ Wah_Joker{ -- Ina: WAH 04
 }
 
 Wah_Joker{ -- Ina: WAH 05
-    key = "Ina_WAH_05",
+    key = "Meme_Ina_WAH_05",
     loc_txt = {
         name = 'Win All Hearts',
         text = {
@@ -319,7 +323,7 @@ Wah_Joker{ -- Ina: WAH 05
 }
 
 Wah_Joker{ -- Ina: WAH 06
-    key = "Ina_WAH_06",
+    key = "Meme_Ina_WAH_06",
     loc_txt = {
         name = 'Work At Home',
         text = {
@@ -356,7 +360,7 @@ Wah_Joker{ -- Ina: WAH 06
 }
 
 Wah_Joker{ -- Ina: WAH 07
-    key = "Ina_WAH_07",
+    key = "Meme_Ina_WAH_07",
     loc_txt = {
         name = 'We Are Honor students',
         text = {
@@ -392,7 +396,7 @@ Wah_Joker{ -- Ina: WAH 07
 }
 
 Wah_Joker{ -- Ina: WAH 08
-    key = "Ina_WAH_08",
+    key = "Meme_Ina_WAH_08",
     loc_txt = {
         name = 'We Adore Her',
         text = {
@@ -436,7 +440,7 @@ Wah_Joker{ -- Ina: WAH 08
 }
 
 Wah_Joker{ -- Ina: WAH 09
-    key = "Ina_WAH_09",
+    key = "Meme_Ina_WAH_09",
     loc_txt = {
         name = 'We Are Healthy',
         text = {
@@ -489,7 +493,7 @@ Wah_Joker{ -- Ina: WAH 09
 }
 
 Wah_Joker{ -- Ina: WAH 10
-    key = "Ina_WAH_10",
+    key = "Meme_Ina_WAH_10",
     loc_txt = {
         name = 'We Are Hidden',
         text = {
@@ -530,7 +534,7 @@ Wah_Joker{ -- Ina: WAH 10
 }
 
 Wah_Joker{ -- Ina: WAH 11
-    key = "Ina_WAH_11",
+    key = "Meme_Ina_WAH_11",
     loc_txt = {
         name = 'We Are Horrified',
         text = {
@@ -588,7 +592,7 @@ Wah_Joker{ -- Ina: WAH 11
 }
 
 Wah_Joker{ -- Ina: WAH 12
-    key = "Ina_WAH_12",
+    key = "Meme_Ina_WAH_12",
     loc_txt = {
         name = 'We Are Hot soup',
         text = {
@@ -637,6 +641,83 @@ Wah_Joker{ -- Ina: WAH 12
                         colour = Holo.C.Ina,
                     }
                 end
+            end
+        end
+    end
+}
+
+Holo.Atlas_7195{
+    key = 'Gura_SharkFinger',
+    path = 'Memes/Meme_Gura_SharkFinger.png'
+    -- credit: https://www.reddit.com/r/Hololive/comments/tb77iq/here_is_an_hd_upscaled_version_of_gura_giving_you/
+}
+SMODS.Joker{ -- Gura: Shark Finger
+    member = "Gura",
+    key = "Meme_Gura_SharkFinger",
+    loc_txt = {
+        name = "Shark Finger",
+        text = {
+            'Retrigger {C:attention}third{} played card {C:attention}twice',
+            'if played exactly {C:attention}five{} cards.'
+        }
+    },
+    set_badges = function(self, card, badges)
+        Holo.set_type_badge(card, badges, 'Meme')
+        Holo.set_member_badges(card, badges)
+    end,
+    rarity = 1,
+    cost = 4,
+    blueprint_compat = true,
+    atlas = 'Gura_SharkFinger',
+    pos = {x=0,y=0},
+
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea==G.play then
+            if #context.full_hand == 5 and context.other_card==context.full_hand[3] then
+                return {
+                    repetitions = 2,
+                    colour = Holo.C.Gura,
+                    card = card,
+                }
+            end
+        end
+    end
+}
+
+Holo.Atlas_7195{
+    key = 'Gura_WTROT',
+    path = 'Memes/Meme_Gura_WTROT'
+}
+SMODS.Joker{ -- Gura: Where's the rest of them?
+    member = 'Gura',
+    key = 'Meme_Gura_WTROT',
+    loc_txt = {
+        name = "Where\'s the rest of them?",
+        text = {
+            'Retrigger the third and fourth played cards',
+            'if played exactly five cards.'
+        }
+    },
+    set_badges = function(self, card, badges)
+        Holo.set_type_badge(card, badges, 'Meme')
+        Holo.set_member_badges(card, badges)
+    end,
+    rarity = 1,
+    cost = 4,
+    blueprint_compat = true,
+    atlas = 'Meme_Gura_WTROT',
+    pos = {x=0,y=0},
+
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea==G.play then
+            local fh = context.full_hand
+            local otc = context.other_card
+            if (#fh==5)and((otc==fh[3])or(otc==fh[4])) or (#fh==6)and((otc==fh[3])or(otc==fh[4])or(otc==fh[5])) then
+                return {
+                    repetitions = 1,
+                    colour = Holo.C.Gura,
+                    card = card,
+                }
             end
         end
     end

@@ -19,14 +19,18 @@ SMODS.Joker{ -- Suisei -- Talalala -- https://youtu.be/_RPkBzv2jYc
         }
     },
     config = { extra = { mult = 10 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult } }
+    end,
+    set_badges = function(self, card, badges)
+        Holo.set_type_badge(card, badges, 'Meme')
+        Holo.set_member_badges(card, badges)
+    end,
     rarity = 2,
     cost = 5,
     blueprint_compat = true,
     atlas = 'Suisei_TLLL',
     pos = { x = 0, y = 0 },
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult } }
-    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.other_card:is_suit('Diamonds') then
@@ -54,15 +58,16 @@ SMODS.Joker{ -- Miko -- Gomoku RTA -- https://youtu.be/0IYqY9I2LzI
             "{C:attention}five{} scoring cards."
         }
     },
+    set_badges = function(self, card, badges)
+        Holo.set_type_badge(card, badges, 'Meme')
+        Holo.set_member_badges(card, badges)
+    end,
     config = { extra = {  } },
     rarity = 2,
     cost = 5,
     blueprint_compat = true,
     atlas = 'Miko_GMKRTA',
     pos = { x = 0, y = 0 },
-    loc_vars = function(self, info_queue, card)
-        return { vars = {  } }
-    end,
     calculate = function(self, card, context)
         if context.joker_main then
             if (G.GAME.current_round.hands_played == 0) and (#context.scoring_hand == 5) then

@@ -21,14 +21,18 @@ Holo.Relic_Joker{ -- Shiori Novella
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-        retriggers = 1, count_down = 23,
+        retriggers = 1,
         upgrade_args = {
             scale_var = 'retriggers',
-            message="Yoricked!",
+            message="Recorded!",
+        },
+        count_args = {
+            down = 23,
+            init = 23
         }
     } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
+        return { vars = { card.ability.extra.retriggers, card.ability.extra.count_args.down } }
     end,
 
     atlas = 'Relic_Advent',
@@ -40,13 +44,11 @@ Holo.Relic_Joker{ -- Shiori Novella
             return {
                 message = "Note!",
                 repetitions = card.ability.extra.retriggers,
-                card = context.blueprint_card or card,
+                card = card,
                 colour = Holo.C.Shiori
             }
         elseif context.discard and not context.blueprint then
-            card.ability.extra.count_down = card.ability.extra.count_down - 1
-            if card.ability.extra.count_down <= 0 then
-                card.ability.extra.count_down = card.ability.extra.count_down + 23
+            if holo_card_counting(card) then
                 holo_card_upgrade(card)
             end
             if context.other_card:is_face() then
@@ -160,17 +162,21 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-        retriggers = 2, count_down = 22,
+        retriggers = 2,
         upgrade_args = {
             scale_var = 'retriggers',
             message = 'Baubau!'
+        },
+        count_args = {
+            down = 22,
+            init = 22
         }
     }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set='Other',key='holo_info_odd'}
         return { vars = {
             card.ability.extra.retriggers,
-            card.ability.extra.count_down,
+            card.ability.extra.count_args.down,
             colours = {Holo.C.Fuwawa}
         }}
     end,
@@ -193,9 +199,7 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
         elseif context.individual and context.cardarea == G.play and not context.blueprint then
             local _rank = context.other_card:get_id()
             if (_rank == 14)or(_rank == 9)or(_rank == 7)or(_rank == 5)or(_rank == 3) then
-                card.ability.extra.count_down = card.ability.extra.count_down - 1
-                if card.ability.extra.count_down <= 0 then
-                    card.ability.extra.count_down = card.ability.extra.count_down + 22
+                if holo_card_counting(card) then
                     holo_card_upgrade(card)
                 end
             end
@@ -218,17 +222,21 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-        retriggers = 2, count_down = 22,
+        retriggers = 2,
         upgrade_args = {
             scale_var = 'retriggers',
             message = 'Baubau!'
+        },
+        count_args = {
+            down = 22,
+            init = 22
         }
     }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set='Other',key='holo_info_even'}
         return { vars = {
             card.ability.extra.retriggers,
-            card.ability.extra.count_down,
+            card.ability.extra.count_args.down,
             colours = {Holo.C.Mococo}
         }}
     end,
@@ -251,9 +259,7 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
         elseif context.individual and context.cardarea == G.play and not context.blueprint then
             local _rank = context.other_card:get_id()
             if (_rank == 10)or(_rank == 8)or(_rank == 6)or(_rank == 4)or(_rank == 2) then
-                card.ability.extra.count_down = card.ability.extra.count_down - 1
-                if card.ability.extra.count_down <= 0 then
-                    card.ability.extra.count_down = card.ability.extra.count_down + 22
+                if holo_card_counting(card) then
                     holo_card_upgrade(card)
                 end
             end

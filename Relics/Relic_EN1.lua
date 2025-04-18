@@ -26,11 +26,14 @@ Holo.Relic_Joker{ -- Mori Calliope
     config = { extra = {
         Xmult = 4, Xmult_mod = 1,
         odds = 4,
-        count_down = 4, count_init = 4,
         upgrade_args = {
             scale_var = 'Xmult',
             message = 'Guh!',
         },
+        count_args = {
+            down = 4,
+            init = 4
+        }
     } },
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
@@ -39,7 +42,7 @@ Holo.Relic_Joker{ -- Mori Calliope
             vars = {
                 cae.Xmult, cae.Xmult_mod,
                 Holo.prob_norm(), cae.odds,
-                cae.count_init, cae.count_down,
+                cae.count_args.init, cae.count_args.down,
             }
         }
     end,
@@ -53,10 +56,9 @@ Holo.Relic_Joker{ -- Mori Calliope
     soul_pos = { x = 0, y = 1 },
 
     calculate = function(self, card, context)
-        holo_card_upgrade_by_consumeable(card, context, 'c_death')
         local cae = card.ability.extra
+        holo_card_upgrade_by_consumeable(card, context, 'c_death')
         if context.before and #context.full_hand == 4 and not context.blueprint then
-            card:juice_up()
             play_sound('tarot1')
             local rightmost = context.full_hand[4]
             for i, _card in ipairs(context.full_hand) do
@@ -72,17 +74,14 @@ Holo.Relic_Joker{ -- Mori Calliope
                             _card:flip();
                             play_sound('card1', percent);
                             _card:juice_up(0.3, 0.3);
+                            delay(0.2)
+                            _card:juice_up()
                             return true
                         end
                     }))
-                    delay(0.2)
-                    card:juice_up()
-                    if cae.count_down <= 1 then
-                        cae.count_down = cae.count_init
-                        card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Shin de kudasai!",colour = HEX('a1020b'),instant=true})
+                    if holo_card_counting(card) then
+                        SMODS.calculate_effect({message="Shin de kudasai!",colour=Holo.C.Calli,})
                         SMODS.add_card({ key = 'c_death', area = G.consumeables, edition = 'e_negative' })
-                    else
-                        cae.count_down = cae.count_down - 1
                     end
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
@@ -108,7 +107,7 @@ Holo.Relic_Joker{ -- Mori Calliope
         elseif context.joker_main then
             card:juice_up()
             return {
-                Xmult = card.ability.extra.Xmult,
+                Xmult = cae.Xmult,
                 message='Death!',
                 colour=HEX('a1020b'),
             }

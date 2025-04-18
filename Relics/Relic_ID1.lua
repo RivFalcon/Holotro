@@ -51,21 +51,21 @@ Holo.Relic_Joker{ -- Ayunda Risu
                     card.ability.extra.clubbin = 2
                     return {
                         message = 'Clubbin\'',
-                        colour = HEX('ef8381'),
+                        colour = Holo.C.Risu,
                         card = context.other_card
                     }
                 elseif card.ability.extra.clubbin == 2 then
                     card.ability.extra.clubbin = 1
                     return {
                         message = 'Deez',
-                        colour = HEX('ef8381'),
+                        colour = Holo.C.Risu,
                         card = context.other_card
                     }
                 elseif card.ability.extra.clubbin == 1 then
                     card.ability.extra.clubbin = 3
                     return {
                         message = 'NUTS!',
-                        colour = HEX('ef8381'),
+                        colour = HEX('ad6e4f'),
                         card = context.other_card,
                         Xmult_mod = 15
                     }
@@ -92,9 +92,13 @@ Holo.Relic_Joker{ -- Moona Hoshinova
     },
     config = { extra = {
         Xmult = 3, Xmult_mod = 1.5,
-        count_down = 15, phase = "moon_full",
+        phase = "moon_full",
         upgrade_args = {
             scale_var = 'Xmult',
+        },
+        count_args = {
+            down = 15,
+            init = 15
         }
     }},
     loc_vars = function(self, info_queue, card)
@@ -103,7 +107,7 @@ Holo.Relic_Joker{ -- Moona Hoshinova
             vars = {
                 card.ability.extra.Xmult_mod,
                 card.ability.extra.Xmult,
-                card.ability.extra.count_down,
+                card.ability.extra.count_args.down,
                 localize("k_hololive_"..card.ability.extra.phase)
             }
         }
@@ -113,18 +117,11 @@ Holo.Relic_Joker{ -- Moona Hoshinova
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1 , y = 1 },
 
-    add_to_deck = function(self, card, from_debuff)
-        card.ability.extra.Xmult = 3
-        card.ability.extra.Xmult_mod = 1.5
-        card.ability.extra.count_down = 15
-        card.ability.extra.phase = "moon_full"
-    end,
     calculate = function(self, card, context)
         holo_card_upgrade_by_consumeable(card, context, 'c_moon')
         if context.individual and context.cardarea == G.play and not context.blueprint then
             if not context.other_card.debuff and context.other_card:is_suit("Clubs") then
-                if card.ability.extra.count_down <= 1 then
-                    card.ability.extra.count_down = 15
+                if holo_card_counting(card) then
                     SMODS.calculate_effect({
                         message=localize("k_hololive_"..card.ability.extra.phase),
                         colour=Holo.C.Moona,
@@ -136,14 +133,12 @@ Holo.Relic_Joker{ -- Moona Hoshinova
                         SMODS.add_card({ key = 'c_moon', area = G.consumeables , edition = 'e_negative' })
                         card.ability.extra.phase = "moon_full"
                     end
-                else
-                    card.ability.extra.count_down = card.ability.extra.count_down - 1
                 end
             end
         elseif context.joker_main then
-            card:juice_up()
             return {
-                Xmult_mod = card.ability.extra.Xmult
+                Xmult_mod = card.ability.extra.Xmult,
+                colour=Holo.C.Moona,
             }
         end
     end
@@ -164,16 +159,19 @@ Holo.Relic_Joker{ -- Airani Iofifteen
     },
     config = { extra = {
         Xmult = 3, Xmult_mod = 1.5,
-        count_down = 3,
         upgrade_args = {
             scale_var = 'Xmult',
+        },
+        count_args = {
+            down = 3,
+            init = 3
         }
     } },
     loc_vars = function(self, info_queue, card)
         return { vars = {
             card.ability.extra.Xmult_mod,
             card.ability.extra.Xmult,
-            card.ability.extra.count_down,
+            card.ability.extra.count_args.down,
         }}
     end,
 
@@ -185,9 +183,7 @@ Holo.Relic_Joker{ -- Airani Iofifteen
         if context.before and not context.blueprint then
             for i,v in ipairs(context.full_hand) do
                 if v:is_suit("Clubs") then
-                    card.ability.extra.count_down = card.ability.extra.count_down - 1
-                    if card.ability.extra.count_down <= 0 then
-                        card.ability.extra.count_down = 3
+                    if holo_card_counting(card) then
                         holo_card_upgrade(card)
                     end
                 else
@@ -202,7 +198,8 @@ Holo.Relic_Joker{ -- Airani Iofifteen
             }
         elseif context.joker_main then
             return {
-                Xmult = card.ability.extra.Xmult
+                Xmult = card.ability.extra.Xmult,
+                colour = Holo.Iofi
             }
         end
     end

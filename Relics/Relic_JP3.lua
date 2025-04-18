@@ -299,10 +299,14 @@ Holo.Relic_Joker{ -- Houshou Marine
     },
     config = { extra = {
         Mmult = 2, Mmult_mod = 1,
-        count_down = 17, treasure = 0,
+        treasure = 0,
         upgrade_args = {
             scale_var = 'Mmult',
             message = 'Ahoy!',
+        },
+        count_args = {
+            down = 17,
+            init = 17
         }
     }},
     loc_vars = function(self, info_queue, card)
@@ -310,7 +314,7 @@ Holo.Relic_Joker{ -- Houshou Marine
             vars = {
                 card.ability.extra.Mmult,
                 card.ability.extra.Mmult_mod,
-                card.ability.extra.count_down,
+                card.ability.extra.count_args.down,
                 card.ability.extra.treasure
             }
         }
@@ -323,9 +327,7 @@ Holo.Relic_Joker{ -- Houshou Marine
     calculate = function(self, card, context)
         if context.end_of_round and context.individual and context.cardarea == G.hand and not context.blueprint then
             if SMODS.has_enhancement(context.other_card, "m_gold") then
-                card.ability.extra.count_down = card.ability.extra.count_down - 1
-                if card.ability.extra.count_down <= 0 then
-                    card.ability.extra.count_down = 17
+                if holo_card_counting(card) then
                     holo_card_upgrade(card)
                 end
             end
