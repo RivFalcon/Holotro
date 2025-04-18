@@ -290,11 +290,13 @@ return {
     },
     misc={
         dictionary={
+            ---- Branches
             k_hololive_branch_jp="Japan",
             k_hololive_branch_id="Indonesia",
             k_hololive_branch_en="English",
             k_hololive_branch_di="DEV_IS",
 
+            ---- Generations
             k_hololive_gen_origin="0th Generation",
             k_hololive_gen_first="1st Generation",
             k_hololive_gen_exodia="2nd Generation",
@@ -313,22 +315,37 @@ return {
             k_hololive_gen_justice="-Justice-",
             k_hololive_gen_flowglow="FLOW GLOW",
 
+            ---- Full Name Table
             k_hololive_fullname_table=fullname,
 
+            ---- Badge Texts ----
             k_hololive_fan="Fan",
             k_hololive_mascot="Mascot",
-            k_hololive_meme="Meme",
             k_hololive_relic="Relic",
             k_hololive_song="Original Song",
 
+            ---- Localized Messages/Texts
             k_hololive_moon_full="Full Moon",
             k_hololive_moon_new="New Moon",
 
             ph_hololive_necromancy="Saved by Necromancy",
         },
         labels={
-            k_hololive_relic="Relic",
+            ---- Sticker Badges
+            hololive_kapumark="Yozora Vampirism",
+            hololive_handcuff="Oozora Police Station",
+            hololive_potion_red  ="Hakui Chemicals",
+            hololive_potion_cyan ="Hakui Chemicals",
+            hololive_potion_pink ="Hakui Chemicals",
+            hololive_potion_green="Hakui Chemicals",
+            hololive_potion_gold ="Hakui Chemicals",
+            hololive_potion_blue ="Hakui Chemicals",
 
+            ---- Rarity Badges
+            k_hololive_fan="Fan",
+            k_hololive_mascot="Mascot",
+            k_hololive_relic="Relic",
+            k_hololive_song="Original Song",
         }
     },
 }

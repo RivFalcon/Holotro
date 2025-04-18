@@ -97,9 +97,9 @@ Holo.Relic_Joker{ -- Aki Rosenthal
     member = "Aki",
     key = "Relic_Aki",
     loc_txt = {
-        name = "??? of the Exotic Elf",
         text = Holo.Relic_dummytext or {
             ''
+        name = "Beer Mug of the Exotic Elf",
         }
     },
     config = { extra = {

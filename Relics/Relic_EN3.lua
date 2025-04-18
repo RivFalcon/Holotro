@@ -40,8 +40,8 @@ Holo.Relic_Joker{ -- Shiori Novella
             return {
                 message = "Note!",
                 repetitions = card.ability.extra.retriggers,
-                card = card,
-                colour = HEX('373741')
+                card = context.blueprint_card or card,
+                colour = Holo.C.Shiori
             }
         elseif context.discard and not context.blueprint then
             card.ability.extra.count_down = card.ability.extra.count_down - 1
@@ -53,7 +53,7 @@ Holo.Relic_Joker{ -- Shiori Novella
                 return {
                     remove = true,
                     message="Archived!",
-                    colour = HEX('373741'),
+                    colour = Holo.C.Shiori,
                     card = context.other_card
                 }
                 -- "No no no, they were not destroyed, silly! I just took them to somewhere else!"
@@ -134,14 +134,12 @@ Holo.Relic_Joker{ -- Nerissa Ravencroft
         if context.individual and context.cardarea == G.play then
             return {
                 message = "Ope!",
-                colour = HEX('2233fb'),
-                Xmult_mod = card.ability.extra.Xmult,
-                card = card
+                colour = Holo.C.Nerissa,
+                Xmult = card.ability.extra.Xmult
             }
         elseif context.destroying_card then
             if context.destroying_card:is_face() then
-                play_sound('gong')
-                return { remove = true }
+                return { remove = true, sound = 'gong' }
             end
         end
     end
@@ -153,10 +151,12 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
     loc_txt = {
         name = "Claws of the Fluffy Hellhound",
         text = {
-            'Each played card with {C:blue}odd{} rank',
+            'Each played card with {V:1}odd{} rank',
             'is retriggered {C:attention}#1#{} times.',
-            '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#]{} {C:blue}odd{} cards scored.',
+            '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#]',
+            '{V:1}odd{} cards scored.',
         }
+        ,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -168,7 +168,11 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
     }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set='Other',key='holo_info_odd'}
-        return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
+        return { vars = {
+            card.ability.extra.retriggers,
+            card.ability.extra.count_down,
+            colours = {Holo.C.Fuwawa}
+        }}
     end,
 
     atlas = 'Relic_Advent',
@@ -183,7 +187,7 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
                     message = 'Bau!',
                     repetitions = card.ability.extra.retriggers,
                     card = card,
-                    colour = HEX('67b2ff')
+                    colour = Holo.C.Fuwawa
                 }
             end
         elseif context.individual and context.cardarea == G.play and not context.blueprint then
@@ -205,10 +209,12 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
     loc_txt = {
         name = "Claws of the Fuzzy Hellhound",
         text = {
-            'Each played card with {C:red}even{} rank',
+            'Each played card with {V:1}even{} rank',
             'is retriggered {C:attention}#1#{} times.',
-            '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#] {C:red}even{} cards scored.',
+            '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#]',
+            '{V:1}even{} cards scored.',
         }
+        ,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -220,7 +226,11 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
     }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set='Other',key='holo_info_even'}
-        return { vars = { card.ability.extra.retriggers, card.ability.extra.count_down } }
+        return { vars = {
+            card.ability.extra.retriggers,
+            card.ability.extra.count_down,
+            colours = {Holo.C.Mococo}
+        }}
     end,
 
     atlas = 'Relic_Advent',
@@ -235,7 +245,7 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
                     message = 'Bau!',
                     repetitions = card.ability.extra.retriggers,
                     card = card,
-                    colour = HEX('f7a6ca')
+                    colour = Holo.C.Mococo
                 }
             end
         elseif context.individual and context.cardarea == G.play and not context.blueprint then

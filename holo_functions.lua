@@ -1,3 +1,4 @@
+---- holo global functions ----
 
 function holo_ctx(context)
     -- Main Scoring Loop
@@ -46,44 +47,6 @@ function holo_ctx(context)
     if context.post_trigger then return 'post_trigger' end
 end
 
-function Holo.series_and(list, criteria_func)
-    criteria_func = (type(criteria_func)=='function') and criteria_func or function(v)return v end
-    for _,item in ipairs(list)do
-        if not criteria_func(item)then return false end
-    end
-    return true
-end
-function Holo.series_or(list, criteria_func)
-    criteria_func = (type(criteria_func)=='function') and criteria_func or function(v)return v end
-    for _,item in ipairs(list)do
-        if criteria_func(item)then return true end
-    end
-    return false
-end
-function Holo.series_count(list, criteria_func)
-    local sum = 0
-    for _,item in ipairs(list)do
-        if criteria_func(item)then sum=sum+1 end
-    end
-    return sum
-end
-
-function Holo.nil_check(var, fields)
-    local ret = {var or {},}
-    for _,field in ipairs(fields)do
-        ret[#ret+1] = ret[#ret][field] or {}
-    end
-    return ret[#ret]
-end
-
-function Holo.mod_check(card)
-    return Holo.nil_check(card,{'config','center','mod','id'})=='Holotro'
-end
-
-function Holo.cae(card)
-    return Holo.nil_check(card,{'ability','extra'})
-end
-
 function holo_card_upgrade(card)
     local cae = Holo.cae(card)
     local args = cae.upgrade_args or {}
@@ -113,7 +76,7 @@ function holo_card_upgrade_by_consumeable(card, context, consumeable_key)
     holo_card_upgrade(card)
 end
 
-function holo_card_counting(card, context, decr)
+function holo_card_counting(card, decr)
     local cae = Holo.cae(card)
     if cae.count_args == nil then return false end
     local args = cae.count_args
@@ -151,36 +114,6 @@ function holo_card_expired(card)
     }))
 end
 
-function Holo.prob_norm()
-    local _prob = {norm = G.GAME.probabilities.normal}
-    if G.jokers and G.jokers.cards then
-        for _,J in ipairs(G.jokers.cards) do
-            J:calculate_joker({calc_prob = true, prob = _prob})
-        end
-    end
-    return _prob.norm
-end
-
-function Holo.chance(seed, odds)
-    local _pseurand = pseudorandom(seed)
-    local _result = _pseurand < Holo.prob_norm() / (odds or 1)
-
-    if _result and seed == 'glass' and next(find_joker('j_hololive_Relic_Ceci')) then
-        for _,J in ipairs(SMODS.find_card('j_hololive_Relic_Ceci')) do
-            J:calculate_joker({shatter_check = true})
-        end
-        --return false
-    end
-    return _result
-end
-
-local holo_always_scores = SMODS.always_scores
-function SMODS.always_scores(card)
-    if holo_always_scores(card)then return true end
-    if next(find_joker('j_hololive_Relic_Biboo')) and not card:is_face() then return true end
-    return false
-end
-
 function holo_card_disaccumulate(_cae, _key)
     if _cae.accumulate>=1 then
         if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
@@ -197,6 +130,61 @@ function holo_card_disaccumulate(_cae, _key)
     end
 end
 
+---- Holo utility functions ----
+
+function Holo.series_and(list, criteria_func)
+    criteria_func = (type(criteria_func)=='function') and criteria_func or function(v)return v end
+    for _,item in ipairs(list)do
+        if not criteria_func(item)then return false end
+    end
+    return true
+end
+function Holo.series_or(list, criteria_func)
+    criteria_func = (type(criteria_func)=='function') and criteria_func or function(v)return v end
+    for _,item in ipairs(list)do
+        if criteria_func(item)then return true end
+    end
+    return false
+end
+function Holo.series_count(list, criteria_func)
+    local sum = 0
+    for _,item in ipairs(list)do
+        if criteria_func(item)then sum=sum+1 end
+    end
+    return sum
+end
+
+function Holo.nil_check(var, fields)
+    local ret = {var or {},}
+    for _,field in ipairs(fields)do
+        ret[#ret+1] = ret[#ret][field] or {}
+    end
+    return ret[#ret]
+end
+function Holo.mod_check(card)
+    return Holo.nil_check(card,{'config','center','mod','id'})=='Holotro'
+end
+function Holo.cae(card)
+    return Holo.nil_check(card,{'ability','extra'})
+end
+
+function Holo.prob_norm()
+    local _prob = {norm = G.GAME.probabilities.normal}
+    if G.jokers and G.jokers.cards then
+        for _,J in ipairs(G.jokers.cards) do
+            J:calculate_joker({calc_prob = true, prob = _prob})
+        end
+    end
+    return _prob.norm
+end
+function Holo.chance(seed, odds)
+    local _pseurand = pseudorandom(seed)
+    local _result = _pseurand < Holo.prob_norm() / (odds or 1)
+    -- Modify _result here:
+
+    -- End of modification.
+    return _result
+end
 function Holo.pseudorandom_weighted_element(weight_table, seed)
     local pool = {}
     local sum = 0
@@ -255,7 +243,6 @@ function Holo.blueprint_node(card)
         }}
     } or nil
 end
-
 function Holo.blueprint_update(card, joker_to_copy, extra_criteria)
     if joker_to_copy==nil then
         card.ability.blueprint_compat = false
@@ -263,6 +250,16 @@ function Holo.blueprint_update(card, joker_to_copy, extra_criteria)
         card.ability.blueprint_compat = 'compatible'
     else
         card.ability.blueprint_compat = 'incompatible'
+    end
+end
+
+function Holo.call_and_response(card, context, _member)
+    if Holo.nil_check(card,{'config','center'}).member == nil then return end
+    local is_Relic = (card.config.center.rarity=='hololive_Relic')
+    local oshi_senpai = Holo.call_and_response_chart[card.config.center.member]
+    _member = _member or(is_Relic and oshi_senpai)or card.config.center.member
+    for _,J in ipairs(find_joker('j_hololive_Relic_'.._member))do
+        SMODS.calculate_effect(SMODS.blueprint_effect(card, J, context)or{}, card)
     end
 end
 
@@ -281,5 +278,38 @@ function Holo.add_consumeable(_key, _neg)
             end
         }))
         return true
+    end
+end
+
+---- Hooks ----
+
+Holo.hooks = {}
+
+Holo.hooks.always_scores = SMODS.always_scores
+function SMODS.always_scores(card)
+    if Holo.hooks.always_scores(card)then return true end
+    if next(find_joker('j_hololive_Relic_Biboo')) and not card:is_face() then return true end
+    return false
+end
+
+Holo.hooks.level_up_hand = level_up_hand
+function level_up_hand(card, hand, instant, amount)
+    Holo.hooks.level_up_hand(card, hand, instant, amount)
+    local _context = {level_up_hand = hand, level_up_amount = amount or 1}
+    for _,J in ipairs(G.jokers.cards) do
+        J:calculate_joker(_context)
+    end
+end
+
+Holo.hooks.shatters = SMODS.shatters
+function SMODS.shatters(card)
+    if Holo.hooks.shatters(card) then
+        local flag = SMODS.calculate_context({shatter_check=true, shatter_card=card})
+        if not flag.durable then
+            return true
+        else
+            card:juice_up()
+            --play_sound('hololive_Ceci_Durable')
+        end
     end
 end

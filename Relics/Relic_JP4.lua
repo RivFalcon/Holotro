@@ -14,6 +14,7 @@ Holo.Relic_Joker{ -- Amane Kanata
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -40,6 +41,7 @@ Holo.Relic_Joker{ -- Kiryu Coco
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -66,6 +68,7 @@ Holo.Relic_Joker{ -- Tsunomaki Watame
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -92,6 +95,7 @@ Holo.Relic_Joker{ -- Tokoyami Towa
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -118,6 +122,7 @@ Holo.Relic_Joker{ -- Himemori Luna
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},

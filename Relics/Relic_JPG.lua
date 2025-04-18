@@ -12,7 +12,6 @@ Holo.Relic_Joker{ -- Ookami Mio
             'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Tarot card{} used.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
-        ,boxes={5,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {

@@ -15,11 +15,12 @@ Holo.Relic_Joker{ -- Mori Calliope
             'When played exactly {C:attention}4 {}cards, each card',
             'has {C:green}#3# in #4# {}chance to be {C:attention}converted{}',
             'to the {C:attention}fourth {}card before scoring.',
-            'Create a {C:dark_edition}Negative {C:tarot}Death {}card every {C:attention}#5# {C:inactive}[#6#] {}conversions.',
+            'Create a {C:dark_edition}Negative {C:tarot}Death {}card',
+            'every {C:attention}#5# {C:inactive}[#6#] {}conversions.',
             'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Death{} used.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
-        ,boxes={3,1,2}
+        ,boxes={3,2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -123,7 +124,7 @@ Holo.Relic_Joker{ -- Takanashi Kiara
         text = {
             'Ignite {C:attention}1{V:1} fire charge {C:inactive}(#4#/4)',
             'when the scoring board is {V:1,E:1}on fire{}.',
-            'When {C:attention}discard{}, spend {C:attention}1{V:1} fire charge',
+            'When {C:red}discard{}, spend {C:attention}1{V:1} fire charge',
             'to destroy {C:attention}all{} discarded cards.',
             'Gain {X:mult,C:white}X#2#{} mult per burned discard',
             'and {C:money}$#3#{} per burning card.',
@@ -148,7 +149,7 @@ Holo.Relic_Joker{ -- Takanashi Kiara
                 cae.Xmult, cae.Xmult_mod,
                 cae.dollars,
                 cae.flame,
-                colours = {Holo.C.Kiara}
+                colours = {HEX('f8421a')}
             }
         }
     end,
@@ -195,7 +196,7 @@ Holo.Relic_Joker{ -- Takanashi Kiara
 }
 
 SMODS.Sound{
-    key = 'Ina-Wah',
+    key = 'sound_Ina_Wah',
     path = 'Ina_Wah.ogg'
     -- source: https://www.myinstants.com/en/instant/wah-eco-ninomae-inanis-8589/
 }
@@ -221,7 +222,7 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
         upgrade_args = {
             scale_var = 'Xmult',
             message = 'WAH!',
-            sound = 'hololive_Ina-Wah'
+            sound = 'hololive_sound_Ina_Wah'
         },
     } },
     loc_vars = function(self, info_queue, card)
@@ -259,7 +260,7 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
                 Xmult = card.ability.extra.Xmult,
                 message='Wah!',
                 colour=HEX('3f3e69'),
-                sound = 'hololive_Ina-Wah',
+                sound = 'hololive_sound_Ina_Wah',
             }
         end
         -- Release the Spectrals until the consumable slot is full.
@@ -281,18 +282,10 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
 }
 
 SMODS.Sound{
-    key = 'Gura-A',
+    key = 'sound_Gura_A',
     path = 'Gura_A.ogg'
     -- source: https://www.myinstants.com/en/instant/gawr-gura-a-66933/
 }
-
-local LUH = level_up_hand
-function level_up_hand(card, hand, instant, amount)
-    LUH(card, hand, instant, amount)
-    for _,J in ipairs(G.jokers.cards) do
-        J:calculate_joker({level_up_hand = hand, level_up_amount = amount or 1})
-    end
-end
 
 Holo.Relic_Joker{ -- Gawr Gura
     member = "Gura",
@@ -301,8 +294,8 @@ Holo.Relic_Joker{ -- Gawr Gura
         name = "Trident of the Atlantic Shark",
         text = {
             'Retrigger {C:blue}first {C:attention}3 {}scored cards {C:attention}2{} additional times',
-            'if played hand is a {C:attention}Straight Flush{}.',
-            'Gain {X:mult,C:white}X#2#{} mult every time {C:attention}Straight Flush{}',
+            'if played hand is a {V:1}Straight Flush{}.',
+            'Gain {X:mult,C:white}X#2#{} mult every time {V:1}Straight Flush{}',
             'is {C:planet}leveled up{}. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}',
             '{s:0.8}Using a {C:planet,s:0.8}Neptune{s:0.8} levels up {C:attention,s:0.8}Straight Flush {C:blue,s:0.8}2{s:0.8} additional times.',
             '{s:0.8}Using a {C:planet,s:0.8}Jupiter{s:0.8} or a {C:planet,s:0.8}Saturn{s:0.8} also levels up {C:attention,s:0.8}Straight Flush{s:0.8}.'
@@ -315,7 +308,7 @@ Holo.Relic_Joker{ -- Gawr Gura
         upgrade_args = {
             scale_var = 'Xmult',
             message = 'A!',
-            sound='hololive_Gura-A',
+            sound='hololive_sound_Gura_A',
         },
     } },
     loc_vars = function(self, info_queue, card)
@@ -323,7 +316,8 @@ Holo.Relic_Joker{ -- Gawr Gura
         return {
             vars = {
                 card.ability.extra.Xmult,
-                card.ability.extra.Xmult_mod
+                card.ability.extra.Xmult_mod,
+                colours = {Holo.C.Gura}
             }
         }
     end,
@@ -360,7 +354,7 @@ Holo.Relic_Joker{ -- Gawr Gura
             return {
                 message="A!",
                 colour = HEX('5d81c7'),
-                sound='hololive_Gura-A'
+                sound='hololive_sound_Gura_A'
             }
         elseif context.repetition and context.scoring_name == 'Straight Flush' then
             if #context.scoring_hand < 3 then

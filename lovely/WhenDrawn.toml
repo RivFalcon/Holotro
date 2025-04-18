@@ -12,9 +12,22 @@ match_indent = true
 payload = '''
 if (from==G.deck)and(to==G.hand) then
     SMODS.calculate_context({
-        draw_from_deck_to_hand = (from==G.deck)and(to==G.hand),
-        card_drawn = card,
+        draw_from_deck_to_hand = true,
+        drawn_card = card,
         facing_blind = G.GAME.facing_blind,
+    })
+end
+if (from==G.hand)and(to==G.play) then
+    -- What's the difference between this and context.before?
+    SMODS.calculate_context({
+        hit_play = true,
+        played_card = card,
+    })
+end
+if (from==G.play)and(to==G.discard)then
+    SMODS.calculate_context({
+        discarding_played_card = true,
+        exited_card = card,
     })
 end
 '''

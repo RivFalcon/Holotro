@@ -14,6 +14,7 @@ Holo.Relic_Joker{ -- Yukihana Lamy
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -42,6 +43,7 @@ Holo.Relic_Joker{ -- Momosuzu Nene
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -70,6 +72,7 @@ Holo.Relic_Joker{ -- Shishiro Botan
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -98,6 +101,7 @@ Holo.Relic_Joker{ -- Mano Aloe
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -126,6 +130,7 @@ Holo.Relic_Joker{ -- Omaru Polka
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},

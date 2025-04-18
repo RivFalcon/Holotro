@@ -216,7 +216,7 @@ Holo.Relic_Joker{ -- Sakura Miko
             'Earn {C:money}$35{} at end of round if your {C:attention}full deck',
             'has more {C:diamonds}Diamond{} cards than other suits combined.'
         }
-        ,boxes={3,2}
+        ,boxes={4,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -258,7 +258,7 @@ Holo.Relic_Joker{ -- Sakura Miko
         if context.discard then
             if not context.other_card:is_suit('Diamonds')then
                 local lavacrisp = pseudorandom('Miko', cae.crisp_min, cae.crisp_max)
-                if holo_card_counting(card, context, lavacrisp) then
+                if holo_card_counting(card, lavacrisp) then
                     holo_card_upgrade(card)
                 end
                 return {

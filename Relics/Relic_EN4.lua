@@ -141,15 +141,14 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
         if context.remove_playing_cards and not context.blueprint then
             for i, val in ipairs(context.removed) do
                 if SMODS.has_enhancement(val, "m_glass") then
+                    holo_card_upgrade(card)
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            holo_card_upgrade(card)
-                            -- Copied and modified this part from Ship of Theseus, ExtraCredit mod.
+                            -- Copied (and modified) this part from Ship of Theseus, ExtraCredit mod.
                             G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                             local _card = copy_card(val, nil, nil, G.playing_card)
                             _card:add_to_deck()
-                            G.deck.config.card_limit = G.deck.config.card_limit + 1
-                            G.deck:emplace(_card)
+                            G.discard:emplace(_card)
                             table.insert(G.playing_cards, _card)
                             playing_card_joker_effects({true})
                             _card:start_materialize()
@@ -158,8 +157,9 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
                     }))
                 end
             end
-        elseif context.shatter_check then
+        elseif context.shatter_check and not context.blueprint then
             holo_card_upgrade(card)
+            return {durable=true}
         elseif context.joker_main then
             card:juice_up()
             return {

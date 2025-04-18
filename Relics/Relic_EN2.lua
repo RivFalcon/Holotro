@@ -373,7 +373,7 @@ Holo.Relic_Joker{ -- Hakos Baelz
     loc_txt = {
         name = "Rolling Dice of the Scarlet Rat",
         text = {
-            'Roll a {C:red}#2#-sided die{} after each played hand.',
+            'Roll a {V:1}#2#-sided die{} after each played hand.',
             'Multiplies all{C:attention} listed {C:green}probabilities{} with',
             'the number it lands. {C:inactive}(Currently {X:green,C:white}X#1#{C:inactive} Chance){}'
         }
@@ -388,7 +388,11 @@ Holo.Relic_Joker{ -- Hakos Baelz
     } },
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
-        return { vars = { cae.Pmult, (cae.Pmult_max==6) and 'six' or cae.Pmult_max} }
+        return { vars = {
+            cae.Pmult,
+            (cae.Pmult_max==6) and 'six' or cae.Pmult_max},
+            colours = {Holo.C.Bae}
+        }
     end,
     blueprint_compat = false,
 

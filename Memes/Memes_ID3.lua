@@ -7,7 +7,7 @@ SMODS.Atlas{
     py = 95
 }
 SMODS.Sound{
-    key = 'Kaela_Doot',
+    key = 'sound_Kaela_Doot',
     path = 'Kaela_Doot.ogg'
     -- source: https://pixabay.com/sound-effects/079580-tenor-trombone-80873/
 }
@@ -59,7 +59,7 @@ SMODS.Joker{
                 message='Doot!',
                 colour=HEX('ec9948'),
                 card=card,
-                sound='hololive_Kaela_Doot',
+                sound='hololive_sound_Kaela_Doot',
                 pitch=pseudorandom_element(Doot_pitch_shift, pseudoseed('Doot')),
                 volume=card.ability.extra.vol
             }
@@ -72,7 +72,7 @@ SMODS.Joker{
 local card_hover = Card.hover
 function Card:hover()
     if self.ability.name == 'j_hololive_Meme_Kaela_DOOT' then
-        play_sound('hololive_Kaela_Doot')
+        play_sound('hololive_sound_Kaela_Doot')
     end
     card_hover(self)
 end

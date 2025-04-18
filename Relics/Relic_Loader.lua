@@ -41,7 +41,9 @@ Holo.Relic_dummytext = {
     '{C:dark_edition}Please wait{} for more contents',
     'in {C:attention}future updates{}.'
 }
-Holo.Relic_unlock_text = {"{E:1,s:1.3}?????",}
+Holo.Relic_unlock_text = {
+    "{E:1,s:1.3}?????",
+}
 
 for _,file in ipairs(Holo.gen_order) do assert(SMODS.load_file("Relics/Relic_"..file..".lua"))()end
 assert(SMODS.load_file("Relics/Relic_Soul.lua"))()

@@ -18,7 +18,7 @@ Holo.Relic_Joker{ -- Usada Pekora
             '{C:attention}hit the jackpot{} and gain {C:money}$#4#{},',
             'otherwise raise the prize by {C:money}$#5#{}.',
             '{C:inactive}(Prize resets after each jackpot)',
-            '{C:inactive}(Odds {C:green}-1{} per {C:attention}Gold Card{C:inactive} in your {C:attention}full deck{C:inactive})'
+            '{C:inactive}(Odds {C:green}-1 {C:inactive}per {C:attention}Gold Card{C:inactive} in your {C:attention}full deck{C:inactive})'
         }
         ,boxes={2,3,2}
         ,unlock=Holo.Relic_unlock_text
@@ -96,7 +96,7 @@ Holo.Relic_Joker{ -- Uruha Rushia
             'Prevents Death once.',
             '{C:red}self destructs{}',
             'Selling this card spawns',
-            '#1# {C:attention}Butterfly Tags{}.'
+            '{V:1}#1# {C:attention}Butterfly Tags{}.'
         }
         ,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
@@ -108,7 +108,8 @@ Holo.Relic_Joker{ -- Uruha Rushia
         info_queue[#info_queue+1] = G.P_TAGS.tag_hololive_butterfly
         return {
             vars = {
-                card.ability.extra.summon
+                card.ability.extra.summon,
+                colours = {Holo.C.Rushia}
             }
         }
     end,

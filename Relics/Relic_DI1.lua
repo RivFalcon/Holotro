@@ -14,6 +14,7 @@ Holo.Relic_Joker{ -- Hiodoshi Ao
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -40,6 +41,7 @@ Holo.Relic_Joker{ -- Otonose Kanade
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -66,6 +68,7 @@ Holo.Relic_Joker{ -- Ichijou Ririka
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -92,6 +95,7 @@ Holo.Relic_Joker{ -- Juufuutei Raden
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -118,6 +122,7 @@ Holo.Relic_Joker{ -- Todoroki Hajime
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},

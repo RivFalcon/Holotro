@@ -14,6 +14,7 @@ Holo.Relic_Joker{ -- Isaki Riona
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -40,6 +41,7 @@ Holo.Relic_Joker{ -- Koganei Niko
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -66,6 +68,7 @@ Holo.Relic_Joker{ -- Mizumiya Su
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -92,6 +95,7 @@ Holo.Relic_Joker{ -- Rindo Chihaya
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -118,6 +122,7 @@ Holo.Relic_Joker{ -- Kikirara Vivi
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},

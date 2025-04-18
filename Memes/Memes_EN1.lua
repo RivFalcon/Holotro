@@ -72,7 +72,8 @@ Wah_Joker{ -- Ina: WAH 00
     loc_txt = {
         name = 'We Are Hololive',
         text = {
-            'Copies ability of Joker to the right',
+            'Copies ability of',
+            'the joker to the right',
             'if it\'s a {V:1}holotro{} joker.'
         }
     },
@@ -110,7 +111,8 @@ Wah_Joker{ -- Ina: WAH 00
             end
         end
         if joker_to_the_right and Holo.mod_check(joker_to_the_right) then
-            SMODS.calculate_effect(SMODS.blueprint_effect(card, joker_to_the_right, context)or{}, card)
+            --SMODS.calculate_effect(SMODS.blueprint_effect(card, joker_to_the_right, context)or{}, card)
+            return SMODS.blueprint_effect(card, joker_to_the_right, context)
         end
     end
 }
@@ -303,7 +305,7 @@ Wah_Joker{ -- Ina: WAH 05
 
     calculate = function(self, card, context)
         if context.draw_from_deck_to_hand and G.GAME.facing_blind then
-            if context.card_drawn:is_suit('Hearts') and context.card_drawn.seal == 'Purple' and not context.blueprint then
+            if context.drawn_card:is_suit('Hearts') and context.drawn_card.seal == 'Purple' and not context.blueprint then
                 holo_card_upgrade(card)
             end
         elseif context.joker_main then
@@ -513,9 +515,9 @@ Wah_Joker{ -- Ina: WAH 10
     pos = {y=2,x=0},
 
     calculate = function(self, card, context)
-        if context.draw_from_deck_to_hand and context.card_drawn.facing == 'front' and not context.blueprint then
+        if context.draw_from_deck_to_hand and context.drawn_card.facing == 'front' and not context.blueprint then
             if Holo.chance('We Are Hidden', card.ability.extra.hidden) then
-                context.card_drawn:flip()
+                context.drawn_card:flip()
             end
         elseif context.individual and context.cardarea == G.hand and not context.end_of_round then
             if context.other_card.facing == 'back' then

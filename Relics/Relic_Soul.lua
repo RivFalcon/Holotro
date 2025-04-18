@@ -128,12 +128,13 @@ local function RelicGacha()
     end
 
     local pool_modes_weight = {['Synergy'] = 3, ['All Stars'] = 1}
+    local gen_sample_pool = {}
     for _,J in ipairs(G.jokers.cards)do
         if J.config.center.rarity == 'hololive_Relic' then
-            pool_modes_weight['Genmates'] = 4
-            break
+            gen_sample_pool[#gen_sample_pool+1] = J.config.center.member
         end
     end
+    if #gen_sample_pool>0 then pool_modes_weight['Genmates'] = 4 end
     local pool_mode = Holo.pseudorandom_weighted_element(pool_modes_weight, 'RelicGachaMode')
 
     local _pool = {}
@@ -289,9 +290,9 @@ local function RelicGacha()
             Roboco   = deck_stat.Diamonds or deck_stat.Steel,
             Suisei   = deck_stat.Diamonds or c_usage.c_star,
             Mel      = false, -- deck_stat.Enhanced,
-            Fubuki   = false, -- c_usage.c_fool,
-            Matsuri  = false,
-            Aki      = false,
+            Fubuki   = false, -- deck_stat.Enhanceless or c_usage.c_fool,
+            Matsuri  = false, -- deck_stat.Hearts or deck_stat.Enhanceless
+            Aki      = false, -- deck_stat.Enhanceless
             Haato    = false, -- deck_stat.Hearts or c_usage.c_sun,
             Miko     = deck_stat.Diamonds or c_usage.c_star,
             Aqua     = hand_usage['High Card'],
@@ -372,14 +373,7 @@ local function RelicGacha()
         if #_pool == 0 then pool_mode = 'All Stars' end
 
     elseif pool_mode == 'Genmates' then
-        local sample_pool = {}
-        for _,J in ipairs(G.jokers.cards)do
-            if J.config.center.rarity == 'hololive_Relic' then
-                sample_pool[#sample_pool+1] = J.config.center.member
-            end
-        end
-        local target_member = sample_pool[1]
-        if #sample_pool>1 then target_member = pseudorandom_element(sample_pool,pseudoseed('RelicGacha GenmateMode'))end
+        local target_member = pseudorandom_element(gen_sample_pool,pseudoseed('RelicGacha GenmateMode'))
 
         for _, memb in ipairs(Holo.get_genmates(target_member)) do
             if dupe_check(memb)then
@@ -400,22 +394,36 @@ local function RelicGacha()
     end
     if pool_mode == 'All Stars' then
         local implemented_relics = {} -- Holo.memberlist
+
+        -- Temporary Solution --
         local implemented_gens = {
             'gen_origin',
+            --'gen_first',
             'gen_exodia',
+            --'gen_gamers'
             'gen_fantasy',
+            --'gen_force',
             'gen_area15',
+            --'gen_nplab',
             'gen_myth',
+            --'gen_holoro',
             'gen_promise',
             'gen_holox',
+            --'gen_holoh3ro',
             'gen_advent',
+            --'gen_regloss',
             'gen_justice',
+            --'gen_flowglow'
         }
         for _,_gen in ipairs(implemented_gens)do
             for _,member in ipairs(Holo.Generations[_gen].members)do
-                implemented_relics[#implemented_relics+1] = member
+                if not (_gen == 'gen_gamers' and member == 'Fubuki') then
+                    implemented_relics[#implemented_relics+1] = member
+                end
             end
         end
+        -- End of temporary solution --
+
         for _,memb in ipairs(implemented_relics) do
             if dupe_check(memb)then
                 _pool[#_pool+1] = memb

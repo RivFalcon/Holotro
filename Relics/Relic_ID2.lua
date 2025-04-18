@@ -14,6 +14,7 @@ Holo.Relic_Joker{ -- Kureiji Ollie
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -42,6 +43,7 @@ Holo.Relic_Joker{ -- Anya Melfissa
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},
@@ -70,6 +72,7 @@ Holo.Relic_Joker{ -- Pavolia Reine
         text = Holo.Relic_dummytext or {
             ''
         }
+        --,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
     }},

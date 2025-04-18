@@ -261,8 +261,8 @@ SMODS.Sticker{ -- Oozora Subaru: Handcuff
         }
     },
     atlas='hololive_Sticker_Handcuff',
-    hide_badge=true,
     pos={x=0,y=0},
+    badge_colour=Holo.C.Subaru,
     default_compat=true,
     should_apply = function(self, card, center, area, bypass_roll)
         return (area==G.play)

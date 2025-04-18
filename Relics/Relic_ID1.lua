@@ -81,11 +81,13 @@ Holo.Relic_Joker{ -- Moona Hoshinova
     loc_txt = {
         name = "Phases of the Lunar Diva",
         text = {
-            'For every {C:attention}15{} {C:inactive}[#3#]{} scored cards with {C:clubs}Club{} suit',
+            'For every {C:attention}15{} {C:inactive}[#3#]{} scored',
+            'cards with {C:clubs}Club{} suit,',
             'create a {C:tarot}#4#{}.',
             'Gain {X:mult,C:white}X#1#{} Mult per {C:tarot}The Moon{} used.',
             '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}'
         }
+        ,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -156,7 +158,7 @@ Holo.Relic_Joker{ -- Airani Iofifteen
             'Played cards get {C:attention}painted{} into {C:clubs}Club{} suit.',
             'Gain {X:mult,C:white} X#1# {} Mult every {C:attention}3{} {C:inactive}[#3#]{} cards with {C:clubs}Club{} suit',
             'get painted with {C:clubs}Club{} suit again.',
-            '(Currently {X:mult,C:white} X#2# {} Mult)'
+            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
         }
         ,unlock=Holo.Relic_unlock_text
     },

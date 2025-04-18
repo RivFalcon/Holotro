@@ -652,4 +652,44 @@ Holo.birthday_chart = {
     ['1213'] = 'Ayame',
 }
 
+Holo.call_and_response_chart = {
+
+    Flare = 'Ina',
+    Noel = 'Subaru',
+
+    --Calli = 'Suisei',
+    --Kiara = 'Pekora',
+    --Ina = 'Suisei',
+    --Bae = 'Subaru',
+    Laplus = 'Towa',
+    Lui = 'Marine',
+    --Koyori = 'Miko', -- Or is it Pekora? I'm very confused.
+    Chloe = 'Shion',
+    Iroha = 'Suisei',
+
+    Nerissa = 'Kiara',
+    Raden = 'Aki',
+    Riona = 'Calli',
+    Niko = 'Lui',
+    Suu = 'Subaru',
+}
+
 Holo.Atlas_7195 = SMODS.Atlas:extend{px=71,py=95}
+
+Holo.local_text = {}
+function Holo.local_text.current_xmult(var_index)
+    var_index = var_index or 1
+    return '{C:inactive}(Currently {X:mult,C:white}X#'..var_index..'#{C:inactive} Mult)'
+end
+function Holo.local_text.if_no_room(var_index)
+    if var_index then
+        return '(If no room, accumulate them {C:inactive}[#'..var_index..'#]{} until there is.)'
+    end
+    return '(If no room, accumulate them until there is.)'
+end
+function Holo.local_text.consumeable(consumeable_key)
+    local consumeable_set = G.P_CENTERS[consumeable_key].set
+    local consumeable_loc_colours = {Tarot='tarot',Planet='planet',Spectral='spectral'}
+    local consumeable_name = localize({key=consumeable_key, set=consumeable_set, type='name_text'})
+    return '{C:'..(consumeable_loc_colours[consumeable_set]or'')..'}'..consumeable_name..'{}'
+end
