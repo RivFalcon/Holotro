@@ -686,7 +686,7 @@ SMODS.Joker{ -- Gura: Shark Finger
 
 Holo.Atlas_7195{
     key = 'Gura_WTROT',
-    path = 'Memes/Meme_Gura_WTROT'
+    path = 'Memes/Meme_Gura_WTROT.png'
 }
 SMODS.Joker{ -- Gura: Where's the rest of them?
     member = 'Gura',
@@ -694,8 +694,8 @@ SMODS.Joker{ -- Gura: Where's the rest of them?
     loc_txt = {
         name = "Where\'s the rest of them?",
         text = {
-            'Retrigger the third and fourth played cards',
-            'if played exactly five cards.'
+            'Retrigger the {C:attention}third{} and {C:attention}fourth{} played cards',
+            'if played exactly {C:attention}five{} cards.'
         }
     },
     set_badges = function(self, card, badges)
@@ -705,7 +705,7 @@ SMODS.Joker{ -- Gura: Where's the rest of them?
     rarity = 1,
     cost = 4,
     blueprint_compat = true,
-    atlas = 'Meme_Gura_WTROT',
+    atlas = 'Gura_WTROT',
     pos = {x=0,y=0},
 
     calculate = function(self, card, context)
