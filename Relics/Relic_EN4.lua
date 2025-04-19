@@ -211,6 +211,7 @@ Holo.Relic_Joker{ -- Raora Panthera
         if context.individual and context.cardarea == G.play then
             if SMODS.has_enhancement(context.other_card, "m_glass") then
                 context.other_card.ability.Xmult = context.other_card.ability.Xmult + card.ability.extra.Xmult_mod_card
+                context.other_card.ability.x_mult = context.other_card.ability.x_mult + card.ability.extra.Xmult_mod_card
                 holo_card_upgrade(card)
             end
         elseif context.joker_main then
