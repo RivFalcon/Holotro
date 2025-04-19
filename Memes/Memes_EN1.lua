@@ -710,9 +710,10 @@ SMODS.Joker{ -- Gura: Where's the rest of them?
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea==G.play then
-            local fh = context.full_hand
-            local otc = context.other_card
-            if (#fh==5)and((otc==fh[3])or(otc==fh[4])) or (#fh==6)and((otc==fh[3])or(otc==fh[4])or(otc==fh[5])) then
+            local full_hand = context.full_hand
+            local other_card = context.other_card
+            if (#full_hand==5)and((other_card==full_hand[3])or(other_card==full_hand[4]))
+             or (#full_hand==6)and((other_card==full_hand[3])or(other_card==full_hand[4])or(other_card==full_hand[5])) then
                 return {
                     repetitions = 1,
                     colour = Holo.C.Gura,
