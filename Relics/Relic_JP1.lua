@@ -16,7 +16,7 @@ Holo.Atlas_7195{
     key = "Sticker_Kapumark",
     path = "textures/Sticker_Kapumark.png",
 }
-SMODS.Sticker{ -- Yozora Mel: Bite Mark
+SMODS.Sticker{ -- Yozora Mel: Kapu Mark
     member = "Mel",
     key='kapumark',
     loc_txt={
@@ -27,22 +27,16 @@ SMODS.Sticker{ -- Yozora Mel: Bite Mark
         }
     },
     atlas = 'Sticker_Kapumark',
-    --pos = {x=0,y=0},
+    pos = {x=0,y=0},
     badge_colour=Holo.C.Mel,
     should_apply = function(self, card, center, area, bypass_roll)
         local not_enhanced = card and card.playing_card and(center == G.P_CENTERS.c_base)or false
         return ((area==G.play)or bypass_roll)and not_enhanced
     end,
     calculate = function(self, card, context)
-        if context.main_scoring and card.area == G.play then
+        if context.main_scoring and context.cardarea == G.play then -- This doesn't work, for some reason.
+            --print('Test Sticker')
             return {mult=10.31}
-        elseif context.discarding_played_card then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    card:remove_sticker('hololive_kapumark')
-                    return true
-                end
-            }))
         end
     end
 }
@@ -63,6 +57,7 @@ Holo.Relic_Joker{ -- Yozora Mel
     },
     config = { extra = {
         Xmult = 1, Xmult_mod = 0.25,
+        marking = {},
         upgrade_args = {
             scale_var = 'Xmult',
             message = 'Kapu!'
@@ -87,14 +82,16 @@ Holo.Relic_Joker{ -- Yozora Mel
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.before and not context.blueprint then
+            cae.marking = {}
             for k, v in ipairs(context.scoring_hand) do
                 if not SMODS.has_enhancement(v, 'c_base') and not v.debuff and not v.vampired then
+                    cae.marking[#cae.marking+1] = k
                     v.vampired = true
                     v:set_ability(G.P_CENTERS.c_base, nil, true)
-                    v:add_sticker('hololive_kapumark')
                     holo_card_upgrade(card)
                     G.E_MANAGER:add_event(Event({
                         func = function()
+                            v:add_sticker('hololive_kapumark')
                             v:juice_up()
                             v.vampired = nil
                             return true
@@ -102,10 +99,29 @@ Holo.Relic_Joker{ -- Yozora Mel
                     }))
                 end
             end
+        elseif context.individual and context.cardarea==G.play then
+            if context.other_card.ability.hololive_kapumark then -- This doesn't work, for some reason.
+                --print('Test Joker')
+                return {mult=10.31}
+            end
+            for _,k in ipairs(cae.marking)do --Temporary Solution
+                if context.other_card == context.scoring_hand[k]then
+                    return {mult=10.31}
+                end
+            end
+        elseif context.after then
+            cae.marking={}
+            for _,v in ipairs(context.scoring_hand)do
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        v:remove_sticker('hololive_kapumark')
+                        return true
+                    end
+                }))
+            end
         elseif context.joker_main then
             return {
                 Xmult = cae.Xmult,
-                message = 'Vampire!',
                 colour = Holo.C.Mel,
             }
         end
@@ -363,17 +379,19 @@ Holo.Relic_Joker{ -- Akai Haato / Haachama
             for _,v in ipairs(context.scoring_hand)do
                 if v:is_suit('Hearts') and SMODS.has_enhancement(v, 'c_base') then
                     local enh = Holo.pseudorandom_weighted_element(cae.enhance_table,'Haachama')
+                    v:set_ability(G.P_CENTERS[enh], nil, true)
                     G.E_MANAGER:add_event(Event({
+                        trigger='after',
+                        delay=0.2,
                         func = function()
                             v:juice_up()
-                            v:set_ability(G.P_CENTERS[enh], nil, true)
                             return true
                         end
                     }))
                 end
             end
         elseif context.individual and context.cardarea == G.hand and not context.end_of_round then
-            if context.other_card:is_suit('Hearts') then
+            if context.other_card:is_suit('Hearts') and cae.Xmult>1 then
                 return {
                     Xmult = cae.Xmult,
                     message = 'Heart!',
