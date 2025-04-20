@@ -166,7 +166,7 @@ local Koyori_Potion = SMODS.Sticker:extend{
                 return false
             end
         end
-        return ((area==G.hand)or bypass_roll)and(card and card.playing_card and card:get_id()==10)
+        return ((area==G.hand)or bypass_roll)and(card and card.playing_card)
     end,
     calculate = function(self, card, context)
         local pt_cfg = self.potion_config
