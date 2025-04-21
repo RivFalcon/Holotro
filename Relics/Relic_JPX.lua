@@ -329,6 +329,15 @@ Holo.Relic_Joker{ -- Hakui Koyori
     pos      = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
 
+    remove_from_deck = function (self, card, from_debuff)
+        if #find_joker(self.key)==0 then
+            for _,v in ipairs(G.playing_cards)do
+                for _,pc in ipairs({'red','cyan','pink','green','gold','blue'})do
+                    v:remove_sticker('hololive_potion_'..pc)
+                end
+            end
+        end
+    end,
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.draw_from_deck_to_hand and G.GAME.facing_blind then

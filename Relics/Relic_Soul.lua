@@ -289,11 +289,11 @@ local function RelicGacha()
             Sora     = deck_stat.Diamonds,
             Roboco   = deck_stat.Diamonds or deck_stat.Steel,
             Suisei   = deck_stat.Diamonds or c_usage.c_star,
-            Mel      = false, -- deck_stat.Enhanced,
-            Fubuki   = false, -- deck_stat.Enhanceless or c_usage.c_fool,
-            Matsuri  = false, -- deck_stat.Hearts or deck_stat.Enhanceless
-            Aki      = false, -- deck_stat.Enhanceless
-            Haato    = false, -- deck_stat.Hearts or c_usage.c_sun,
+            Mel      = deck_stat.Enhanced,
+            Fubuki   = deck_stat.Enhanceless or c_usage.c_fool,
+            Matsuri  = deck_stat.Hearts or deck_stat.Enhanceless,
+            Aki      = deck_stat.Enhanceless,
+            Haato    = deck_stat.Hearts or c_usage.c_sun,
             Miko     = deck_stat.Diamonds or c_usage.c_star,
             Aqua     = hand_usage['High Card'],
             Shion    = deck_stat.Lucky or deck_stat.Ace,
@@ -301,9 +301,9 @@ local function RelicGacha()
             Choco    = deck_stat.Ace,
             Subaru   = true,
             AZKi     = deck_stat.Diamonds,
-            Mio      = false, -- c_usage_total.tarot,
-            Okayu    = false,
-            Korone   = false,
+            Mio      = c_usage_total.tarot,
+            Okayu    = true,
+            Korone   = true,
             -- JP34, ID1, JP5.
             Pekora   = deck_stat.Gold,
             Rushia   = true,
@@ -398,9 +398,9 @@ local function RelicGacha()
         -- Temporary Solution --
         local implemented_gens = {
             'gen_origin',
-            --'gen_first',
+            'gen_first',
             'gen_exodia',
-            --'gen_gamers'
+            'gen_gamers',
             'gen_fantasy',
             --'gen_force',
             'gen_area15',
