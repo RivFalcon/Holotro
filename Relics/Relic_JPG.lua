@@ -129,13 +129,15 @@ Holo.Relic_Joker{ -- Nekomata Okayu
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.ending_shop and not context.blueprint then
+            local bento_box = {}
             if #G.consumeables.cards>=1 then
-                local bento_box = {}
                 for _,v in ipairs(G.consumeables.cards)do
                     if not v.mogusareru and not v.ability.eternal then
                         bento_box[#bento_box+1] = v
                     end
                 end
+            end
+            if #bento_box>=1 then
                 local onigiri = pseudorandom_element(bento_box, pseudoseed('Okayu'))
                 onigiri.mogusareru = true
                 onigiri:start_dissolve()
