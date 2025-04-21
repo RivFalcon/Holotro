@@ -156,7 +156,8 @@ local function RelicGacha()
                 Hack = 0,
             },
             enhans = {
-                m_base = 0,
+                c_base = 0,
+                m_any = 0,
                 m_bonus = 0,
                 m_mult = 0,
                 m_wild = 0,
@@ -213,15 +214,13 @@ local function RelicGacha()
             end
 
             -- Enhancements
-            local not_enhanced = true
             for enhan,counter in pairs(card_stats.enhans) do
-                if enhan ~= 'm_base' and SMODS.has_enhancement(c,enhan)then
+                if SMODS.has_enhancement(c,enhan)and enhan~='m_any' then
                     card_stats.enhans[enhan] = counter + 1
-                    not_enhanced = false
+                    if enhan~='c_base'then
+                        card_stats.enhans.m_any = card_stats.enhans.m_any + 1
+                    end
                 end
-            end
-            if not_enhanced then
-                card_stats.enhans.m_base = card_stats.enhans.m_base + 1
             end
 
             -- Editions
@@ -256,8 +255,8 @@ local function RelicGacha()
             Even = card_stats.ranks.Even*2.5 >= deck_size,
             Hack = card_stats.ranks.Hack*3 >= deck_size,
 
-            Enhanceless = card_stats.enhans.m_base >= deck_size*0.5,
-            Enhanced = card_stats.enhans.m_base <= deck_size*0.8,
+            Enhanceless = card_stats.enhans.c_base >= deck_size*0.5,
+            Enhanced = card_stats.enhans.m_any >= deck_size*0.2,
             Bonus = card_stats.enhans.m_bonus >= 2,
             Mult  = card_stats.enhans.m_mult  >= 2,
             Wild  = card_stats.enhans.m_wild  >= 5,
