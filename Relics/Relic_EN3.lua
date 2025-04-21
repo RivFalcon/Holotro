@@ -156,7 +156,7 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
             'Each played card with {V:1}odd{} rank',
             'is retriggered {C:attention}#1#{} times.',
             '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#]',
-            '{V:1}odd{} cards scored.',
+            '{V:1}odd{} cards played.',
         }
         ,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
@@ -196,8 +196,8 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
                     colour = Holo.C.Fuwawa
                 }
             end
-        elseif context.individual and context.cardarea == G.play and not context.blueprint then
-            local _rank = context.other_card:get_id()
+        elseif context.hit_play and not context.blueprint then
+            local _rank = context.played_card:get_id()
             if (_rank == 14)or(_rank == 9)or(_rank == 7)or(_rank == 5)or(_rank == 3) then
                 if holo_card_counting(card) then
                     holo_card_upgrade(card)
@@ -216,7 +216,7 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
             'Each played card with {V:1}even{} rank',
             'is retriggered {C:attention}#1#{} times.',
             '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#]',
-            '{V:1}even{} cards scored.',
+            '{V:1}even{} cards played.',
         }
         ,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
@@ -256,8 +256,8 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
                     colour = Holo.C.Mococo
                 }
             end
-        elseif context.individual and context.cardarea == G.play and not context.blueprint then
-            local _rank = context.other_card:get_id()
+        elseif context.hit_play and not context.blueprint then
+            local _rank = context.played_card:get_id()
             if (_rank == 10)or(_rank == 8)or(_rank == 6)or(_rank == 4)or(_rank == 2) then
                 if holo_card_counting(card) then
                     holo_card_upgrade(card)

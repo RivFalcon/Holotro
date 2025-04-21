@@ -165,7 +165,8 @@ Wah_Joker{ -- Ina: WAH 02
         name = 'We Are Hype',
         text = {
             'When blind is selected,',
-            'create {C:attention}#1# {C:dark_edition}Negative {C:spectrals}Medium{}s.'
+            'create up to {C:attention}#1# {C:spectrals}Medium{}s.',
+            '{C:inactive}(Must have room)'
         }
     },
     config = { extra = { hype = 2 } },
@@ -186,8 +187,9 @@ Wah_Joker{ -- Ina: WAH 02
     calculate = function(self, card, context)
         if context.setting_blind then
             card:juice_up()
-            for i=1,card.ability.extra.hype do
-                SMODS.add_card({ key = 'c_medium', area = G.consumeables, edition = 'e_negative' })
+            local empty_consumable_slot_number = G.consumeables.config.card_limit - (#G.consumeables.cards + G.GAME.consumeable_buffer)
+            for i=1,math.min(card.ability.extra.hype, empty_consumable_slot_number) do
+                SMODS.add_card({ key = 'c_medium', area = G.consumeables })
             end
             return {
                 message = 'WAH!',

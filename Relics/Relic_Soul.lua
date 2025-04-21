@@ -502,7 +502,7 @@ Holo.Relic_Gacha{ -- ID -- Indonesia
             }
         }
     end,
-    memberlist = Holo.Branches.JP.members,
+    memberlist = Holo.Branches.ID.members,
 
     atlas = 'RelicGacha_HQ',
     pos      = {x=2,y=0},
