@@ -115,17 +115,10 @@ function holo_card_expired(card)
 end
 
 function holo_card_disaccumulate(_cae, _key)
+    if type(_cae.accumulate)~='number' then return end
     if _cae.accumulate>=1 then
-        if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+        if Holo.try_add_consumeable(_key) then
             _cae.accumulate = _cae.accumulate - 1
-            G.E_MANAGER:add_event(Event({
-                func = function ()
-                    SMODS.add_card({ key = _key, area = G.consumeables})
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
-                    return true
-                end
-            }))
         end
     end
 end
@@ -263,7 +256,7 @@ function Holo.call_and_response(card, context, _member)
     end
 end
 
-function Holo.add_consumeable(_key, _neg)
+function Holo.try_add_consumeable(_key, _neg)
     if (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) or _neg then
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + (_neg and 0 or 1)
         G.E_MANAGER:add_event(Event({

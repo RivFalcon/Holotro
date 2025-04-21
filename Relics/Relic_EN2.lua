@@ -288,7 +288,7 @@ Holo.Relic_Joker{ -- Ouro Kronii
         if ((context.individual and context.cardarea == G.play) or context.discard) and not context.blueprint then
             if not context.other_card.debuff and context.other_card:is_suit("Spades") then
                 if holo_card_counting(card) then
-                    SMODS.add_card({ key = 'c_world', area = G.consumeables, edition = 'e_negative' })
+                    Holo.try_add_consumeable('c_world', true)
                 end
             end
         elseif context.joker_main then

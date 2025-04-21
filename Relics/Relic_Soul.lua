@@ -318,8 +318,8 @@ local function RelicGacha()
             Moona    = deck_stat.Clubs or c_usage.c_moon,
             Iofi     = deck_stat.Clubs,
             Lamy     = false, -- deck_stat.Wild or c_usage.c_lovers,
-            Nene     = false, -- deck_stat.Wild or c_usage.c_lovers,
-            Botan    = false, -- deck_stat.Wild or c_usage.c_lovers,
+            Nene     = false, -- deck_stat.Wild,
+            Botan    = false, -- deck_stat.Wild,
             Aloe     = false, -- deck_stat.Wild,
             Polka    = false, -- deck_stat.Wild or c_usage.c_lovers,
             -- EN1, ID2, EN2, JPX, ID3.
@@ -360,11 +360,11 @@ local function RelicGacha()
             Gigi     = deck_stat.Glass,
             Ceci     = deck_stat.Glass,
             Raora    = deck_stat.Glass,
-            Riona    = false,
+            Riona    = false, -- deck_stat.Editioned
             Niko     = false, -- deck_stat.Editioned and deck_stat.Face
             Suu      = false, -- c_usage.c_aura
             Chihaya  = false, -- c_usage.c_wheel_of_fortune
-            Vivi     = false,
+            Vivi     = false, -- deck_stat.Editioned
         }
         for member,condition in pairs(syn_table)do
             if condition and dupe_check(member) then _pool[#_pool+1] = member end

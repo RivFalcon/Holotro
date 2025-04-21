@@ -165,6 +165,7 @@ Holo.Relic_Joker{ -- Inugami Korone
             'a consumeable slot is {C:chips}freed up{}.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
+        ,boxes={3,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {

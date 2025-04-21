@@ -165,7 +165,7 @@ Wah_Joker{ -- Ina: WAH 02
         name = 'We Are Hype',
         text = {
             'When blind is selected,',
-            'create up to {C:attention}#1# {C:spectrals}Medium{}s.',
+            'create up to {C:attention}#1# {C:spectral}Medium{}s.',
             '{C:inactive}(Must have room)'
         }
     },
@@ -366,7 +366,7 @@ Wah_Joker{ -- Ina: WAH 07
     loc_txt = {
         name = 'We Are Honor students',
         text = {
-            'Played Aces with {C:purple}purple{} seal give',
+            'Played {C:attention}Aces{} with {C:purple}purple{} seal give',
             '{C:chips}+#1#{} chips and {C:mult}+#1#{} mult when scored.'
         }
     },
@@ -402,8 +402,9 @@ Wah_Joker{ -- Ina: WAH 08
     loc_txt = {
         name = 'We Adore Her',
         text = {
-            'Has {C:green}#1# in #2#{} chance to {C:dark_edition}+#3#{} consumeable slot',
-            'when a card with {C:purple}purple{} seal scores.'
+            'Has {C:green}#1# in #2#{} chance to gain',
+            '{C:attention}#3#{} consumeable slot when',
+            'a card with {C:purple}purple{} seal scores.'
         }
     },
     config = { extra = { we = 8, adore = 1 } },

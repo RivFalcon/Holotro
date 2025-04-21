@@ -39,9 +39,7 @@ Holo.Relic_Joker{ -- Elizabeth Rose Bloodflame
     calculate = function(self, card, context)
         holo_card_upgrade_by_consumeable(card, context, 'c_justice')
         if context.setting_blind or context.skip_blind then
-            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                SMODS.add_card({ key = 'c_justice', area = G.consumeables })
-            end
+            Holo.try_add_consumeable('c_justice')
         elseif context.joker_main then
             return {
                 Xmult = card.ability.extra.Xmult

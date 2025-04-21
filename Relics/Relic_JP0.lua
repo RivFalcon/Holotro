@@ -118,8 +118,8 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
             'generates {C:attention}#3#~#4#{} stardust when scored.',
             'Collect {C:attention}18 {C:inactive}[#5#]{} stardust to form a {C:tarot}Star{}.',
             '(If no room, accumulate them {C:inactive}[#6#]{} until there is.)',
-            'Gain {X:mult,C:white}X#2#{} mult every time {C:tarot}The Star',
-            'card is used. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Star{} card used.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
         ,boxes={4,2}
         ,unlock=Holo.Relic_unlock_text
@@ -161,18 +161,8 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
             if context.other_card:is_suit('Diamonds') then
                 local stardust = pseudorandom('Suisei', cae.dust_min, cae.dust_max)
                 if holo_card_counting(card, stardust) then
-                    if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                        G.E_MANAGER:add_event(Event({
-                            func = function ()
-                                SMODS.add_card({ key = 'c_star', area = G.consumeables})
-                                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
-                                return true
-                            end
-                        }))
-                    else
-                        cae.accumulate = cae.accumulate + 1
-                    end
+                    cae.accumulate = cae.accumulate + 1
+                    holo_card_disaccumulate(cae, 'c_star')
                     return {
                         message='Star!',
                         colour=HEX('7bacec')
@@ -189,19 +179,7 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
                 Xmult=cae.Xmult
             }
         end
-        if cae.accumulate>=1 then
-            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                cae.accumulate = cae.accumulate - 1
-                G.E_MANAGER:add_event(Event({
-                    func = function ()
-                        SMODS.add_card({ key = 'c_star', area = G.consumeables})
-                        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
-                        return true
-                    end
-                }))
-            end
-        end
+        holo_card_disaccumulate(cae, 'c_star')
     end
 }
 
@@ -233,7 +211,7 @@ Holo.Relic_Joker{ -- Sakura Miko
         }
     }},
     upgrade_func = function(card)
-        if not Holo.add_consumeable('c_star') then
+        if not Holo.try_add_consumeable('c_star') then
             card.ability.extra.accumulate = card.ability.extra.accumulate + 1
         end
     end,
@@ -269,11 +247,7 @@ Holo.Relic_Joker{ -- Sakura Miko
                 }
             end
         end
-        if cae.accumulate>=1 then
-            if Holo.add_consumeable('c_star')then
-                cae.accumulate = cae.accumulate - 1
-            end
-        end
+        holo_card_disaccumulate(cae, 'c_star')
     end,
     calc_dollar_bonus = function(self, card)
         local D=0
@@ -293,11 +267,12 @@ Holo.Relic_Joker{ -- AZKi
         text = {
             'Each {C:diamonds}Diamond{} card held in hand',
             'is retriggered {C:attention}#1#{} times.',
-            'Gain {C:attention}1{} retrigger if {C:attention}first drawn hand{} of round',
+            'Gain {C:attention}1{} retrigger if',
+            '{C:attention}first drawn hand{} of round',
             'contains a {C:attention}#2#{} of {C:diamonds}Diamond{}.',
             'Rank changes at end of round.'
         }
-        ,boxes={2,3}
+        ,boxes={2,3,1}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
