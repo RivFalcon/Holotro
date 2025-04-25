@@ -6,7 +6,7 @@ SMODS.Atlas{
     px = 71,
     py = 95
 }
-SMODS.Joker{
+Holo.Meme_Joker{
     key = "Ayame_DCDC",
     member = "Ayame",
     loc_txt = {

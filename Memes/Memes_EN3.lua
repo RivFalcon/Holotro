@@ -1,6 +1,6 @@
 ----
 
-SMODS.Joker{
+Holo.Meme_Joker{
     member = "Nerissa",
     key = "Meme_Nerissa_tRB",
     loc_txt = {

@@ -6,7 +6,7 @@ SMODS.Atlas{
     px = 71,
     py = 95
 }
-SMODS.Joker{ -- Suisei -- Talalala -- https://youtu.be/_RPkBzv2jYc
+Holo.Meme_Joker{ -- Suisei -- Talalala -- https://youtu.be/_RPkBzv2jYc
     key = "Meme_Suisei_TLLL",
     member = "Suisei",
     loc_txt = {
@@ -46,7 +46,7 @@ SMODS.Atlas{
     px = 71,
     py = 95
 }
-SMODS.Joker{ -- Miko -- Gomoku RTA -- https://youtu.be/0IYqY9I2LzI
+Holo.Meme_Joker{ -- Miko -- Gomoku RTA -- https://youtu.be/0IYqY9I2LzI
     key = "Meme_Miko_GMKRTA",
     member = "Miko",
     loc_txt = {

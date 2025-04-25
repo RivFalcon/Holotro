@@ -6,7 +6,7 @@ SMODS.Atlas{
     px = 71,
     py = 95
 }
-SMODS.Joker{
+Holo.Meme_Joker{
     key = "Fubuki_MFG",
     member = "Fubuki",
     loc_txt = {

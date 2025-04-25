@@ -6,7 +6,7 @@ Holo.Atlas_7195{
     path = 'Memes/Meme_Mumei_Nightmare.png'
     -- credit: https://www.youtube.com/live/m42h-F5zhng?si=kVMcgs1qi6cLqlC5&t=3143
 }
-SMODS.Joker{ -- Mumei: Nightmare
+Holo.Meme_Joker{ -- Mumei: Nightmare
     member = 'Mumei',
     key = 'Meme_Mumei_Nightmare',
     loc_txt = {

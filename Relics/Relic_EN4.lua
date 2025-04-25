@@ -142,7 +142,7 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
                     holo_card_upgrade(card)
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            -- Copied (and modified) this part from Ship of Theseus, ExtraCredit mod.
+                            -- Copied (and modified) this part from "Ship of Theseus" of ExtraCredit mod.
                             G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                             local _card = copy_card(val, nil, nil, G.playing_card)
                             _card:add_to_deck()
@@ -184,7 +184,7 @@ Holo.Relic_Joker{ -- Raora Panthera
     },
     config = { extra = {
         Xmult = 4, Xmult_mod = 0.25,
-        Xmult_mod_card = 0.1,
+        x_mult_mod = 0.1,
         upgrade_args = {
             scale_var = 'Xmult',
             message = 'For Justice!',
@@ -196,7 +196,7 @@ Holo.Relic_Joker{ -- Raora Panthera
             vars = {
                 card.ability.extra.Xmult,
                 card.ability.extra.Xmult_mod,
-                card.ability.extra.Xmult_mod_card
+                card.ability.extra.x_mult_mod
             }
         }
     end,
@@ -208,8 +208,8 @@ Holo.Relic_Joker{ -- Raora Panthera
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if SMODS.has_enhancement(context.other_card, "m_glass") then
-                context.other_card.ability.Xmult = context.other_card.ability.Xmult + card.ability.extra.Xmult_mod_card
-                context.other_card.ability.x_mult = context.other_card.ability.x_mult + card.ability.extra.Xmult_mod_card
+                context.other_card.ability.x_mult = context.other_card.ability.x_mult + card.ability.extra.x_mult_mod
+                context.other_card.ability.Xmult = context.other_card.ability.x_mult
                 holo_card_upgrade(card)
             end
         elseif context.joker_main then

@@ -1,3 +1,13 @@
+----
+
+Holo.Meme_Joker = SMODS.Joker:extend{
+    required_params = { 'key', 'member', },
+    inject = function(self)
+        Holo.hooks.SMODS_Joker_inject(self)
+        table.insert(Holo.H_Pool.Memes, self)
+        table.insert(Holo.MemberJokerPools[self.member], self)
+    end
+}
 
 memes_files = {
     "JP0",

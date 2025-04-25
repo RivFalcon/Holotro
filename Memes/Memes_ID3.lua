@@ -23,7 +23,7 @@ local Doot_pitch_shift = {
     659.26 / 349.23  -- E5
     -- Data source: https://en.wikipedia.org/wiki/Pitch_(music)
 }
-SMODS.Joker{
+Holo.Meme_Joker{
     key = "Meme_Kaela_DOOT",
     member = "Kaela",
     loc_txt = {

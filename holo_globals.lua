@@ -413,6 +413,11 @@ Holo.H_Pool = {
     Others = {}
 }
 
+Holo.MemberJokerPools = {}
+for _,member in ipairs(Holo.memberlist)do
+    Holo.MemberJokerPools[member] = {}
+end
+
 function Holo.get_members(_set)
     if Holo.Branches[_set] then
         return Holo.Branches[_set].members

@@ -1,7 +1,7 @@
 ----
 
 --[[
-SMODS.Joker{ -- Kiara: The Usual Room
+Holo.Meme_Joker{ -- Kiara: The Usual Room
     member = "Kiara",
     key = "Meme_Kiara_TUR",
     loc_txt = {
@@ -30,7 +30,7 @@ SMODS.Atlas{ -- Ina_WAH
     py = 95
 }
 
-local Wah_Joker = SMODS.Joker:extend{
+local Wah_Joker = Holo.Meme_Joker:extend{
     member = "Ina",
     set_badges = function(self, card, badges)
         Holo.set_type_badge(card, badges, 'Meme')
@@ -654,7 +654,7 @@ Holo.Atlas_7195{
     path = 'Memes/Meme_Gura_SharkFinger.png'
     -- credit: https://www.reddit.com/r/Hololive/comments/tb77iq/here_is_an_hd_upscaled_version_of_gura_giving_you/
 }
-SMODS.Joker{ -- Gura: Shark Finger
+Holo.Meme_Joker{ -- Gura: Shark Finger
     member = "Gura",
     key = "Meme_Gura_SharkFinger",
     loc_txt = {
@@ -691,7 +691,7 @@ Holo.Atlas_7195{
     key = 'Gura_WTROT',
     path = 'Memes/Meme_Gura_WTROT.png'
 }
-SMODS.Joker{ -- Gura: Where's the rest of them?
+Holo.Meme_Joker{ -- Gura: Where's the rest of them?
     member = 'Gura',
     key = 'Meme_Gura_WTROT',
     loc_txt = {

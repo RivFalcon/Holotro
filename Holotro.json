@@ -9,7 +9,7 @@
 	"priority": 0,
 	"badge_colour": "ffffff",
 	"badge_text_colour": "33C9FE",
-	"version": "0-beta_25w17c",
+	"version": "0-beta_25w17d",
 	"dependencies": [
 		"Steamodded (>=1.0.0~BETA-0305d)"
 		,"MultiTextBox (>=1.0.2)"

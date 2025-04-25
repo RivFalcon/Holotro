@@ -47,14 +47,14 @@ function holo_ctx(context)
     if context.post_trigger then return 'post_trigger' end
 end
 
-function holo_card_upgrade(card)
+function holo_card_upgrade(card, amount)
     local cae = Holo.cae(card)
     local args = cae.upgrade_args or {}
     local scale_var = args.scale_var or ''
     if type(cae[scale_var]) ~= 'number' then return end
 
     -- The core of this entire function
-    cae[scale_var] = cae[scale_var] + (args.incr or cae[args.incr_var or scale_var..'_mod'] or 1)
+    cae[scale_var] = cae[scale_var] + (args.incr or cae[args.incr_var or scale_var..'_mod'] or 1) * (amount or 1)
 
     if type(card.config.center.upgrade_func) == 'function'then
         card.config.center.upgrade_func(card)
@@ -303,6 +303,20 @@ function SMODS.shatters(card)
         else
             card:juice_up()
             --play_sound('hololive_Ceci_Durable')
+        end
+    end
+end
+
+Holo.hooks.SMODS_Joker_inject = function(Self)
+    SMODS.Center.inject(Self)
+    if Self.taken_ownership and Self.rarity_original and Self.rarity_original ~= Self.rarity then
+        SMODS.remove_pool(G.P_JOKER_RARITY_POOLS[Self.rarity_original] or {}, Self.key)
+        SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[Self.rarity], Self, false)
+    else
+        SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[Self.rarity], Self)
+        local vanilla_rarities = {["Common"] = 1, ["Uncommon"] = 2, ["Rare"] = 3, ["Legendary"] = 4}
+        if vanilla_rarities[Self.rarity] then
+            SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[vanilla_rarities[Self.rarity]], Self)
         end
     end
 end

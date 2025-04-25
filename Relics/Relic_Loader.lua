@@ -19,12 +19,16 @@ SMODS.Atlas{
 }
 
 Holo.Relic_Joker = SMODS.Joker:extend{
+    required_params = { 'key', 'member', },
+
     unlocked = false,
     unlock_condition = {type = '', extra = '', hidden = true},
 
     rarity = "hololive_Relic",
     cost = 20,
     blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
 
     atlas = 'Relic_hololive',
     pos = { x = 0, y = 0 },
@@ -33,6 +37,10 @@ Holo.Relic_Joker = SMODS.Joker:extend{
     set_badges = function(self, card, badges)
         Holo.set_member_badges(card, badges)
     end,
+    inject = function(self)
+        Holo.hooks.SMODS_Joker_inject(self)
+        table.insert(Holo.H_Pool.Relics, self)
+    end
 }
 
 Holo.Relic_dummytext = {
