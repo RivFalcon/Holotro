@@ -253,7 +253,6 @@ Holo.Relic_Joker{ -- Ouro Kronii
         Xmult = 6, Xmult_mod = 1.5,
         upgrade_args = {
             scale_var = 'Xmult',
-            message = 'Tock!',
         },
         count_args = {
             down = 12,
@@ -261,11 +260,9 @@ Holo.Relic_Joker{ -- Ouro Kronii
         }
     }},
     upgrade_func = function(card)
-        if card.ability.extra.upgrade_args.message == 'Tick!' then
-            card.ability.extra.upgrade_args.message = 'Tock!'
-        elseif card.ability.extra.upgrade_args.message == 'Tock!' then
-            card.ability.extra.upgrade_args.message = 'Tick!'
-        end
+        local cae = card.ability.extra
+        cae.tick = not cae.tick
+        cae.upgrade_args.message = cae.tick and 'Tick!' or 'Tock!'
     end,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_world

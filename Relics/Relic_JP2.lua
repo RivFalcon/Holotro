@@ -21,12 +21,11 @@ Holo.Relic_Joker{ -- Minato Aqua
         ,boxes={2,3}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 44.5, chip_mod = 10 } },
+    config = { extra = { Xmult = 44.5 } },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
                 card.ability.extra.Xmult,
-                card.ability.extra.chip_mod,
             }
         }
     end,
@@ -52,7 +51,7 @@ Holo.Relic_Joker{ -- Minato Aqua
                     end
                 end
             end
-            if _card_min:get_id() < _card_max_rank then
+            if (_card_min:get_id() < _card_max_rank) and (_card_min:get_id() < 14) then
                 play_sound('whoosh')
                 _card_min:juice_up()
                 _card_min:start_dissolve(nil, true)
@@ -68,7 +67,7 @@ Holo.Relic_Joker{ -- Murasaki Shion
     member = "Shion",
     key = "Relic_Shion",
     loc_txt = {
-        name = "Eye of the Magician",
+        name = "Eye of the Violet Mage",
         text = {
             '{C:attention}Lucky Aces {C:green}guarantee{} to give {C:mult}+#3#{} mult',
             'and have {C:green}#4# in #5#{} chance to win {C:money}$#6#',

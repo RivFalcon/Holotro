@@ -60,7 +60,7 @@ Holo.Relic_Joker{ -- Roboco
     member = "Roboco",
     key = "Relic_Roboco",
     loc_txt = {
-        name = "Maintainance Tool of the High-spec Robot",
+        name = "Maintenance Tools of the High-spec Robot",
         text = {
             '{C:attention}Steel cards{} held in hand has {C:green}#3# in #4#{} chance to',
             'upgrade their Xmult by {X:mult,C:white}X#1#{} mult when triggered.',
@@ -194,9 +194,10 @@ Holo.Relic_Joker{ -- Sakura Miko
             'Collect {C:attention}#1# {C:inactive}[#2#]{} burnt crisp to create a {C:tarot}Star{}.',
             '(If no room, accumulate them {C:inactive}[#5#]{} until there is.)',
             'Earn {C:money}$35{} at end of round if your {C:attention}full deck',
-            'has more {C:diamonds}Diamond{} cards than other suits combined.'
+            'has more {C:diamonds}Diamond{} cards',
+            'than other suits combined.'
         }
-        ,boxes={4,2}
+        ,boxes={4,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {

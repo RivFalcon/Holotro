@@ -4,7 +4,7 @@ Holo.Relic_Joker{ -- Ookami Mio
     member = "Mio",
     key = "Relic_Mio",
     loc_txt = {
-        name = "Tarot Deck of the Wolf",
+        name = "Tarot Deck of the Divine Wolf",
         text = {
             'When a {C:tarot}Tarot card{} is used, there is',
             '{C:green}#4# in #5#{} chance to create another {C:tarot}Tarot card{}.',

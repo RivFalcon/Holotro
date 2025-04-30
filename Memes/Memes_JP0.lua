@@ -42,7 +42,7 @@ Holo.Meme_Joker{ -- Suisei -- Talalala -- https://youtu.be/_RPkBzv2jYc
 
 SMODS.Atlas{
     key = "Miko_GMKRTA",
-    path = "Memes/Meme_Miko_GMKRTA_alt.png",
+    path = "Memes/Meme_Miko_GMKRTA.png",
     px = 71,
     py = 95
 }

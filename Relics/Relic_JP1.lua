@@ -199,7 +199,7 @@ Holo.Relic_Joker{ -- Natsuiro Matsuri
         name = "Taiko of the Summer Festival",
         text = {
             'Drumming on each played',
-            '{C:attention}unenhanced{} cards for {C:attention}#1#{} beats.',
+            '{C:attention}unenhanced{} card for {C:attention}#1#{} beats.',
             'Each beat has {C:green}#2# in #3#{} chance to retrigger once.',
             'Beats on cards with {C:hearts}Heart{} suit',
             '{C:green}guarantees{} to give retriggers.',

@@ -12,8 +12,8 @@ Holo.Relic_Joker{ -- Usada Pekora
     loc_txt = {
         name = "Slot Machine of the Greedy Rabbit",
         text = {
-            'For each {C:attention}Gold Card{} held in hand at {C:attention}end of round{},',
-            'pay {C:money}$#3#{} to pull the lever.',
+            'For each {C:attention}Gold Card{} held in hand',
+            'at {C:attention}end of round{}, pay {C:money}$#3#{} to pull the lever.',
             'Each pull has {C:green}#1# in #2#{} chance to',
             '{C:attention}hit the jackpot{} and gain {C:money}$#4#{},',
             'otherwise raise the prize by {C:money}$#5#{}.',
