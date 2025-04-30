@@ -66,7 +66,7 @@ Holo.Relic_Joker{ -- Takane Lui
             'Create a {C:tarot}Hermit{} card every {C:attention}#3# {C:inactive}[#4#]{} times',
             'a playing card with rank of {C:attention}10{} scores.',
             '{C:inactive}(Must have room)',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Hermit{} card used.',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Hermit{} used.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
         ,boxes={3,2}

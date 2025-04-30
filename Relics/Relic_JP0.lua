@@ -118,7 +118,7 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
             'generates {C:attention}#3#~#4#{} stardust when scored.',
             'Collect {C:attention}18 {C:inactive}[#5#]{} stardust to form a {C:tarot}Star{}.',
             '(If no room, accumulate them {C:inactive}[#6#]{} until there is.)',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Star{} card used.',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Star{} used.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
         ,boxes={4,2}

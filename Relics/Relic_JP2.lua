@@ -72,7 +72,7 @@ Holo.Relic_Joker{ -- Murasaki Shion
             '{C:attention}Lucky Aces {C:green}guarantee{} to give {C:mult}+#3#{} mult',
             'and have {C:green}#4# in #5#{} chance to win {C:money}$#6#',
             'instead when scored.',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Magician{} card used.',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Magician{} used.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)',
         }
         ,boxes={3,2}
