@@ -69,9 +69,9 @@ Holo.Relic_Joker{ -- Tsukumo Sana
         name = "Size Limiter of the Astrogirl",
         text = {
             '{C:green}#3# in #4#{} chance to create the',
-            '{C:planet}Planet{} card of played poker hand.',
+            '{C:planet}Planet card{} of played poker hand.',
             '(If no room, {C:attention}accumulate{} them until there is.)',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:planet}Planet{} card used',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:planet}Planet card{} used',
             'since taking this relic.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
@@ -165,7 +165,7 @@ Holo.Relic_Joker{ -- Ceres Fauna
         name = "Golden Fruit of the Mother Nature",
         text = {
             'If played hand contains a {C:attention}Full House{}, create',
-            'a {C:dark_edition}Negative {C:planet}Planet{} card of played poker hand.',
+            'a {C:dark_edition}Negative {C:planet}Planet card{} of played poker hand.',
             'Gain {X:mult,C:white}X#2#{} mult every time',
             '{C:attention}Full House{} or {C:attention}Flush House{} is {C:planet}leveled up{}.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
@@ -241,7 +241,7 @@ Holo.Relic_Joker{ -- Ouro Kronii
     loc_txt = {
         name = "Clock Hands of the Time Warden",
         text = {
-            'Create a {C:dark_edition}Negative {C:tarot}World{} card every {C:attention}12 {C:inactive}[#3#]{}',
+            'Create a {C:dark_edition}Negative {C:tarot}World{} every {C:attention}12 {C:inactive}[#3#]{}',
             '{C:blue}played{} or {C:red}discarded{} cards with {C:spades}Spade{} suit.',
             'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The World{} used.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
@@ -306,7 +306,7 @@ Holo.Relic_Joker{ -- Nanashi Mumei
         name = "Dagger of the Guardian Owl",
         text = {
             'Each{C:red} discarded {C:attention}non{}-{C:spades}Spade{} card',
-            'has {C:green}#3# in #4# chance{} to be {X:black,C:white}sacrificed',
+            'has {C:green}#3# in #4#{} chance to be {X:black,C:white}sacrificed',
             'for the {C:attention}civilization{}.',
             'Gain {X:mult,C:white}X#2#{} mult for each card destroyed.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'

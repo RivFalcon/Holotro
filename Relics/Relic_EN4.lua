@@ -55,7 +55,7 @@ Holo.Relic_Joker{ -- Gigi Murin
         name = "Gauntlet of Da Fister",
         text = {
             'All played cards get {C:attention}fisted{} and',
-            'become {C:attention}Glass cards{} when scored.',
+            'become {C:attention}Glass cards{} before scoring.',
             'Gain {X:mult,C:white} X#1# {} Mult every time a card',
             'is already a {C:attention}Glass Card{}',
             'before getting {C:attention}fisted{}.',
@@ -111,7 +111,7 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
     loc_txt = {
         name = "Violance of the Automaton",
         text = {
-            'All {C:attention}Glass cards{} become {C:attention}very durable{}.',
+            'All {C:attention}Glass cards{} become {V:1}very durable{}.',
             'Gain {X:mult,C:white} X#1# {} Mult every time a {C:attention}Glass Card{}',
             'is prevented from shattering.',
             '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'
@@ -128,7 +128,10 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
     }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_glass
-        return { vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult} }
+        return { vars = {
+            card.ability.extra.Xmult_mod, card.ability.extra.Xmult,
+            colours = {Holo.C.Ceci}
+        } }
     end,
 
     atlas = 'Relic_Justice',

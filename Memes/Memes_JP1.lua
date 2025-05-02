@@ -12,7 +12,7 @@ Holo.Meme_Joker{
     loc_txt = {
         name = "Medical Fee Gamble",
         text = {
-            'Every shop item has a',
+            'Every shop item has',
             '{C:green}#1# in 6{} chance to be {C:attention}free{},',
             'otherwise the price',
             'would be {C:attention}doubled{}.',

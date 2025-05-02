@@ -10,9 +10,8 @@ Holo.Relic_Joker{ -- Amane Kanata
     member = "Kanata",
     key = "Relic_Kanata",
     loc_txt = {
-        text = Holo.Relic_dummytext or {
-            ''
         name = "Halo of the Other-side Angel",
+        text = Holo.Relic_dummytext or {
         }
         --,unlock=Holo.Relic_unlock_text
     },

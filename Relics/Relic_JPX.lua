@@ -12,7 +12,7 @@ Holo.Relic_Joker{ -- La+ Darknesss
     loc_txt = {
         name = "X of the Commander Chief",
         text = {
-            'Played card with rank of {C:attention}10',
+            'Played cards with rank of {C:attention}10',
             'are retriggered {C:attention}#1#{} times.',
             '{C:attention}+1{} retrigger per {V:1}#2#{} used.'
         }
@@ -63,7 +63,7 @@ Holo.Relic_Joker{ -- Takane Lui
     loc_txt = {
         name = "X of the Sage Hawk",
         text = {
-            'Create a {C:tarot}Hermit{} card every {C:attention}#3# {C:inactive}[#4#]{} times',
+            'Create a {C:tarot}Hermit{} every {C:attention}#3# {C:inactive}[#4#]{} times',
             'a playing card with rank of {C:attention}10{} scores.',
             '{C:inactive}(Must have room)',
             'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Hermit{} used.',
@@ -455,7 +455,7 @@ Holo.Relic_Joker{ -- Kazama Iroha
         text = {
             'Played cards with ranks {C:attention}other than 10',
             'have {C:green}#5# in #6#{} chance to get {C:red}slashed{} after scoring.',
-            'Create a {C:dark_edition}Negative {C:tarot}Star{} every {C:attention}#4# {C:inactive}[#3#]{} played hand.',
+            'Create a {C:dark_edition}Negative {C:tarot}Star{} every {C:attention}#4# {C:inactive}[#3#]{} played hands.',
             'Gain {X:mult,C:white}X#2#{} mult per played hand with no card',
             'needed to be slashed. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }

@@ -770,7 +770,7 @@ Holo.Relic_Gacha{ -- EN3 -- Advent
 Holo.Relic_Gacha{ -- DI1 -- ReGLOSS
     key = 'RelicGacha_Gen_DI1',
     loc_txt = {
-        name = 'The Regloss',
+        name = 'The ReGloss',
         text = relicgacha_text
     },
     config = { extra = {

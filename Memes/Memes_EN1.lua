@@ -126,7 +126,7 @@ Wah_Joker{ -- Ina: WAH 01
     loc_txt = {
         name = 'We Are Happy',
         text = {
-            'Cards with {C:purple}purple{} seals are',
+            'Cards with {C:purple}purple seals{} are',
             'retriggered {C:attention}#1#{} time.'
         }
     },
@@ -165,7 +165,7 @@ Wah_Joker{ -- Ina: WAH 02
         name = 'We Are Hype',
         text = {
             'When blind is selected,',
-            'create up to {C:attention}#1# {C:spectral}Medium{}s.',
+            'create up to {C:attention}#1# {C:spectral}Mediums{}.',
             '{C:inactive}(Must have room)'
         }
     },
@@ -243,7 +243,7 @@ Wah_Joker{ -- Ina: WAH 04
     loc_txt = {
         name = 'We Are Ho**y',
         text = {
-            'Mult cards with {C:purple}purple{} seals',
+            'Mult cards with {C:purple}purple seals{}',
             'permanently gain {C:mult}+#1#{} mult',
             'when discarded.'
         }
@@ -282,8 +282,8 @@ Wah_Joker{ -- Ina: WAH 05
     loc_txt = {
         name = 'Win All Hearts',
         text = {
-            'Gain {C:mult}+#2#{} mult when drew a card',
-            'with {C:hearts}Heart{} suit and {C:purple}purple{} seal.',
+            'Gain {C:mult}+#2#{} mult when drawing a card',
+            'with {C:hearts}Heart{} suit and {C:purple}purple seal{}.',
             '{C:inactive}(Currently {C:mult}+#1#{C:inactive} mult)'
         }
     },
@@ -329,7 +329,7 @@ Wah_Joker{ -- Ina: WAH 06
     loc_txt = {
         name = 'Work At Home',
         text = {
-            'Cards with {C:purple}purple{} seal held in hand',
+            'Cards with {C:purple}purple seals{} held in hand',
             'give {C:money}$#1#{} at end of round.'
         }
     },
@@ -366,7 +366,7 @@ Wah_Joker{ -- Ina: WAH 07
     loc_txt = {
         name = 'We Are Honor students',
         text = {
-            'Played {C:attention}Aces{} with {C:purple}purple{} seal give',
+            'Played {C:attention}Aces{} with {C:purple}purple seals{} give',
             '{C:chips}+#1#{} chips and {C:mult}+#1#{} mult when scored.'
         }
     },
@@ -404,7 +404,7 @@ Wah_Joker{ -- Ina: WAH 08
         text = {
             'Has {C:green}#1# in #2#{} chance to gain',
             '{C:attention}#3#{} consumeable slot when',
-            'a card with {C:purple}purple{} seal scores.'
+            'a card with {C:purple}purple seal{} scores.'
         }
     },
     config = { extra = { we = 8, adore = 1 } },
@@ -541,10 +541,11 @@ Wah_Joker{ -- Ina: WAH 11
     loc_txt = {
         name = 'We Are Horrified',
         text = {
-            'Face cards with {C:purple}purple{} seal',
+            'Face cards with {C:purple}purple seals{}',
             'give {C:chips}+#1#{} chips when scored.',
-            'Increase by {C:chips}+#2#{} chips per {C:attention}consecutive{} played hand',
-            'that contains cards with {C:purple}purple{} seal.'
+            'Increase by {C:chips}+#2#{} chips',
+            'per {C:attention}consecutive{} played hand',
+            'that contains cards with {C:purple}purple seals{}.'
         }
     },
     config = { extra = { we = 0, horror = 11 } },
@@ -599,10 +600,10 @@ Wah_Joker{ -- Ina: WAH 12
     loc_txt = {
         name = 'We Are Hot soup',
         text = {
-            'Played cards with {C:purple}purple{} seal',
+            'Played cards with {C:purple}purple seals{}',
             'give {X:mult,C:white}X#1#{} Mult when scored.',
             'Lose {X:mult,C:white}X#2#{} Mult per discarded',
-            'card {C:attention}without {C:purple}purple{} seal.'
+            'card {C:attention}without {C:purple}purple seal{}.'
         }
     },
     config = { extra = { soup = 12, sip = 0.1 } },
@@ -697,7 +698,7 @@ Holo.Meme_Joker{ -- Gura: Where's the rest of them?
     loc_txt = {
         name = "Where\'s the rest of them?",
         text = {
-            'Retrigger the {C:attention}third{} and {C:attention}fourth{} played cards',
+            'Retrigger {C:attention}third{} and {C:attention}fourth{} played cards',
             'if played exactly {C:attention}five{} cards.'
         }
     },
