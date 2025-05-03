@@ -339,7 +339,7 @@ Holo.Relic_Joker{ -- Akai Haato / Haachama
             'gives {X:mult,C:white}X#1#{} Mult when scored.',
             'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Sun{} used.'
         }
-        ,boxes={2,2,1}
+        ,boxes={2,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {

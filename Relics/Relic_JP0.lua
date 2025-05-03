@@ -12,13 +12,14 @@ Holo.Relic_Joker{ -- Tokino Sora
     loc_txt = {
         name = "Starlight of the First Idol",
         text = {
-            'Each played card with {C:diamonds}Diamond{} suit that',
-            'has the {C:attention}same rank{} as the {C:attention}first{} played card',
+            'Each played card with {C:diamonds}Diamond{} suit',
+            'that has the {C:attention}same rank{}',
+            'as the {C:attention}first{} played card',
             'gives {X:mult,C:white}X#1#{} Mult when scored.',
             'Gain {X:mult,C:white}X#2#{} Mult before scoring',
             'if first played card is {C:diamonds}Diamond{} suit.'
         }
-        ,boxes={3,2}
+        ,boxes={4,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -62,12 +63,13 @@ Holo.Relic_Joker{ -- Roboco
     loc_txt = {
         name = "Maintenance Tools of the High-spec Robot",
         text = {
-            '{C:attention}Steel cards{} held in hand has {C:green}#3# in #4#{} chance to',
-            'upgrade their Xmult by {X:mult,C:white}X#1#{} mult when triggered.',
-            '{C:attention}Steel cards{} with {C:diamonds}Diamond{} suit are instead',
+            '{C:attention}Steel cards{} held in hand have',
+            '{C:green}#3# in #4#{} chance to upgrade their Xmult',
+            'by {X:mult,C:white}X#1#{} mult when triggered.',
+            '{C:attention}Steel cards{} with {C:diamonds}Diamond{} suit are',
             '{C:green}guaranteed{} to be upgraded.'
         }
-        ,boxes={2,2}
+        ,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult_mod=0.1, Xmult_mod_mod=0.02, odds=5 } },
@@ -230,6 +232,7 @@ Holo.Relic_Joker{ -- Sakura Miko
         }
     end,
 
+    blueprint_compat = false,
     atlas = 'Relic_Origin',
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },

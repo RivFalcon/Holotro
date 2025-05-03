@@ -142,7 +142,7 @@ return {
                 }
             },
             hololive_gen_force={
-                name="Hololive 4th Generation",
+                name="Hololive 4th Generation: Force",
                 text={
                     fullname.Kanata,
                     fullname.Coco,
@@ -160,7 +160,7 @@ return {
                 }
             },
             hololive_gen_nplab={
-                name="Hololive 5th Generation",
+                name="Hololive 5th Generation: NePoLABo",
                 text={
                     fullname.Lamy,
                     fullname.Nene,

@@ -93,7 +93,7 @@ Holo.Relic_Joker{ -- Uruha Rushia
     loc_txt = {
         name = "Butterfies of the Necromancer",
         text = {
-            'Prevents Death once.',
+            'Prevents {C:red}Game Over{} once.',
             '{C:red}self destructs{}',
             'Selling this card spawns',
             '{V:1}#1# {C:attention}Butterfly Tags{}.'
@@ -102,13 +102,13 @@ Holo.Relic_Joker{ -- Uruha Rushia
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-        summon = math.floor((os.date('%y%m%d')-220224)/10000)
     } },
     loc_vars = function(self, info_queue, card)
+        local summon = math.floor((os.date('%y%m%d')-220224)/10000)
         info_queue[#info_queue+1] = G.P_TAGS.tag_hololive_butterfly
         return {
             vars = {
-                card.ability.extra.summon,
+                summon,
                 colours = {Holo.C.Rushia}
             }
         }
@@ -138,7 +138,8 @@ Holo.Relic_Joker{ -- Uruha Rushia
                 colour = Holo.C.Rushia
             }
         elseif context.selling_self then
-            for i=1, card.ability.extra.summon do
+            local summon = math.floor((os.date('%y%m%d')-220224)/10000)
+            for i=1, summon do
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         add_tag(Tag('tag_hololive_butterfly'))
