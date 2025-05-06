@@ -1,12 +1,12 @@
 ----
-
+--[[
 SMODS.Enhancement:take_ownership(
     'm_stone',
     {
         atlas = "enhance_Pebble",
         pos = {x=0,y=0}
     }
-)
+)]]
 
 SMODS.Enhancement:take_ownership(
     'm_lucky',
@@ -19,9 +19,9 @@ SMODS.Enhancement:take_ownership(
                 card.ability.mult, is_eyed and 1 or 5,
                 card.ability.p_dollars, is_eyed and 3 or 15,
             } }
-        end,
+        end,--[[
         atlas = "enhance_Lucky_Eye",
-        pos = {x=0,y=0}
+        pos = {x=0,y=0}]]
     }
 )
 

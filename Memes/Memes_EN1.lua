@@ -63,7 +63,8 @@ local Wah_Joker = Holo.Meme_Joker:extend{
                 uncommon_wah_flag_counter = uncommon_wah_flag_counter + 1
             end
         end
-        if wah>=11 and wah<=15 and uncommon_wah_flag_counter>=1 then return true end
+        --if wah>=11 and wah<=15 and uncommon_wah_flag_counter>=1 then return true end
+        return false
     end,
     add_to_deck = function(self, card, from_debuff)
         G.GAME.pool_flags.WAH = G.GAME.pool_flags.WAH or {}
@@ -366,8 +367,9 @@ Wah_Joker{ -- Ina: WAH 07
     loc_txt = {
         name = 'We Are Honor students',
         text = {
-            'Played {C:attention}Aces{} with {C:purple}purple seals{} give',
-            '{C:chips}+#1#{} chips and {C:mult}+#1#{} mult when scored.'
+            '{C:attention}Aces{} with {C:purple}purple seals{}',
+            'give {C:chips}+#1#{} chips and {C:mult}+#1#{} mult',
+            'when scored or held in hand.'
         }
     },
     config = { extra = { honor = 7 } },
@@ -386,7 +388,7 @@ Wah_Joker{ -- Ina: WAH 07
     pos = {y=1,x=2},
 
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
+        if context.individual and not context.end_of_round then
             if context.other_card:get_id() == 14 and context.other_card.seal == 'Purple' then
                 return {
                     chips = card.ability.extra.honor,
@@ -404,7 +406,7 @@ Wah_Joker{ -- Ina: WAH 08
         text = {
             'Has {C:green}#1# in #2#{} chance to gain',
             '{C:attention}#3#{} consumeable slot when',
-            'a card with {C:purple}purple seal{} scores.'
+            'played a card with {C:purple}purple seal{}.'
         }
     },
     config = { extra = { we = 8, adore = 1 } },
@@ -429,7 +431,7 @@ Wah_Joker{ -- Ina: WAH 08
             if context.other_card.seal == 'Purple' then
                 if Holo.chance('We Adore Her', card.ability.extra.we) then
                     G.E_MANAGER:add_event(Event({func = function()
-                        G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
+                        G.consumeables.config.card_limit = G.consumeables.config.card_limit + ard.ability.extra.adore
                         return true end
                     }))
                     return {
@@ -543,9 +545,10 @@ Wah_Joker{ -- Ina: WAH 11
         text = {
             'Face cards with {C:purple}purple seals{}',
             'give {C:chips}+#1#{} chips when scored.',
-            'Increase by {C:chips}+#2#{} chips',
-            'per {C:attention}consecutive{} played hand',
-            'that contains cards with {C:purple}purple seals{}.'
+            'Increase by {C:chips}+#2#{} chips per played hand',
+            'that contains cards with {C:purple}purple seals{}.',
+            'Reset to {C:chips}+0{} chips when a card',
+            'with {C:purple}purple seal{} is destroyed.'
         }
     },
     config = { extra = { we = 0, horror = 11 } },
@@ -561,6 +564,7 @@ Wah_Joker{ -- Ina: WAH 11
     WAH_index = 11,
     rarity = 3,
     cost = 8,
+    no_collection = true,
     atlas = 'Ina_WAH',
     pos = {y=2,x=1},
 
@@ -585,11 +589,13 @@ Wah_Joker{ -- Ina: WAH 11
                     message = "WAH!",
                     colour = Holo.C.Ina,
                 }
-            else
-                card.ability.extra.we = 0
-                return {
-                    message = localize('k_reset')
-                }
+            end
+        elseif context.remove_playing_cards then
+            for _,v in ipairs(context.removed)do
+                if v.seal == 'Purple'then
+                    card.ability.extra.we = 0
+                    SMODS.calculate_effect({message=localize('k_reset')},card)
+                end
             end
         end
     end
@@ -618,7 +624,9 @@ Wah_Joker{ -- Ina: WAH 12
     end,
     WAH_index = 12,
     rarity = 3,
+    eternal_compat = false,
     cost = 8,
+    no_collection = true,
     atlas = 'Ina_WAH',
     pos = {y=2,x=2},
 

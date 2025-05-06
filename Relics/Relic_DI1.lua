@@ -25,6 +25,7 @@ Holo.Relic_Joker{ -- Hiodoshi Ao
         }
     end,
 
+    no_collection = true,
     atlas = 'Relic_ReGloss',
     pos      = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
@@ -52,6 +53,7 @@ Holo.Relic_Joker{ -- Otonose Kanade
         }
     end,
 
+    no_collection = true,
     atlas = 'Relic_ReGloss',
     pos      = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
@@ -79,6 +81,7 @@ Holo.Relic_Joker{ -- Ichijou Ririka
         }
     end,
 
+    no_collection = true,
     atlas = 'Relic_ReGloss',
     pos      = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
@@ -106,6 +109,7 @@ Holo.Relic_Joker{ -- Juufuutei Raden
         }
     end,
 
+    no_collection = true,
     atlas = 'Relic_ReGloss',
     pos      = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
@@ -133,6 +137,7 @@ Holo.Relic_Joker{ -- Todoroki Hajime
         }
     end,
 
+    no_collection = true,
     atlas = 'Relic_ReGloss',
     pos      = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },

@@ -26,6 +26,7 @@ Holo.Relic_Joker{ -- Yukihana Lamy
         }
     end,
 
+    no_collection = true,
     atlas = 'Relic_NePoLABo',
     pos      = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
@@ -55,6 +56,7 @@ Holo.Relic_Joker{ -- Momosuzu Nene
         }
     end,
 
+    no_collection = true,
     atlas = 'Relic_NePoLABo',
     pos      = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
@@ -84,6 +86,7 @@ Holo.Relic_Joker{ -- Shishiro Botan
         }
     end,
 
+    no_collection = true,
     atlas = 'Relic_NePoLABo',
     pos      = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
@@ -113,6 +116,7 @@ Holo.Relic_Joker{ -- Mano Aloe
         }
     end,
 
+    no_collection = true,
     atlas = 'Relic_NePoLABo',
     pos      = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
@@ -142,6 +146,7 @@ Holo.Relic_Joker{ -- Omaru Polka
         }
     end,
 
+    no_collection = true,
     atlas = 'Relic_NePoLABo',
     pos      = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },

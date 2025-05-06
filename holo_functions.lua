@@ -285,6 +285,14 @@ function SMODS.always_scores(card)
     return false
 end
 
+Holo.hooks.Card_hover = Card.hover
+function Card:hover()
+    if self.ability.name == 'j_hololive_Meme_Kaela_DOOT' then
+        play_sound('hololive_sound_Kaela_Doot')
+    end
+    Holo.hooks.Card_hover(self)
+end
+
 Holo.hooks.level_up_hand = level_up_hand
 function level_up_hand(card, hand, instant, amount)
     Holo.hooks.level_up_hand(card, hand, instant, amount)

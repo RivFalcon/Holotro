@@ -76,6 +76,31 @@ SMODS.current_mod.extra_tabs = function ()
                                         },
                                     }
                                 },
+                                {
+                                    n = G.UIT.R,
+                                    config = {
+                                        padding = 0.3
+                                    },
+                                    nodes = {
+                                        {
+                                            n = G.UIT.T,
+                                            config = {
+                                                text = "",
+                                                colour = G.C.UI.TEXT_LIGHT,
+                                                scale = 1
+                                            }
+                                        },
+                                        {
+                                            n = G.UIT.T,
+                                            config = {
+                                                text = "All character rights belongs to Cover Corp.",
+                                                -- Is this the correct wording?
+                                                colour = G.C.UI.TEXT_LIGHT,
+                                                scale = 0.5
+                                            }
+                                        },
+                                    }
+                                },
                             }
                         },
                     }

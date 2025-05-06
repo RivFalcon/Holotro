@@ -161,6 +161,7 @@ Holo.Relic_Joker{ -- Inugami Korone
             'For each {C:attention}empty{} consumeable slot,',
             'punch the blind at {C:attention}start of round',
             'and reduce score requirement by {C:chips}10%{}.',
+            '{C:inactive}(Currently #3# punches. Max at #4#.)',
             'Gain {X:mult,C:white}X#2#{} mult every time',
             'a consumeable slot is {C:chips}freed up{}.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
@@ -170,16 +171,18 @@ Holo.Relic_Joker{ -- Inugami Korone
     },
     config = { extra = {
         Xmult = 1, Xmult_mod = 0.1,
-        punches = 2,
+        punches = 2, punches_max = 22,
         upgrade_args = {
             scale_var = 'Xmult',
         }
     }},
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
+        local punch = G.consumeables and (G.consumeables.config.card_limit - #G.consumeables.cards) or 0
         return {
             vars = {
                 cae.Xmult, cae.Xmult_mod,
+                punch, cae.punches_max,
             }
         }
     end,
@@ -194,11 +197,11 @@ Holo.Relic_Joker{ -- Inugami Korone
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.first_hand_drawn then
-            for _=1,cae.punches do
+            for _=1,math.min(cae.punches,cae.punches_max) do
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     func = function()
-                        G.GAME.blind.chips = math.floor(G.GAME.blind.chips * 0.9)
+                        G.GAME.blind.chips = math.ceil(G.GAME.blind.chips * 0.9)
                         G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
                         G.FUNCS.blind_chip_UI_scale(G.hand_text_area.blind_chips)
                         G.HUD_blind:recalculate()

@@ -231,8 +231,8 @@ Holo.Relic_Joker{ -- Sakura Miko
             }
         }
     end,
-
     blueprint_compat = false,
+
     atlas = 'Relic_Origin',
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },

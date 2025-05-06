@@ -69,12 +69,4 @@ Holo.Meme_Joker{
     end
 }
 
-local card_hover = Card.hover
-function Card:hover()
-    if self.ability.name == 'j_hololive_Meme_Kaela_DOOT' then
-        play_sound('hololive_sound_Kaela_Doot')
-    end
-    card_hover(self)
-end
-
 ----

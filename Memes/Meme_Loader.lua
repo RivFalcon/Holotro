@@ -2,6 +2,7 @@
 
 Holo.Meme_Joker = SMODS.Joker:extend{
     required_params = { 'key', 'member', },
+    blueprint_compat = true,
     inject = function(self)
         Holo.hooks.SMODS_Joker_inject(self)
         table.insert(Holo.H_Pool.Memes, self)
