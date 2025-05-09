@@ -12,19 +12,20 @@ Holo.Relic_Joker{ -- IRyS
     loc_txt = {
         name = "Sparklings of the Nephilim",
         text = {
-            'Each time using a {V:1}consumable{}',
-            'grants you its sell value plus {X:money,C:white}$#1#{},',
-            'and has {C:green}#3# in #4#{} chance',
-            'to gain {X:mult,C:white}X#2#{} mult and {C:money}$#2#{} extra.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            'Each time using a {V:1}consumable{} has',
+            '{C:green}#3# in #4#{} chance  to grant you {C:money}$#1#{} bonus.',
+            'Gain {C:money}$#2#{} bonus by using a {V:1}#5#{}.',
+            '{C:inactive}(Consumeable changes at end of shop.)'
         }
+        ,boxes={3,1}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-        Xmult = 6, Xmult_mod = 1,
+        dollars = 6, dollars_mod = 2,
         odds = 6,
+        base = {key='c_fool',set='Tarot'},
         upgrade_args = {
-            scale_var = 'Xmult',
+            scale_var = 'dollars',
             message = "Ascend!",
             sound = 'coin2'
         }
@@ -33,10 +34,11 @@ Holo.Relic_Joker{ -- IRyS
         local cae = card.ability.extra
         return {
             vars = {
-                cae.Xmult,
-                cae.Xmult_mod,
+                cae.dollars,
+                cae.dollars_mod,
                 Holo.prob_norm(),
                 cae.odds,
+                localize{type='name_text',key=cae.base.key,set=cae.base.set},
                 colours = {Holo.C.IRyS}
             }
         }
@@ -48,17 +50,29 @@ Holo.Relic_Joker{ -- IRyS
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
+        holo_card_upgrade_by_consumeable(card, context, cae.base.key)
         if context.using_consumeable then
-            ease_dollars(cae.Xmult)
-            if Holo.chance('IRyS', cae.odds) and not context.blueprint then
-                holo_card_upgrade(card)
+            if Holo.chance('IRyS', cae.odds) then
+                ease_dollars(cae.dollars)
+                SMODS.calculate_effect({message='Hope!',colour=Holo.C.IRyS},card)
             end
-        elseif context.joker_main then
-            return {
-                Xmult = cae.Xmult,
-                message = 'Hope!',
-                colour = Holo.C.IRyS,
-            }
+        elseif context.ending_shop then
+            local _pool_table = {}
+            for _,v in ipairs(G.P_CENTER_POOLS.Tarot_Planet)do
+                if not (v.config or{}).softlock then
+                    _pool_table[v.key] = v.set
+                end
+            end
+            for k,v in pairs(G.GAME.consumeable_usage)do
+                if v.set ~= 'relicgacha' and not G.P_CENTERS[k].config.hidden then
+                    _pool_table[k] = v.set
+                end
+            end
+            local _pool = {}
+            for k,v in pairs(_pool_table)do
+                _pool[#_pool+1] = {key=k,set=v.set}
+            end
+            cae.base = pseudorandom_element(_pool, pseudoseed('ConsumeRyS'))
         end
     end
 }
