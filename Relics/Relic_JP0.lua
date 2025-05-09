@@ -64,15 +64,23 @@ Holo.Relic_Joker{ -- Roboco
         name = "Maintenance Tools of the High-spec Robot",
         text = {
             '{C:attention}Steel cards{} held in hand have',
-            '{C:green}#3# in #4#{} chance to upgrade their Xmult',
-            'by {X:mult,C:white}X#1#{} mult when triggered.',
+            '{C:green}#3# in #4#{} chance to upgrade their {X:mult,C:white}Xmult',
+            'by {X:mult,C:white}X#1#{} mult after scoring.',
             '{C:attention}Steel cards{} with {C:diamonds}Diamond{} suit are',
-            '{C:green}guaranteed{} to be upgraded.'
+            '{C:green}guaranteed{} to be upgraded.',
+            'Played {C:attention}Steel cards{} will also',
+            'give their {X:mult,C:white}Xmult{} when scored.'
         }
-        ,boxes={3,2}
+        ,boxes={3,2,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult_mod=0.1, Xmult_mod_mod=0.02, odds=5 } },
+    config = { extra = {
+        Xmult_mod=0.1, Xmult_mod_mod=0.02,
+        odds=5,
+        upgrade_args = {
+            scale_var = 'Xmult_mod'
+        }
+    }},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_steel
         return {
@@ -90,20 +98,30 @@ Holo.Relic_Joker{ -- Roboco
     soul_pos = { x = 1, y = 1 },
 
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand and not context.end_of_round then
+        local cae = card.ability.extra
+        if context.individual and context.cardarea == G.play then
             if SMODS.has_enhancement(context.other_card, 'm_steel') then
-                local _tick = false
-                if context.other_card:is_suit('Diamonds') then
-                    _tick = true
-                elseif Holo.chance('Roboco', card.ability.extra.odds) then
-                    _tick = true
-                end
-                if _tick then
-                    context.other_card.ability.h_x_mult = context.other_card.ability.h_x_mult + card.ability.extra.Xmult_mod
-                    return {
-                        message = localize('k_upgrade_ex'),
-                        card = context.other_card
-                    }
+                return {
+                    Xmult = context.other_card.ability.h_x_mult,
+                    colour = Holo.C.Roboco,
+                }
+            end
+        elseif context.after then
+            for _,v in ipairs(G.hand.cards) do
+                if SMODS.has_enhancement(v, 'm_steel') then
+                    local _tick = false
+                    if v:is_suit('Diamonds') then
+                        _tick = true
+                    elseif Holo.chance('Roboco', card.ability.extra.odds) then
+                        _tick = true
+                    end
+                    if _tick then
+                        v.ability.h_x_mult = v.ability.h_x_mult + cae.Xmult_mod
+                        SMODS.calculate_effect({
+                            message = localize('k_upgrade_ex'),
+                            colour = Holo.C.Roboco
+                        },v)
+                    end
                 end
             end
         end
@@ -269,7 +287,7 @@ Holo.Relic_Joker{ -- AZKi
     loc_txt = {
         name = "Mic and Map of the Navigator Diva",
         text = {
-            'Each {C:diamonds}Diamond{} card held in hand',
+            'Each played card with {C:diamonds}Diamond{} suit',
             'is retriggered {C:attention}#1#{} times.',
             'Gain {C:attention}1{} retrigger if',
             '{C:attention}first drawn hand{} of round',
@@ -280,17 +298,21 @@ Holo.Relic_Joker{ -- AZKi
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-        retriggers=2, rank='Ace', id = 14,
+        retriggers=2, base = {},
         upgrade_args = {
             scale_var = 'retriggers',
             message = 'Guess!',
         }
     }},
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
+        if cae.base.value == nil then
+            self.roll_for_rank(cae)
+        end
         return {
             vars = {
-                card.ability.extra.retriggers,
-                localize(card.ability.extra.rank, 'ranks'),
+                cae.retriggers,
+                localize(cae.base.value, 'ranks'),
             }
         }
     end,
@@ -299,38 +321,47 @@ Holo.Relic_Joker{ -- AZKi
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
 
+    roll_for_rank = function(cae)
+        local pool = {}
+        local _tick = false
+        for _,v in ipairs(G.playing_cards or {})do
+            if v:is_suit('Diamonds') and not SMODS.has_no_rank(v) then
+                pool[#pool+1] = v.base
+                _tick = true
+            end
+        end
+        if _tick then
+            cae.base = pseudorandom_element(pool, pseudoseed('AZKi'))
+        else
+            cae.base = {value='Ace', id = 14}
+        end
+    end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.hand then
+        local cae = card.ability.extra
+        if context.repetition and context.cardarea == G.play then
             if context.other_card:is_suit('Diamonds') then
                 return {
                     message=localize('k_again_ex'),
-                    repetitions = card.ability.extra.retriggers,
+                    repetitions = cae.retriggers,
                     card = card,
                     colour=Holo.C.AZKi
                 }
             end
         elseif context.first_hand_drawn then
             for _,v in ipairs(G.hand.cards) do
-                if v:get_id()==card.ability.extra.id and v:is_suit('Diamonds') then
+                if v:get_id()==cae.base.id and v:is_suit('Diamonds') then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            v:juice_up()
+                            return true
+                        end
+                    }))
                     holo_card_upgrade(card)
                     break
                 end
             end
         elseif context.end_of_round and context.cardarea == G.jokers then
-            local pool = {}
-            for _,v in ipairs(G.playing_cards)do
-                if v:is_suit('Diamonds') and not SMODS.has_no_rank(v) then
-                    pool[#pool+1] = v.base
-                end
-            end
-            if pool[1] then
-                local _base = pseudorandom_element(pool, pseudoseed('AZKi'))
-                card.ability.extra.rank = _base.value
-                card.ability.extra.id = _base.id
-            else
-                card.ability.extra.rank = 'Ace'
-                card.ability.extra.id = 14
-            end
+            self.roll_for_rank(cae)
         end
     end
 }

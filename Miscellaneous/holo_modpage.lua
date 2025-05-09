@@ -79,7 +79,7 @@ SMODS.current_mod.extra_tabs = function ()
                                     nodes = {{
                                         n = G.UIT.T,
                                         config = {
-                                            text = "    Greninja",
+                                            text = "    TRGreninja",
                                             colour = G.C.UI.TEXT_LIGHT,
                                             scale = 0.7
                                         }

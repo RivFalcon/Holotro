@@ -7,7 +7,7 @@ SMODS.Atlas{
     py = 95
 }
 Holo.Meme_Joker{
-    key = "Fubuki_MFG",
+    key = "Meme_Fubuki_MFG",
     member = "Fubuki",
     loc_txt = {
         name = "Medical Fee Gamble",

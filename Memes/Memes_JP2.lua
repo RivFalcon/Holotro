@@ -7,7 +7,7 @@ SMODS.Atlas{
     py = 95
 }
 Holo.Meme_Joker{
-    key = "Ayame_DCDC",
+    key = "Meme_Ayame_DCDC",
     member = "Ayame",
     loc_txt = {
         name = "Which way, which way?",

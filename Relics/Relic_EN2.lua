@@ -12,30 +12,32 @@ Holo.Relic_Joker{ -- IRyS
     loc_txt = {
         name = "Sparklings of the Nephilim",
         text = {
-            'Each time using a {C:blue}consumable{}',
-            'grants you {C:attention}bonus income{},',
+            'Each time using a {V:1}consumable{}',
+            'grants you its sell value plus {X:money,C:white}$#1#{},',
             'and has {C:green}#3# in #4#{} chance',
-            'to increase said income by {C:money}$#2#{}.',
-            '{C:inactive}(Currently {X:money,C:white}$#1#{C:inactive} income){}'
+            'to gain {X:mult,C:white}X#2#{} mult and {C:money}$#2#{} extra.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-        dollars = 6, dollars_mod = 1,
+        Xmult = 6, Xmult_mod = 1,
         odds = 6,
         upgrade_args = {
-            scale_var = 'dollars',
+            scale_var = 'Xmult',
             message = "Ascend!",
             sound = 'coin2'
         }
     } },
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
         return {
             vars = {
-                card.ability.extra.dollars,
-                card.ability.extra.dollars_mod,
+                cae.Xmult,
+                cae.Xmult_mod,
                 Holo.prob_norm(),
-                card.ability.extra.odds
+                cae.odds,
+                colours = {Holo.C.IRyS}
             }
         }
     end,
@@ -47,17 +49,16 @@ Holo.Relic_Joker{ -- IRyS
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.using_consumeable then
-            ease_dollars(card.ability.extra.dollars)
-            SMODS.calculate_effect(
-                {
-                    message = 'Hope!',
-                    colour = Holo.C.IRyS,
-                },
-                card
-            )
+            ease_dollars(cae.Xmult)
             if Holo.chance('IRyS', cae.odds) and not context.blueprint then
                 holo_card_upgrade(card)
             end
+        elseif context.joker_main then
+            return {
+                Xmult = cae.Xmult,
+                message = 'Hope!',
+                colour = Holo.C.IRyS,
+            }
         end
     end
 }
@@ -73,7 +74,7 @@ Holo.Relic_Joker{ -- Tsukumo Sana
             '(If no room, {C:attention}accumulate{} them until there is.)',
             'Gain {X:mult,C:white}X#2#{} mult per {C:planet}Planet card{} used',
             'since taking this relic.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
         }
         ,boxes={3,3}
         ,unlock=Holo.Relic_unlock_text
@@ -369,28 +370,31 @@ Holo.Relic_Joker{ -- Hakos Baelz
     loc_txt = {
         name = "Rolling Dice of the Scarlet Rat",
         text = {
-            'Roll a {V:1}#2#-sided die{} after each played hand.',
-            'Multiplies all{C:attention} listed {C:green}probabilities{} with',
-            'the number it lands. {C:inactive}(Currently {X:green,C:white}X#1#{C:inactive} Chance){}'
+            'Roll a {V:1}six-sided die',
+            'after each played hand.',
+            'Multiplies all listed {C:green}probabilities',
+            'with the number it lands.',
+            'Gain {X:mult,C:white}X#2#{} mult when it lands on {C:green}1{}.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult and {C:green}X#3#{C:inactive} Chance)'
         }
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
         Pmult = 6,
-        Pmult_max = 6, Pmult_max_mod = 1,
+        Xmult = 6, Xmult_mod = 2,
         upgrade_args = {
-            scale_var = 'Pmult_max',
+            scale_var = 'Xmult',
+            message = 'Roll!',
         }
     } },
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
         return { vars = {
+            cae.Xmult, cae.Xmult_mod,
             cae.Pmult,
-            (cae.Pmult_max==6) and 'six' or cae.Pmult_max,
             colours = {Holo.C.Bae}
         }}
     end,
-    blueprint_compat = false,
 
     atlas = 'Relic_Promise',
     pos = { x = 5, y = 0 },
@@ -403,14 +407,27 @@ Holo.Relic_Joker{ -- Hakos Baelz
         G.GAME.probabilities.normal = G.GAME.probabilities.normal / card.ability.extra.Pmult
     end,
     calculate = function(self, card, context)
-        if context.after and context.cardarea == G.jokers then
-            G.GAME.probabilities.normal = G.GAME.probabilities.normal / card.ability.extra.Pmult
+        local cae = card.ability.extra
+        local prob = G.GAME.probabilities
+        if context.after and context.cardarea == G.jokers and not context.blueprint then
+            prob.normal = prob.normal / cae.Pmult
             card:juice_up()
-            card.ability.extra.Pmult = pseudorandom('Hakos Baelz', 1, card.ability.extra.Pmult_max)
-            G.GAME.probabilities.normal = G.GAME.probabilities.normal * card.ability.extra.Pmult
+            cae.Pmult = pseudorandom('Hakos Baelz', 1, 6)
+            prob.normal = prob.normal * cae.Pmult
+            if cae.Pmult == 1 then
+                holo_card_upgrade(card)
+            else
+                return {
+                    message="Roll!",
+                    colour = Holo.C.Bae,
+                }
+            end
+        elseif context.joker_main then
             return {
-                message="Roll!",
+                Xmult = cae.Xmult,
+                message = 'Chaos!',
                 colour = Holo.C.Bae,
+                sound = 'gong',
             }
         end
     end
