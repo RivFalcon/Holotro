@@ -15,7 +15,7 @@ Holo.Relic_Joker{ -- IRyS
             'Each time using a {V:1}consumable{} has',
             '{C:green}#3# in #4#{} chance  to grant you {C:money}$#1#{} bonus.',
             'Gain {C:money}$#2#{} bonus by using a {V:1}#5#{}.',
-            '{C:inactive}(Consumeable changes at end of shop.)'
+            'Consumeable changes at end of shop.'
         }
         ,boxes={3,1}
         ,unlock=Holo.Relic_unlock_text
