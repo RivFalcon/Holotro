@@ -278,9 +278,9 @@ end
 
 Holo.hooks = {}
 
-Holo.hooks.always_scores = SMODS.always_scores
+Holo.hooks.SMODS_always_scores = SMODS.always_scores
 function SMODS.always_scores(card)
-    if Holo.hooks.always_scores(card)then return true end
+    if Holo.hooks.SMODS_always_scores(card)then return true end
     if next(find_joker('j_hololive_Relic_Biboo')) and not card:is_face() then return true end
     return false
 end
@@ -302,9 +302,9 @@ function level_up_hand(card, hand, instant, amount)
     end
 end
 
-Holo.hooks.shatters = SMODS.shatters
+Holo.hooks.SMODS_shatters = SMODS.shatters
 function SMODS.shatters(card)
-    if Holo.hooks.shatters(card) then
+    if Holo.hooks.SMODS_shatters(card) then
         local flag = SMODS.calculate_context({shatter_check=true, shatter_card=card})
         if not flag.durable then
             return true
