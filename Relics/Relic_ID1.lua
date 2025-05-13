@@ -13,7 +13,7 @@ Holo.Relic_Joker{ -- Ayunda Risu
         name = "\"Deez Nuts\" of the Squirrel",
         text = {
             'Every {C:attention}3{} cards with {C:clubs}Club{} suit held in hand',
-            'will be #1# and give {X:mult,C:white} X15 {} Mult.'
+            'will be {C:clubs}#1#{} and give {X:mult,C:white} X15 {} Mult.'
         }
         ,unlock=Holo.Relic_unlock_text
     },

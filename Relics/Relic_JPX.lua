@@ -340,9 +340,9 @@ Holo.Relic_Joker{ -- Hakui Koyori
     end,
     calculate = function(self, card, context)
         local cae = card.ability.extra
-        if context.draw_from_deck_to_hand and G.GAME.facing_blind then
+        if context.hololive_drawn_card and G.GAME.facing_blind then
             local _tick = false
-            if context.drawn_card:get_id()==10 then
+            if context.hololive_drawn_card:get_id()==10 then
                 _tick = true
             elseif Holo.chance('Zunou of X', cae.odds) then
                 _tick = true
@@ -351,8 +351,8 @@ Holo.Relic_Joker{ -- Hakui Koyori
                 local _potion_type = Holo.pseudorandom_weighted_element(cae.Potion_Rack, 'Koyo')
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        context.drawn_card:juice_up()
-                        context.drawn_card:add_sticker('hololive_potion_'.._potion_type)
+                        context.hololive_drawn_card:juice_up()
+                        context.hololive_drawn_card:add_sticker('hololive_potion_'.._potion_type)
                         return true
                     end
                 }))

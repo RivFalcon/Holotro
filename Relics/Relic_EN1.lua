@@ -380,11 +380,9 @@ Holo.Relic_Joker{ -- Gawr Gura
                 colour = HEX('5d81c7'),
                 sound='multhit2'
             }
-        elseif context.level_up_hand == 'Straight Flush' and not context.blueprint then
-            if context.level_up_amount > 0 then
-                for i=1,context.level_up_amount do
-                    holo_card_upgrade(card)
-                end
+        elseif context.hololive_level_up_hand == 'Straight Flush' then
+            if (context.hololive_level_up_amount > 0) and not context.blueprint then
+                holo_card_upgrade(card, context.hololive_level_up_amount)
             end
         end
     end

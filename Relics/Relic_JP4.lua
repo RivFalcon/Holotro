@@ -125,7 +125,9 @@ Holo.Relic_Joker{ -- Kiryu Coco
 
     add_to_deck = function (self, card, from_debuff)
         card.ability.extra.grip = G.hand.config.card_limit
-        play_sound('hololive_sound_Coco_GMMF')
+        if SMODS.current_mod.config.allow_profanity then
+            play_sound('hololive_sound_Coco_GMMF')
+        end
     end,
     calculate = function(self, card, context)
         local cae = card.ability.extra

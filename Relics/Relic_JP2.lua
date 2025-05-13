@@ -225,8 +225,7 @@ Holo.Relic_Joker{ -- Yuzuki Choco
                 holo_card_upgrade(card)
             elseif not SMODS.has_no_rank(context.other_card) then
                 if Holo.chance('Chocosen', card.ability.extra.odds) then
-                    local rank_shift_string = {'2','3','4','5','6','7','8','9','10','Jack','Queen','King','Ace'}
-                    assert(SMODS.change_base(context.other_card, nil, rank_shift_string[context.other_card.base.id]))
+                    Holo.change_rank(context.other_card, context.other_card.base.id + 1)
                 end
             end
             return {

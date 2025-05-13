@@ -240,11 +240,9 @@ Holo.Relic_Joker{ -- Ceres Fauna
                 colour=Holo.C.Fauna,
                 sound = 'gong',
             }
-        elseif (context.level_up_hand == 'Full House' or context.level_up_hand == 'Flush House') and not context.blueprint then
-            if context.level_up_amount > 0 then
-                for i=1,context.level_up_amount do
-                    holo_card_upgrade(card)
-                end
+        elseif context.hololive_level_up_hand == 'Full House' or context.hololive_level_up_hand == 'Flush House' then
+            if (context.hololive_level_up_amount > 0) and not context.blueprint then
+                holo_card_upgrade(card, context.hololive_level_up_amount)
             end
         end
     end

@@ -18,6 +18,7 @@ assert(SMODS.load_file("holo_functions.lua"))()
 mod_dir = ''..SMODS.current_mod.path
 holo_config = SMODS.current_mod.config
 
+assert(SMODS.load_file("Fans/Fandom_Loader.lua"))()
 assert(SMODS.load_file("Memes/Meme_Loader.lua"))()
 assert(SMODS.load_file("Relics/Relic_Loader.lua"))()
 

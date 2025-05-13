@@ -116,7 +116,6 @@ Wah_Joker{ -- Ina: WAH 00
             end
         end
         if joker_to_the_right and Holo.mod_check(joker_to_the_right) then
-            --SMODS.calculate_effect(SMODS.blueprint_effect(card, joker_to_the_right, context)or{}, card)
             return SMODS.blueprint_effect(card, joker_to_the_right, context)
         end
     end
@@ -311,8 +310,8 @@ Wah_Joker{ -- Ina: WAH 05
     pos = {y=1,x=0},
 
     calculate = function(self, card, context)
-        if context.draw_from_deck_to_hand and G.GAME.facing_blind then
-            if context.drawn_card:is_suit('Hearts') and context.drawn_card.seal == 'Purple' and not context.blueprint then
+        if context.hololive_drawn_card and G.GAME.facing_blind then
+            if context.hololive_drawn_card:is_suit('Hearts') and context.hololive_drawn_card.seal == 'Purple' and not context.blueprint then
                 holo_card_upgrade(card)
             end
         elseif context.joker_main then
@@ -524,9 +523,9 @@ Wah_Joker{ -- Ina: WAH 10
     pos = {y=2,x=0},
 
     calculate = function(self, card, context)
-        if context.draw_from_deck_to_hand and context.drawn_card.facing == 'front' and not context.blueprint then
+        if context.hololive_drawn_card and context.hololive_drawn_card.facing == 'front' and not context.blueprint then
             if Holo.chance('We Are Hidden', card.ability.extra.hidden) then
-                context.drawn_card:flip()
+                context.hololive_drawn_card:flip()
             end
         elseif context.individual and context.cardarea == G.hand and not context.end_of_round then
             if context.other_card.facing == 'back' then

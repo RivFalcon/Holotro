@@ -19,52 +19,30 @@ last_spectral = nil,
 [patches.pattern]
 target = "functions/misc_functions.lua"
 pattern = "if card.config.center.set == 'Tarot' or card.config.center.set == 'Planet' then"
-position = "before"
+position = "at"
 match_indent = true
 payload = '''
-if card.config.center.set == 'Tarot' then 
-    G.E_MANAGER:add_event(Event({
-    trigger = 'immediate',
-    func = function()
-        G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = function()
+local last_used_set = card.config.center.set
+if last_used_set == 'Tarot' then 
+    G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
+        G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
             G.GAME.last_tarot = card.config.center_key
-            return true
-        end
-        }))
-        return true
-    end
-    }))
+        return true end}))
+    return true end}))
 end
-if card.config.center.set == 'Planet' then 
-    G.E_MANAGER:add_event(Event({
-    trigger = 'immediate',
-    func = function()
-        G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = function()
+if last_used_set == 'Planet' then 
+    G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
+        G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
             G.GAME.last_planet = card.config.center_key
-            return true
-        end
-        }))
-        return true
-    end
-    }))
+        return true end}))
+    return true end}))
 end
-if card.config.center.set == 'Spectral' then 
-    G.E_MANAGER:add_event(Event({
-    trigger = 'immediate',
-    func = function()
-        G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = function()
+if last_used_set == 'Spectral' then 
+    G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
+        G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
             G.GAME.last_spectral = card.config.center_key
-            return true
-        end
-        }))
-        return true
-    end
-    }))
+        return true end}))
+    return true end}))
 end
+if last_used_set == 'Tarot' or last_used_set == 'Planet' then
 '''

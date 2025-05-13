@@ -105,6 +105,12 @@ Holo.Relic_Joker{ -- Gigi Murin
     end
 }
 
+SMODS.Sound{
+    key = 'sound_Ceci_Durable',
+    path = 'Ceci_Durable.ogg',
+    -- source: https://pixabay.com/sound-effects/glass-knock-4-189099/
+}
+
 Holo.Relic_Joker{ -- Cecilia Immergreen
     member = "Ceci",
     key = "Relic_Ceci",
@@ -158,9 +164,11 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
                     }))
                 end
             end
-        elseif context.shatter_check and not context.blueprint then
-            holo_card_upgrade(card)
-            return {durable=true}
+        elseif context.hololive_shatter_card then
+            if SMODS.has_enhancement(context.hololive_shatter_card, 'm_glass') and not context.blueprint then
+                holo_card_upgrade(card)
+                return {durable=true}
+            end
         elseif context.joker_main then
             card:juice_up()
             return {

@@ -70,7 +70,7 @@ Holo.Relic_Joker{ -- Koseki Bijou
     loc_txt = {
         name = "Jewel Crown of the Ancient Rock",
         text = {
-            '{C:attention}Stone cards{} become {C:attention}Rock Hard{},',
+            '{C:attention}Stone cards{} become {C:attention}#3#{},',
             'permanently gain {C:chips}+#1#{} chips when scored.',
             'Chip gain increases by {C:chips}+#2#{} chips',
             'per {C:tarot}The Tower{} used.',
@@ -90,7 +90,8 @@ Holo.Relic_Joker{ -- Koseki Bijou
         local cae = card.ability.extra
         info_queue[#info_queue+1] = G.P_CENTERS.c_tower
         return { vars = {
-            cae.bonus_mod, cae.bonus_mod_mod
+            cae.bonus_mod, cae.bonus_mod_mod,
+            SMODS.current_mod.config.allow_profanity and 'Rock Hard' or 'More Solid',
         } }
     end,
 
@@ -196,8 +197,8 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
                     colour = Holo.C.Fuwawa
                 }
             end
-        elseif context.hit_play and not context.blueprint then
-            local _rank = context.played_card:get_id()
+        elseif context.hololive_played_card and not context.blueprint then
+            local _rank = context.hololive_played_card:get_id()
             if (_rank == 14)or(_rank == 9)or(_rank == 7)or(_rank == 5)or(_rank == 3) then
                 if holo_card_counting(card) then
                     holo_card_upgrade(card)
@@ -256,8 +257,8 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
                     colour = Holo.C.Mococo
                 }
             end
-        elseif context.hit_play and not context.blueprint then
-            local _rank = context.played_card:get_id()
+        elseif context.hololive_played_card and not context.blueprint then
+            local _rank = context.hololive_played_card:get_id()
             if (_rank == 10)or(_rank == 8)or(_rank == 6)or(_rank == 4)or(_rank == 2) then
                 if holo_card_counting(card) then
                     holo_card_upgrade(card)

@@ -30,8 +30,8 @@ function holo_ctx(context)
     -- Shop
     if context.reroll_shop then return 'shop reroll' end
     if context.buying_card then return 'buy a card' end
-    if context.buying_voucher then return 'buy a voucher' end
-    if context.buying_booster_pack then return 'buy a booster pack' end
+    if context.hololive_buying_voucher then return 'buy a voucher' end
+    if context.hololive_buying_booster then return 'buy a booster pack' end
     if context.open_booster then return 'open a booster pack' end
     if context.skipping_booster then return 'skip a booster pack' end
     if context.selling_card then return 'sell a card' end
@@ -163,11 +163,7 @@ end
 
 function Holo.prob_norm()
     local _prob = {norm = G.GAME.probabilities.normal}
-    if G.jokers and G.jokers.cards then
-        for _,J in ipairs(G.jokers.cards) do
-            J:calculate_joker({calc_prob = true, prob = _prob})
-        end
-    end
+    -- insert probability manipulations
     return _prob.norm
 end
 function Holo.chance(seed, odds)
@@ -274,15 +270,98 @@ function Holo.try_add_consumeable(_key, _neg)
     end
 end
 
+function Holo.juice_on_use(card)
+    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.4,func = function()
+        play_sound('tarot1')
+        card:juice_up(0.3, 0.5)
+    return true end}))
+end
+
+function Holo.flip_cards_in_hand(mode, unflip)
+    local pool = {}
+    if mode=='all' then
+        pool = G.hand.cards
+    elseif mode=='high' then
+        pool = G.hand.highlighted
+    elseif mode=='low' then
+        for _,c in ipairs(G.hand.cards)do
+            local is_low = true
+            for _,h in ipairs(G.hand.highlighted)do
+                if c==h then
+                    is_low = false
+                    break
+                end
+            end
+            if is_low then
+                pool[#pool+1] = c
+            end
+        end
+    end
+    for i,v in ipairs(pool) do
+        local percent = 1+((i-0.999)/(#pool-0.998) - 0.5)*0.3*(unflip and 1 or -1)
+        G.E_MANAGER:add_event(Event({trigger='after',delay=0.15,func=function()
+            v:flip()
+            play_sound('card1', percent, unflip and 0.6 or nil)
+            v:juice_up(0.3, 0.3)
+        return true end}))
+    end
+    return pool
+end
+
+function Holo.delayed_destruction(destroyed_cards)
+    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.2,func = function()
+        for i,_card in ipairs(destroyed_cards) do
+            if SMODS.shatters(_card) then
+                _card:shatter()
+            else
+                _card:start_dissolve(nil, i == 1)
+            end
+        end
+    return true end}))
+end
+
+function Holo.unhighlight_all()
+    G.E_MANAGER:add_event(Event({trigger='after',delay=0.2,func=function()G.hand:unhighlight_all()return true end}))
+end
+
+Holo.rank_suffice = {nil,'2','3','4','5','6','7','8','9','10','Jack','Queen','King','Ace'}
+Holo.rank_strings = {nil,'2','3','4','5','6','7','8','9','T','J','Q','K','A'}
+Holo.rank_FuwaMoco = {nil,'even','odd','even','odd','even','odd','even','odd','even',nil,nil,nil,'odd'}
+function Holo.change_rank(card, rank)
+    if not Holo.rank_suffice[rank] then return end
+    assert(SMODS.change_base(card, nil, Holo.rank_suffice[rank]))
+end
+
 ---- Hooks ----
 
 Holo.hooks = {}
 
-Holo.hooks.SMODS_always_scores = SMODS.always_scores
-function SMODS.always_scores(card)
-    if Holo.hooks.SMODS_always_scores(card)then return true end
-    if next(find_joker('j_hololive_Relic_Biboo')) and not card:is_face() then return true end
-    return false
+Holo.hooks.Card_calculate_joker = Card.calculate_joker
+function Card:calculate_joker(context)
+    local ret = Holo.hooks.Card_calculate_joker(self, context)
+    if ret then return ret end
+    if self.ability.set == "Tarot" and not self.debuff then
+        if context.individual and context.cardarea == G.play and G.GAME.used_vouchers.v_hololive_suit_bouquet then
+            if self.config.suit_conv then
+                if context.other_card:is_suit(self.config.suit_conv) then
+                    return {
+                        Xmult = G.P_CENTERS.v_hololive_suit_bouquet.config.extra,
+                    }
+                end
+            end
+        end
+        if context.repetition and G.GAME.used_vouchers.v_hololive_mod_anvil then
+            if self.config.mod_conv then
+                local _mod = self.config.mod_conv
+                if SMODS.has_enhancement(context.other_card, _mod) then
+                    return {
+                        repetitions = 1,
+                        sound = 'hololive_sound_Kaela_Anvil',
+                    }
+                end
+            end
+        end
+    end
 end
 
 Holo.hooks.Card_hover = Card.hover
@@ -290,29 +369,53 @@ function Card:hover()
     if self.ability.name == 'j_hololive_Meme_Kaela_DOOT' then
         play_sound('hololive_sound_Kaela_Doot')
     end
-    Holo.hooks.Card_hover(self)
+    return Holo.hooks.Card_hover(self)
+end
+
+Holo.hooks.Card_open = Card.open
+function Card:open()
+    if self.ability.set == "Booster" then
+        SMODS.calculate_context({hololive_buying_booster = true, card = self})
+    end
+    return Holo.hooks.Card_open(self)
+end
+
+Holo.hooks.Card_redeem = Card.redeem
+function Card:redeem()
+    if self.ability.set == "Voucher" then
+        SMODS.calculate_context({hololive_buying_voucher = true, card = self})
+    end
+    return Holo.hooks.Card_redeem(self)
+end
+
+Holo.hooks.Card_shatter = Card.shatter
+function Card:shatter()
+    local card = self
+    local flag = SMODS.calculate_context({hololive_shatter_card=card})
+    if flag.durable then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                card:juice_up()
+                play_sound('hololive_sound_Ceci_Durable')
+                return true
+            end
+        }))
+    else
+        Holo.hooks.Card_shatter(self)
+    end
 end
 
 Holo.hooks.level_up_hand = level_up_hand
 function level_up_hand(card, hand, instant, amount)
     Holo.hooks.level_up_hand(card, hand, instant, amount)
-    local _context = {level_up_hand = hand, level_up_amount = amount or 1}
-    for _,J in ipairs(G.jokers.cards) do
-        J:calculate_joker(_context)
-    end
+    SMODS.calculate_context({hololive_level_up_hand = hand, hololive_level_up_amount = amount or 1})
 end
 
-Holo.hooks.SMODS_shatters = SMODS.shatters
-function SMODS.shatters(card)
-    if Holo.hooks.SMODS_shatters(card) then
-        local flag = SMODS.calculate_context({shatter_check=true, shatter_card=card})
-        if not flag.durable then
-            return true
-        else
-            card:juice_up()
-            --play_sound('hololive_Ceci_Durable')
-        end
-    end
+Holo.hooks.SMODS_always_scores = SMODS.always_scores
+function SMODS.always_scores(card)
+    if Holo.hooks.SMODS_always_scores(card)then return true end
+    if next(find_joker('j_hololive_Relic_Biboo')) and not card:is_face() then return true end
+    return false
 end
 
 Holo.hooks.SMODS_Joker_inject = function(Self)

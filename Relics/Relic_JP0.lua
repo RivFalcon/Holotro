@@ -287,7 +287,8 @@ Holo.Relic_Joker{ -- AZKi
     loc_txt = {
         name = "Mic and Map of the Navigator Diva",
         text = {
-            'Each played card with {C:diamonds}Diamond{} suit',
+            'Each played card',
+            'with {C:diamonds}Diamond{} suit',
             'is retriggered {C:attention}#1#{} times.',
             'Gain {C:attention}1{} retrigger if',
             '{C:attention}first drawn hand{} of round',
@@ -307,7 +308,7 @@ Holo.Relic_Joker{ -- AZKi
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
         if cae.base.value == nil then
-            self.roll_for_rank(cae)
+            self.roll_for_rank(card)
         end
         return {
             vars = {
@@ -321,21 +322,24 @@ Holo.Relic_Joker{ -- AZKi
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
 
-    roll_for_rank = function(cae)
+    roll_for_rank = function(card)
         local pool = {}
-        local _tick = false
         for _,v in ipairs(G.playing_cards or {})do
             if v:is_suit('Diamonds') and not SMODS.has_no_rank(v) then
                 pool[#pool+1] = v.base
-                _tick = true
             end
         end
-        if _tick then
-            cae.base = pseudorandom_element(pool, pseudoseed('AZKi'))
+        if pool[1] then
+            card.ability.extra.base = pseudorandom_element(pool, pseudoseed('AZKi'))
         else
-            cae.base = {value='Ace', id = 14}
+            card.ability.extra.base = {value='Ace', id = 14}
         end
     end,
+    add_to_deck = function(self, card, from_debuff)
+        if not from_debuff then
+            self.roll_for_rank(card)
+        end
+    end, 
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.repetition and context.cardarea == G.play then
@@ -361,7 +365,7 @@ Holo.Relic_Joker{ -- AZKi
                 end
             end
         elseif context.end_of_round and context.cardarea == G.jokers then
-            self.roll_for_rank(cae)
+            self.roll_for_rank(card)
         end
     end
 }

@@ -285,6 +285,13 @@ return {
                     'If you see some {C:dark_edition}forbidden {C:spectral}Spectrals{},',
                     'no, they are intentional features.'
                 }
+            },
+            holo_info_rat_index={
+                name="Rat Index",
+                text={
+                    'Probability Multiplier.',
+                    '{C:inactive}(Currently {C:green}X#1# {C:inactive}Chance)'
+                }
             }
         },
     },
