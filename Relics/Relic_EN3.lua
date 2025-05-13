@@ -91,7 +91,7 @@ Holo.Relic_Joker{ -- Koseki Bijou
         info_queue[#info_queue+1] = G.P_CENTERS.c_tower
         return { vars = {
             cae.bonus_mod, cae.bonus_mod_mod,
-            SMODS.current_mod.config.allow_profanity and 'Rock Hard' or 'More Solid',
+            Holo.mod_config.allow_profanity and 'Rock Hard' or 'More Solid',
         } }
     end,
 
