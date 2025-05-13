@@ -31,16 +31,32 @@ SMODS.Voucher{ -- Stage Response
     loc_txt = {
         name = 'Stage Response',
         text = {
-            '{V:1}Fan{} cards in your',
-            'consumeable area',
+            '{V:2}Fan{} cards in your',
+            '{C:blue}consumeable area',
             'will {C:attention}retrigger{} the effect',
-            'of their oshi\'s {V:2}Relic{}.'
+            'of their {V:1}oshi\'s {V:3}Relic{}.'
+        }
+        ,unlock={
+            'Use a {V:2}Fan{} card',
+            'when the {V:3}Relic',
+            'of their {V:1}oshi',
+            'is present.'
         }
     },
     loc_vars = function(self, info_queue, card)
         return { vars = {
             colours = {
                 Holo.C.Hololive,
+                Holo.C.Hololive_bright,
+                Holo.C.Hololive_dark,
+            }
+        }}
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = {
+            colours = {
+                Holo.C.Hololive,
+                Holo.C.Hololive_bright,
                 Holo.C.Hololive_dark,
             }
         }}
@@ -65,7 +81,7 @@ SMODS.Voucher{ -- Flower
     },
     atlas = 'holo_vouchers',
     pos = {x=1,y=0},
-    apply_to_run = function (self, card, from_debuff)
+    redeem = function (self, card, from_debuff)
         G.GAME.suit_tarots = {}
         for _,tarot in ipairs(G.P_CENTER_POOLS.Tarot)do
             if tarot.config.suit_conv then
@@ -106,6 +122,11 @@ SMODS.Voucher{ -- Bouquet
             'in your {C:blue}consumeable area',
             'give {X:mult,C:white}X#1#{} Mult when cards with',
             'their {C:attention}specified suit{} scored.'
+        }
+        ,unlock={
+            'Have your {C:blue}full deck',
+            'consist of {C:dark_edition}only',
+            '{C:dark_edition}one{C:attention} suit{}.'
         }
     },
     config = {extra = 1.2},
@@ -179,6 +200,11 @@ SMODS.Voucher{ -- Anvil
             'in your {C:blue}consumeable area',
             'retrigger playing cards {C:red}once',
             'for their {C:attention}specified enhancements{}.'
+        }
+        ,unlock={
+            'Have your {C:blue}full deck',
+            'consist of {C:dark_edition}only',
+            '{C:dark_edition}one{C:attention} enhancement{}.'
         }
     },
     unlocked = false,
