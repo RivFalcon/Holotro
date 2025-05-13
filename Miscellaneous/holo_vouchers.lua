@@ -12,11 +12,8 @@ SMODS.Voucher{ -- Stage Call
         text = {
             '{V:1}Fan{} cards appear',
             '{C:attention}2X{} more frequently',
-            'in the shop.',
-            '{C:inactive}(Placehold object,',
-            '{C:inactive}currently does nothing.)'
+            'in the shop.'
         }
-        ,boxes={3,2}
     },
     loc_vars = function(self, info_queue, card)
         return { vars = {
@@ -25,10 +22,9 @@ SMODS.Voucher{ -- Stage Call
     end,
     atlas = 'holo_vouchers',
     pos = {x=0,y=0},
-    in_pool = function (self, args)
-        return false
-    end,
-
+    redeem = function (self, card)
+        G.GAME.holo_fandom_rate = G.GAME.holo_fandom_rate * 2
+    end
 }
 SMODS.Voucher{ -- Stage Response
     key = 'stage_response',
@@ -38,11 +34,8 @@ SMODS.Voucher{ -- Stage Response
             '{V:1}Fan{} cards in your',
             'consumeable area',
             'will {C:attention}retrigger{} the effect',
-            'of their oshi\'s {V:2}Relic{}.',
-            '{C:inactive}(Placehold object,',
-            '{C:inactive}currently does nothing.)'
+            'of their oshi\'s {V:2}Relic{}.'
         }
-        ,boxes={4,2}
     },
     loc_vars = function(self, info_queue, card)
         return { vars = {
@@ -57,10 +50,6 @@ SMODS.Voucher{ -- Stage Response
     unlock_condition = {type = 'v_hololive_stage_response'},
     atlas = 'holo_vouchers',
     pos = {x=0,y=1},
-    in_pool = function (self, args)
-        return false
-    end,
-
 }
 
 SMODS.Voucher{ -- Flower
@@ -69,14 +58,14 @@ SMODS.Voucher{ -- Flower
         name = "Flower",
         text = {
             '{C:attention}Arcana Packs{} always contain',
-            'the Suit-converting {C:tarot}Tarot card',
+            'the Suit-converting {C:tarot}Tarot{} card',
             'for the {C:attention}most common{} suit',
             'in your {C:blue}full deck{}. Flower.'
         }
     },
     atlas = 'holo_vouchers',
     pos = {x=1,y=0},
-    redeem = function (self, card, from_debuff)
+    apply_to_run = function (self, card, from_debuff)
         G.GAME.suit_tarots = {}
         for _,tarot in ipairs(G.P_CENTER_POOLS.Tarot)do
             if tarot.config.suit_conv then
@@ -119,7 +108,7 @@ SMODS.Voucher{ -- Bouquet
             'their {C:attention}specified suit{} scored.'
         }
     },
-    config = {extra = 1.1},
+    config = {extra = 1.2},
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra }}
     end,
@@ -189,7 +178,7 @@ SMODS.Voucher{ -- Anvil
             'Enhancing {C:tarot}Tarot cards',
             'in your {C:blue}consumeable area',
             'retrigger playing cards {C:red}once',
-            'for their specific {C:attention}enhancements{}.'
+            'for their {C:attention}specified enhancements{}.'
         }
     },
     unlocked = false,

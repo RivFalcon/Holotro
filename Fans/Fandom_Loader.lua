@@ -34,11 +34,9 @@ Holo.Fan_card = SMODS.Consumable:extend{
         return false
     end,
     calculate = function(self, card, context)
-        if G.GAME.used_vouchers.v_hololive_stage_response then
-            
-        end
-        for _,J in ipairs(find_joker('j_hololive_Relic_'..self.member))do
-            SMODS.calculate_effect(SMODS.blueprint_effect(card, J, context)or{}, card)
+        local oshi_relics = find_joker('j_hololive_Relic_'..self.member)
+        if G.GAME.used_vouchers.v_hololive_stage_response and next(oshi_relics) then
+            return SMODS.blueprint_effect(card, oshi_relics[1], context)
         end
     end
 }
