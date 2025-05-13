@@ -198,8 +198,8 @@ SMODS.Voucher{ -- Anvil
         text = {
             'Enhancing {C:tarot}Tarot cards',
             'in your {C:blue}consumeable area',
-            'retrigger playing cards {C:red}once',
-            'for their {C:attention}specified enhancements{}.'
+            '{C:attention}retrigger{} playing cards with',
+            'their {C:attention}specified enhancements{}.'
         }
         ,unlock={
             'Have your {C:blue}full deck',
