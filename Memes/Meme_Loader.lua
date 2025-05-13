@@ -10,7 +10,7 @@ Holo.Meme_Joker = SMODS.Joker:extend{
     end
 }
 
-memes_files = {
+local memes_files = {
     "JP0",
     "JP1",
     "JP2",

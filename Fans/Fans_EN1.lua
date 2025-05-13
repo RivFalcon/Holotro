@@ -28,7 +28,8 @@ Holo.Fan_card{ -- Dead Beats
         }}
     end,
     effect = "Card Conversion",
-    pos={y=8,x=0},
+    atlas='holo_fandoms_3',
+    pos={y=0,x=0},
 
     use = function(self, card, area, copier)
         update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
@@ -84,7 +85,8 @@ Holo.Fan_card{ -- KFP
         }}
     end,
     effect = "Card Removal",
-    pos={y=8,x=1},
+    atlas='holo_fandoms_3',
+    pos={y=0,x=1},
 
     use = function(self, card, area, copier)
         local destroyed_cards = {}
@@ -129,7 +131,8 @@ Holo.Fan_card{ -- Takodachi
         return { main_end = main_end }
     end,
     effect = "Card Creation",
-    pos={y=8,x=2},
+    atlas='holo_fandoms_3',
+    pos={y=0,x=2},
 
     can_use = function(self, card)
         if (#G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables)
@@ -162,7 +165,8 @@ Holo.Fan_card{ -- Chumbuds
         }
     },
     effect = "Rank Conversion",
-    pos={y=8,x=3},
+    atlas='holo_fandoms_3',
+    pos={y=0,x=3},
 
     can_use = function(self, card)
         if #G.hand.highlighted == 1 then
@@ -208,7 +212,8 @@ Holo.Fan_card{ -- Teamates
             '{C:dark_edition}Edition{}, and {C:dark_edition}Seal{}.'
         }
     },
-    pos={y=8,x=4},
+    atlas='holo_fandoms_3',
+    pos={y=0,x=4},
 
     can_use = function(self, card)
         if #G.hand.highlighted == 1 then

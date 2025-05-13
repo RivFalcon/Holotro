@@ -8,9 +8,12 @@ SMODS.ConsumableType{
         name = "Fandom",
         collection = "Hololive Fandom",
         undiscovered = {
-            name = "Fandom of ???",
+            name = "Not Discovered",
             text = {
-                "?????",
+                'Purchase or use',
+                'this card in an',
+                'unseeded run to',
+                'learn what it does.'
             }
         }
     },
@@ -18,8 +21,20 @@ SMODS.ConsumableType{
     shop_rate = 0,
 }
 Holo.Atlas_7195{
-    key = 'hololive_fandoms',
-    path = 'textures/holo_fandoms.png'
+    key = 'holo_fandoms_1',
+    path = 'textures/holo_fandoms_1_012G.png'
+}
+Holo.Atlas_7195{
+    key = 'holo_fandoms_2',
+    path = 'textures/holo_fandoms_2_34A5.png'
+}
+Holo.Atlas_7195{
+    key = 'holo_fandoms_3',
+    path = 'textures/holo_fandoms_3_MRPXH.png'
+}
+Holo.Atlas_7195{
+    key = 'holo_fandoms_4',
+    path = 'textures/holo_fandoms_4_ARJF.png'
 }
 Holo.Fan_card = SMODS.Consumable:extend{
     set = 'holo_fandom',
@@ -28,8 +43,6 @@ Holo.Fan_card = SMODS.Consumable:extend{
     in_pool = function(self, args)
         return false
     end,
-    atlas = 'hololive_fandoms',
-    pos = {x=0,y=0},
     keep_on_use = function(self, card)
         return false
     end,
@@ -41,9 +54,27 @@ Holo.Fan_card = SMODS.Consumable:extend{
     end
 }
 
-fandom_files = {
+local fandom_files = {
+    --"JP0",
+    --"JP1",
+    --"JP2",
+    --"JPG",
+
+    --"JP3",
+    --"JP4",
+    --"ID1",
+    --"JP5",
+
     "EN1",
+    --"ID2",
     "EN2",
+    --"JPX",
+    --"ID3",
+
+    --"EN3",
+    --"DI1",
+    --"EN4",
+    --"DI2",
 }
 for _,file in ipairs(fandom_files) do assert(SMODS.load_file("Fans/Fans_"..file..".lua"))()end
 ----

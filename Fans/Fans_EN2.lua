@@ -29,7 +29,8 @@ Holo.Fan_card{ -- IRyStocrat
         }
     end,
     effect = "Consumeable Payout",
-    pos={y=9,x=4},
+    atlas='holo_fandoms_3',
+    pos={y=1,x=4},
 
     can_use = function (self, card)
         return true
@@ -85,7 +86,8 @@ Holo.Fan_card{ -- Sanalite
         return { main_end = main_end }
     end,
     effect = "Card Creation",
-    pos={y=10,x=0},
+    atlas='holo_fandoms_3',
+    pos={y=2,x=0},
 
     can_use = function(self, card)
         if G.GAME.last_planet then return true end
@@ -116,7 +118,8 @@ Holo.Fan_card{ -- Sapling
         }
     },
     effect = "Rank Conversion",
-    pos={y=10,x=1},
+    atlas='holo_fandoms_3',
+    pos={y=2,x=1},
 
     can_use = function (self, card)
         if not G.hand or not G.hand.highlighted then return false end
@@ -158,7 +161,8 @@ Holo.Fan_card{ -- Kronie
     },
     config = {suit_conv = 'Spades'},
     effect = "Suit Conversion",
-    pos={y=10,x=2},
+    atlas='holo_fandoms_3',
+    pos={y=2,x=2},
 
     can_use = function(self, card)
         if G.hand and G.hand.cards and #G.hand.cards>0 then
@@ -200,7 +204,8 @@ Holo.Fan_card{ -- Hooman
         return {vars={card.ability.max_highlighted}}
     end,
     effect = "Card Removal",
-    pos={y=10,x=3},
+    atlas='holo_fandoms_3',
+    pos={y=2,x=3},
 
     can_use = function (self, card)
         if #G.hand.highlighted > card.ability.max_highlighted then
@@ -260,7 +265,8 @@ Holo.Fan_card{ -- BRat
             }
         }
     end,
-    pos={y=10,x=4},
+    atlas='holo_fandoms_3',
+    pos={y=2,x=4},
 
     can_use = function (self, card)
         return true
