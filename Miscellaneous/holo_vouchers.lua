@@ -173,7 +173,7 @@ SMODS.Sound{
 SMODS.Voucher{ -- Anvil
     key = 'mod_anvil',
     loc_txt = {
-        name = "Anvil",
+        name = "Enhanced Anvil",
         text = {
             'Enhancing {C:tarot}Tarot cards',
             'in your {C:blue}consumeable area',
