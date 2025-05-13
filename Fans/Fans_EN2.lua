@@ -5,7 +5,7 @@ Holo.Fan_card{ -- IRyStocrat
     order = 45,
     key = 'fans_irystocrat',
     loc_txt = {
-        name = 'IRyStocrat',
+        name = 'Irystocrat',
         text = {
             'Gives {V:1}#3#{} times the total',
             'sell value of all',
@@ -59,9 +59,9 @@ Holo.Fan_card{ -- IRyStocrat
 Holo.Fan_card{ -- Sanalite
     member = 'Sana',
     order = 46,
-    key = 'fans_sanalite',
+    key = 'fans_sanallite',
     loc_txt = {
-        name = 'Sanalite',
+        name = 'Sanallite',
         text = {
             'Creates {C:attention}2 {C:dark_edition}Negative{} copies',
             'of the last {C:planet}Planet{} card',
