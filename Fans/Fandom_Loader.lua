@@ -43,6 +43,9 @@ Holo.Fan_card = SMODS.Consumable:extend{
     in_pool = function(self, args)
         return false
     end,
+    set_badges = function(self, card, badges)
+        Holo.set_member_badges(card, badges)
+    end,
     keep_on_use = function(self, card)
         return false
     end,

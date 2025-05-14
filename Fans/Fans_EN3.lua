@@ -51,6 +51,7 @@ Holo.Fan_card{ -- Novelite
                 return true
             end
         }))
+        holo_fan_cheers(self.member)
     end
 }
 
@@ -75,6 +76,23 @@ Holo.Fan_card{ -- Pebble
     effect = "Enhance",
     atlas='holo_fandoms_4',
     pos={y=0,x=1},
+
+    use = function (self, card, area, copier)
+        update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+        Holo.juice_on_use(card)
+        Holo.flip_cards_in_hand('high')
+        delay(0.2)
+    
+        for i=1, #G.hand.highlighted do
+            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+                G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.mod_conv])
+            return true end }))
+        end
+        Holo.flip_cards_in_hand('high', true)
+        Holo.unhighlight_all()
+        delay(0.5)
+        holo_fan_cheers(self.member)
+    end
 }
 
 Holo.Fan_card{ -- Jailbird
@@ -128,6 +146,7 @@ Holo.Fan_card{ -- Jailbird
                 return true
             end
         }))
+        holo_fan_cheers(self.member)
     end
 }
 
@@ -193,6 +212,7 @@ Holo.Fan_card{ -- Ruffian (B)
             end
             playing_card_joker_effects(cards)
         return true end }))
+        holo_fan_cheers(self.member)
     end
 }
 
@@ -258,6 +278,7 @@ Holo.Fan_card{ -- Ruffian (P)
             end
             playing_card_joker_effects(cards)
         return true end }))
+        holo_fan_cheers(self.member)
     end
 }
 ----

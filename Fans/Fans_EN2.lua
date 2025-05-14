@@ -53,6 +53,7 @@ Holo.Fan_card{ -- IRyStocrat
             ease_dollars(self.ability.money, true)
             return true end }))
         delay(0.6)
+        holo_fan_cheers(self.member)
     end
 }
 
@@ -101,6 +102,7 @@ Holo.Fan_card{ -- Sanalite
             end
         return true end}))
         delay(0.6)
+        holo_fan_cheers(self.member)
     end
 }
 
@@ -144,6 +146,7 @@ Holo.Fan_card{ -- Sapling
         Holo.flip_cards_in_hand('low',true)
         Holo.unhighlight_all()
         delay(0.5)
+        holo_fan_cheers(self.member)
     end
 }
 
@@ -180,6 +183,7 @@ Holo.Fan_card{ -- Kronie
         return true end }))
         Holo.flip_cards_in_hand('all',true)
         delay(0.5)
+        holo_fan_cheers(self.member)
     end
 }
 
@@ -240,6 +244,7 @@ Holo.Fan_card{ -- Hooman
             G.from_boss_tag = true
             G.FUNCS.reroll_boss()
         end
+        holo_fan_cheers(self.member)
     end
 }
 
@@ -280,6 +285,7 @@ Holo.Fan_card{ -- BRat
             G.GAME.holo_rat_index = G.GAME.holo_rat_index + 1
             prob.normal = prob.normal * G.GAME.holo_rat_index
         return true end}))
+        holo_fan_cheers(self.member)
     end
 }
 

@@ -56,6 +56,7 @@ Holo.Fan_card{ -- Dead Beats
         Holo.flip_cards_in_hand('high',true)
         Holo.unhighlight_all()
         delay(0.5)
+        holo_fan_cheers(self.member)
     end,
 }
 
@@ -101,6 +102,7 @@ Holo.Fan_card{ -- KFP
         Holo.delayed_destruction(destroyed_cards, fry)
         delay(0.3)
         SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
+        holo_fan_cheers(self.member)
     end
 }
 
@@ -150,6 +152,7 @@ Holo.Fan_card{ -- Takodachi
             end
         return true end}))
         delay(0.6)
+        holo_fan_cheers(self.member)
     end
 }
 
@@ -199,6 +202,7 @@ Holo.Fan_card{ -- Chumbuds
         Holo.flip_cards_in_hand('low',true)
         Holo.unhighlight_all()
         delay(0.5)
+        holo_fan_cheers(self.member)
     end
 }
 
@@ -262,6 +266,7 @@ Holo.Fan_card{ -- Teamates
             end
             playing_card_joker_effects(cards)
         return true end }))
+        holo_fan_cheers(self.member)
     end
 }
 

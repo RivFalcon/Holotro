@@ -76,6 +76,17 @@ function holo_card_upgrade_by_consumeable(card, context, consumeable_key)
     holo_card_upgrade(card)
 end
 
+function holo_fan_cheers(_member)
+    local _cheer = false
+    for _,J in ipairs(find_joker('j_hololive_Relic_'.._member))do
+        holo_card_upgrade(J)
+        _cheer = true
+    end
+    if _cheer then
+        check_for_unlock({type = 'v_hololive_stage_response'})
+    end
+end
+
 function holo_card_counting(card, decr)
     local cae = Holo.cae(card)
     if cae.count_args == nil then return false end
@@ -239,16 +250,6 @@ function Holo.blueprint_update(card, joker_to_copy, extra_criteria)
         card.ability.blueprint_compat = 'compatible'
     else
         card.ability.blueprint_compat = 'incompatible'
-    end
-end
-
-function Holo.call_and_response(card, context, _member)
-    if Holo.nil_check(card,{'config','center'}).member == nil then return end
-    local is_Relic = (card.config.center.rarity=='hololive_Relic')
-    local oshi_senpai = Holo.call_and_response_chart[card.config.center.member]
-    _member = _member or(is_Relic and oshi_senpai)or card.config.center.member
-    for _,J in ipairs(find_joker('j_hololive_Relic_'.._member))do
-        SMODS.calculate_effect(SMODS.blueprint_effect(card, J, context)or{}, card)
     end
 end
 
