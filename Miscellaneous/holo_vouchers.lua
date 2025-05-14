@@ -140,6 +140,7 @@ SMODS.Voucher{ -- Bouquet
     unlocked = false,
     requires = {'v_hololive_suit_flower'},
     check_for_unlock = function (self, args)
+        if not G.playing_cards then return end
         local counter = {}
         for _,v in ipairs(G.playing_cards)do
             for suit,_ in ipairs(SMODS.Suits)do
@@ -230,6 +231,7 @@ SMODS.Voucher{ -- Anvil
     unlocked = false,
     requires = {'v_hololive_mod_book'},
     check_for_unlock = function (self, args)
+        if not G.playing_cards then return end
         local counter = {}
         for _,v in ipairs(G.playing_cards)do
             for _,m in ipairs(G.P_CENTER_POOLS.Enhanced)do
