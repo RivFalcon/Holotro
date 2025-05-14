@@ -308,7 +308,8 @@ function Holo.flip_cards_in_hand(mode, unflip)
     return pool
 end
 
-function Holo.delayed_destruction(destroyed_cards)
+function Holo.delayed_destruction(destroyed_cards, func)
+    func = func or function()end
     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.2,func = function()
         for i,_card in ipairs(destroyed_cards) do
             if SMODS.shatters(_card) then
@@ -316,6 +317,7 @@ function Holo.delayed_destruction(destroyed_cards)
             else
                 _card:start_dissolve(nil, i == 1)
             end
+            func()
         end
     return true end}))
 end
