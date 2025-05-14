@@ -92,31 +92,31 @@ SMODS.Voucher{ -- Flower
                 G.GAME.suit_tarots[#G.GAME.suit_tarots+1] = tarot.key
             end
         end
-    end,
-    roll_for_tarot = function()
-        local _counter = {}
-        for _,v in ipairs(G.playing_cards) do
-            for _,suit_tarot in ipairs(G.GAME.suit_tarots)do
-                _counter[suit_tarot] = _counter[suit_tarot] or 0
-                if v:is_suit(G.P_CENTERS[suit_tarot].config.suit_conv)then
-                    _counter[suit_tarot] = _counter[suit_tarot] + 1
-                end
-            end
-        end
-        local _tally = 0
-        for _, _count in pairs(_counter)do
-            _tally = math.max(_count,_tally)
-        end
-        local most_common_suits_tarots = {}
-        for _suit_tarot, _count in pairs(_counter)do
-            if _count == _tally then
-                most_common_suits_tarots[#most_common_suits_tarots+1] = _suit_tarot
-            end
-        end
-        if #most_common_suits_tarots==1 then return most_common_suits_tarots[1] end
-        return pseudorandom_element(most_common_suits_tarots, pseudoseed('hololive_flower'))
     end
 }
+function Holo.roll_for_suit_tarot()
+    local _counter = {}
+    for _,v in ipairs(G.playing_cards) do
+        for _,suit_tarot in ipairs(G.GAME.suit_tarots)do
+            _counter[suit_tarot] = _counter[suit_tarot] or 0
+            if v:is_suit(G.P_CENTERS[suit_tarot].config.suit_conv)then
+                _counter[suit_tarot] = _counter[suit_tarot] + 1
+            end
+        end
+    end
+    local _tally = 0
+    for _, _count in pairs(_counter)do
+        _tally = math.max(_count,_tally)
+    end
+    local most_common_suits_tarots = {}
+    for _suit_tarot, _count in pairs(_counter)do
+        if _count == _tally then
+            most_common_suits_tarots[#most_common_suits_tarots+1] = _suit_tarot
+        end
+    end
+    if #most_common_suits_tarots==1 then return most_common_suits_tarots[1] end
+    return pseudorandom_element(most_common_suits_tarots, pseudoseed('hololive_flower'))
+end
 SMODS.Voucher{ -- Bouquet
     key = 'suit_bouquet',
     loc_txt = {
@@ -161,7 +161,6 @@ SMODS.Voucher{ -- Bouquet
     pos = {x=1,y=1},
 } -- Portulaca, Dicentra, Ipomoea alba, and Asters.
 
-
 SMODS.Voucher{ -- Book
     key = 'mod_book',
     loc_txt = {
@@ -184,29 +183,32 @@ SMODS.Voucher{ -- Book
         end
     end,
     roll_for_tarot = function()
-        local _counter = {}
-        for _,v in ipairs(G.playing_cards) do
-            for _,mod_tarot in ipairs(G.GAME.mod_tarots)do
-                _counter[mod_tarot] = _counter[mod_tarot] or 0
-                if SMODS.has_enhancement(v, G.P_CENTERS[mod_tarot].config.mod_conv) then
-                    _counter[mod_tarot] = _counter[mod_tarot] + 1
-                end
-            end
-        end
-        local _tally = 0
-        for _, _count in pairs(_counter)do
-            _tally = math.max(_count,_tally)
-        end
-        local most_common_mods_tarots = {}
-        for _mod_tarot, _count in pairs(_counter)do
-            if _count == _tally then
-                most_common_mods_tarots[#most_common_mods_tarots+1] = _mod_tarot
-            end
-        end
-        if #most_common_mods_tarots==1 then return most_common_mods_tarots[1] end
-        return pseudorandom_element(most_common_mods_tarots, pseudoseed('hololive_dish'))
     end
 }
+function Holo.roll_for_enhance_tarot()
+    if G.STAGE ~= G.STAGES.RUN then return end
+    local _counter = {}
+    for _,v in ipairs(G.playing_cards) do
+        for _,mod_tarot in ipairs(G.GAME.mod_tarots)do
+            _counter[mod_tarot] = _counter[mod_tarot] or 0
+            if SMODS.has_enhancement(v, G.P_CENTERS[mod_tarot].config.mod_conv) then
+                _counter[mod_tarot] = _counter[mod_tarot] + 1
+            end
+        end
+    end
+    local _tally = 0
+    for _, _count in pairs(_counter)do
+        _tally = math.max(_count,_tally)
+    end
+    local most_common_mods_tarots = {}
+    for _mod_tarot, _count in pairs(_counter)do
+        if _count == _tally then
+            most_common_mods_tarots[#most_common_mods_tarots+1] = _mod_tarot
+        end
+    end
+    if #most_common_mods_tarots==1 then return most_common_mods_tarots[1] end
+    return pseudorandom_element(most_common_mods_tarots, pseudoseed('hololive_enhancedbook'))
+end
 SMODS.Sound{
     key = 'sound_Kaela_Anvil',
     path = 'Kaela_Anvil.ogg'
