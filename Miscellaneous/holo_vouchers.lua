@@ -150,7 +150,7 @@ SMODS.Voucher{ -- Bouquet
             end
         end
         local full_deck_size = #G.playing_cards
-        for suit, count in pairs(t) do
+        for suit, count in pairs(counter) do
             if count == full_deck_size then
                 unlock_card(self)
                 return nil
@@ -241,7 +241,7 @@ SMODS.Voucher{ -- Anvil
             end
         end
         local full_deck_size = #G.playing_cards
-        for suit, count in pairs(t) do
+        for suit, count in pairs(counter) do
             if count == full_deck_size then
                 unlock_card(self)
                 return nil
