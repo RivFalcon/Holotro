@@ -45,17 +45,21 @@ SMODS.Tag{
         name = 'Spared Discard Tag',
         text = {
             '{C:red}+1{} Discard',
-            'when {C:red}0{} discard remains.'
+            'when {C:red}#1#{} discard remains.'
         }
     },
+    config = {remained_discard=0},
+    loc_vars = function (self, info_queue, card)
+        return {vars={card.ability.remained_discard}}
+    end,
     atlas = 'tags_sparedtags', pos = { x = 0, y = 0 },
     min_ante = 3,
     apply = function (self, tag, context)
-        if (G.GAME.current_round.discards_left == 0)and not G.GAME.hololive_discard_spared then
+        if (G.GAME.current_round.discards_left==card.ability.remained_discard)and not G.GAME.hololive_discard_spared then
             G.GAME.hololive_discard_spared = true
             ease_discard(1)
             tag:yep(
-                '+1 '..localize('b_discard'),
+                '+1',
                 G.C.RED,
                 function()
                     play_sound('timpani')
@@ -73,17 +77,21 @@ SMODS.Tag{
         name = 'Spared Hand Tag',
         text = {
             '{C:blue}+1{} Hand',
-            'when {C:blue}1{} hand remains.'
+            'when {C:blue}#1#{} hand remains.'
         }
     },
+    config = {remained_hand=1},
+    loc_vars = function (self, info_queue, card)
+        return {vars={card.ability.remained_hand}}
+    end,
     atlas = 'tags_sparedtags', pos = { x = 1, y = 0 },
     min_ante = 3,
     apply = function (self, tag, context)
-        if (G.GAME.current_round.hands_left == 1)and not G.GAME.hololive_hand_spared then
+        if (G.GAME.current_round.hands_left==card.ability.remained_hand)and not G.GAME.hololive_hand_spared then
             G.GAME.hololive_hand_spared = true
             ease_hands_played(1)
             tag:yep(
-                '+1 '..localize('b_play_hand'),
+                '+1',
                 G.C.BLUE,
                 function()
                     play_sound('timpani')
