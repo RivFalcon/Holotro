@@ -48,7 +48,6 @@ SMODS.Tag{
             'when {C:red}0{} discard remains.'
         }
     },
-    config = {type = 'immediate', extra={remained_discard=0}},
     atlas = 'tags_sparedtags', pos = { x = 0, y = 0 },
     min_ante = 3,
     apply = function (self, tag, context)
@@ -77,7 +76,6 @@ SMODS.Tag{
             'when {C:blue}1{} hand remains.'
         }
     },
-    config = {type = 'immediate'},
     atlas = 'tags_sparedtags', pos = { x = 1, y = 0 },
     min_ante = 3,
     apply = function (self, tag, context)
