@@ -71,7 +71,7 @@ local fandom_files = {
     --"JPX",
     --"ID3",
 
-    --"EN3",
+    "EN3",
     --"DI1",
     --"EN4",
     --"DI2",

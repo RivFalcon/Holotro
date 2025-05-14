@@ -63,7 +63,11 @@ SMODS.Voucher{ -- Stage Response
     end,
     unlocked = false,
     requires = {'v_hololive_stage_call'},
-    unlock_condition = {type = 'v_hololive_stage_response'},
+    check_for_unlock = function (self, args)
+        if args.type == 'v_hololive_stage_response' then
+            unlock_card(self)
+        end
+    end,
     atlas = 'holo_vouchers',
     pos = {x=0,y=1},
 }
@@ -135,7 +139,23 @@ SMODS.Voucher{ -- Bouquet
     end,
     unlocked = false,
     requires = {'v_hololive_suit_flower'},
-    unlock_condition = {type = 'v_hololive_suit_bouquet'},
+    check_for_unlock = function (self, args)
+        local counter = {}
+        for _,v in ipairs(G.playing_cards)do
+            for suit,_ in ipairs(SMODS.Suits)do
+                if v:is_suit(suit)then
+                    counter[suit] = (counter[suit] or 0) + 1
+                end
+            end
+        end
+        local full_deck_size = #G.playing_cards
+        for suit, count in pairs(t) do
+            if count == full_deck_size then
+                unlock_card(self)
+                return nil
+            end
+        end
+    end,
     atlas = 'holo_vouchers',
     pos = {x=1,y=1},
 } -- Portulaca, Dicentra, Ipomoea alba, and Asters.
@@ -209,7 +229,23 @@ SMODS.Voucher{ -- Anvil
     },
     unlocked = false,
     requires = {'v_hololive_mod_book'},
-    unlock_condition = {type = 'v_hololive_mod_anvil'},
+    check_for_unlock = function (self, args)
+        local counter = {}
+        for _,v in ipairs(G.playing_cards)do
+            for _,m in ipairs(G.P_CENTER_POOLS.Enhanced)do
+                if SMODS.has_enhancement(v, m.key)then
+                    counter[m.key] = (counter[m.key] or 0) + 1
+                end
+            end
+        end
+        local full_deck_size = #G.playing_cards
+        for suit, count in pairs(t) do
+            if count == full_deck_size then
+                unlock_card(self)
+                return nil
+            end
+        end
+    end,
     atlas = 'holo_vouchers',
     pos = {x=2,y=1},
 }

@@ -90,12 +90,16 @@ Holo.Fan_card{ -- KFP
 
     use = function(self, card, area, copier)
         local destroyed_cards = {}
+        local money = #G.hand.highlighted * card.ability.dollars
         for i=#G.hand.highlighted, 1, -1 do
             destroyed_cards[#destroyed_cards+1] = G.hand.highlighted[i]
         end
         Holo.juice_on_use(card)
 
         Holo.delayed_destruction(destroyed_cards)
+        G.E_MANAGER:add_event(Event({func = function()
+            ease_dollars(money)
+        return true end}))
         delay(0.3)
         SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
     end
@@ -238,7 +242,7 @@ Holo.Fan_card{ -- Teamates
                 end
 
                 local _card = create_playing_card(
-                    {front = _front, center = pseudorandom_element(cen_pool, pseudoseed('spe_card'))},
+                    {front = _front, center = pseudorandom_element(cen_pool, pseudoseed('Teamate'))},
                     G.hand, nil, i ~= 1, {G.C.SECONDARY_SET.Spectral}
                 )
 
