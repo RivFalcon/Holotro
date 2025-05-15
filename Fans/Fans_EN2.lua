@@ -39,10 +39,11 @@ Holo.Fan_card{ -- IRyStocrat
         if G.STAGE == G.STAGES.RUN then
             local total_sell_value = 0
             for _,v in ipairs(G.consumeables.cards) do
-                if v.ability.consumeable then
+                if v.ability.consumeable and (v~=self) then
                     total_sell_value = total_sell_value + v.sell_cost
                 end
             end
+            total_sell_value = total_sell_value + self.sell_cost
             card.ability.money = math.min(total_sell_value * card.ability.money_mult, card.ability.max_dollars)
         end
     end,
