@@ -13,8 +13,8 @@ Holo.Relic_Joker{ -- IRyS
         name = "Sparklings of the Nephilim",
         text = {
             'Each time using a {V:1}consumable{} has',
-            '{C:green}#3# in #4#{} chance  to grant you {C:money}$#1#{} bonus.',
-            'Gain {C:money}$#2#{} bonus by using a {V:1}#5#{}.',
+            '{C:green}#3# in #4#{} chance to grant you {C:money}$#1#{} bonus.',
+            'Gain {C:money}$#2#{} bonus by using a {V:2}#5#{}.',
             'Consumeable changes at end of shop.'
         }
         ,boxes={3,1}
@@ -39,7 +39,10 @@ Holo.Relic_Joker{ -- IRyS
                 Holo.prob_norm(),
                 cae.odds,
                 localize{type='name_text',key=cae.base.key,set=cae.base.set},
-                colours = {Holo.C.IRyS}
+                colours = {
+                    Holo.C.IRyS,
+                    G.C.SECONDARY_SET[cae.base.set],
+                }
             }
         }
     end,
@@ -60,19 +63,21 @@ Holo.Relic_Joker{ -- IRyS
             local _pool_table = {}
             for _,v in ipairs(G.P_CENTER_POOLS.Tarot_Planet)do
                 if not (v.config or{}).softlock then
-                    _pool_table[v.key] = v.set
+                    _pool_table[v.key] = true
                 end
             end
             for k,v in pairs(G.GAME.consumeable_usage)do
                 if v.set ~= 'relicgacha' and not G.P_CENTERS[k].config.hidden then
-                    _pool_table[k] = v.set
+                    _pool_table[k] = true
                 end
             end
             local _pool = {}
             for k,v in pairs(_pool_table)do
-                _pool[#_pool+1] = {key=k,set=v.set}
+                _pool[#_pool+1] = k
             end
-            cae.base = pseudorandom_element(_pool, pseudoseed('ConsumeRyS'))
+            local _key = pseudorandom_element(_pool, pseudoseed('ConsumeRyS'))
+            cae.base = {key=_key,set=G.P_CENTERS[_key].set}
+            SMODS.calculate_effect({message='',colour=Holo.C.IRyS},card)
         end
     end
 }
