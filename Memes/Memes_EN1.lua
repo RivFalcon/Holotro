@@ -430,7 +430,7 @@ Wah_Joker{ -- Ina: WAH 08
             if context.other_card.seal == 'Purple' then
                 if Holo.chance('We Adore Her', card.ability.extra.we) then
                     G.E_MANAGER:add_event(Event({func = function()
-                        G.consumeables.config.card_limit = G.consumeables.config.card_limit + ard.ability.extra.adore
+                        G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.adore
                         return true end
                     }))
                     return {
