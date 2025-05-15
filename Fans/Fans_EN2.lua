@@ -47,6 +47,7 @@ Holo.Fan_card{ -- IRyStocrat
         end
     end,
     use = function(self, card, area, copier)
+        local used_tarot = copier or self
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             play_sound('timpani')
             used_tarot:juice_up(0.3, 0.5)
