@@ -182,36 +182,37 @@ Holo.Fan_card{ -- Ruffian (B)
         return false
     end,
     use = function (self, card, area, copier)
+        Holo.juice_on_use(card)
+
         local face_pool = {}
         for _,v in ipairs(G.hand.cards)do
             if v:is_face() then face_pool[#face_pool+1] = v end
         end
-        local destroyed_cards = {pseudorandom_element(face_pool, pseudoseed('Ruffian_Blue')),}
-        Holo.juice_on_use(card)
+        local destroyed_cards = {}
+        destroyed_cards[#destroyed_cards+1] = pseudorandom_element(face_pool, pseudoseed('Ruffian_Blue'))
         Holo.delayed_destruction(destroyed_cards)
         delay(0.3)
         SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
 
-        local _suit = pseudorandom_element({'S','H','D','C'}, pseudoseed('Ruffian_Blue'))
-        local _rank = pseudorandom_element({'3','5','7','9','A'}, pseudoseed('Ruffian_Blue'))
-        local _front = G.P_CARDS[_suit..'_'.._rank]
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.7,func = function()
             local cards = {}
-            for i=1, card.ability.extra do
-                cards[i] = true
+            for i = 1, card.ability.extra do
                 local cen_pool = {}
                 for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                    if v.key ~= 'm_stone' then 
-                        cen_pool[#cen_pool+1] = v
+                    if v.key ~= 'm_stone' and not v.overrides_base_rank then
+                        cen_pool[#cen_pool + 1] = v
                     end
                 end
-                local _card = create_playing_card(
-                    {front = _front, center = pseudorandom_element(cen_pool, pseudoseed('Ruffian_Blue'))},
-                    G.hand, nil, i ~= 1, {G.C.SECONDARY_SET.Spectral}
+                local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('Ruffian_B')).card_key
+                local _rank = pseudorandom_element({'3','5','7','9','A'}, pseudoseed('Ruffian_b'))
+                cards[i] = create_playing_card(
+                    {front = G.P_CARDS[_suit..'_'.._rank], center = pseudorandom_element(cen_pool, pseudoseed('spe_card'))},
+                    G.hand, nil, i ~= 1, { Holo.C.Fuwawa }
                 )
             end
             playing_card_joker_effects(cards)
-        return true end }))
+        return true end}))
+
         holo_fan_cheers(self.member)
     end
 }
@@ -248,36 +249,37 @@ Holo.Fan_card{ -- Ruffian (P)
         return false
     end,
     use = function (self, card, area, copier)
+        Holo.juice_on_use(card)
+
         local face_pool = {}
         for _,v in ipairs(G.hand.cards)do
             if v:is_face() then face_pool[#face_pool+1] = v end
         end
-        local destroyed_cards = {pseudorandom_element(face_pool, pseudoseed('Ruffian_Pink')),}
-        Holo.juice_on_use(card)
+        local destroyed_cards = {}
+        destroyed_cards[#destroyed_cards+1] = pseudorandom_element(face_pool, pseudoseed('Ruffian_Pink'))
         Holo.delayed_destruction(destroyed_cards)
         delay(0.3)
         SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
 
-        local _suit = pseudorandom_element({'S','H','D','C'}, pseudoseed('Ruffian_Pink'))
-        local _rank = pseudorandom_element({'2','4','6','8','T'}, pseudoseed('Ruffian_Pink'))
-        local _front = G.P_CARDS[_suit..'_'.._rank]
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.7,func = function()
             local cards = {}
-            for i=1, card.ability.extra do
-                cards[i] = true
+            for i = 1, card.ability.extra do
                 local cen_pool = {}
                 for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                    if v.key ~= 'm_stone' then 
-                        cen_pool[#cen_pool+1] = v
+                    if v.key ~= 'm_stone' and not v.overrides_base_rank then
+                        cen_pool[#cen_pool + 1] = v
                     end
                 end
-                local _card = create_playing_card(
-                    {front = _front, center = pseudorandom_element(cen_pool, pseudoseed('Ruffian_Pink'))},
-                    G.hand, nil, i ~= 1, {G.C.SECONDARY_SET.Spectral}
+                local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('Ruffian_P')).card_key
+                local _rank = pseudorandom_element({'2','4','6','8','T'}, pseudoseed('Ruffian_p'))
+                cards[i] = create_playing_card(
+                    {front = G.P_CARDS[_suit..'_'.._rank], center = pseudorandom_element(cen_pool, pseudoseed('spe_card'))},
+                    G.hand, nil, i ~= 1, { Holo.C.Mococo }
                 )
             end
             playing_card_joker_effects(cards)
-        return true end }))
+        return true end}))
+
         holo_fan_cheers(self.member)
     end
 }
