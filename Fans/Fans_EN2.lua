@@ -43,7 +43,7 @@ Holo.Fan_card{ -- IRyStocrat
                     total_sell_value = total_sell_value + v.sell_cost
                 end
             end
-            total_sell_value = total_sell_value + self.sell_cost
+            total_sell_value = total_sell_value + (self.sell_cost or 0)
             card.ability.money = math.min(total_sell_value * card.ability.money_mult, card.ability.max_dollars)
         end
     end,
