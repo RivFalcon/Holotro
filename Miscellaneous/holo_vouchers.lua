@@ -70,9 +70,6 @@ SMODS.Voucher{ -- Stage Response
     end,
     atlas = 'holo_vouchers',
     pos = {x=0,y=1},
-    in_pool = function (self, args)
-        return false
-    end,
 }
 
 SMODS.Voucher{ -- Flower
