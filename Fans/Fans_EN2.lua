@@ -47,12 +47,11 @@ Holo.Fan_card{ -- IRyStocrat
         end
     end,
     use = function(self, card, area, copier)
-        local used_tarot = copier or self
+        Holo.juice_on_use(card)
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            play_sound('timpani')
-            used_tarot:juice_up(0.3, 0.5)
             ease_dollars(self.ability.money, true)
-            return true end }))
+            return true end
+        }))
         delay(0.6)
         holo_fan_cheers(self.member)
     end
