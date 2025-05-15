@@ -5,19 +5,19 @@ priority = 0
 
 [[patches]]
 [patches.pattern]
-target = "card.lua"
+target = '=[SMODS _ "src/game_object.lua"]'
 pattern = "if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then"
 position = "at"
 match_indent = true
 payload = '''
 if G.GAME.used_vouchers.v_hololive_suit_flower and (i == 1) then
     local _tarot = Holo.roll_for_suit_tarot()
-    card = create_card("Tarot", G.pack_cards, nil, nil, true, true, _tarot, 'v_hololive_suit_flower')
+    _card = {set = "Tarot", area = G.pack_cards, skip_materialize = true, soulable = true, key = _tarot, key_append = "ar_flower"}
 elseif G.GAME.used_vouchers.v_hololive_mod_book and (i == 1) then
     local _tarot = Holo.roll_for_enhance_tarot()
-    card = create_card("Tarot", G.pack_cards, nil, nil, true, true, _tarot, 'v_hololive_mod_book')
+    _card = {set = "Tarot", area = G.pack_cards, skip_materialize = true, soulable = true, key = _tarot, key_append = "ar_book"}
 elseif G.GAME.used_vouchers.v_hololive_suit_flower and G.GAME.used_vouchers.v_hololive_mod_book and (i == 2) then
     local _tarot = Holo.roll_for_enhance_tarot()
-    card = create_card("Tarot", G.pack_cards, nil, nil, true, true, _tarot, 'v_hololive_mod_book')
+    _card = {set = "Tarot", area = G.pack_cards, skip_materialize = true, soulable = true, key = _tarot, key_append = "ar_book"}
 elseif G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
 '''
