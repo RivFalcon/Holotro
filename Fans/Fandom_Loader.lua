@@ -18,7 +18,7 @@ SMODS.ConsumableType{
         }
     },
     collection_rows = {5,6},
-    shop_rate = 0,
+    shop_rate = 4,
 }
 Holo.Atlas_7195{
     key = 'holo_fandoms_1',
