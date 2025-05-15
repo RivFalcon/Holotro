@@ -128,9 +128,10 @@ SMODS.Voucher{ -- Bouquet
             'their {C:attention}specified suit{} scored.'
         }
         ,unlock={
-            'Have your {C:blue}full deck',
-            'consist of {C:dark_edition}only',
-            '{C:dark_edition}one{C:attention} suit{}.'
+            'Have all cards in',
+            'your {C:blue}full deck',
+            'having the',
+            '{C:dark_edition}same{C:attention} suit{}.'
         }
     },
     config = {extra = 1.2},
@@ -225,9 +226,10 @@ SMODS.Voucher{ -- Anvil
             'their {C:attention}specified enhancements{}.'
         }
         ,unlock={
-            'Have your {C:blue}full deck',
-            'consist of {C:dark_edition}only',
-            '{C:dark_edition}one{C:attention} enhancement{}.'
+            'Have all cards in',
+            'your {C:blue}full deck',
+            'having the {C:dark_edition}same',
+            '{C:attention} enhancement{}.'
         }
     },
     unlocked = false,
