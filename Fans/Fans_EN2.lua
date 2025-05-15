@@ -49,7 +49,7 @@ Holo.Fan_card{ -- IRyStocrat
     use = function(self, card, area, copier)
         Holo.juice_on_use(card)
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            ease_dollars(self.ability.money, true)
+            ease_dollars(card.ability.money, true)
             return true end
         }))
         delay(0.6)
