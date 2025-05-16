@@ -83,8 +83,10 @@ Holo.Relic_Joker{ -- Gigi Murin
     calculate = function(self, card, context)
         if context.before then
             for i = 1, #context.scoring_hand do
-                if SMODS.has_enhancement(context.scoring_hand[i], "m_glass") and not context.blueprint then
-                    holo_card_upgrade(card)
+                if SMODS.has_enhancement(context.scoring_hand[i], "m_glass") then
+                    if not context.blueprint then
+                        holo_card_upgrade(card)
+                    end
                 else
                     context.scoring_hand[i]:set_ability(G.P_CENTERS.m_glass, nil, true)
                 end
@@ -97,7 +99,6 @@ Holo.Relic_Joker{ -- Gigi Murin
                 )
             end
         elseif context.joker_main then
-            card:juice_up()
             return {
                 Xmult = card.ability.extra.Xmult
             }
@@ -170,7 +171,6 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
                 return {durable=true}
             end
         elseif context.joker_main then
-            card:juice_up()
             return {
                 Xmult = card.ability.extra.Xmult
             }
