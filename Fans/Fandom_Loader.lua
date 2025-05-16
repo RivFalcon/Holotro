@@ -73,7 +73,7 @@ local fandom_files = {
 
     "EN3",
     --"DI1",
-    --"EN4",
+    "EN4",
     --"DI2",
 }
 for _,file in ipairs(fandom_files) do assert(SMODS.load_file("Fans/Fans_"..file..".lua"))()end
