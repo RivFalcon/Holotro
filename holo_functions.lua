@@ -391,12 +391,6 @@ function Card:redeem()
     return Holo.hooks.Card_redeem(self)
 end
 
-Holo.hooks.Card_remove = Card.remove
-function Card:remove()
-    if self.ability.hololive_durable then return end
-    Holo.hooks.Card_remove(self)
-end
-
 Holo.hooks.Card_shatter = Card.shatter
 function Card:shatter()
     local card = self
