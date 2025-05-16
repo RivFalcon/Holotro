@@ -124,7 +124,8 @@ SMODS.Voucher{ -- Bouquet
         text = {
             'Suit-converting {C:tarot}Tarot cards',
             'in your {C:blue}consumeable area',
-            'give {X:mult,C:white}X#1#{} Mult when cards with',
+            'give {X:mult,C:white}X#1#{} Mult if played hand',
+            'contains a {C:attention}Flush{} of',
             'their {C:attention}specified suit{} scored.'
         }
         ,unlock={
@@ -134,7 +135,7 @@ SMODS.Voucher{ -- Bouquet
             '{C:dark_edition}same{C:attention} suit{}.'
         }
     },
-    config = {extra = 1.2},
+    config = {extra = 1.7},
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra }}
     end,
@@ -160,8 +161,24 @@ SMODS.Voucher{ -- Bouquet
     end,
     atlas = 'holo_vouchers',
     pos = {x=1,y=1},
-    in_pool = function (self, args)
-        return false
+
+    calculate = function(self, card, context)
+        if
+            context.other_consumeable and
+            context.other_consumeable.ability.set == 'Tarot' and
+            context.other_consumeable.ability.suit_conv and
+            context.poker_hands.Flush[1] and
+            #context.poker_hands.Flush[1]>0
+        then
+            local _suit = context.other_consumeable.ability.suit_conv
+            for _,v in ipairs(context.poker_hands.Flush[1])do
+                if not v:is_suit(_suit)then return end
+            end
+            return {
+                Xmult = card.ability.extra,
+                message_card = context.other_consumeable,
+            }
+        end
     end,
 } -- Portulaca, Dicentra, Ipomoea alba, and Asters.
 
@@ -225,7 +242,8 @@ SMODS.Voucher{ -- Anvil
         text = {
             'Enhancing {C:tarot}Tarot cards',
             'in your {C:blue}consumeable area',
-            '{C:attention}retrigger{} playing cards with',
+            'give {X:mult,C:white}X#1#{} Mult if all cards',
+            'in played hand have',
             'their {C:attention}specified enhancements{}.'
         }
         ,unlock={
@@ -235,6 +253,10 @@ SMODS.Voucher{ -- Anvil
             '{C:attention} enhancement{}.'
         }
     },
+    config = {extra = 2.5},
+    loc_vars = function(self, info_queue, card)
+        return { vars = { self.config.extra }}
+    end,
     unlocked = false,
     requires = {'v_hololive_mod_book'},
     check_for_unlock = function (self, args)
@@ -251,14 +273,28 @@ SMODS.Voucher{ -- Anvil
         for suit, count in pairs(counter) do
             if count == full_deck_size then
                 unlock_card(self)
-                return nil
+                break
             end
         end
     end,
     atlas = 'holo_vouchers',
     pos = {x=2,y=1},
-    in_pool = function (self, args)
-        return false
+    calculate = function(self, card, context)
+        if
+            context.other_consumeable and
+            context.other_consumeable.ability.set == 'Tarot' and
+            context.other_consumeable.ability.mod_conv and
+            context.other_consumeable.ability.mod_conv:find('m_')
+        then
+            local _mod = context.other_consumeable.ability.mod_conv
+            for _,v in ipairs(context.full_hand)do
+                if not SMODS.has_enhancement(v,_mod)then return end
+            end
+            return {
+                Xmult = card.ability.extra,
+                message_card = context.other_consumeable,
+            }
+        end
     end,
 }
 
