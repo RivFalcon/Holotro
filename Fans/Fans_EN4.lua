@@ -105,7 +105,7 @@ SMODS.Sticker{ -- Otomo
         }
     },
     loc_vars = function (self, info_queue, card)
-        return {vard={colours={Holo.C.Ceci}}}
+        return {vars={colours={Holo.C.Ceci}}}
     end,
     atlas = 'Sticker_Durable',
     pos = {x=0,y=0},
