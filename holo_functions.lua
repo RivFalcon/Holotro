@@ -410,19 +410,21 @@ end
 
 Holo.hooks.Card_start_dissolve = Card.start_dissolve
 function Card:start_dissolve()
-    local card = self
-    local flag = SMODS.calculate_context({hololive_dissolve_card=card})
-    if flag.durable or card.ability.hololive_durable then
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                card:juice_up()
-                --play_sound('hololive_sound_Ceci_Durable')
-                return true
-            end
-        }))
-    else
-        Holo.hooks.Card_start_dissolve(self)
+    if G.STAGE == G.STAGES.RUN then
+        local card = self
+        local flag = SMODS.calculate_context({hololive_dissolve_card=card})
+        if flag.durable or card.ability.hololive_durable then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card:juice_up()
+                    --play_sound('hololive_sound_Ceci_Durable')
+                    return true
+                end
+            }))
+            return nil
+        end
     end
+    Holo.hooks.Card_start_dissolve(self)
 end
 
 Holo.hooks.level_up_hand = level_up_hand
