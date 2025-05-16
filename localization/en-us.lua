@@ -347,6 +347,7 @@ return {
             hololive_potion_green="Hakui Chemicals",
             hololive_potion_gold ="Hakui Chemicals",
             hololive_potion_blue ="Hakui Chemicals",
+            hololive_durable = "Immergreen Workshop",
 
             ---- Rarity Badges
             k_hololive_fan="Fan",

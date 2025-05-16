@@ -395,7 +395,7 @@ Holo.hooks.Card_shatter = Card.shatter
 function Card:shatter()
     local card = self
     local flag = SMODS.calculate_context({hololive_shatter_card=card})
-    if flag.durable then
+    if flag.durable or card.ability.hololive_durable then
         G.E_MANAGER:add_event(Event({
             func = function()
                 card:juice_up()
@@ -405,6 +405,23 @@ function Card:shatter()
         }))
     else
         Holo.hooks.Card_shatter(self)
+    end
+end
+
+Holo.hooks.Card_start_dissolve = Card.start_dissolve
+function Card:start_dissolve()
+    local card = self
+    local flag = SMODS.calculate_context({hololive_dissolve_card=card})
+    if flag.durable or card.ability.hololive_durable then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                card:juice_up()
+                --play_sound('hololive_sound_Ceci_Durable')
+                return true
+            end
+        }))
+    else
+        Holo.hooks.Card_start_dissolve(self)
     end
 end
 
