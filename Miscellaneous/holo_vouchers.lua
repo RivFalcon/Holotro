@@ -10,7 +10,7 @@ SMODS.Voucher{ -- Stage Call
     loc_txt = {
         name = 'Stage Call',
         text = {
-            '{V:1}Fan{} cards appear',
+            '{V:1}Fandom cards{} appear',
             '{C:attention}2X{} more frequently',
             'in the shop.'
         }
@@ -31,13 +31,13 @@ SMODS.Voucher{ -- Stage Response
     loc_txt = {
         name = 'Stage Response',
         text = {
-            '{V:2}Fan{} cards in your',
+            '{V:2}Fandom cards{} in your',
             '{C:blue}consumeable area',
             'will {C:attention}retrigger{} the effect',
             'of their {V:1}oshi\'s {V:3}Relic{}.'
         }
         ,unlock={
-            'Use a {V:2}Fan{} card',
+            'Use a {V:2}Fandom card',
             'when the {V:3}Relic',
             'of their {V:1}oshi',
             'is present.'
