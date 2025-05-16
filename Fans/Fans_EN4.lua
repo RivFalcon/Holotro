@@ -62,7 +62,7 @@ Holo.Fan_card{ -- Gremurin
     pos={y=2,x=1},
 
     can_use = function (self, card)
-        if G.hand and G.hand.cards then return true end
+        if G.hand and G.hand.cards and G.hand.cards[1] then return true end
     end,
     use = function (self, card, area, copier)
         Holo.juice_on_use(card)
