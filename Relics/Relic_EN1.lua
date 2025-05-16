@@ -80,7 +80,7 @@ Holo.Relic_Joker{ -- Mori Calliope
                         end
                     }))
                     if holo_card_counting(card) then
-                        SMODS.calculate_effect({message="Shin de kudasai!",colour=Holo.C.Calli,})
+                        SMODS.calculate_effect({message="Shin de kudasai!",colour=Holo.C.Calli,},card)
                         SMODS.add_card({ key = 'c_death', area = G.consumeables, edition = 'e_negative' })
                     end
                     G.E_MANAGER:add_event(Event({
