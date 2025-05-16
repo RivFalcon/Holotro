@@ -429,7 +429,10 @@ Holo.Relic_Joker{ -- Sakamata Chloe
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.pre_discard then
-            if Holo.series_and(context.full_hand, function(v)return(v:get_id()==10)end)then
+            local is_ten = function(v)
+                return (v:get_id()==10)
+            end
+            if Holo.series_and(context.full_hand, is_ten) then
                 holo_card_upgrade(card)
             end
             if holo_card_counting(card) then
@@ -492,7 +495,10 @@ Holo.Relic_Joker{ -- Kazama Iroha
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.before then
-            if Holo.series_and(context.scoring_hand, function(v)return(v:get_id()==10)end)then
+            local is_ten = function(v)
+                return (v:get_id()==10)
+            end
+            if Holo.series_and(context.full_hand, is_ten) then
                 holo_card_upgrade(card)
             end
             if holo_card_counting(card) then
