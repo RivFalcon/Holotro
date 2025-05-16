@@ -391,11 +391,17 @@ function Card:redeem()
     return Holo.hooks.Card_redeem(self)
 end
 
+Holo.hooks.Card_remove = Card.remove
+function Card:remove()
+    if self.ability.hololive_durable then return end
+    Holo.hooks.Card_remove(self)
+end
+
 Holo.hooks.Card_shatter = Card.shatter
 function Card:shatter()
     local card = self
     local flag = SMODS.calculate_context({hololive_shatter_card=card})
-    if flag.durable or card.ability.hololive_durable then
+    if flag.durable then
         G.E_MANAGER:add_event(Event({
             func = function()
                 card:juice_up()
@@ -406,25 +412,6 @@ function Card:shatter()
     else
         Holo.hooks.Card_shatter(self)
     end
-end
-
-Holo.hooks.Card_start_dissolve = Card.start_dissolve
-function Card:start_dissolve()
-    if G.STAGE == G.STAGES.RUN then
-        local card = self
-        local flag = SMODS.calculate_context({hololive_dissolve_card=card})
-        if flag.durable or card.ability.hololive_durable then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    card:juice_up()
-                    --play_sound('hololive_sound_Ceci_Durable')
-                    return true
-                end
-            }))
-            return nil
-        end
-    end
-    Holo.hooks.Card_start_dissolve(self)
 end
 
 Holo.hooks.level_up_hand = level_up_hand
