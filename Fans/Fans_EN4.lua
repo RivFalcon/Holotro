@@ -61,14 +61,18 @@ Holo.Fan_card{ -- Gremurin
     atlas='holo_fandoms_4',
     pos={y=2,x=1},
 
+    can_use = function (self, card)
+        if G.hand and G.hand.cards then return true end
+    end,
     use = function (self, card, area, copier)
         Holo.juice_on_use(card)
         Holo.flip_cards_in_hand('all')
         delay(0.2)
 
         for i=1, #G.hand.cards do
+            G.hand.cards[i]:set_ability(G.P_CENTERS.m_glass, nil, true)
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                G.hand.cards[i]:set_ability(G.P_CENTERS[card.ability.mod_conv])
+                G.hand.cards[i]:juice_up()
             return true end }))
         end
         Holo.flip_cards_in_hand('all', true)
