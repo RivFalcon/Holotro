@@ -23,7 +23,7 @@ Holo.Fan_card{ -- Rosarian
     pos={y=2,x=0},
 
     use = function (self, card, area, copier)
-        update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+        Holo.reset_hand_text()
         Holo.juice_on_use(card)
         Holo.flip_cards_in_hand('high')
         delay(0.2)
@@ -93,11 +93,11 @@ Holo.Fan_card{ -- Gremurin
     end
 }
 
-Holo.Atlas_7195{ -- Otomo
+Holo.Atlas_7195{ -- Cecilia Immergreen: Durable
     key = "Sticker_Durable",
     path = "textures/Sticker_Durable.png",
 }
-SMODS.Sticker{ -- Otomo
+SMODS.Sticker{ -- Cecilia Immergreen: Durable
     member = 'Ceci',
     key = 'durable',
     loc_txt = {
@@ -105,7 +105,7 @@ SMODS.Sticker{ -- Otomo
         text = {
             'This card is',
             'very {V:1}Durable{}.',
-            '{C:inactive}(indestructable)'
+            '{C:inactive}(Does not shatter)'
         }
     },
     loc_vars = function (self, info_queue, card)
@@ -115,7 +115,10 @@ SMODS.Sticker{ -- Otomo
     pos = {x=0,y=0},
     badge_colour=Holo.C.Caci,
     should_apply = function(self, card, center, area, bypass_roll)
-        return card and card.playing_card and((area==G.hand)or bypass_roll)
+        local is_playing_card = card and card.playing_card or false
+        local has_glass_enhancement = SMODS.has_enhancement(card, 'm_glass') or false
+        local is_held_in_hand = (area==G.hand) or false
+        return is_playing_card and has_glass_enhancement and(is_held_in_hand or bypass_roll)
     end,
 }
 Holo.Fan_card{ -- Otomo
@@ -126,20 +129,25 @@ Holo.Fan_card{ -- Otomo
         name = 'Otomo',
         text = {
             'Applies {C:dark_edition}Durable{} effect',
-            'on {C:attention}1{} selected card.'
+            'on {C:attention}1{} selected {C:attention}Glass Card{}.'
         }
     },
     config = {max_highlighted = 1},
     atlas='holo_fandoms_4',
     pos={y=2,x=2},
 
+    can_use=function (self, card)
+        if #G.hand.highlighted~=1 then return false end
+        if SMODS.has_enhancement(G.hand.highlighted[1], 'm_glass')then return true end
+    end,
     use = function (self, card, area, copier)
-        update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+        Holo.reset_hand_text()
         Holo.juice_on_use(card)
 
         G.E_MANAGER:add_event(Event({
             func = function()
                 G.hand.highlighted[1]:add_sticker('hololive_durable')
+                G.hand.highlighted[1]:juice_up()
                 return true
             end
         }))
@@ -185,7 +193,7 @@ Holo.Fan_card{ -- Chattino
         return true
     end,
     use = function (self, card, area, copier)
-        update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+        Holo.reset_hand_text()
         Holo.juice_on_use(card)
 
         for _,v in ipairs(G.hand.highlighted) do

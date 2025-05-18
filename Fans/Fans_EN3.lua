@@ -36,7 +36,7 @@ Holo.Fan_card{ -- Novelite
         for i=#G.hand.highlighted, 1, -1 do
             destroyed_cards[#destroyed_cards+1] = G.hand.highlighted[i]
         end
-        update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+        Holo.reset_hand_text()
         Holo.juice_on_use(card)
 
         Holo.delayed_destruction(destroyed_cards)
@@ -78,7 +78,7 @@ Holo.Fan_card{ -- Pebble
     pos={y=0,x=1},
 
     use = function (self, card, area, copier)
-        update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+        Holo.reset_hand_text()
         Holo.juice_on_use(card)
         Holo.flip_cards_in_hand('high')
         delay(0.2)
@@ -131,7 +131,7 @@ Holo.Fan_card{ -- Jailbird
         for i=#G.hand.highlighted, 1, -1 do
             destroyed_cards[#destroyed_cards+1] = G.hand.highlighted[i]
         end
-        update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+        Holo.reset_hand_text()
         Holo.juice_on_use(card)
 
         Holo.delayed_destruction(destroyed_cards)

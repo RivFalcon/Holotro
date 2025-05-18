@@ -52,12 +52,10 @@ Holo.Relic_Joker{ -- Minato Aqua
                 end
             end
             if (_card_min:get_id() < _card_max_rank) and (_card_min:get_id() < 14) then
-                play_sound('whoosh')
-                _card_min:juice_up()
-                _card_min:start_dissolve(nil, true)
-                for _,J in ipairs(G.jokers.cards) do
-                    eval_card(J, {cardarea = G.jokers, remove_playing_cards = true, removed = {_card_min,}})
-                end
+                local destroyed_cards = {[1]=_card_min}
+                Holo.delayed_destruction(destroyed_cards)
+                delay(0.3)
+                SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
             end
         end
     end

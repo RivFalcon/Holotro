@@ -1,4 +1,6 @@
+-------------------------------
 ---- holo global functions ----
+-------------------------------
 
 function holo_ctx(context)
     -- Main Scoring Loop
@@ -134,7 +136,9 @@ function holo_card_disaccumulate(_cae, _key)
     end
 end
 
+--------------------------------
 ---- Holo utility functions ----
+--------------------------------
 
 function Holo.series_and(list, criteria_func)
     criteria_func = (type(criteria_func)=='function') and criteria_func or function(v)return v end
@@ -271,6 +275,14 @@ function Holo.try_add_consumeable(_key, _neg)
     end
 end
 
+---------------------------------------
+---- Consumeable utility functions ----
+---------------------------------------
+
+function Holo.reset_hand_text()
+    update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+end
+
 function Holo.juice_on_use(card)
     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.4,func = function()
         play_sound('tarot1')
@@ -335,7 +347,9 @@ function Holo.change_rank(card, rank)
     assert(SMODS.change_base(card, nil, Holo.rank_suffice[rank]))
 end
 
----- Hooks ----
+------------------------
+---- Function hooks ----
+------------------------
 
 Holo.hooks = {}
 
@@ -395,7 +409,7 @@ Holo.hooks.Card_shatter = Card.shatter
 function Card:shatter()
     local card = self
     local flag = SMODS.calculate_context({hololive_shatter_card=card})
-    if flag.durable then
+    if flag.durable or card.ability.hololive_durable then
         G.E_MANAGER:add_event(Event({
             func = function()
                 card:juice_up()

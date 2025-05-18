@@ -437,19 +437,19 @@ Holo.Relic_Joker{ -- Watson Amelia
             end
             if contains_scoring_face_card then
                 card.ability.extra.Xmult_mod = card.ability.extra.Xmult_mod + card.ability.extra.Xmult_mod_mod
-                card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Clues Found!",colour = HEX('f8db92')})
+                SMODS.calculate_effect({message="Clues Found!",colour = HEX('f8db92')},card)
             else
                 card.ability.extra.Xmult_mod = 0
-                card_eval_status_text(card, 'jokers', nil, 1, nil, {message="Lost the track!",colour = HEX('f8db92')})
+                SMODS.calculate_effect({message="Lost the track...",colour = HEX('f8db92')},card)
             end
             delay(0.2)
             holo_card_upgrade(card)
         elseif context.joker_main then
-            card:juice_up()
-            play_sound('gong')
-            card_eval_status_text(card, 'jokers', nil, 1, nil, {message='Detective!',colour=HEX('f8db92')})
             return {
-                Xmult = card.ability.extra.Xmult
+                Xmult = card.ability.extra.Xmult,
+                message='Detective!',
+                sound = 'gong',
+                colour=HEX('f8db92')
             }
         end
     end

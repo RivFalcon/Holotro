@@ -32,7 +32,7 @@ Holo.Fan_card{ -- Dead Beats
     pos={y=0,x=0},
 
     use = function(self, card, area, copier)
-        update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+        Holo.reset_hand_text()
         Holo.juice_on_use(card)
         Holo.flip_cards_in_hand('high')
         delay(0.2)
@@ -186,7 +186,7 @@ Holo.Fan_card{ -- Chumbuds
         return false
     end,
     use = function(self, card, area, copier)
-        update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+        Holo.reset_hand_text()
         Holo.juice_on_use(card)
         local unselected_cards = Holo.flip_cards_in_hand('low')
         delay(0.2)

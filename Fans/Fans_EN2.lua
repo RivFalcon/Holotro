@@ -19,10 +19,16 @@ Holo.Fan_card{ -- IRyStocrat
         money_mult = 6,
     },
     loc_vars = function(self, info_queue, card)
+        local money = 0
+        for _,v in ipairs(G.consumeables.cards) do
+            if v.ability.consumeable then
+                money = money + v.sell_cost
+            end
+        end
         return {
             vars = {
                 card.ability.max_dollars,
-                card.ability.money,
+                math.min(money * card.ability.money_mult, card.ability.max_dollars),
                 card.ability.money_mult,
                 colours = {Holo.C.IRyS}
             }
@@ -35,22 +41,20 @@ Holo.Fan_card{ -- IRyStocrat
     can_use = function (self, card)
         return true
     end,
-    update = function (self, card, dt)
-        if G.STAGE == G.STAGES.RUN then
-            local total_sell_value = 0
-            for _,v in ipairs(G.consumeables.cards) do
-                if v.ability.consumeable and (v~=self) then
-                    total_sell_value = total_sell_value + v.sell_cost
-                end
-            end
-            total_sell_value = total_sell_value + (self.sell_cost or 0)
-            card.ability.money = math.min(total_sell_value * card.ability.money_mult, card.ability.max_dollars)
-        end
-    end,
     use = function(self, card, area, copier)
         Holo.juice_on_use(card)
+        local money = 0
+        for _,v in ipairs(G.consumeables.cards) do
+            if v.ability.consumeable then
+                money = money + v.sell_cost
+            end
+        end
+        if area == G.consumeables then
+            money = money + card.sell_cost
+        end
+        local _money = math.min(money * card.ability.money_mult, card.ability.max_dollars)
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            ease_dollars(card.ability.money, true)
+            ease_dollars(_money, true)
             return true end
         }))
         delay(0.6)
@@ -132,7 +136,7 @@ Holo.Fan_card{ -- Sapling
         if r1 and r2 and (r1~=r2) then return true end
     end,
     use = function(self, card, area, copier)
-        update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+        Holo.reset_hand_text()
         Holo.juice_on_use(card)
         local unselected_cards = Holo.flip_cards_in_hand('low')
         delay(0.2)
@@ -234,7 +238,7 @@ Holo.Fan_card{ -- Hooman
             for i=#G.hand.highlighted, 1, -1 do
                 destroyed_cards[#destroyed_cards+1] = G.hand.highlighted[i]
             end
-            update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+            Holo.reset_hand_text()
             Holo.juice_on_use(card)
 
             Holo.delayed_destruction(destroyed_cards)
