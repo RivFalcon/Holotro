@@ -128,11 +128,14 @@ Holo.Fan_card{ -- Otomo
     loc_txt = {
         name = 'Otomo',
         text = {
-            'Applies {C:dark_edition}Durable{} effect',
+            'Applies {V:1}Durable{} effect',
             'on {C:attention}1{} selected {C:attention}Glass Card{}.'
         }
     },
     config = {max_highlighted = 1},
+    loc_vars = function (self, info_queue, card)
+        return{vars={colours={Holo.C.Ceci}}}
+    end,
     atlas='holo_fandoms_4',
     pos={y=2,x=2},
 
