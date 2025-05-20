@@ -21,6 +21,21 @@ SMODS.Enhancement:take_ownership(
             } }
         end,
     }
+    ,true
+)
+
+SMODS.Enhancement:take_ownership(
+    'm_glass',
+    {
+        calculate = function(self, card, context)
+            if context.destroy_card == card and context.cardarea == G.play then
+                if Holo.chance('glass',card.ability.extra) then
+                    return { remove = true }
+                end
+            end
+        end,
+    }
+    ,true
 )
 
 ----

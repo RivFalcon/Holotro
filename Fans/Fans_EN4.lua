@@ -67,13 +67,9 @@ Holo.Fan_card{ -- Gremurin
     use = function (self, card, area, copier)
         Holo.juice_on_use(card)
         Holo.flip_cards_in_hand('all')
-        delay(0.2)
 
         for i=1, #G.hand.cards do
             G.hand.cards[i]:set_ability(G.P_CENTERS.m_glass, nil, true)
-            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                G.hand.cards[i]:juice_up()
-            return true end }))
         end
         Holo.flip_cards_in_hand('all', true)
         delay(0.5)
@@ -105,8 +101,10 @@ SMODS.Sticker{ -- Cecilia Immergreen: Durable
         text = {
             'This card is',
             'very {V:1}Durable{}.',
-            '{C:inactive}(Does not shatter)'
+            '{C:inactive}Returns back to your deck',
+            '{C:inactive}if you try to destroy this card.'
         }
+        ,boxes={2,2}
     },
     loc_vars = function (self, info_queue, card)
         return {vars={colours={Holo.C.Ceci}}}

@@ -146,6 +146,7 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
     soul_pos = { x = 2, y = 1 },
 
     calculate = function(self, card, context)
+        --[[
         if context.remove_playing_cards and not context.blueprint then
             for i, val in ipairs(context.removed) do
                 if SMODS.has_enhancement(val, "m_glass") then
@@ -165,8 +166,17 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
                     }))
                 end
             end
-        elseif context.hololive_shatter_card then
+        end
+        ]]
+        if context.hololive_shatter_card then
             if SMODS.has_enhancement(context.hololive_shatter_card, 'm_glass') and not context.blueprint then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        context.hololive_shatter_card:juice_up()
+                        play_sound('hololive_sound_Ceci_Durable')
+                        return true
+                    end
+                }))
                 holo_card_upgrade(card)
                 return {durable=true}
             end

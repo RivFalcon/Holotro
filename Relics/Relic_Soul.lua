@@ -22,7 +22,7 @@ SMODS.ConsumableType{
         }
     },
     collection_rows = {5,6},
-    shop_rate = 0.05,
+    shop_rate = 0.02,
 }
 
 Holo.Relic_Gacha = SMODS.Consumable:extend{
@@ -446,7 +446,7 @@ Holo.Relic_Gacha{ -- Hololive
     }},
     hidden = true,
     soul_set = 'Tarot',
-    soul_rate = 0.05,
+    soul_rate = 0.03,
     can_repeat_soul = false,
 
     atlas = 'RelicGacha_HQ',
