@@ -275,6 +275,10 @@ function Holo.try_add_consumeable(_key, _neg)
     end
 end
 
+function Holo.is_durable(card)
+    return next(find_joker('j_hololive_Relic_Ceci')) or card.ability.hololive_durable or false
+end
+
 ---------------------------------------
 ---- Consumeable utility functions ----
 ---------------------------------------

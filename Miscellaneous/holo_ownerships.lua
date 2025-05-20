@@ -30,7 +30,16 @@ SMODS.Enhancement:take_ownership(
         calculate = function(self, card, context)
             if context.destroy_card == card and context.cardarea == G.play then
                 if Holo.chance('glass',card.ability.extra) then
-                    return { remove = true }
+                    if Holo.is_durable(card) then
+                        SMODS.calculate_effect({
+                            message='Durable!',
+                            colour=Holo.C.Ceci,
+                            sound='hololive_sound_Ceci_Durable'
+                        },card)
+                        SMODS.calculate_context({hololive_shatter_card=card})
+                    else
+                        return { remove = true }
+                    end
                 end
             end
         end,

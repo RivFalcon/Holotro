@@ -168,18 +168,11 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
             end
         end
         ]]
-        if context.hololive_shatter_card then
-            if SMODS.has_enhancement(context.hololive_shatter_card, 'm_glass') and not context.blueprint then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        context.hololive_shatter_card:juice_up()
-                        play_sound('hololive_sound_Ceci_Durable')
-                        return true
-                    end
-                }))
+        if context.hololive_shatter_card and SMODS.has_enhancement(context.hololive_shatter_card, 'm_glass') then
+            if not context.blueprint then
                 holo_card_upgrade(card)
-                return {durable=true}
             end
+            return {durable=true}
         elseif context.joker_main then
             return {
                 Xmult = card.ability.extra.Xmult
