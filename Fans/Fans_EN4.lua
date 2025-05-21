@@ -77,15 +77,16 @@ Holo.Fan_card{ -- Gremurin
         local destroyed_cards = {}
         for i=#G.hand.cards, 1, -1 do
             if Holo.chance('gremurin', card.ability.extra) then
-                if Holo.is_durable(card) then
+                local v = G.hand.cards[i]
+                if Holo.is_durable(v) then
                     SMODS.calculate_effect({
                         message='Durable!',
                         colour=Holo.C.Ceci,
                         sound='hololive_sound_Ceci_Durable'
-                    },card)
-                    SMODS.calculate_context({hololive_shatter_card=card})
+                    },v)
+                    SMODS.calculate_context({hololive_shatter_card=v})
                 else
-                    destroyed_cards[#destroyed_cards+1] = G.hand.cards[i]
+                    destroyed_cards[#destroyed_cards+1] = v
                 end
             end
         end
