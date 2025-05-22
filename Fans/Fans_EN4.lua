@@ -112,8 +112,8 @@ SMODS.Sticker{ -- Cecilia Immergreen: Durable
             'This card is',
             'very {V:1}Durable{}.',
             '{C:inactive}(Shattering mechanic of',
-            'Glass enhancement',
-            'will not trigger.)',
+            '{C:inactive}Glass enhancement',
+            '{C:inactive}will not trigger.)',
         }
         ,boxes={2,3}
     },
