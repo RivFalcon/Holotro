@@ -122,7 +122,7 @@ SMODS.Sticker{ -- Cecilia Immergreen: Durable
     end,
     atlas = 'Sticker_Durable',
     pos = {x=0,y=0},
-    badge_colour=Holo.C.Caci,
+    badge_colour=Holo.C.Ceci,
     should_apply = function(self, card, center, area, bypass_roll)
         local is_playing_card = card and card.playing_card or false
         local has_glass_enhancement = SMODS.has_enhancement(card, 'm_glass') or false
