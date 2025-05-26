@@ -3,7 +3,7 @@
 SMODS.ConsumableType{
     key = 'holo_fandom',
     primary_colour = Holo.C.Hololive_bright,
-    secondary_colour = Holo.C.Hololive,
+    secondary_colour = Holo.C.Hololive_bright,
     loc_txt = {
         name = "Fandom",
         collection = "Hololive Fandom",
@@ -18,7 +18,7 @@ SMODS.ConsumableType{
         }
     },
     collection_rows = {5,6},
-    shop_rate = 2,
+    shop_rate = 1,
 }
 Holo.Atlas_7195{
     key = 'holo_fandoms_1',
