@@ -164,7 +164,6 @@ Holo.Relic_Joker{ -- Takanashi Kiara
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.first_hand_drawn then
-            local charge = cae.flame
             local eval = function(_c) return _c.ability.extra.flame>0 and G.GAME.facing_blind and not G.RESET_JIGGLES end
             juice_card_until(card, eval, true)
         elseif context.after then

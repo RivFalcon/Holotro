@@ -276,7 +276,8 @@ function Holo.try_add_consumeable(_key, _neg)
 end
 
 function Holo.is_durable(card)
-    return next(find_joker('j_hololive_Relic_Ceci')) or card.ability.hololive_durable or false
+    local with_violance = next(find_joker('j_hololive_Relic_Ceci')) and SMODS.has_enhancement(card,'m_glass') or false
+    return with_violance or card.ability.hololive_durable or false
 end
 
 ---------------------------------------
@@ -325,10 +326,40 @@ function Holo.flip_cards_in_hand(mode, unflip)
     return pool
 end
 
+function Holo.create_card_copy(card, amount, area)
+    amount = amount or 1
+    area = area or G.hand
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            local _first_dissolve = nil
+            local new_cards = {}
+            for i = 1, amount do
+                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                local _card = copy_card(card, nil, nil, G.playing_card)
+                _card:add_to_deck()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                table.insert(G.playing_cards, _card)
+                area:emplace(_card)
+                _card:start_materialize(nil, _first_dissolve)
+                _first_dissolve = true
+                new_cards[#new_cards+1] = _card
+            end
+            playing_card_joker_effects(new_cards)
+            return true
+        end
+    }))
+end
+
 function Holo.delayed_destruction(destroyed_cards, func)
     func = func or function()end
     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.2,func = function()
         for i,_card in ipairs(destroyed_cards) do
+            --[[
+            if Holo.is_durable(_card) then
+                SMODS.calculate_context({hololive_shatter_card=_card})
+                --Holo.create_card_copy(_card)
+            end
+            ]]
             if SMODS.shatters(_card) then
                 _card:shatter()
             else
@@ -359,8 +390,8 @@ Holo.hooks = {}
 
 Holo.hooks.Card_calculate_joker = Card.calculate_joker
 function Card:calculate_joker(context)
-    local ret = Holo.hooks.Card_calculate_joker(self, context)
-    if ret then return ret end
+    local return_table = Holo.hooks.Card_calculate_joker(self, context)
+    if return_table then return return_table end
     if self.ability.set == "Tarot" and not self.debuff then
         if context.individual and context.cardarea == G.play and G.GAME.used_vouchers.v_hololive_suit_bouquet then
             if self.config.suit_conv then
@@ -413,6 +444,21 @@ Holo.hooks.level_up_hand = level_up_hand
 function level_up_hand(card, hand, instant, amount)
     Holo.hooks.level_up_hand(card, hand, instant, amount)
     SMODS.calculate_context({hololive_level_up_hand = hand, hololive_level_up_amount = amount or 1})
+end
+
+Holo.hooks.set_consumeable_usage = set_consumeable_usage
+function set_consumeable_usage(card)
+    Holo.hooks.set_consumeable_usage(card)
+    G.GAME.last_used = G.GAME.last_used or {}
+    local last_used_set = card.config.center.set
+    if last_used_set then
+        G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
+            G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
+                G.GAME.last_used[last_used_set] = card.config.center_key
+            return true end}))
+        return true end}))
+    end
+    G:save_settings()
 end
 
 Holo.hooks.SMODS_always_scores = SMODS.always_scores

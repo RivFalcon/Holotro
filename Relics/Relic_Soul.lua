@@ -8,7 +8,7 @@ local relicgacha_text={
 SMODS.ConsumableType{
     key = 'relicgacha',
     primary_colour = Holo.C.Hololive_dark,
-    secondary_colour = Holo.C.Hololive,
+    secondary_colour = Holo.C.Hololive_dark,
     loc_txt = {
         name = "Relic Gacha",
         collection = "Hololive Relic Gacha",

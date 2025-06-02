@@ -113,14 +113,15 @@ Holo.Fan_card{ -- Takodachi
     loc_txt = {
         name = 'Takodachi',
         text = {
-            'Creates the last {C:spectral}Spectral',
-            'card used during this run.',
+            'Creates the last',
+            '{C:spectral}Spectral card used',
+            'during this run.',
             '{C:inactive}(Must have room)'
         }
     },
     config = {},
     loc_vars = function(self, info_queue, card)
-        local tako_c = G.GAME.last_spectral and G.P_CENTERS[G.GAME.last_spectral] or nil
+        local tako_c = G.GAME and G.GAME.last_used and G.GAME.last_used.Spectral and G.P_CENTERS[G.GAME.last_used.Spectral] or nil
         local last_spectral = tako_c and localize{type = 'name_text', key = tako_c.key, set = tako_c.set} or localize('k_none')
         local colour = (not tako_c) and G.C.RED or G.C.GREEN
         local main_end = {
@@ -141,13 +142,13 @@ Holo.Fan_card{ -- Takodachi
 
     can_use = function(self, card)
         if (#G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables)
-        and G.GAME.last_spectral then return true end
+        and G.GAME.last_used.Spectral then return true end
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.4,func = function()
             if G.consumeables.config.card_limit > #G.consumeables.cards then
                 play_sound('timpani')
-                SMODS.add_card({key = G.GAME.last_spectral, area = G.consumeables})
+                SMODS.add_card({key = G.GAME.last_used.Spectral, area = G.consumeables})
                 card:juice_up(0.3, 0.5)
             end
         return true end}))

@@ -354,12 +354,10 @@ Holo.Relic_Joker{ -- AZKi
         elseif context.first_hand_drawn then
             for _,v in ipairs(G.hand.cards) do
                 if v:get_id()==cae.base.id and v:is_suit('Diamonds') then
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            v:juice_up()
-                            return true
-                        end
-                    }))
+                    SMODS.calculate_effect({
+                        message='Guess!',
+                        sound='hololive_sound_AZKi_Guess'..pseudorandom('AZKi_Guess',1,4),
+                    },v)
                     holo_card_upgrade(card)
                     break
                 end

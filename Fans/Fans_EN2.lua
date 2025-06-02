@@ -7,30 +7,23 @@ Holo.Fan_card{ -- IRyStocrat
     loc_txt = {
         name = 'Irystocrat',
         text = {
-            'Gives {V:1}#3#{} times the total',
-            'sell value of all',
-            'current {C:attention}consumeables{}.',
-            '{C:inactive}(Max of {C:money}$#1#{C:inactive}, currently {C:money}$#2#{C:inactive})'
+            'Gives {C:money}$1{} for each',
+            'consumeable used',
+            'this run.',
+            '{C:inactive}(Max of {C:money}$#1#{C:inactive})',
+            '{C:inactive}(Currently {C:money}$#2#{C:inactive})'
         }
     },
     config = {
         money = 0,
         max_dollars = 37,
-        money_mult = 6,
     },
     loc_vars = function(self, info_queue, card)
-        local money = 0
-        for _,v in ipairs(G.consumeables.cards) do
-            if v.ability.consumeable then
-                money = money + v.sell_cost
-            end
-        end
+        local money = ((G.GAME or {}).consumeable_usage_total or {}).all or 0
         return {
             vars = {
                 card.ability.max_dollars,
-                math.min(money * card.ability.money_mult, card.ability.max_dollars),
-                card.ability.money_mult,
-                colours = {Holo.C.IRyS}
+                math.min(money, card.ability.max_dollars),
             }
         }
     end,
@@ -43,16 +36,7 @@ Holo.Fan_card{ -- IRyStocrat
     end,
     use = function(self, card, area, copier)
         Holo.juice_on_use(card)
-        local money = 0
-        for _,v in ipairs(G.consumeables.cards) do
-            if v.ability.consumeable then
-                money = money + v.sell_cost
-            end
-        end
-        if area == G.consumeables then
-            money = money + card.sell_cost
-        end
-        local _money = math.min(money * card.ability.money_mult, card.ability.max_dollars)
+        local _money = math.min(G.GAME.consumeable_usage_total.all or 0, card.ability.max_dollars)
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             ease_dollars(_money, true)
             return true end
@@ -76,7 +60,7 @@ Holo.Fan_card{ -- Sanalite
     },
     config = {},
     loc_vars = function (self, info_queue, card)
-        local bread_c = G.GAME.last_planet and G.P_CENTERS[G.GAME.last_planet] or nil
+        local bread_c = G.GAME and G.GAME.last_used and G.GAME.last_used.Planet and G.P_CENTERS[G.GAME.last_used.Planet] or nil
         local last_planet = bread_c and localize{type = 'name_text', key = bread_c.key, set = bread_c.set} or localize('k_none')
         local colour = (not bread_c) and G.C.RED or G.C.GREEN
         local main_end = {
@@ -96,13 +80,13 @@ Holo.Fan_card{ -- Sanalite
     pos={y=2,x=0},
 
     can_use = function(self, card)
-        if G.GAME.last_planet then return true end
+        if G.GAME.last_used.Planet then return true end
     end,
     use = function (self, card, area, copier)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.4,func = function()
             for _=1,2 do
                 play_sound('timpani')
-                SMODS.add_card({key = G.GAME.last_planet, area = G.consumeables, edition = 'e_negative'})
+                SMODS.add_card({key = G.GAME.last_used.Planet, area = G.consumeables, edition = 'e_negative'})
                 card:juice_up(0.3, 0.5)
             end
         return true end}))

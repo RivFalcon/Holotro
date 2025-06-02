@@ -176,7 +176,8 @@ Holo.Fan_card{ -- Chattino
         name = 'Chattino',
         text = {
             'Select up to {V:1}#1# {C:attention}Glass Cards{},',
-            'increases their {X:mult,C:white}Xmult{} by {X:mult,C:white}X#2#{} Mult.'
+            'increases their {X:mult,C:white}Xmult',
+            'by {X:mult,C:white}X#2#{} Mult.'
         }
     },
     config = {

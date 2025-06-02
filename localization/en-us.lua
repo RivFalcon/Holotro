@@ -270,13 +270,13 @@ return {
             holo_info_even={
                 name="Even Ranks",
                 text={
-                    " 10, 8, 6, 4, 2 ",
+                    " 10, 8, 6, 4, 2. ",
                 }
             },
             holo_info_odd={
                 name="Odd Ranks",
                 text={
-                    " A, 9, 7, 5, 3 ",
+                    " A, 9, 7, 5, 3. ",
                 }
             },
             holo_info_forbiddenSpectrals={
