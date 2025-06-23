@@ -196,9 +196,9 @@ function Holo.pseudorandom_weighted_element(weight_table, seed)
         sum = sum + weight
         pool[#pool+1] = { e = element, acc_w = sum }
     end
-    local index = sum*pseudorandom(seed)
+    local _random = sum*pseudorandom(seed)
     for i,v in ipairs(pool) do
-        if index<v.acc_w then return v.e end
+        if _random<v.acc_w then return v.e end
     end
     return pool[#pool].e
 end

@@ -338,6 +338,9 @@ return {
             ph_hololive_necromancy="Saved by Necromancy",
         },
         labels={
+            ---- Seal Badges
+            hololive_geopin_seal="Geo-Pin",
+
             ---- Sticker Badges
             hololive_kapumark="Yozora Vampirism",
             hololive_handcuff="Oozora Police Station",

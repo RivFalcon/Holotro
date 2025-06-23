@@ -17,7 +17,7 @@ SMODS.ConsumableType{
             }
         }
     },
-    collection_rows = {5,6},
+    collection_rows = {5,5,6},
     shop_rate = 1,
 }
 Holo.Atlas_7195{
@@ -55,7 +55,7 @@ Holo.Fan_card = SMODS.Consumable:extend{
 }
 
 local fandom_files = {
-    --"JP0",
+    "JP0",
     --"JP1",
     --"JP2",
     --"JPG",

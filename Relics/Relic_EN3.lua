@@ -70,19 +70,21 @@ Holo.Relic_Joker{ -- Koseki Bijou
     loc_txt = {
         name = "Jewel Crown of the Ancient Rock",
         text = {
-            '{C:attention}Stone cards{} become {C:attention}#3#{},',
-            'permanently gain {C:chips}+#1#{} chips when scored.',
-            'Chip gain increases by {C:chips}+#2#{} chips',
-            'per {C:tarot}The Tower{} used.',
-            '{C:attention}Non-face cards{} will always score.'
+            '{C:attention}Stone cards{} become {C:attention}#4#{},',
+            'permanently gain {C:chips}+#3#{} chips when scored.',
+            '{C:attention}Non-face cards{} or {C:attention}Stone Cards',
+            'give {X:mult,C:white}X#1#{} Mult when scored',
+            'and will always score.',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Tower{} used.'
         }
-        ,boxes={2,2,1}
+        ,boxes={2,3,1}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-        bonus_mod = 50, bonus_mod_mod = 10,
+        bonus_mod = 50,
+        Xmult = 1, Xmult_mod = 0.2,
         upgrade_args = {
-            scale_var = 'bonus_mod',
+            scale_var = 'Xmult',
             message = 'Rock!',
         },
     } },
@@ -90,7 +92,8 @@ Holo.Relic_Joker{ -- Koseki Bijou
         local cae = card.ability.extra
         info_queue[#info_queue+1] = G.P_CENTERS.c_tower
         return { vars = {
-            cae.bonus_mod, cae.bonus_mod_mod,
+            cae.Xmult, cae.Xmult_mod,
+            cae.bonus_mod,
             Holo.mod_config.allow_profanity and 'Rock Hard' or 'More Solid',
         } }
     end,
@@ -100,11 +103,20 @@ Holo.Relic_Joker{ -- Koseki Bijou
     soul_pos = { x = 1, y = 1 },
 
     calculate = function(self, card, context)
+        local cae = card.ability.extra
         holo_card_upgrade_by_consumeable(card, context, 'c_tower')
         if context.individual and context.cardarea == G.play then
-            if SMODS.has_enhancement(context.other_card, "m_stone") then
-                context.other_card.ability.bonus = context.other_card.ability.bonus + card.ability.extra.bonus_mod
-                SMODS.calculate_effect({message="Biboo!",colour = HEX('6e5bf4')},card)
+            local v = context.other_card
+            local is_stone = SMODS.has_enhancement(v, "m_stone")
+            if is_stone then
+                v.ability.bonus = v.ability.bonus + cae.bonus_mod
+                SMODS.calculate_effect({message="Biboo!",colour = Holo.C.Biboo},v)
+            end
+            if (is_stone or not v:is_face()) and (cae.Xmult > 1) then
+                return {
+                    Xmult = cae.Xmult,
+                    colour = Holo.C.Biboo,
+                }
             end
         end
     end
@@ -119,14 +131,25 @@ Holo.Relic_Joker{ -- Nerissa Ravencroft
             'Each played card {C:spectral}sings along with the tune{}',
             'and gives {X:mult,C:white} X#1# {} mult when scored.',
             '{C:attention}Face cards{} that joined the chorus',
-            'will fall victim into {X:black,C:white}craziness{}.'
+            'will fall victim into {X:black,C:white}craziness{}.',
+            'Gain {X:mult,C:white}X#2#{} mult after the chorus',
+            'if everyone survived.'
         }
-        ,boxes={2,2}
+        ,boxes={2,2,2}
         ,unlock=Holo.Relic_unlock_text
     },
-    config = { extra = { Xmult = 3 } },
+    config = { extra = {
+        Xmult = 3,
+        Xmult_mod = 0.3,
+        upgrade_args = {
+            scale_var = 'Xmult',
+        }
+    }},
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult } }
+        local cae = card.ability.extra
+        return { vars = {
+            cae.Xmult, cae.Xmult_mod,
+        }}
     end,
 
     atlas = 'Relic_Advent',
@@ -140,6 +163,10 @@ Holo.Relic_Joker{ -- Nerissa Ravencroft
                 colour = Holo.C.Nerissa,
                 Xmult = card.ability.extra.Xmult
             }
+        elseif context.post_joker then
+            if not Holo.series_or(context.scoring_hand, Card.is_face) then
+                holo_card_upgrade(card)
+            end
         elseif context.destroying_card then
             if context.destroying_card:is_face() then
                 return { remove = true, sound = 'gong' }
