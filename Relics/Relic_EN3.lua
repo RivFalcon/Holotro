@@ -73,9 +73,9 @@ Holo.Relic_Joker{ -- Koseki Bijou
             '{C:attention}Stone cards{} become {C:attention}#4#{},',
             'permanently gain {C:chips}+#3#{} chips when scored.',
             '{C:attention}Non-face cards{} or {C:attention}Stone Cards',
-            'give {X:mult,C:white}X#1#{} Mult when scored',
-            'and will always score.',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Tower{} used.'
+            'give {X:mult,C:white}X#1#{} Mult when scored.',
+            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Tower{} used.',
+            '{C:attention}Non-face cards{} will always score.'
         }
         ,boxes={2,3,1}
         ,unlock=Holo.Relic_unlock_text
