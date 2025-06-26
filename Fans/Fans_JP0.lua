@@ -165,7 +165,7 @@ Holo.Fan_card{ -- 35P
                         cen_pool[#cen_pool + 1] = v
                     end
                 end
-                local _rank = pseudorandom_element(SMODS.Ranks, pseudoseed('35P')).key
+                local _rank = pseudorandom_element(SMODS.Ranks, pseudoseed('35P')).card_key
                 cards[i] = create_playing_card(
                     {front = G.P_CARDS['D_'.._rank], center = pseudorandom_element(cen_pool, pseudoseed('spe_card'))},
                     G.hand, nil, i ~= 1, { Holo.C.Miko }
