@@ -163,7 +163,7 @@ Holo.Relic_Joker{ -- Nerissa Ravencroft
                 colour = Holo.C.Nerissa,
                 Xmult = card.ability.extra.Xmult
             }
-        elseif context.post_joker then
+        elseif context.post_joker and not context.blueprint then
             if not Holo.series_or(context.scoring_hand, Card.is_face) then
                 holo_card_upgrade(card)
             end
