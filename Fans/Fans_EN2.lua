@@ -61,7 +61,7 @@ Holo.Fan_card{ -- Sanalite
     config = {},
     loc_vars = function (self, info_queue, card)
         local bread_c = G.GAME and G.GAME.last_used and G.GAME.last_used.Planet and G.P_CENTERS[G.GAME.last_used.Planet] or nil
-        local last_planet = bread_c and localize{type = 'name_text', key = bread_c.key, set = bread_c.set} or localize('k_none')
+        local last_planet = bread_c and localize{type = 'name_text', key = bread_c.key, set = 'Planet'} or localize('k_none')
         local colour = (not bread_c) and G.C.RED or G.C.GREEN
         local main_end = {
             {n=G.UIT.C, config={align = "bm", padding = 0.02}, nodes={

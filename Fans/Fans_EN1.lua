@@ -90,11 +90,11 @@ Holo.Fan_card{ -- KFP
     pos={y=0,x=1},
 
     use = function(self, card, area, copier)
+        Holo.juice_on_use(card)
         local destroyed_cards = {}
         for i=#G.hand.highlighted, 1, -1 do
             destroyed_cards[#destroyed_cards+1] = G.hand.highlighted[i]
         end
-        Holo.juice_on_use(card)
 
         local fry = function ()
             ease_dollars(card.ability.dollars)
@@ -122,7 +122,7 @@ Holo.Fan_card{ -- Takodachi
     config = {},
     loc_vars = function(self, info_queue, card)
         local tako_c = G.GAME and G.GAME.last_used and G.GAME.last_used.Spectral and G.P_CENTERS[G.GAME.last_used.Spectral] or nil
-        local last_spectral = tako_c and localize{type = 'name_text', key = tako_c.key, set = tako_c.set} or localize('k_none')
+        local last_spectral = tako_c and localize{type = 'name_text', key = tako_c.key, set = 'Spectral'} or localize('k_none')
         local colour = (not tako_c) and G.C.RED or G.C.GREEN
         local main_end = {
             {n=G.UIT.C, config={align = "bm", padding = 0.02}, nodes={
@@ -141,7 +141,8 @@ Holo.Fan_card{ -- Takodachi
     pos={y=0,x=2},
 
     can_use = function(self, card)
-        if (#G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables)
+        local has_room = (#G.consumeables.cards < G.consumeables.config.card_limit) or false
+        if (has_room or (self.area == G.consumeables and not self.edition.negative))
         and G.GAME.last_used.Spectral then return true end
     end,
     use = function(self, card, area, copier)

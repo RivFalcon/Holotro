@@ -451,7 +451,7 @@ function set_consumeable_usage(card)
     Holo.hooks.set_consumeable_usage(card)
     G.GAME.last_used = G.GAME.last_used or {}
     local last_used_set = card.config.center.set
-    if last_used_set then
+    if last_used_set and not card.config.center.hidden then
         G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
             G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
                 G.GAME.last_used[last_used_set] = card.config.center_key

@@ -551,11 +551,12 @@ function Holo.set_member_badges(card, badges, member)
 
     -- Member
     local member_name = localize('k_hololive_fullname_table')[member]
-    if member == 'Haato' then
-        member_name = member_name.." / "..localize('k_hololive_fullname_table')['Haachama']
-    end
     local member_badge_colour = Holo.badge_colours[member] or {back = G.C.WHITE, text = Holo.C.Hololive}
     badges[#badges+1] = create_badge(member_name, member_badge_colour.back, member_badge_colour.text, 1.2 )
+    if member == 'Haato' then
+        local nickname = localize('k_hololive_fullname_table')['Haachama']
+        badges[#badges+1] = create_badge(nickname, member_badge_colour.back, member_badge_colour.text, 1.2 )
+    end
 
     -- Branch-Generation
     local _branch = Holo.Members[member].branch

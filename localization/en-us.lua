@@ -339,7 +339,7 @@ return {
         },
         labels={
             ---- Seal Badges
-            hololive_geopin_seal="Geo-Pin",
+            hololive_geopin_seal="Geo-Pin Seal",
 
             ---- Sticker Badges
             hololive_kapumark="Yozora Vampirism",

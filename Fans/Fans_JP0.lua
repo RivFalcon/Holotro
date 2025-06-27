@@ -151,7 +151,7 @@ Holo.Fan_card{ -- 35P
         Holo.juice_on_use(card)
 
         local destroyed_cards = {}
-        destroyed_cards[#destroyed_cards+1] = pseudorandom_element(G.hand.cards, pseudoseed('Ruffian_Pink'))
+        destroyed_cards[#destroyed_cards+1] = pseudorandom_element(G.hand.cards, pseudoseed('35P_destroy'))
         Holo.delayed_destruction(destroyed_cards)
         delay(0.3)
         SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
@@ -165,7 +165,7 @@ Holo.Fan_card{ -- 35P
                         cen_pool[#cen_pool + 1] = v
                     end
                 end
-                local _rank = pseudorandom_element(SMODS.Ranks, pseudoseed('35P')).card_key
+                local _rank = pseudorandom_element(SMODS.Ranks, pseudoseed('35P_rank')).card_key
                 cards[i] = create_playing_card(
                     {front = G.P_CARDS['D_'.._rank], center = pseudorandom_element(cen_pool, pseudoseed('spe_card'))},
                     G.hand, nil, i ~= 1, { Holo.C.Miko }
