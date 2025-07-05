@@ -79,7 +79,7 @@ SMODS.Tag{
     atlas = 'tags_sparedtags', pos = { x = 1, y = 0 },
     min_ante = 3,
     apply = function (self, tag, context)
-        if (G.GAME.current_round.hands_left==1)and not G.GAME.hololive_hand_spared then
+        if (G.GAME.current_round.hands_left==1)and not G.GAME.hololive_hand_spared and G.STATE ~= G.STATES.ROUND_EVAL then
             G.GAME.hololive_hand_spared = true
             ease_hands_played(1)
             tag:yep(
