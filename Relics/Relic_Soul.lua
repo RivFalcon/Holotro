@@ -37,6 +37,7 @@ Holo.Relic_Gacha = SMODS.Consumable:extend{
     end,
     unlocked = true,
     discovered = false,
+    cost = 10,
     memberlist = {},
 
     in_pool = function(self, args)
@@ -138,6 +139,7 @@ local function RelicGacha()
     local pool_mode = Holo.pseudorandom_weighted_element(pool_modes_weight, 'RelicGachaMode')
 
     local _pool = {}
+    local all_stars_mode = false
     if pool_mode == 'Synergy' then
         local card_stats = {
             suits = {
@@ -369,7 +371,7 @@ local function RelicGacha()
         for member,condition in pairs(syn_table)do
             if condition and dupe_check(member) then _pool[#_pool+1] = member end
         end
-        if #_pool == 0 then pool_mode = 'All Stars' end
+        if #_pool == 0 then all_stars_mode = true end
 
     elseif pool_mode == 'Genmates' then
         local target_member = pseudorandom_element(gen_sample_pool,pseudoseed('RelicGacha GenmateMode'))
@@ -389,9 +391,9 @@ local function RelicGacha()
             end
         end
         -- If the relics of all the branchmates have been obtained:
-        if #_pool == 0 then pool_mode = 'All Stars' end
+        if #_pool == 0 then all_stars_mode = all_stars_mode end
     end
-    if pool_mode == 'All Stars' then
+    if (pool_mode == 'All Stars') or all_stars_mode then
         local implemented_relics = {} -- Holo.memberlist
 
         -- Temporary Solution --

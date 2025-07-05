@@ -13,6 +13,7 @@ Holo.Fan_card{ -- Rosarian
     },
     config = {
         max_highlighted = 3,
+        min_highlighted = 1,
         mod_conv = 'm_glass',
     },
     loc_vars = function (self, info_queue, card)

@@ -191,16 +191,10 @@ function Holo.chance(seed, odds)
 end
 function Holo.pseudorandom_weighted_element(weight_table, seed)
     local pool = {}
-    local sum = 0
     for element, weight in pairs(weight_table)do
-        sum = sum + weight
-        pool[#pool+1] = { e = element, acc_w = sum }
+        for _=1,weight do pool[#pool+1] = element end
     end
-    local _random = sum*pseudorandom(seed)
-    for i,v in ipairs(pool) do
-        if _random<v.acc_w then return v.e end
-    end
-    return pool[#pool].e
+    return pseudorandom_element(pool, pseudoseed(seed))
 end
 
 function Holo.hand_contained_usage()
@@ -278,6 +272,16 @@ end
 function Holo.is_durable(card)
     local with_violance = next(find_joker('j_hololive_Relic_Ceci')) and SMODS.has_enhancement(card,'m_glass') or false
     return with_violance or card.ability.hololive_durable or false
+end
+
+function Holo.create_main_end_node(text,colour)
+    text = text or localize('k_none')
+    colour = colour or G.C.RED
+    return {n=G.UIT.C, config={align = "bm", padding = 0.02}, nodes={
+        {n=G.UIT.C, config={align = "m", colour = colour, r = 0.05, padding = 0.05}, nodes={
+            {n=G.UIT.T, config={text = ' '..text..' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true}},
+        }}
+    }}
 end
 
 ---------------------------------------

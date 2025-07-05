@@ -199,6 +199,7 @@ SMODS.Seal{ -- Geo-Pin
     loc_vars = function (self, info_queue, card)
         return {
             vars={colours={Holo.C.AZKi}},
+            main_end = card.ability.azki_guessed and {Holo.create_main_end_node('Guessed',Holo.C.AZKi)} or nil,
         }
     end,
     badge_colour = Holo.C.AZKi,
