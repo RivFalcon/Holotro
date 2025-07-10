@@ -12,8 +12,8 @@ SMODS.Rarity{
 }
 
 SMODS.Atlas{
-    key = "Relic_hololive",
-    path = "Relics/Relic_hololive.png",
+    key = "Relic_Hololive",
+    path = "Relics/Relic_Hololive.png",
     px = 71,
     py = 95
 }
@@ -30,9 +30,7 @@ Holo.Relic_Joker = SMODS.Joker:extend{
     eternal_compat = true,
     perishable_compat = false,
 
-    atlas = 'Relic_hololive',
-    pos = { x = 0, y = 0 },
-    soul_pos = { x = 0, y = 1 },
+    atlas = 'Relic_Hololive',
 
     set_badges = function(self, card, badges)
         Holo.set_member_badges(card, badges)
