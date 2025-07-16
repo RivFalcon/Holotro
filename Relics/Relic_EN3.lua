@@ -71,7 +71,7 @@ Holo.Relic_Joker{ -- Koseki Bijou
         name = "Jewel Crown of the Ancient Rock",
         text = {
             '{C:attention}Stone cards{} become {C:attention}#4#{},',
-            'permanently gain {C:chips}+#3#{} chips when scored.',
+            'permanently gain {C:chips}+#3#{} chips when played.',
             '{C:attention}Non-face cards{} or {C:attention}Stone Cards',
             'give {X:mult,C:white}X#1#{} Mult when scored.',
             'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Tower{} used.',
@@ -105,14 +105,16 @@ Holo.Relic_Joker{ -- Koseki Bijou
     calculate = function(self, card, context)
         local cae = card.ability.extra
         holo_card_upgrade_by_consumeable(card, context, 'c_tower')
-        if context.individual and context.cardarea == G.play then
-            local v = context.other_card
+        if context.hololive_played_card then
+            local v = context.hololive_played_card
             local is_stone = SMODS.has_enhancement(v, "m_stone")
             if is_stone then
                 v.ability.bonus = v.ability.bonus + cae.bonus_mod
                 SMODS.calculate_effect({message="Biboo!",colour = Holo.C.Biboo},v)
             end
-            if (is_stone or not v:is_face()) and (cae.Xmult > 1) then
+        elseif context.individual and context.cardarea == G.play then
+            local v = context.other_card
+            if (SMODS.has_enhancement(v, "m_stone") or not v:is_face()) and (cae.Xmult > 1) then
                 return {
                     Xmult = cae.Xmult,
                     colour = Holo.C.Biboo,

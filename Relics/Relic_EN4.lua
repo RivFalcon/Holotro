@@ -187,9 +187,9 @@ Holo.Relic_Joker{ -- Raora Panthera
     loc_txt = {
         name = "Sketching Pen of the Pink Panther",
         text = {
-            'Played {C:attention}Glass cards{} get sketched',
+            '{C:attention}Glass cards{} get sketched',
             'and increase its {C:mult}Xmult{}',
-            'by {X:mult,C:white}X#3#{} mult when scored.',
+            'by {X:mult,C:white}X#3#{} mult when played.',
             'Gain {X:mult,C:white}X#2#{} mult per card sketched.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
         }
@@ -220,10 +220,12 @@ Holo.Relic_Joker{ -- Raora Panthera
     soul_pos = { x = 3, y = 1 },
 
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if SMODS.has_enhancement(context.other_card, "m_glass") then
-                context.other_card.ability.x_mult = context.other_card.ability.x_mult + card.ability.extra.x_mult_mod
-                context.other_card.ability.Xmult = context.other_card.ability.x_mult
+        if context.hololive_played_card then
+            local v = context.hololive_played_card
+            if SMODS.has_enhancement(v, "m_glass") and not v.debuffed then
+                v.ability.x_mult = v.ability.x_mult + card.ability.extra.x_mult_mod
+                v.ability.Xmult = v.ability.x_mult
+                SMODS.calculate_effect({message=localize('k_upgrade_ex'),colour=Holo.C.Raora},v)
                 holo_card_upgrade(card)
             end
         elseif context.joker_main then
