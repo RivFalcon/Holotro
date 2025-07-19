@@ -78,7 +78,7 @@ SMODS.Voucher{ -- Flower
         name = "Flower",
         text = {
             '{C:attention}Arcana Packs{} always contain',
-            'the Suit-converting {C:tarot}Tarot{} card',
+            'the Suit-converting {C:tarot}Tarot card{}',
             'for the {C:attention}most common{} suit',
             'in your {C:blue}full deck{}. Flower.'
         }
