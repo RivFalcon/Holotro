@@ -80,7 +80,7 @@ Holo.Fan_card{ -- Sanalite
     pos={y=2,x=0},
 
     can_use = function(self, card)
-        if G.GAME.last_used.Planet then return true end
+        if G.GAME.last_used and G.GAME.last_used.Planet then return true end
     end,
     use = function (self, card, area, copier)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.4,func = function()
