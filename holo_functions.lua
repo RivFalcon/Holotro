@@ -177,9 +177,9 @@ function Holo.cae(card)
 end
 
 function Holo.prob_norm()
-    local _prob = {norm = G.GAME.probabilities.normal}
+    local _prob = G.GAME.probabilities
     -- insert probability manipulations
-    return _prob.norm
+    return _prob.normal
 end
 function Holo.chance(seed, odds)
     local _pseurand = pseudorandom(seed)
