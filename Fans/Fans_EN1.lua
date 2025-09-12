@@ -143,7 +143,7 @@ Holo.Fan_card{ -- Takodachi
     can_use = function(self, card)
         local has_room = (#G.consumeables.cards < G.consumeables.config.card_limit) or false
         if (has_room or (self.area == G.consumeables and not self.edition.negative))
-        and G.GAME.last_used.Spectral then return true end
+        and G.GAME and G.GAME.last_used and G.GAME.last_used.Spectral then return true end
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.4,func = function()
