@@ -450,6 +450,16 @@ function level_up_hand(card, hand, instant, amount)
     SMODS.calculate_context({hololive_level_up_hand = hand, hololive_level_up_amount = amount or 1})
 end
 
+Holo.hooks.play_sound = play_sound
+function play_sound(sound_code, per, vol)
+    if Holo.mod_config.allow_hell_of_doot and sound_code~='hololive_sound_Kaela_Doot' then
+        if G and G.GAME and G.jokers and SMODS.find_card('j_hololive_Meme_Kaela_DOOT') then
+            Holo.hooks.play_sound('hololive_sound_Kaela_Doot', per, vol*1.3)
+        end
+    end
+    Holo.hooks.play_sound(sound_code, per, vol)
+end
+
 Holo.hooks.set_consumeable_usage = set_consumeable_usage
 function set_consumeable_usage(card)
     Holo.hooks.set_consumeable_usage(card)

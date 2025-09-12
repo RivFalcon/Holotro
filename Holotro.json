@@ -2,14 +2,14 @@
 	"id": "Holotro",
 	"name": "holotro",
 	"display_name": "holotro",
-	"author": ["Riv_Falcon","and potentially others"],
+	"author": ["Riv_Falcon"],
 	"description": "A Hololive-themed fanmade Balatro mod",
 	"prefix": "hololive",
 	"main_file": "holotro.lua",
 	"priority": 0,
 	"badge_colour": "ffffff",
 	"badge_text_colour": "33C9FE",
-	"version": "0-beta_25w29a",
+	"version": "0-beta_25w37a",
 	"dependencies": [
 		"Steamodded (>=1.0.0~BETA-0305d)"
 		,"MultiTextBox (>=1.0.2)"

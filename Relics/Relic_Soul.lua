@@ -123,9 +123,12 @@ local function RelicGacha()
     local have_Showman = next(find_joker('Showman'))
     local dupe_check = function(M)return have_Showman or not next(find_joker('j_hololive_Relic_'..M))end
 
-    local hbd_member = Holo.birthday_chart[os.date('%m%d')]
-    if hbd_member and dupe_check(hbd_member) then
-        return hbd_member
+    if Holo.mod_config.allow_birthday_event and not G.GAME.acquired_birthday_relic then
+        local hbd_member = Holo.birthday_chart[os.date('%m%d')]
+        if hbd_member and dupe_check(hbd_member) then
+            G.GAME.acquired_birthday_relic = true
+            return hbd_member
+        end
     end
 
     local pool_modes_weight = {['Synergy'] = 3, ['All Stars'] = 1}
