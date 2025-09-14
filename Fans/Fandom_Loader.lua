@@ -56,7 +56,7 @@ Holo.Fan_card = SMODS.Consumable:extend{
 
 local fandom_files = {
     "JP0",
-    --"JP1",
+    "JP1",
     --"JP2",
     --"JPG",
 

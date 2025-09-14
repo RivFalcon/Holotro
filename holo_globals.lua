@@ -673,9 +673,9 @@ Holo.call_and_response_chart = {
     Chloe = 'Shion',
     Iroha = 'Suisei',
 
-    Nerissa = 'Kiara',
+    Nerissa = 'Kiara', -- and Marine
     Raden = 'Aki',
-    Riona = 'Calli',
+    Riona = 'Calli', -- and Luna
     Niko = 'Lui',
     Suu = 'Subaru',
 }
