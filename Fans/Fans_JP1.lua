@@ -77,7 +77,7 @@ Holo.Fan_card{ -- Sukonbu
             if last_used[set] then
                 local _c = last_used[set]
                 local last_c = localize{type = 'name_text', key = _c, set = set}
-                main_end[#main_end+1] = Holo.create_main_end_node(last_c,G.C.SET[set])
+                main_end[#main_end+1] = Holo.create_main_end_node(last_c,G.C.SECONDARY_SET[set])
                 info_queue[#info_queue+1] = G.P_CENTERS[_c]
             end
         end
