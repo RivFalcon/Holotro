@@ -76,7 +76,7 @@ Holo.Fan_card{ -- Sukonbu
         for _,set in ipairs({'Tarot','Planet','Spectral'})do
             if last_used[set] then
                 local _c = last_used[set]
-                local last_c = localize{type = 'name_text', key = _c, set = 'Tarot'}
+                local last_c = localize{type = 'name_text', key = _c, set = set}
                 main_end[#main_end+1] = Holo.create_main_end_node(last_c,G.C.SET[set])
                 info_queue[#info_queue+1] = G.P_CENTERS[_c]
             end
@@ -96,7 +96,7 @@ Holo.Fan_card{ -- Sukonbu
     can_use = function(self, card)
         local have_room = (#G.consumeables.cards < G.consumeables.config.card_limit) or false
         local last_used = G.GAME and G.GAME.last_used or {}
-        if (have_room or (self.area == G.consumeables and not self.edition.negative))
+        if (have_room or (card.area == G.consumeables and not (card.edition or {}).negative))
         and (last_used.Tarot or last_used.Planet or last_used.Spectral) then return true end
     end,
     use = function(self, card, area, copier)
