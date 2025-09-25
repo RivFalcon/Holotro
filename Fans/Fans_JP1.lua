@@ -7,7 +7,7 @@ Holo.Fan_card{ -- Kapumin
     loc_txt = {
         name = 'Kapumin',
         text = {
-            'Unenhance up to {C:attention}#1#{} selected',
+            'Unenhances up to {C:attention}#1#{} selected',
             'enhanced cards, and gain',
             '{C:money}$#2#{} for each unenhancing.',
         }
@@ -95,8 +95,9 @@ Holo.Fan_card{ -- Sukonbu
 
     can_use = function(self, card)
         local have_room = (#G.consumeables.cards < G.consumeables.config.card_limit) or false
+        local full_room = (#G.consumeables.cards == G.consumeables.config.card_limit) or false
         local last_used = G.GAME and G.GAME.last_used or {}
-        if (have_room or (card.area == G.consumeables and not (card.edition or {}).negative))
+        if (have_room or (full_room and card.area == G.consumeables and not (card.edition or {}).negative))
         and (last_used.Tarot or last_used.Planet or last_used.Spectral) then return true end
     end,
     use = function(self, card, area, copier)

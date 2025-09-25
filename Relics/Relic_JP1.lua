@@ -128,7 +128,7 @@ Holo.Relic_Joker{ -- Yozora Mel
     end
 }
 
-Holo.Relic_Joker{ -- Shiragami Fubuki
+Holo.Relic_Joker{ -- Shirakami Fubuki
     member = "Fubuki",
     key = "Relic_Fubuki",
     loc_txt = {

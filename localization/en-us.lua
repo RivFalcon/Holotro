@@ -3,7 +3,7 @@ local fullname = {
     Roboco = "Roboco",
     Suisei = "Hoshimachi Suisei",
     Mel = "Yozora Mel",
-    Fubuki = "Shiragami Fubuki",
+    Fubuki = "Shirakami Fubuki",
     Matsuri = "Natsuiro Matsuri",
     Aki = "Aki Rosenthal",
     Haato = "Akai Haato", Haachama = "Haachama",
