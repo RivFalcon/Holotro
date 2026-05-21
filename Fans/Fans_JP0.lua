@@ -191,15 +191,23 @@ SMODS.Seal{ -- Geo-Pin
             'Retrigger this card {V:1}twice',
             'if this card was drawn',
             'in {C:attention}first hand{} of round.',
+            '{V:2,B:3}#1#',
         }
     },
     config = {
         azki_guessed=false,
     },
     loc_vars = function (self, info_queue, card)
+        local _guessed = card.ability.azki_guessed
         return {
-            vars={colours={Holo.C.AZKi}},
-            main_end = card.ability.azki_guessed and {Holo.create_main_end_node('Guessed',Holo.C.AZKi)} or nil,
+            vars={
+                _guessed and 'Guessed' or 'inactive',
+                colours={
+                    Holo.C.AZKi,
+                    _guessed and G.C.WHITE or G.C.UI.TEXT_INACTIVE,
+                    _guessed and Holo.C.AZKi or nil,
+                }
+            },
         }
     end,
     badge_colour = Holo.C.AZKi,
