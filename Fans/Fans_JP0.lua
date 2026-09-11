@@ -191,7 +191,7 @@ SMODS.Seal{ -- Geo-Pin
             'Retrigger this card {V:1}twice',
             'if this card was drawn',
             'in {C:attention}first hand{} of round.',
-            '{V:2,B:3}#1#',
+            '{C:white,B:2}#1#',
         }
     },
     config = {
@@ -204,8 +204,7 @@ SMODS.Seal{ -- Geo-Pin
                 _guessed and 'Guessed' or 'inactive',
                 colours={
                     Holo.C.AZKi,
-                    _guessed and G.C.WHITE or G.C.UI.TEXT_INACTIVE,
-                    _guessed and Holo.C.AZKi or nil,
+                    _guessed and Holo.C.AZKi or G.C.UI.TEXT_DARK,
                 }
             },
         }
@@ -256,6 +255,7 @@ Holo.Fan_card{ -- Pioneer
         extra = 'hololive_geopin'
     },
     loc_vars = function (self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_SEALS.hololive_geopin
         return {
             vars = {
                 card.ability.max_highlighted,
