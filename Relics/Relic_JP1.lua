@@ -235,13 +235,12 @@ Holo.Relic_Joker{ -- Natsuiro Matsuri
         if context.repetition and context.cardarea==G.play then
             if SMODS.has_enhancement(context.other_card, 'c_base') then
                 local retriggers = 0
-                if context.other_card:is_suit('Hearts') then
-                    retriggers = cae.beats
-                else
-                    for _=1,cae.beats do
-                        if Holo.chance('Matsuri Taiko', cae.odds) then
-                            retriggers = retriggers + 1
-                        end
+                local is_heart = context.other_card:is_suit('Hearts')
+                for _=1,cae.beats do
+                    if is_heart then
+                        retriggers = retriggers + 1
+                    elseif Holo.chance('Matsuri Taiko', cae.odds) then
+                        retriggers = retriggers + 1
                     end
                 end
                 return {
