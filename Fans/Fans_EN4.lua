@@ -17,6 +17,7 @@ Holo.Fan_card{ -- Rosarian
         mod_conv = 'm_glass',
     },
     loc_vars = function (self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return {vars={card.ability.max_highlighted}}
     end,
     effect = "Enhance",
@@ -56,6 +57,7 @@ Holo.Fan_card{ -- Gremurin
     },
     config = { extra = 4 },
     loc_vars = function (self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return {vars={Holo.prob_norm(),card.ability.extra}}
     end,
     effect = "Enhance",
@@ -139,19 +141,20 @@ Holo.Fan_card{ -- Otomo
         name = 'Otomo',
         text = {
             'Applies {V:1}Durable{} effect',
-            'on {C:attention}1{} selected {C:attention}Glass Card{}.'
+            'on {C:attention}1{} selected card.'
         }
     },
     config = {max_highlighted = 1},
     loc_vars = function (self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.hololive_durable
+        info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return{vars={colours={Holo.C.Ceci}}}
     end,
     atlas='holo_fandoms_4',
     pos={y=2,x=2},
 
     can_use=function (self, card)
-        if #G.hand.highlighted~=1 then return false end
-        if SMODS.has_enhancement(G.hand.highlighted[1], 'm_glass')then return true end
+        return (#G.hand.highlighted==1)
     end,
     use = function (self, card, area, copier)
         Holo.reset_hand_text()

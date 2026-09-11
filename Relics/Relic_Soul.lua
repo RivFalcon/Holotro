@@ -35,6 +35,9 @@ Holo.Relic_Gacha = SMODS.Consumable:extend{
             }
         }
     end,
+    hidden = true,
+    soul_set = 'holo_fandom_packs',
+    soul_rate = 0.05,
     unlocked = true,
     discovered = false,
     cost = 10,
@@ -449,10 +452,6 @@ Holo.Relic_Gacha{ -- Hololive
         group_name = 'Hololive',
         colour = Holo.C.Hololive,
     }},
-    hidden = true,
-    soul_set = 'Tarot',
-    soul_rate = 0.03,
-    can_repeat_soul = false,
 
     atlas = 'RelicGacha_HQ',
     pos      = {x=0,y=0},
@@ -596,14 +595,14 @@ Holo.Relic_Gacha{ -- JP2 -- Exodia
     pos   = {x=2,y=0},
 }
 
-Holo.Relic_Gacha{ -- JPG -- Gamers
+Holo.Relic_Gacha{ -- JPG -- GAMERS
     key = 'RelicGacha_Gen_JPG',
     loc_txt = {
-        name = 'The Gamers',
+        name = 'The GAMERS',
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'Hololive Gamers',
+        group_name = 'Hololive GAMERS',
         colour = Holo.C.JP,
     }},
     memberlist = Holo.Generations.gen_gamers.members,

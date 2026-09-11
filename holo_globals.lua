@@ -43,7 +43,7 @@ Holo.Generations = {
         },
     },
     gen_gamers={
-        order =  4, branch = 'JP', codename =   'Gamers', name = 'Gamers',
+        order =  4, branch = 'JP', codename =   'Gamers', name = 'GAMERS',
         members = {
             "Fubuki",
             "Mio",
@@ -558,10 +558,10 @@ function Holo.set_member_badges(card, badges, member)
         badges[#badges+1] = create_badge(nickname, member_badge_colour.back, member_badge_colour.text, 1.2 )
     end
 
-    -- Branch-Generation
+    -- Generation
     local _branch = Holo.Members[member].branch
     for _,gen_key in ipairs(Holo.Members[member].gens)do
-        local gen_text = Holo.Branches[_branch].name..' '..localize('k_hololive_'..gen_key)
+        local gen_text = 'hololive '..localize('k_hololive_'..gen_key)
         badges[#badges+1] = create_badge(gen_text, G.C.WHITE, Holo.C[_branch], 0.9 )
     end
 end

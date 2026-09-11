@@ -50,6 +50,7 @@ Holo.Relic_Joker{ -- IRyS
     atlas = 'Relic_Promise',
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
+    fandom = 'fans_irystocrat',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -125,6 +126,7 @@ Holo.Relic_Joker{ -- Tsukumo Sana
     atlas = 'Relic_Promise',
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
+    fandom = 'fans_sanallite',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -147,10 +149,7 @@ Holo.Relic_Joker{ -- Tsukumo Sana
                 elseif not context.blueprint then
                     cae.bag_of_planets[#cae.bag_of_planets+1] = _planet
                 end
-                return {
-                    message = 'Observed!',
-                    colour=Holo.C.Sana,
-                }
+                SMODS.calculate_effect({message = 'Observed!',colour=Holo.C.Sana},card)
             end
         elseif context.joker_main then
             return {
@@ -213,6 +212,7 @@ Holo.Relic_Joker{ -- Ceres Fauna
     atlas = 'Relic_Promise',
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
+    fandom = 'fans_sapling',
 
     calculate = function(self, card, context)
         if context.before then
@@ -295,6 +295,7 @@ Holo.Relic_Joker{ -- Ouro Kronii
     atlas = 'Relic_Promise',
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
+    fandom = 'fans_kronie',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -353,6 +354,7 @@ Holo.Relic_Joker{ -- Nanashi Mumei
     atlas = 'Relic_Promise',
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
+    fandom = 'fans_hooman',
 
     calculate = function(self, card, context)
         if context.remove_playing_cards and not context.blueprint then
@@ -389,9 +391,10 @@ Holo.Relic_Joker{ -- Hakos Baelz
             'after each played hand.',
             'Multiplies all listed {C:green}probabilities',
             'with the number it lands.',
-            'Gain {X:mult,C:white}X#2#{} mult when it lands on {C:green}1{}.',
+            'Gain {X:mult,C:white}X#2#{} mult on {V:1}Snake Eye{}.',
             '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult and {C:green}X#3#{C:inactive} Chance)'
         }
+        ,boxes={4,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -414,6 +417,7 @@ Holo.Relic_Joker{ -- Hakos Baelz
     atlas = 'Relic_Promise',
     pos = { x = 5, y = 0 },
     soul_pos = { x = 5, y = 1 },
+    fandom = 'fans_brat',
 
     add_to_deck = function(self, card, from_debuff)
         G.GAME.probabilities.normal = G.GAME.probabilities.normal * card.ability.extra.Pmult

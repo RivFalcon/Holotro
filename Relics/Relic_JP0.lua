@@ -40,6 +40,7 @@ Holo.Relic_Joker{ -- Tokino Sora
     atlas = 'Relic_Origin',
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
+    fandom = 'fans_soratomo',
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
@@ -96,6 +97,7 @@ Holo.Relic_Joker{ -- Roboco
     atlas = 'Relic_Origin',
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
+    fandom = 'fans_robosa',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -173,6 +175,7 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
     atlas = 'Relic_Origin',
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
+    fandom = 'fans_hoshiyomi',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -254,6 +257,7 @@ Holo.Relic_Joker{ -- Sakura Miko
     atlas = 'Relic_Origin',
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
+    fandom = 'fans_35p',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -321,6 +325,7 @@ Holo.Relic_Joker{ -- AZKi
     atlas = 'Relic_Origin',
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
+    fandom = 'fans_kaitakusha',
 
     roll_for_rank = function(card)
         local pool = {}

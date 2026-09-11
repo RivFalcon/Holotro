@@ -54,6 +54,7 @@ Holo.Relic_Joker{ -- La+ Darknesss
                 }
             end
         end
+        return holo_card_relic_response(card,'Towa',context)
     end
 }
 
@@ -124,6 +125,7 @@ Holo.Relic_Joker{ -- Takane Lui
                 colour = Holo.C.Lui,
             }
         end
+        return holo_card_relic_response(card,'Marine',context)
     end
 }
 
@@ -447,6 +449,7 @@ Holo.Relic_Joker{ -- Sakamata Chloe
         elseif context.joker_main then
             return{Xmult=cae.Xmult,colour=Holo.C.Chloe}
         end
+        return holo_card_relic_response(card,'Shion',context)
     end
 }
 
@@ -513,6 +516,7 @@ Holo.Relic_Joker{ -- Kazama Iroha
         elseif context.joker_main then
             return{Xmult=cae.Xmult,colour=Holo.C.Iroha}
         end
+        return holo_card_relic_response(card,'Suisei',context)
     end
 }
 

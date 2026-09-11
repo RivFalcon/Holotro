@@ -54,6 +54,7 @@ Holo.Relic_Joker{ -- Mori Calliope
     atlas = 'Relic_Myth',
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
+    fandom = 'fans_deadbeat',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -160,6 +161,7 @@ Holo.Relic_Joker{ -- Takanashi Kiara
     atlas = 'Relic_Myth',
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
+    fandom = 'fans_kfp',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -242,6 +244,7 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
     atlas = 'Relic_Myth',
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
+    fandom = 'fans_takodachi',
 
     calculate = function(self, card, context)
         if context.using_consumeable then
@@ -327,6 +330,7 @@ Holo.Relic_Joker{ -- Gawr Gura
     atlas = 'Relic_Myth',
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
+    fandom = 'fans_chumbud',
 
     calculate = function(self, card, context)
         if context.using_consumeable then
@@ -424,6 +428,7 @@ Holo.Relic_Joker{ -- Watson Amelia
     atlas = 'Relic_Myth',
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
+    fandom = 'fans_teamate',
 
     calculate = function(self, card, context)
         if context.after and not context.blueprint then

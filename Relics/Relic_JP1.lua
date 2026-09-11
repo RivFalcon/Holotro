@@ -78,6 +78,7 @@ Holo.Relic_Joker{ -- Yozora Mel
     atlas = 'Relic_First',
     pos      = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
+    fandom = 'fans_kapumin',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -171,6 +172,7 @@ Holo.Relic_Joker{ -- Shirakami Fubuki
     atlas = 'Relic_Gamers',
     pos      = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
+    fandom = 'fans_sukonbu',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -229,6 +231,7 @@ Holo.Relic_Joker{ -- Natsuiro Matsuri
     atlas = 'Relic_First',
     pos      = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
+    fandom = 'fans_matsurisu',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -300,6 +303,7 @@ Holo.Relic_Joker{ -- Aki Rosenthal
     atlas = 'Relic_First',
     pos      = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
+    fandom = 'fans_rosetai',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -372,6 +376,7 @@ Holo.Relic_Joker{ -- Akai Haato / Haachama
     atlas = 'Relic_First',
     pos      = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
+    fandom = 'fans_haaton',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra

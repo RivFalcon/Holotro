@@ -1,6 +1,6 @@
 local fullname = {
     Sora = "Tokino Sora",
-    Roboco = "Roboco",
+    Roboco = "Roboco-san",
     Suisei = "Hoshimachi Suisei",
     Mel = "Yozora Mel",
     Fubuki = "Shirakami Fubuki",
@@ -123,7 +123,7 @@ return {
                 }
             },
             hololive_gen_gamers={
-                name="hololive Gamers",
+                name="hololive GAMERS",
                 text={
                     fullname.Fubuki,
                     fullname.Mio,
@@ -132,7 +132,7 @@ return {
                 }
             },
             hololive_gen_fantasy={
-                name="Hololive 3rd Generation: Fantasy",
+                name="Hololive Fantasy",
                 text={
                     fullname.Pekora,
                     "{C:inactive}"..fullname.Rushia,
@@ -142,7 +142,7 @@ return {
                 }
             },
             hololive_gen_force={
-                name="Hololive 4th Generation: Force",
+                name="Hololive Force",
                 text={
                     fullname.Kanata,
                     fullname.Coco,
@@ -152,7 +152,7 @@ return {
                 }
             },
             hololive_gen_area15={
-                name="Hololive Indonesia 1st Generation -Area 15-",
+                name="Hololive Area15",
                 text={
                     fullname.Risu,
                     fullname.Moona,
@@ -160,7 +160,7 @@ return {
                 }
             },
             hololive_gen_nplab={
-                name="Hololive 5th Generation: NePoLABo",
+                name="Hololive NePoLABo",
                 text={
                     fullname.Lamy,
                     fullname.Nene,
@@ -170,7 +170,7 @@ return {
                 }
             },
             hololive_gen_myth={
-                name="Hololive English -Myth-",
+                name="Hololive Myth",
                 text={
                     fullname.Calli,
                     fullname.Kiara,
@@ -180,7 +180,7 @@ return {
                 }
             },
             hololive_gen_holoro={
-                name="Hololive Indonesia 2nd Generation -Holoro-",
+                name="Hololive Holoro",
                 text={
                     fullname.Ollie,
                     fullname.Anya,
@@ -188,7 +188,7 @@ return {
                 }
             },
             hololive_gen_promise={
-                name="Hololive English -Promise-",
+                name="Hololive Promise",
                 text={
                     fullname.IRyS,
                     fullname.Sana,
@@ -199,7 +199,7 @@ return {
                 }
             },
             hololive_gen_holox={
-                name="Hololive 6th Generation: holoX",
+                name="Hololive holoX",
                 text={
                     fullname.Laplus,
                     fullname.Lui,
@@ -209,7 +209,7 @@ return {
                 }
             },
             hololive_gen_holoh3ro={
-                name="Hololive Indonesia 3rd Generation -HoloH3ro-",
+                name="Hololive HoloH3ro",
                 text={
                     fullname.Zeta,
                     fullname.Kaela,
@@ -217,7 +217,7 @@ return {
                 }
             },
             hololive_gen_advent={
-                name="Hololive English -Advent-",
+                name="Hololive Advent",
                 text={
                     fullname.Shiori,
                     fullname.Biboo,
@@ -227,7 +227,7 @@ return {
                 }
             },
             hololive_gen_regloss={
-                name="Hololive DEV_IS: ReGLOSS",
+                name="Hololive ReGLOSS",
                 text={
                     fullname.Ao,
                     fullname.Kanade,
@@ -237,7 +237,7 @@ return {
                 }
             },
             hololive_gen_justice={
-                name="Hololive English -Justice-",
+                name="Hololive Justice",
                 text={
                     fullname.Elizabeth,
                     fullname.Gigi,
@@ -246,7 +246,7 @@ return {
                 }
             },
             hololive_gen_flowglow={
-                name="Hololive DEV_IS: FLOW GLOW",
+                name="Hololive FLOWGLOW",
                 text={
                     fullname.Riona,
                     fullname.Niko,
@@ -297,30 +297,32 @@ return {
     },
     misc={
         dictionary={
+            --[[
             ---- Branches
             k_hololive_branch_jp="Japan",
             k_hololive_branch_id="Indonesia",
             k_hololive_branch_en="English",
             k_hololive_branch_di="DEV_IS",
+            ]]
 
             ---- Generations
             k_hololive_gen_origin="0th Generation",
             k_hololive_gen_first="1st Generation",
             k_hololive_gen_exodia="2nd Generation",
-            k_hololive_gen_gamers="Gamers",
-            k_hololive_gen_fantasy="3rd Generation: Fantasy",
-            k_hololive_gen_force="4th Generation: Force",
-            k_hololive_gen_area15="-Area 15-",
+            k_hololive_gen_gamers="GAMERS",
+            k_hololive_gen_fantasy="Fantasy",
+            k_hololive_gen_force="Force",
+            k_hololive_gen_area15="Area 15",
             k_hololive_gen_nplab="5th Generation",
-            k_hololive_gen_myth="-Myth-",
-            k_hololive_gen_holoro="-Holoro-",
-            k_hololive_gen_promise="-Promise-",
-            k_hololive_gen_holox="Secret Society holoX",
-            k_hololive_gen_holoh3ro="-HoloH3ro-",
-            k_hololive_gen_advent="-Advent-",
+            k_hololive_gen_myth="Myth",
+            k_hololive_gen_holoro="Holoro",
+            k_hololive_gen_promise="Promise",
+            k_hololive_gen_holox="holoX",
+            k_hololive_gen_holoh3ro="HoloH3ro",
+            k_hololive_gen_advent="Advent",
             k_hololive_gen_regloss="ReGLOSS",
-            k_hololive_gen_justice="-Justice-",
-            k_hololive_gen_flowglow="FLOW GLOW",
+            k_hololive_gen_justice="Justice",
+            k_hololive_gen_flowglow="FLOWGLOW",
 
             ---- Full Name Table
             k_hololive_fullname_table=fullname,

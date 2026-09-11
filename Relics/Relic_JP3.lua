@@ -211,6 +211,7 @@ Holo.Relic_Joker{ -- Shiranui Flare
                 Xmult = card.ability.extra.Xmult
             }
         end
+        return holo_card_relic_response(card,'Ina',context)
     end
 }
 
@@ -280,6 +281,7 @@ Holo.Relic_Joker{ -- Shirogane Noel
                 colour=Holo.C.Noel
             }
         end
+        return holo_card_relic_response(card,'Subaru',context)
     end
 }
 

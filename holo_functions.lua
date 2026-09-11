@@ -136,6 +136,16 @@ function holo_card_disaccumulate(_cae, _key)
     end
 end
 
+function holo_card_relic_response(_card, _oshi, _context)
+    if G.GAME.used_vouchers.v_hololive_stage_response then
+        _oshi = _oshi or ''
+        local oshi_relics = find_joker('j_hololive_Relic_'.._oshi)
+        if next(oshi_relics) then
+            return SMODS.blueprint_effect(_card, oshi_relics[1], _context)
+        end
+    end
+end
+
 --------------------------------
 ---- Holo utility functions ----
 --------------------------------

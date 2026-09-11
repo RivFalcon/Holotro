@@ -77,4 +77,5 @@ local fandom_files = {
     --"DI2",
 }
 for _,file in ipairs(fandom_files) do assert(SMODS.load_file("Fans/Fans_"..file..".lua"))()end
+assert(SMODS.load_file("Fans/Fandom_Pack.lua"))()
 ----
