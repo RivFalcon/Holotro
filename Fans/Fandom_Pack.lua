@@ -28,7 +28,7 @@ Holo.Fandom_Pack = SMODS.Booster:extend{
             contrast = 2,
         })
     end,
-    
+    -- 
     create_card = function (self, card, i)
         local _card = {set = "holo_fandom", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "holofan"}
         if i==1 then
