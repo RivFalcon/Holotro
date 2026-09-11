@@ -153,7 +153,6 @@ Holo.Relic_Joker{ -- Tsukumo Sana
                 }
             end
         elseif context.joker_main then
-            card:juice_up()
             return {
                 Xmult = cae.Xmult,
                 message='Space!',
@@ -370,7 +369,6 @@ Holo.Relic_Joker{ -- Nanashi Mumei
                 end
             end
         elseif context.joker_main then
-            card:juice_up()
             return {
                 Xmult = card.ability.extra.Xmult,
                 message='Civilization!',
