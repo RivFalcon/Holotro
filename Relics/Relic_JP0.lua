@@ -307,7 +307,12 @@ Holo.Relic_Joker{ -- AZKi
         upgrade_args = {
             scale_var = 'retriggers',
             message = 'Guess!',
-        }
+        },
+        post_atd = function(self, card, from_debuff)
+            if not from_debuff then
+                self.roll_for_rank(card)
+            end
+        end,
     }},
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
@@ -340,11 +345,6 @@ Holo.Relic_Joker{ -- AZKi
             card.ability.extra.base = {value='Ace', id = 14}
         end
     end,
-    add_to_deck = function(self, card, from_debuff)
-        if not from_debuff then
-            self.roll_for_rank(card)
-        end
-    end, 
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.repetition and context.cardarea == G.play then

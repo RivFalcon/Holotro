@@ -93,7 +93,7 @@ return {
         Other={
             --- Gen Members ---
             hololive_gen_origin={
-                name="Hololive 0th Generation",
+                name="Hololive Gen 0",
                 text={
                     fullname.Sora,
                     fullname.Roboco,
@@ -103,7 +103,7 @@ return {
                 }
             },
             hololive_gen_first={
-                name="Hololive 1st Generation",
+                name="Hololive Gen 1",
                 text={
                     fullname.Mel,
                     fullname.Fubuki,
@@ -113,7 +113,7 @@ return {
                 }
             },
             hololive_gen_exodia={
-                name="Hololive 2nd Generation",
+                name="Hololive Gen 2",
                 text={
                     fullname.Aqua,
                     fullname.Shion,
@@ -135,14 +135,14 @@ return {
                 name="Hololive Fantasy",
                 text={
                     fullname.Pekora,
-                    "{C:inactive}"..fullname.Rushia,
+                    fullname.Rushia,
                     fullname.Flare,
                     fullname.Noel,
                     fullname.Marine
                 }
             },
             hololive_gen_force={
-                name="Hololive Force",
+                name="Hololive holoForce",
                 text={
                     fullname.Kanata,
                     fullname.Coco,
@@ -180,7 +180,7 @@ return {
                 }
             },
             hololive_gen_holoro={
-                name="Hololive Holoro",
+                name="Hololive holoro",
                 text={
                     fullname.Ollie,
                     fullname.Anya,
@@ -209,7 +209,7 @@ return {
                 }
             },
             hololive_gen_holoh3ro={
-                name="Hololive HoloH3ro",
+                name="Hololive holoh3ro",
                 text={
                     fullname.Zeta,
                     fullname.Kaela,
@@ -246,7 +246,7 @@ return {
                 }
             },
             hololive_gen_flowglow={
-                name="Hololive FLOWGLOW",
+                name="Hololive FLOW GLOW",
                 text={
                     fullname.Riona,
                     fullname.Niko,
@@ -306,14 +306,14 @@ return {
             ]]
 
             ---- Generations
-            k_hololive_gen_origin="0th Generation",
-            k_hololive_gen_first="1st Generation",
-            k_hololive_gen_exodia="2nd Generation",
+            k_hololive_gen_origin="Gen 0",
+            k_hololive_gen_first="Gen 1",
+            k_hololive_gen_exodia="Gen 2",
             k_hololive_gen_gamers="GAMERS",
             k_hololive_gen_fantasy="Fantasy",
-            k_hololive_gen_force="Force",
+            k_hololive_gen_force="holoForce",
             k_hololive_gen_area15="Area 15",
-            k_hololive_gen_nplab="5th Generation",
+            k_hololive_gen_nplab="NePoLABo",
             k_hololive_gen_myth="Myth",
             k_hololive_gen_holoro="Holoro",
             k_hololive_gen_promise="Promise",
@@ -322,7 +322,7 @@ return {
             k_hololive_gen_advent="Advent",
             k_hololive_gen_regloss="ReGLOSS",
             k_hololive_gen_justice="Justice",
-            k_hololive_gen_flowglow="FLOWGLOW",
+            k_hololive_gen_flowglow="FLOW GLOW",
 
             ---- Full Name Table
             k_hololive_fullname_table=fullname,

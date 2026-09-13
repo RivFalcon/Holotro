@@ -32,6 +32,21 @@ Holo.Relic_Joker = SMODS.Joker:extend{
 
     atlas = 'Relic_Hololive',
 
+    add_to_deck = function (self, card, from_debuff)
+        local cae = card.ability.extra
+        if cae.pre_atd then
+            cae.pre_atd(self, card, from_debuff)
+        end
+        if cae.atd_jingle then
+            play_sound(cae.atd_jingle)
+        end
+        if cae.post_atd then
+            cae.pre_atd(self, card, from_debuff)
+        end
+        if G.GAME then
+            G.GAME.acquired_hololive_relic = true
+        end
+    end,
     set_badges = function(self, card, badges)
         Holo.set_member_badges(card, badges)
     end,

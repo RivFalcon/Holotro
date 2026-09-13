@@ -21,17 +21,22 @@ SMODS.ConsumableType{
             }
         }
     },
-    collection_rows = {5,6},
+    collection_rows = {5,4},
     shop_rate = 0.02,
 }
 
 Holo.Relic_Gacha = SMODS.Consumable:extend{
     set = 'relicgacha',
     loc_vars = function(self, info_queue, card)
+        local cae = card.ability.extra
+        if cae.g_code then
+            info_queue[#info_queue+1] = {set='Other',key=cae.g_code}
+        end
         return {
             vars = {
-                card.ability.extra.group_name,
-                colours = { card.ability.extra.colour }
+                cae.g_code and ('Hololive '..localize('k_'..cae.g_code))
+                or cae.group_name or '???',
+                colours = { cae.colour }
             }
         }
     end,
@@ -50,18 +55,10 @@ Holo.Relic_Gacha = SMODS.Consumable:extend{
                 _tick = _tick + 1
             end
         end
-        if _tick > 0 and ((_tick < #self.memberlist) or next(find_joker('Showman'))) then
-            return true
-        else
-            return false
-        end
+        return (_tick > 0) and ((_tick < #self.memberlist) or next(find_joker('Showman')))
     end,
     can_use = function(self, card)
-        if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
-            return true
-        else
-            return false
-        end
+        return (#G.jokers.cards < G.jokers.config.card_limit) or (card.area == G.jokers)
     end,
     keep_on_use = function(self, card)
         return false
@@ -78,7 +75,7 @@ Holo.Relic_Gacha = SMODS.Consumable:extend{
             end
             if #_pool == 0 then _pool = self.memberlist end
         end
-        local _member = pseudorandom_element(_pool, pseudoseed(card.ability.extra.group_name))
+        local _member = pseudorandom_element(_pool, pseudoseed(card.ability.extra.g_code))
         local _key = 'j_hololive_Relic_'.._member
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             play_sound('timpani')
@@ -87,39 +84,75 @@ Holo.Relic_Gacha = SMODS.Consumable:extend{
     end,
 }
 
-SMODS.Atlas{
-    key = "RelicGacha_HQ",
-    path = "Relics/RelicGacha_HQ.png",
-    px = 71,
-    py = 95
+Holo.Atlas_7195{
+    key = "RelicGacha",
+    path = "Relics/RelicGacha.png",
 }
 
-SMODS.Atlas{
-    key = "RelicGacha_JP",
-    path = "Relics/RelicGacha_JP.png",
-    px = 71,
-    py = 95
+local init_card_stats = {
+    suits = {
+        Spades = 0,
+        Hearts = 0,
+        Clubs = 0,
+        Diamonds = 0
+    },
+    ranks = {
+        Face = 0,
+        Non_face = 0,
+        Ace = 0,
+        X = 0,
+        Odd = 0,
+        Even = 0,
+        Hack = 0,
+    },
+    enhans = {
+        c_base = 0,
+        m_any = 0,
+        m_bonus = 0,
+        m_mult = 0,
+        m_wild = 0,
+        m_glass = 0,
+        m_steel = 0,
+        m_stone = 0,
+        m_gold = 0,
+        m_lucky = 0
+    },
+    edits = {
+        e_base = 0,
+        e_foil = 0,
+        e_holo = 0,
+        e_polychrome = 0
+    },
+    seals = {
+        Base = 0,
+        Gold = 0,
+        Red = 0,
+        Blue = 0,
+        Purple = 0
+    },
 }
 
-SMODS.Atlas{
-    key = "RelicGacha_ID",
-    path = "Relics/RelicGacha_ID.png",
-    px = 71,
-    py = 95
-}
+local implemented_relic_members = {
+    'Sora','Roboco','Suisei','Miko','AZKi',
+    'Mel','Fubuki','Matsuri','Aki','Haato',
+    'Aqua','Shion','Ayame','Choco','Subaru',
+    'Mio','Okayu','Korone',
 
-SMODS.Atlas{
-    key = "RelicGacha_EN",
-    path = "Relics/RelicGacha_EN.png",
-    px = 71,
-    py = 95
-}
+    'Pekora','Rushia','Flare','Noel','Marine',
+    --'Kanata','Coco','Watame','Towa','Luna',
+    'Risu','Moona','Iofi',
+    --'Lamy','Nene','Botan','Aloe','Polka',
 
-SMODS.Atlas{
-    key = "RelicGacha_DI",
-    path = "Relics/RelicGacha_DI.png",
-    px = 71,
-    py = 95
+    'Calli','Kiara','Ina','Gura','Ame',
+    --'Ollie','Anya','Reine',
+    'IRyS','Sana','Fauna','Kronii','Mumei','Bae',
+    'Laplus','Lui','Koyori','Chloe','Iroha',
+    --'Zeta','Kaela','Kobo',
+
+    'Shiori','Biboo','Nerissa','Fuwawa','Mococo',
+    --'Ao','Kanade','Ririka','Raden','Hajime',
+    'Elizabeth','Gigi','Ceci','Raora',
+    --'Riona','Niko','Suu','Chihaya','Vivi',
 }
 
 local function RelicGacha()
@@ -127,68 +160,33 @@ local function RelicGacha()
     local dupe_check = function(M)return have_Showman or not next(find_joker('j_hololive_Relic_'..M))end
 
     if Holo.mod_config.allow_birthday_event and not G.GAME.acquired_birthday_relic then
-        local hbd_member = Holo.birthday_chart[os.date('%m%d')]
-        if hbd_member and dupe_check(hbd_member) then
+        local BD_member = Holo.birthday_chart[os.date('%m%d')]
+        if BD_member and dupe_check(BD_member) then
             G.GAME.acquired_birthday_relic = true
-            return hbd_member
+            return BD_member
         end
     end
 
-    local pool_modes_weight = {['Synergy'] = 3, ['All Stars'] = 1}
-    local gen_sample_pool = {}
+    local poolmodes = {'Synergy','All Stars'}
+    local current_ante = G.GAME.round_resets.ante
+    poolmodes[#poolmodes+1] = (current_ante > 4) and 'Synergy' or 'All Stars'
+    poolmodes[#poolmodes+1] = (current_ante > 8) and 'Synergy' or 'All Stars'
+
+    local relic_pool = {}
     for _,J in ipairs(G.jokers.cards)do
         if J.config.center.rarity == 'hololive_Relic' then
-            gen_sample_pool[#gen_sample_pool+1] = J.config.center.member
+            relic_pool[#relic_pool+1] = J.config.center.member
         end
     end
-    if #gen_sample_pool>0 then pool_modes_weight['Genmates'] = 4 end
-    local pool_mode = Holo.pseudorandom_weighted_element(pool_modes_weight, 'RelicGachaMode')
+    if #relic_pool>0 then
+        for _=1,4 do poolmodes[#poolmodes+1] = 'Genmates' end
+    end
+    local pool_mode = pseudorandom_element(poolmodes, pseudoseed('RelicGachaMode'))
 
     local _pool = {}
-    local all_stars_mode = false
+    local contingency_mode = false
     if pool_mode == 'Synergy' then
-        local card_stats = {
-            suits = {
-                Spades = 0,
-                Hearts = 0,
-                Clubs = 0,
-                Diamonds = 0
-            },
-            ranks = {
-                Face = 0,
-                Non_face = 0,
-                Ace = 0,
-                X = 0,
-                Odd = 0,
-                Even = 0,
-                Hack = 0,
-            },
-            enhans = {
-                c_base = 0,
-                m_any = 0,
-                m_bonus = 0,
-                m_mult = 0,
-                m_wild = 0,
-                m_glass = 0,
-                m_steel = 0,
-                m_stone = 0,
-                m_gold = 0,
-                m_lucky = 0
-            },
-            edits = {
-                e_base = 0,
-                e_foil = 0,
-                e_holo = 0,
-                e_polychrome = 0
-            },
-            seals = {
-                Base = 0,
-                Gold = 0,
-                Red = 0,
-                Blue = 0,
-                Purple = 0
-            },
-        }
+        local card_stats = init_card_stats
 
         -- Analyzing full deck
         for _,c in ipairs(G.playing_cards)do
@@ -377,10 +375,10 @@ local function RelicGacha()
         for member,condition in pairs(syn_table)do
             if condition and dupe_check(member) then _pool[#_pool+1] = member end
         end
-        if #_pool == 0 then all_stars_mode = true end
+        if #_pool == 0 then contingency_mode = true end
 
     elseif pool_mode == 'Genmates' then
-        local target_member = pseudorandom_element(gen_sample_pool,pseudoseed('RelicGacha GenmateMode'))
+        local target_member = pseudorandom_element(relic_pool,pseudoseed('RelicGacha GenmateMode'))
 
         for _, memb in ipairs(Holo.get_genmates(target_member)) do
             if dupe_check(memb)then
@@ -388,55 +386,15 @@ local function RelicGacha()
             end
         end
         -- If the relics of all the genmates have been obtained:
-        if #_pool == 0 then
-            local _branch = Holo.Members[target_member].branch
-            for _, memb in ipairs(Holo.Branches[_branch].members)do
-                if dupe_check(memb)then
-                    _pool[#_pool+1] = memb
-                end
-            end
-        end
-        -- If the relics of all the branchmates have been obtained:
-        if #_pool == 0 then all_stars_mode = all_stars_mode end
+        if #_pool == 0 then contingency_mode = true end
     end
-    if (pool_mode == 'All Stars') or all_stars_mode then
-        local implemented_relics = {} -- Holo.memberlist
-
-        -- Temporary Solution --
-        local implemented_gens = {
-            'gen_origin',
-            'gen_first',
-            'gen_exodia',
-            'gen_gamers',
-            'gen_fantasy',
-            --'gen_force',
-            'gen_area15',
-            --'gen_nplab',
-            'gen_myth',
-            --'gen_holoro',
-            'gen_promise',
-            'gen_holox',
-            --'gen_holoh3ro',
-            'gen_advent',
-            --'gen_regloss',
-            'gen_justice',
-            --'gen_flowglow'
-        }
-        for _,_gen in ipairs(implemented_gens)do
-            for _,member in ipairs(Holo.Generations[_gen].members)do
-                if not (_gen == 'gen_gamers' and member == 'Fubuki') then
-                    implemented_relics[#implemented_relics+1] = member
-                end
-            end
-        end
-        -- End of temporary solution --
-
-        for _,memb in ipairs(implemented_relics) do
+    if (pool_mode == 'All Stars') or contingency_mode then
+        for _,memb in ipairs(implemented_relic_members) do
             if dupe_check(memb)then
                 _pool[#_pool+1] = memb
             end
         end
-        if #_pool == 0 then _pool = implemented_relics end
+        if #_pool == 0 then _pool = implemented_relic_members end
     end
 
     return pseudorandom_element(_pool, pseudoseed('Hololive'))
@@ -453,9 +411,9 @@ Holo.Relic_Gacha{ -- Hololive
         colour = Holo.C.Hololive,
     }},
 
-    atlas = 'RelicGacha_HQ',
+    atlas = 'RelicGacha',
     pos      = {x=0,y=0},
-    soul_pos = {x=0,y=1},
+    soul_pos = {x=5,y=0},
 
     in_pool = function(self, args)
         for _,J in ipairs(G.jokers.cards) do
@@ -471,6 +429,7 @@ Holo.Relic_Gacha{ -- Hololive
     end,
 }
 
+--[[
 Holo.Relic_Gacha{ -- JP -- Japan
     key = 'RelicGacha_Branch_JP',
     loc_txt = {
@@ -481,7 +440,6 @@ Holo.Relic_Gacha{ -- JP -- Japan
         group_name = 'Hololive JP',
         colour = Holo.C.JP,
     }},
-    memberlist = Holo.Branches.JP.members,
 
     atlas = 'RelicGacha_HQ',
     pos      = {x=1,y=0},
@@ -506,7 +464,6 @@ Holo.Relic_Gacha{ -- ID -- Indonesia
             }
         }
     end,
-    memberlist = Holo.Branches.ID.members,
 
     atlas = 'RelicGacha_HQ',
     pos      = {x=2,y=0},
@@ -523,7 +480,6 @@ Holo.Relic_Gacha{ -- EN -- English
         group_name = 'Hololive EN',
         colour = Holo.C.EN,
     }},
-    memberlist = Holo.Branches.EN.members,
 
     atlas = 'RelicGacha_HQ',
     pos      = {x=3,y=0},
@@ -540,12 +496,12 @@ Holo.Relic_Gacha{ -- DI -- DEV_IS
         group_name = 'DEV_IS',
         colour = Holo.C.DI,
     }},
-    memberlist = Holo.Branches.DI.members,
 
     atlas = 'RelicGacha_HQ',
     pos      = {x=4,y=0},
     soul_pos = {x=4,y=1},
 }
+]]
 
 Holo.Relic_Gacha{ -- JP0 -- Origin
     key = 'RelicGacha_Gen_JP0',
@@ -554,13 +510,13 @@ Holo.Relic_Gacha{ -- JP0 -- Origin
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'Hololive Gen 0',
+        g_code = 'hololive_gen_origin',
         colour = Holo.C.JP,
     }},
     memberlist = Holo.Generations.gen_origin.members,
 
-    atlas = 'RelicGacha_JP',
-    pos   = {x=0,y=0},
+    atlas = 'RelicGacha',
+    pos   = {x=0,y=1},
 }
 
 Holo.Relic_Gacha{ -- JP1 -- First
@@ -570,13 +526,13 @@ Holo.Relic_Gacha{ -- JP1 -- First
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'Hololive Gen 1',
+        g_code = 'hololive_gen_first',
         colour = Holo.C.JP,
     }},
     memberlist = Holo.Generations.gen_first.members,
 
-    atlas = 'RelicGacha_JP',
-    pos   = {x=1,y=0},
+    atlas = 'RelicGacha',
+    pos   = {x=1,y=1},
 }
 
 Holo.Relic_Gacha{ -- JP2 -- Exodia
@@ -586,13 +542,13 @@ Holo.Relic_Gacha{ -- JP2 -- Exodia
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'Hololive Gen 2',
+        g_code = 'hololive_gen_exodia',
         colour = Holo.C.JP,
     }},
     memberlist = Holo.Generations.gen_exodia.members,
 
-    atlas = 'RelicGacha_JP',
-    pos   = {x=2,y=0},
+    atlas = 'RelicGacha',
+    pos   = {x=2,y=1},
 }
 
 Holo.Relic_Gacha{ -- JPG -- GAMERS
@@ -602,13 +558,13 @@ Holo.Relic_Gacha{ -- JPG -- GAMERS
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'Hololive GAMERS',
+        g_code = 'hololive_gen_gamers',
         colour = Holo.C.JP,
     }},
     memberlist = Holo.Generations.gen_gamers.members,
 
-    atlas = 'RelicGacha_JP',
-    pos   = {x=3,y=0},
+    atlas = 'RelicGacha',
+    pos   = {x=3,y=1},
 }
 
 Holo.Relic_Gacha{ -- JP3 -- Fantasy
@@ -618,13 +574,13 @@ Holo.Relic_Gacha{ -- JP3 -- Fantasy
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'Hololive Fantasy',
+        g_code = 'hololive_gen_fantasy',
         colour = Holo.C.JP,
     }},
     memberlist = Holo.Generations.gen_fantasy.members,
 
-    atlas = 'RelicGacha_JP',
-    pos   = {x=0,y=1},
+    atlas = 'RelicGacha',
+    pos   = {x=5,y=1},
 }
 
 Holo.Relic_Gacha{ -- JP4 -- Force
@@ -634,13 +590,14 @@ Holo.Relic_Gacha{ -- JP4 -- Force
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'Hololive Force',
+        g_code = 'hololive_gen_force',
         colour = Holo.C.JP,
     }},
     memberlist = Holo.Generations.gen_force.members,
 
-    atlas = 'RelicGacha_JP',
-    pos   = {x=1,y=1},
+    in_pool = function (self, args) return false end,
+    atlas = 'RelicGacha',
+    pos   = {x=6,y=1},
 }
 
 Holo.Relic_Gacha{ -- ID1 -- Area 15
@@ -650,13 +607,13 @@ Holo.Relic_Gacha{ -- ID1 -- Area 15
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'HoloID Area 15',
+        g_code = 'hololive_gen_area15',
         colour = Holo.C.ID,
     }},
     memberlist = Holo.Generations.gen_area15.members,
 
-    atlas = 'RelicGacha_ID',
-    pos   = {x=1,y=0},
+    atlas = 'RelicGacha',
+    pos   = {x=7,y=1},
 }
 
 Holo.Relic_Gacha{ -- JP5 -- NePoLABo
@@ -666,13 +623,14 @@ Holo.Relic_Gacha{ -- JP5 -- NePoLABo
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'Hololive NePoLABo',
+        g_code = 'hololive_gen_nplab',
         colour = Holo.C.JP,
     }},
     memberlist = Holo.Generations.gen_nplab.members,
 
-    atlas = 'RelicGacha_JP',
-    pos   = {x=2,y=1},
+    in_pool = function (self, args) return false end,
+    atlas = 'RelicGacha',
+    pos   = {x=8,y=1},
 }
 
 Holo.Relic_Gacha{ -- EN1 -- Myth
@@ -682,13 +640,13 @@ Holo.Relic_Gacha{ -- EN1 -- Myth
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'HoloEN Myth',
+        g_code = 'hololive_gen_myth',
         colour = Holo.C.EN,
     }},
     memberlist = Holo.Generations.gen_myth.members,
 
-    atlas = 'RelicGacha_EN',
-    pos   = {x=1,y=0},
+    atlas = 'RelicGacha',
+    pos   = {x=0,y=2},
 }
 
 Holo.Relic_Gacha{ -- ID2 -- Holoro
@@ -698,13 +656,14 @@ Holo.Relic_Gacha{ -- ID2 -- Holoro
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'HoloID Holoro',
+        g_code = 'hololive_gen_holoro',
         colour = Holo.C.ID,
     }},
     memberlist = Holo.Generations.gen_holoro.members,
 
-    atlas = 'RelicGacha_ID',
-    pos   = {x=2,y=0},
+    in_pool = function (self, args) return false end,
+    atlas = 'RelicGacha',
+    pos   = {x=1,y=2},
 }
 
 Holo.Relic_Gacha{ -- EN2 -- CounsilRyS/PromiSana
@@ -714,13 +673,13 @@ Holo.Relic_Gacha{ -- EN2 -- CounsilRyS/PromiSana
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'HoloEN Promise',
+        g_code = 'hololive_gen_promise',
         colour = Holo.C.EN,
     }},
     memberlist = Holo.Generations.gen_promise.members,
 
-    atlas = 'RelicGacha_EN',
-    pos   = {x=2,y=0},
+    atlas = 'RelicGacha',
+    pos   = {x=2,y=2},
 }
 
 Holo.Relic_Gacha{ -- JPX -- HoloX
@@ -730,13 +689,13 @@ Holo.Relic_Gacha{ -- JPX -- HoloX
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'Secret Society holoX',
+        g_code = 'hololive_gen_holox',
         colour = Holo.C.JP,
     }},
     memberlist = Holo.Generations.gen_holox.members,
 
-    atlas = 'RelicGacha_JP',
-    pos   = {x=3,y=1},
+    atlas = 'RelicGacha',
+    pos   = {x=3,y=2},
 }
 
 Holo.Relic_Gacha{ -- ID3 -- HoloH3ro
@@ -746,13 +705,14 @@ Holo.Relic_Gacha{ -- ID3 -- HoloH3ro
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'HoloID HoloH3ro',
+        g_code = 'hololive_gen_holoh3ro',
         colour = Holo.C.ID,
     }},
     memberlist = Holo.Generations.gen_holoh3ro.members,
 
-    atlas = 'RelicGacha_ID',
-    pos   = {x=3,y=0},
+    in_pool = function (self, args) return false end,
+    atlas = 'RelicGacha',
+    pos   = {x=4,y=2},
 }
 
 Holo.Relic_Gacha{ -- EN3 -- Advent
@@ -762,13 +722,13 @@ Holo.Relic_Gacha{ -- EN3 -- Advent
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'HoloEN Advent',
+        g_code = 'hololive_gen_advent',
         colour = Holo.C.EN,
     }},
     memberlist = Holo.Generations.gen_advent.members,
 
-    atlas = 'RelicGacha_EN',
-    pos   = {x=3,y=0},
+    atlas = 'RelicGacha',
+    pos   = {x=5,y=2},
 }
 
 Holo.Relic_Gacha{ -- DI1 -- ReGLOSS
@@ -778,13 +738,14 @@ Holo.Relic_Gacha{ -- DI1 -- ReGLOSS
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'DEV_IS ReGLOSS',
+        g_code = 'hololive_gen_regloss',
         colour = Holo.C.DI,
     }},
     memberlist = Holo.Generations.gen_regloss.members,
 
-    atlas = 'RelicGacha_DI',
-    pos   = {x=1,y=0},
+    in_pool = function (self, args) return false end,
+    atlas = 'RelicGacha',
+    pos   = {x=6,y=2},
 }
 
 Holo.Relic_Gacha{ -- EN4 -- Justice
@@ -794,27 +755,28 @@ Holo.Relic_Gacha{ -- EN4 -- Justice
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'HoloEN Justice',
+        g_code = 'hololive_gen_justice',
         colour = Holo.C.EN,
     }},
     memberlist = Holo.Generations.gen_justice.members,
 
-    atlas = 'RelicGacha_EN',
-    pos   = {x=4,y=0},
+    atlas = 'RelicGacha',
+    pos   = {x=7,y=2},
 }
 
-Holo.Relic_Gacha{ -- DI2 -- FLOWGLOW
+Holo.Relic_Gacha{ -- DI2 -- FLOW GLOW
     key = 'RelicGacha_Gen_DI2',
     loc_txt = {
         name = 'The Flow Glow',
         text = relicgacha_text
     },
     config = { extra = {
-        group_name = 'DEV_IS FLOW GLOW',
+        g_code = 'hololive_gen_flowglow',
         colour = Holo.C.DI,
     }},
     memberlist = Holo.Generations.gen_flowglow.members,
 
-    atlas = 'RelicGacha_DI',
-    pos   = {x=2,y=0},
+    in_pool = function (self, args) return false end,
+    atlas = 'RelicGacha',
+    pos   = {x=8,y=2},
 }

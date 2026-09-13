@@ -261,7 +261,7 @@ SMODS.Sticker{ -- Oozora Subaru: Handcuff
     badge_colour=Holo.C.Subaru,
     default_compat=true,
     should_apply = function(self, card, center, area, bypass_roll)
-        return (area==G.play)and(card.playing_card)
+        return (area==G.play)and SMODS.is_playing_card(card)
     end,
     calculate = function(self, card, context)
         if context.before and SMODS.in_scoring(card, context.scoring_hand) then

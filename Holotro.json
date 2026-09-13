@@ -7,9 +7,9 @@
 	"prefix": "hololive",
 	"main_file": "holotro.lua",
 	"priority": 0,
-	"badge_colour": "ffffff",
-	"badge_text_colour": "33C9FE",
-	"version": "0-beta_25w39b",
+	"badge_colour": "33C9FE",
+	"badge_text_colour": "ffffff",
+	"version": "0-beta_26w37b",
 	"dependencies": [
 		"Steamodded (>=1.0.0~BETA-0827c)"
 		,"MultiTextBox (>=1.0.2)"

@@ -1,16 +1,15 @@
 -- Global Variable "Holo"
 Holo = {}
 
-Holo.C = {Hololive = HEX('33C9FE'), Hololive_bright = HEX('81cefd'), Hololive_dark = HEX('008be3')}
-Holo.Branches = {
-    JP = {order = 1, name = 'hololive' , gens={},members={}, C = Holo.C.Hololive, },
-    ID = {order = 2, name = 'holoID'   , gens={},members={}, C = HEX('ff7c4d'), },
-    EN = {order = 3, name = 'holoEN'   , gens={},members={}, C = HEX('c283b6'), },
-    DI = {order = 4, name = 'DEV_IS'   , gens={},members={}, C = HEX('010101'), },
+Holo.C = {
+    Hololive = HEX('33C9FE'),
+    Hololive_bright = HEX('81cefd'),
+    Hololive_dark = HEX('008be3'),
+    JP = HEX('33C9FE'),
+    ID = HEX('ff7c4d'),
+    EN = HEX('c283b6'),
+    DI = HEX('010101'),
 }
-for branch_name,branch_data in pairs(Holo.Branches)do
-    Holo.C[branch_name] = branch_data.C
-end
 Holo.Generations = {
     gen_origin={
         order =  1, branch = 'JP', codename =   'Origin', name = 'Gen 0',
@@ -176,9 +175,6 @@ Holo.Generations = {
         },
     },
 }
-for gen_key, gen_data in pairs(Holo.Generations) do
-    Holo.Branches[gen_data.branch].gens[#Holo.Branches[gen_data.branch].gens+1] = gen_key
-end
 
 Holo.gen_order = {
     'JP0',
@@ -383,9 +379,6 @@ for memb_name,memb_data in pairs(Holo.Members)do
         for _,_memb_name in ipairs(gen_data.members)do
             if memb_name==_memb_name then
                 memb_data.gens[#memb_data.gens+1] = gen_key
-                if not (memb_name=="Fubuki" and gen_key=="gen_Gamers")then
-                    Holo.Branches[gen_data.branch].members[#Holo.Branches[gen_data.branch].members+1] = memb_name
-                end
                 break
             end
         end
@@ -419,9 +412,7 @@ for _,member in ipairs(Holo.memberlist)do
 end
 
 function Holo.get_members(_set)
-    if Holo.Branches[_set] then
-        return Holo.Branches[_set].members
-    elseif Holo.Generations[_set] then
+    if Holo.Generations[_set] then
         return Holo.Generations[_set].members
     end
 end
