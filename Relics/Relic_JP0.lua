@@ -308,7 +308,7 @@ Holo.Relic_Joker{ -- AZKi
             scale_var = 'retriggers',
             message = 'Guess!',
         },
-        post_atd = function(self, card, from_debuff)
+        add_to_deck = function(card)
             if not from_debuff then
                 self.roll_for_rank(card)
             end

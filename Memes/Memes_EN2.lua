@@ -25,10 +25,6 @@ Holo.Meme_Joker{ -- Mumei: Nightmare
             }
         }
     end,
-    set_badges = function(self, card, badges)
-        Holo.set_type_badge(card, badges, 'Meme')
-        Holo.set_member_badges(card, badges)
-    end,
     rarity = 1,
     cost = 4,
     blueprint_compat = true,

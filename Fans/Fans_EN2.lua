@@ -146,12 +146,17 @@ Holo.Fan_card{ -- Kronie
     loc_txt = {
         name = 'Kronie',
         text = {
-            'Converts all',
-            'cards in hand',
-            'to {C:spades}Spades{}.'
+            {'Converts all cards',
+            'in handto {C:spades}Spades{}.'},
+            {'Cards already with',
+            '{C:spades}Spade{} suit permanently',
+            'gains {C:chips}+#1# {}Chips instead.'},
         }
     },
-    config = {suit_conv = 'Spades'},
+    config = {suit_conv = 'Spades', extra = 10},
+    loc_vars = function (self, info_queue, card)
+        return { vars = {card.ability.extra}}
+    end,
     effect = "Suit Conversion",
     atlas='holo_fandoms_3',
     pos={y=2,x=2},
@@ -167,7 +172,11 @@ Holo.Fan_card{ -- Kronie
         delay(0.2)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
             for _,v in ipairs(G.hand.cards) do
-                v:change_suit(self.config.suit_conv)
+                if v:is_suit(self.config.suit_conv) then
+                    v.ability.perma_bonus = (v.ability.perma_bonus or 0) + self.config.extra
+                else
+                    v:change_suit(self.config.suit_conv)
+                end
             end
         return true end }))
         Holo.flip_cards_in_hand('all',true)

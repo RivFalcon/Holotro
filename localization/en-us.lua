@@ -80,6 +80,10 @@ local fullname = {
     Chihaya = "Rindo Chihaya",
     Vivi = "Kikirara Vivi",
 
+    Mela = "Achichi Mela",
+    Sopia = "Sorashina Sopia",
+    Tsuzuri = "Suzuna Tsuzuri",
+    Kyoko = "Hyakuto Kyoko"
 }
 
 local relicgacha_text={
@@ -258,13 +262,12 @@ return {
             ---
 
             --- Info tips ---
-            holo_info_english_speaking_members={
-                name="English Speaking Members",
+            holo_info_archiving={
+                name="Card Archiving",
                 text={
-                    "All of EN and ID,",
-                    fullname.Haato..",",
-                    fullname.Coco..",",
-                    fullname.Ririka..".",
+                    "Archived cards means they are",
+                    "removed from the deck,",
+                    "but not counted as destroyed."
                 }
             },
             holo_info_even={
@@ -323,6 +326,7 @@ return {
             k_hololive_gen_regloss="ReGLOSS",
             k_hololive_gen_justice="Justice",
             k_hololive_gen_flowglow="FLOW GLOW",
+            k_hololive_gen_asobi="ASOBI★MAWARI-TAI!",
 
             ---- Full Name Table
             k_hololive_fullname_table=fullname,
@@ -342,6 +346,7 @@ return {
         labels={
             ---- Seal Badges
             hololive_geopin_seal="Geo-Pin Seal",
+            hololive_tako_seal="Tako Seal",
 
             ---- Sticker Badges
             hololive_kapumark="Yozora Vampirism",

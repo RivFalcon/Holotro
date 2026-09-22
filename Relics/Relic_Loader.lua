@@ -29,22 +29,39 @@ Holo.Relic_Joker = SMODS.Joker:extend{
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
-
     atlas = 'Relic_Hololive',
 
-    add_to_deck = function (self, card, from_debuff)
+    add_to_deck = function(self, card, from_debuff)
         local cae = card.ability.extra
-        if cae.pre_atd then
-            cae.pre_atd(self, card, from_debuff)
+        if from_debuff then
+            if cae.add_from_debuff then
+                cae.add_from_debuff(card)
+            end
+        else
+            if cae.add_jingle then
+                play_sound(cae.add_jingle)
+            end
+            if cae.add_to_deck then
+                cae.add_to_deck(card)
+            end
+            if G.GAME then
+                G.GAME.acquired_hololive_relic = true
+            end
         end
-        if cae.atd_jingle then
-            play_sound(cae.atd_jingle)
-        end
-        if cae.post_atd then
-            cae.pre_atd(self, card, from_debuff)
-        end
-        if G.GAME then
-            G.GAME.acquired_hololive_relic = true
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        local cae = card.ability.extra
+        if from_debuff then
+            if cae.remove_to_debuff then
+                cae.remove_to_debuff(card)
+            end
+        else
+            if cae.remove_jingle then
+                play_sound(cae.remove_jingle)
+            end
+            if cae.remove_from_deck then
+                cae.remove_from_deck(card)
+            end
         end
     end,
     set_badges = function(self, card, badges)

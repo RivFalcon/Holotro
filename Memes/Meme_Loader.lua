@@ -7,7 +7,11 @@ Holo.Meme_Joker = SMODS.Joker:extend{
         Holo.hooks.SMODS_Joker_inject(self)
         table.insert(Holo.H_Pool.Memes, self)
         table.insert(Holo.MemberJokerPools[self.member], self)
-    end
+    end,
+    set_badges = function(self, card, badges)
+        Holo.set_type_badge(card, badges, 'Meme')
+        Holo.set_member_badges(card, badges)
+    end,
 }
 
 local memes_files = {

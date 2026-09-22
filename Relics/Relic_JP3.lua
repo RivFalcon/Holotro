@@ -93,23 +93,32 @@ Holo.Relic_Joker{ -- Uruha Rushia
     loc_txt = {
         name = "Butterfies of the Necromancer",
         text = {
-            'Prevents {C:red}Game Over{} once.',
-            '{C:red}self destructs{}',
-            'Selling this card spawns',
-            '{V:1}#1# {C:attention}Butterfly Tags{}.'
+            {'{C:green}#2# in #3#{} chance to spawn a {C:Rushia}Butterfly Tag{}',
+            'when played hand contains a {C:attention}Two Pair{}.',},
+            {'Prevents {C:red}Game Over {C:attention}#1# {}times,',
+            'each time {C:attention}doubles{} the odds.',
+            '{C:red}<self destructs when 0 times left>{}'},
         }
-        ,boxes={2,2}
+        --,boxes={2,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-    } },
+        cocoons = nil,
+        odds = 2,
+        add_to_deck = function(card)
+            local _d = os.date("*t")
+            card.ability.extra.cocoons = (_d.year-2022) - ((_d.yday<55)and 1 or 0)
+        end,
+    }},
     loc_vars = function(self, info_queue, card)
-        local summon = math.floor((os.date('%y%m%d')-220224)/10000)
+        local cae = card.ability.extra
+        local _d = os.date("*t")
         info_queue[#info_queue+1] = G.P_TAGS.tag_hololive_butterfly
         return {
             vars = {
-                summon,
-                colours = {Holo.C.Rushia}
+                cae.cocoons or ((_d.year-2022) - ((_d.yday<55)and 1 or 0)),
+                Holo.prob_norm(),
+                cae.odds,
             }
         }
     end,
@@ -122,32 +131,32 @@ Holo.Relic_Joker{ -- Uruha Rushia
     soul_pos = { x = 1, y = 1 },
 
     calculate = function(self, card, context)
-        if context.game_over then
-            G.E_MANAGER:add_event(Event({
-                func = function()
+        if context.game_over and not context.blueprint then
+            local cae = card.ability.extra
+            cae.cocoons = cae.cocoons - 1
+            if cae.cocoons <= 0 then
+                G.E_MANAGER:add_event(Event({func = function()
                     G.hand_text_area.blind_chips:juice_up()
                     G.hand_text_area.game_chips:juice_up()
                     play_sound('tarot1')
                     card:start_dissolve()
-                    return true
-                end
-            }))
+                return true end}))
+            else
+                cae.odds = cae.odds * 2
+            end
             return {
                 message = localize('k_saved_ex'),
                 saved = localize('ph_hololive_necromancy'),
                 colour = Holo.C.Rushia
             }
-        elseif context.selling_self then
-            local summon = math.floor((os.date('%y%m%d')-220224)/10000)
-            for i=1, summon do
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        add_tag(Tag('tag_hololive_butterfly'))
-                        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
-                        play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
-                        return true
-                    end
-                }))
+        elseif context.before and next(context.poker_hands['Two Pair']) then
+            local cae = card.ability.extra
+            if Holo.chance('tag_hololive_butterfly',cae.odds) then
+                G.E_MANAGER:add_event(Event({func = function()
+                    add_tag(Tag('tag_hololive_butterfly'))
+                    play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                    play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                return true end}))
             end
         end
     end
@@ -159,14 +168,14 @@ Holo.Relic_Joker{ -- Shiranui Flare
     loc_txt = {
         name = "Paint Splasher of the Fire Elf",
         text = {
-            'Spray {C:attention}Gold{} paint on scored cards',
-            'if played hand contains a {C:attention}Two Pair{}.',
-            'Each card has {C:green}#3# in #4#{} chance to receive',
-            'a {C:attention}Gold seal{} when being spray-painted.',
-            'Gain {X:mult,C:white}X#2#{} mult per card sprayed.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            {'Spray {C:attention}Gold{} paint on scored cards',
+            'if played hand contains a {C:attention}Two Pair{}.'},
+            {'Each card has {C:green}#3# in #4#{} chance to receive',
+            'a {C:attention}Gold seal{} when being spray-painted.'},
+            {'Gain {X:mult,C:white}X#2#{} mult per card sprayed.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={2,2,2}
+        --,boxes={2,2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -221,13 +230,13 @@ Holo.Relic_Joker{ -- Shirogane Noel
     loc_txt = {
         name = "Mace of the Silver Knight",
         text = {
-            'If last played hand contains a {C:attention}Two Pair{},',
+            {'If last played hand contains a {C:attention}Two Pair{},',
             'retrigger all {C:attention}metal cards{} held in hand',
-            'once per {C:attention}King{} in said last scoring hand.',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Chariot{} used.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            'once per {C:attention}King{} in said last scoring hand.'},
+            {'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Chariot{} used.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={3,2}
+        --,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -291,13 +300,15 @@ Holo.Relic_Joker{ -- Houshou Marine
     loc_txt = {
         name = "Treasure Box of the Pirate Captain",
         text = {
-            'Takes {C:money}$1{} per purchase at the shop.',
-            'Gives you back {X:money,C:white}X#1#{} the amount at {C:attention}end of shop{}.',
-            '{C:inactive}(Currently {C:money}$#4#{C:inactive} taken)',
-            'Multiplier goes up by {X:money,C:white}X#2#{} every {C:attention}17',
-            '{C:inactive}[#3#]{} triggered {C:attention}Gold cards{} held in hand.'
+            {'Takes {C:money}$1{} per purchase at the shop, or',
+            'per played hand containing a {C:attention}Two Pair{},',
+            'but rewards {X:money,C:white}X#1#{} the amount',
+            'at {C:attention}end of round{} or{C:attention} shop{}.',
+            '{C:inactive}(Currently {C:money}$#4#{C:inactive} taken)'},
+            {'Multiplier goes up by {X:money,C:white}X#2#{} every {C:attention}17 {C:inactive}[#3#]',
+            'triggered {C:attention}Gold cards{} held in hand.'}
         }
-        ,boxes={3,2}
+        --,boxes={5,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -334,10 +345,10 @@ Holo.Relic_Joker{ -- Houshou Marine
                     holo_card_upgrade(card)
                 end
             end
-        elseif context.buying_card then
+        elseif (context.before and next(context.poker_hands['Two Pair'])) or context.buying_card then
             ease_dollars(-1)
             card.ability.extra.treasure = card.ability.extra.treasure + 1
-        elseif context.ending_shop then
+        elseif (context.end_of_round and context.cardarea == G.jokers ) or context.ending_shop then
             ease_dollars(card.ability.extra.treasure * card.ability.extra.Mmult)
             card.ability.extra.treasure = 0
         end

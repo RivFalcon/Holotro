@@ -57,6 +57,7 @@ Holo.Fandom_Pack{
     loc_txt = {
         name = 'HoloPack',
         text = Holo.Fandom_Pack_local_text,
+        group_name = 'Fandom Pack',
     },
     config = { extra = 3, choose = 1 },
     weight = 2,
@@ -70,6 +71,7 @@ Holo.Fandom_Pack{
     loc_txt = {
         name = 'HoloPack',
         text = Holo.Fandom_Pack_local_text,
+        group_name = 'Fandom Pack',
     },
     config = { extra = 3, choose = 1 },
     weight = 2,
@@ -83,6 +85,7 @@ Holo.Fandom_Pack{
     loc_txt = {
         name = 'Jumbo HoloPack',
         text = Holo.Fandom_Pack_local_text,
+        group_name = 'Fandom Pack',
     },
     config = { extra = 5, choose = 1 },
     weight = 1,
@@ -96,6 +99,7 @@ Holo.Fandom_Pack{
     loc_txt = {
         name = 'Mega HoloPack',
         text = Holo.Fandom_Pack_local_text,
+        group_name = 'Fandom Pack',
     },
     config = { extra = 5, choose = 2 },
     weight = 0.5,

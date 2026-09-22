@@ -32,10 +32,6 @@ SMODS.Atlas{ -- Ina_WAH
 
 local Wah_Joker = Holo.Meme_Joker:extend{
     member = "Ina",
-    set_badges = function(self, card, badges)
-        Holo.set_type_badge(card, badges, 'Meme')
-        Holo.set_member_badges(card, badges)
-    end,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

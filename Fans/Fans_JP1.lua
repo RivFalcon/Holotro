@@ -226,19 +226,24 @@ Holo.Fan_card{ -- Rose-tai
     end
 }
 
-Holo.Fan_card{
+Holo.Fan_card{ -- Haaton
     member = 'Haato',
     order = 8,
     key = 'fans_haaton',
     loc_txt = {
         name = 'Haaton',
         text = {
-            'Converts all',
-            'cards in hand',
-            'to {C:hearts}Hearts{}.'
+            {'Converts all cards',
+            'in handto {C:hearts}Hearts{}.'},
+            {'Cards already with',
+            '{C:hearts}Heart{} suit permanently',
+            'gains {C:chips}+#1# {}Chips instead.'},
         }
     },
-    config = {suit_conv = 'Hearts'},
+    config = {suit_conv = 'Hearts', extra = 10},
+    loc_vars = function (self, info_queue, card)
+        return { vars = {card.ability.extra}}
+    end,
     effect = "Suit Conversion",
     atlas='holo_fandoms_1',
     pos={y=1,x=4},
@@ -254,7 +259,11 @@ Holo.Fan_card{
         delay(0.2)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
             for _,v in ipairs(G.hand.cards) do
-                v:change_suit(self.config.suit_conv)
+                if v:is_suit(self.config.suit_conv) then
+                    v.ability.perma_bonus = (v.ability.perma_bonus or 0) + self.config.extra
+                else
+                    v:change_suit(self.config.suit_conv)
+                end
             end
         return true end }))
         Holo.flip_cards_in_hand('all',true)

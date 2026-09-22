@@ -93,12 +93,17 @@ Holo.Fan_card{ -- Hoshiyomi
     loc_txt = {
         name = 'Hoshiyomi',
         text = {
-            'Converts all',
-            'cards in hand',
-            'to {C:diamonds}Diamonds{}.'
+            {'Converts all cards',
+            'in handto {C:diamonds}Diamonds{}.'},
+            {'Cards already with',
+            '{C:diamonds}Diamond{} suit permanently',
+            'gains {C:chips}+#1# {}Chips instead.'},
         }
     },
-    config = {suit_conv = 'Diamonds'},
+    config = {suit_conv = 'Diamonds', extra = 10},
+    loc_vars = function (self, info_queue, card)
+        return { vars = {card.ability.extra}}
+    end,
     effect = "Suit Conversion",
     atlas='holo_fandoms_1',
     pos={y=0,x=2},
@@ -114,7 +119,11 @@ Holo.Fan_card{ -- Hoshiyomi
         delay(0.2)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
             for _,v in ipairs(G.hand.cards) do
-                v:change_suit(self.config.suit_conv)
+                if v:is_suit(self.config.suit_conv) then
+                    v.ability.perma_bonus = (v.ability.perma_bonus or 0) + self.config.extra
+                else
+                    v:change_suit(self.config.suit_conv)
+                end
             end
         return true end }))
         Holo.flip_cards_in_hand('all',true)
@@ -188,7 +197,7 @@ SMODS.Seal{ -- Geo-Pin
     loc_txt = {
         name = 'Geo-Pin Seal',
         text = {
-            'Retrigger this card {V:1}twice',
+            'Retrigger this card {V:1}#2#',
             'if this card was drawn',
             'in {C:attention}first hand{} of round.',
             '{C:white,B:2}#1#',
@@ -196,12 +205,15 @@ SMODS.Seal{ -- Geo-Pin
     },
     config = {
         azki_guessed=false,
+        azki_retrigger=2,
     },
     loc_vars = function (self, info_queue, card)
-        local _guessed = card.ability.azki_guessed
+        local _guessed = card.ability.seal.azki_guessed
+        local _retrigger = card.ability.seal.azki_retrigger
         return {
             vars={
                 _guessed and 'Guessed' or 'inactive',
+                (_retrigger==2)and'twice'or(_retrigger..' times'),
                 colours={
                     Holo.C.AZKi,
                     _guessed and Holo.C.AZKi or G.C.UI.TEXT_DARK,
@@ -214,25 +226,25 @@ SMODS.Seal{ -- Geo-Pin
 
     update = function (self, card, dt)
         local on_table = ((card.area == G.hand)or(card.area == G.play))and G.GAME.facing_blind
-        if card.ability.azki_guessed and not on_table then
-            card.ability.azki_guessed = false
+        if card.ability.seal.azki_guessed and not on_table then
+            card.ability.seal.azki_guessed = false
         end
     end,
     calculate = function (self, card, context)
         if context.first_hand_drawn then
-            card.ability.azki_guessed = true
+            card.ability.seal.azki_guessed = true
             SMODS.calculate_effect({
                 message = 'Guess!',
                 colour = Holo.C.AZKi,
                 sound = 'hololive_sound_AZKi_Guess'..pseudorandom('AZKi_Guess',1,4)
             },card)
             local eval = function(_c)
-                return _c.ability.azki_guessed and (_c.area == G.hand) and G.GAME.facing_blind and not G.RESET_JIGGLES
+                return _c.ability.seal.azki_guessed and (_c.area == G.hand) and G.GAME.facing_blind and not G.RESET_JIGGLES
             end
             juice_card_until(card, eval, true)
-        elseif context.repetition_only and card.ability.azki_guessed then
+        elseif context.repetition_only and card.ability.seal.azki_guessed then
             return {
-                repetitions = 2,
+                repetitions = card.ability.seal.azki_retrigger,
                 colour = Holo.C.AZKi,
             }
         end
@@ -269,9 +281,13 @@ Holo.Fan_card{ -- Pioneer
     use = function (self, card, area, copier)
         local conv_card = G.hand.highlighted[1]
         Holo.juice_on_use(card)
-        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-            conv_card:set_seal(card.ability.extra, nil, true)
-        return true end }))
+        if conv_card.seal == card.ability.extra then
+            conv_card.ability.seal.azki_retrigger = (conv_card.ability.seal.azki_retrigger or 2) + 1
+        else
+            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+                conv_card:set_seal(card.ability.extra, nil, true)
+            return true end }))
+        end
         delay(0.5)
         Holo.unhighlight_all()
         holo_fan_cheers(self.member)

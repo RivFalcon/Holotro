@@ -9,6 +9,7 @@ Holo.C = {
     ID = HEX('ff7c4d'),
     EN = HEX('c283b6'),
     DI = HEX('010101'),
+    HL = HEX('33C9FE'),
 }
 Holo.Generations = {
     gen_origin={
@@ -174,6 +175,15 @@ Holo.Generations = {
             'Vivi',
         },
     },
+    gen_asobi={
+        order = 18, branch = 'HL', codename =    'Asobi', name = 'ASOBI★MAWARI-TAI!',
+        members = {
+            'Mela',
+            'Sopia',
+            'Tsuzuri',
+            'Kyoko',
+        },
+    },
 }
 
 Holo.gen_order = {
@@ -197,8 +207,11 @@ Holo.gen_order = {
     'DI1',
     'EN4',
     'DI2',
+
+    --'HL1',
 }
 
+--[[
 Holo.Collabs = {
     collab_micomet = {
         members = {'Miko','Suisei'}
@@ -285,6 +298,7 @@ Holo.Units = {
         }
     },
 }
+]]
 
 Holo.Members = {
     -- JP012G.
@@ -368,7 +382,12 @@ Holo.Members = {
     Suu      = {order = 75, branch = 'DI', C = HEX('71e5ff'), },
     Chihaya  = {order = 76, branch = 'DI', C = HEX('37baba'), },
     Vivi     = {order = 77, branch = 'DI', C = HEX('ff90cc'), },
-
+    --[[
+    Mela     = {order = 78, branch = 'HL', C = HEX('')}
+    Sopia    = {order = 78, branch = 'HL', C = HEX('')}
+    Tsuzuri  = {order = 78, branch = 'HL', C = HEX('')}
+    Kyoko    = {order = 78, branch = 'HL', C = HEX('')}
+    ]]
 }
 
 Holo.memberlist = {}
@@ -664,9 +683,9 @@ Holo.call_and_response_chart = {
     Chloe = 'Shion',
     Iroha = 'Suisei',
 
-    Nerissa = 'Kiara', -- and Marine
+    Nerissa = {'Marine','Kiara'},
     Raden = 'Aki',
-    Riona = 'Calli', -- and Luna
+    Riona = {'Luna','Calli'},
     Niko = 'Lui',
     Suu = 'Subaru',
 }

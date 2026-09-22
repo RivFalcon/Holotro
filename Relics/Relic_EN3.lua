@@ -32,6 +32,7 @@ Holo.Relic_Joker{ -- Shiori Novella
         }
     } },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set='Other',key='holo_info_archiving'}
         return { vars = { card.ability.extra.retriggers, card.ability.extra.count_args.down } }
     end,
 

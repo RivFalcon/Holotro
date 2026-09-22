@@ -22,10 +22,6 @@ Holo.Meme_Joker{ -- Suisei -- Talalala -- https://youtu.be/_RPkBzv2jYc
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }
     end,
-    set_badges = function(self, card, badges)
-        Holo.set_type_badge(card, badges, 'Meme')
-        Holo.set_member_badges(card, badges)
-    end,
     rarity = 2,
     cost = 5,
     blueprint_compat = true,
@@ -58,10 +54,6 @@ Holo.Meme_Joker{ -- Miko -- Gomoku RTA -- https://youtu.be/0IYqY9I2LzI
             "{C:attention}five{} scoring cards."
         }
     },
-    set_badges = function(self, card, badges)
-        Holo.set_type_badge(card, badges, 'Meme')
-        Holo.set_member_badges(card, badges)
-    end,
     config = { extra = {  } },
     rarity = 2,
     cost = 5,
