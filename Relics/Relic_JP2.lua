@@ -219,7 +219,7 @@ Holo.Relic_Joker{ -- Yuzuki Choco
     calculate = function(self, card, context)
         if context.end_of_round and context.individual then
             context.other_card:juice_up()
-            if context.other_card:get_id()>=14 then
+            if context.other_card:get_id()>=14 and not context.blueprint then
                 holo_card_upgrade(card)
             elseif not SMODS.has_no_rank(context.other_card) then
                 if Holo.chance('Chocosen', card.ability.extra.odds) then
@@ -342,7 +342,7 @@ Holo.Relic_Joker{ -- Oozora Subaru
                     end
                 end
             end
-            if peace then
+            if peace and not context.blueprint then
                 -- This can also be "if #context.full_hand==#context.scoring_hand then",
                 -- but I'm very afraid if something would go wrong, so...
                 G.E_MANAGER:add_event(Event({

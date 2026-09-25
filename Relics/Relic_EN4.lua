@@ -224,7 +224,7 @@ Holo.Relic_Joker{ -- Raora Panthera
     fandom = 'fans_chattino',
 
     calculate = function(self, card, context)
-        if context.hololive_played_card then
+        if context.hololive_played_card and not context.blueprint then
             local v = context.hololive_played_card
             if SMODS.has_enhancement(v, "m_glass") and not v.debuffed then
                 v.ability.x_mult = v.ability.x_mult + card.ability.extra.x_mult_mod

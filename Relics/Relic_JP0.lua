@@ -50,7 +50,7 @@ Holo.Relic_Joker{ -- Tokino Sora
                     colour=Holo.C.Sora
                 }
             end
-        elseif context.before then
+        elseif context.before and not context.blueprint then
             if context.full_hand[1]:is_suit('Diamonds') then
                 holo_card_upgrade(card)
             end
@@ -261,7 +261,7 @@ Holo.Relic_Joker{ -- Sakura Miko
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
-        if context.discard then
+        if context.discard and not context.blueprint then
             if not context.other_card:is_suit('Diamonds')then
                 local lavacrisp = pseudorandom('Miko', cae.crisp_min, cae.crisp_max)
                 if holo_card_counting(card, lavacrisp) then
@@ -356,7 +356,7 @@ Holo.Relic_Joker{ -- AZKi
                     colour=Holo.C.AZKi
                 }
             end
-        elseif context.first_hand_drawn then
+        elseif context.first_hand_drawn and not context.blueprint then
             for _,v in ipairs(G.hand.cards) do
                 if v:get_id()==cae.base.id and v:is_suit('Diamonds') then
                     SMODS.calculate_effect({

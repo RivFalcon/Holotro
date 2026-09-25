@@ -359,14 +359,14 @@ Holo.Relic_Joker{ -- Hakui Koyori
                     end
                 }))
             end
-        elseif context.before then
+        elseif context.before and not context.blueprint then
             for _,v in ipairs(context.full_hand)do
                 if v.potion_trigger then -- Green, Gold, Blue
                     holo_card_upgrade(card)
                     v.potion_trigger=false
                 end
             end
-        elseif (context.individual or context.repetition) and context.cardarea==G.play then
+        elseif (context.individual or context.repetition) and (context.cardarea==G.play) and not context.blueprint then
             if context.other_card.potion_trigger then -- Red, Cyan, Pink
                 holo_card_upgrade(card)
                 context.other_card.potion_trigger=false
@@ -434,7 +434,7 @@ Holo.Relic_Joker{ -- Sakamata Chloe
             local is_ten = function(v)
                 return (v:get_id()==10)
             end
-            if Holo.series_and(context.full_hand, is_ten) then
+            if Holo.series_and(context.full_hand, is_ten) and not context.blueprint then
                 holo_card_upgrade(card)
             end
             if holo_card_counting(card) then
@@ -501,7 +501,7 @@ Holo.Relic_Joker{ -- Kazama Iroha
             local is_ten = function(v)
                 return (v:get_id()==10)
             end
-            if Holo.series_and(context.full_hand, is_ten) then
+            if Holo.series_and(context.full_hand, is_ten) and not context.blueprint then
                 holo_card_upgrade(card)
             end
             if holo_card_counting(card) then
