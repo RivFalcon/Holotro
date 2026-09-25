@@ -583,6 +583,7 @@ Holo.birthday_chart = {
     ['0115'] = 'Risu',
     ['0122'] = 'Rushia',
     --['0130'] = 'Polka',
+
     -- Febuary
     ['0201'] = 'Fuwawa',
     ['0202'] = 'Mococo',
@@ -593,6 +594,7 @@ Holo.birthday_chart = {
     ['0222'] = 'Okayu',
     --['0227'] = 'Ao',
     ['0229'] = 'Bae',
+
     -- March
     --['0302'] = 'Nene',
     ['0305'] = 'Miko',
@@ -602,13 +604,16 @@ Holo.birthday_chart = {
     ['0315'] = 'Koyori',
     ['0321'] = 'Fauna',
     ['0322'] = 'Suisei',
+
     -- April
     ['0402'] = 'Flare',
     ['0404'] = 'Calli',
     ['0414'] = 'Biboo',
+    --['0416'] = 'Mela',
     --['0420'] = 'Kanade',
     --['0422'] = 'Kanata',
     ['0425'] = 'Elizabeth',
+
     -- May
     ['0502'] = 'Shiori',
     ['0511'] = 'Raora',
@@ -619,15 +624,18 @@ Holo.birthday_chart = {
     ['0523'] = 'Roboco',
     ['0525'] = 'Laplus',
     --['0529'] = 'Riona',
+
     -- June
     --['0606'] = 'Watame',
     --['0607'] = 'Hajime',
     ['0610'] = 'Sana',
     ['0611'] = 'Lui',
+    --['0613'] = 'Sopia',
     --['0616'] = 'Suu',
     --['0617'] = 'Coco',
     ['0618'] = 'Iroha',
     ['0620'] = 'Gura',
+
     -- July
     ['0701'] = 'AZKi',
     ['0702'] = 'Subaru',
@@ -637,6 +645,7 @@ Holo.birthday_chart = {
     ['0722'] = 'Matsuri',
     --['0725'] = 'Niko',
     ['0730'] = 'Marine',
+
     -- August
     ['0804'] = 'Mumei',
     --['0808'] = 'Towa',
@@ -644,9 +653,11 @@ Holo.birthday_chart = {
     ['0820'] = 'Mio',
     --['0827'] = 'Vivi',
     --['0830'] = 'Kaela',
+
     -- September
     --['0908'] = 'Botan',
     --['0909'] = 'Reine',
+
     -- October
     ['1001'] = 'Korone',
     ['1005'] = 'Fubuki',
@@ -655,12 +666,14 @@ Holo.birthday_chart = {
     ['1018'] = 'Gigi',
     --['1028'] = 'Aloe',
     ['1031'] = 'Mel',
+
     -- November
     --['1107'] = 'Zeta',
     ['1111'] = 'Ceci',
     --['1115'] = 'Lamy',
     ['1121'] = 'Nerissa',
     ['1124'] = 'Noel',
+    
     -- December
     ['1201'] = 'Aqua',
     ['1208'] = 'Shion',
