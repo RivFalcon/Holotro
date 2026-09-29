@@ -6,13 +6,13 @@ Holo.Relic_Joker{ -- Ookami Mio
     loc_txt = {
         name = "Tarot Deck of the Divine Wolf",
         text = {
-            'When a {C:tarot}Tarot card{} is used, there is',
+            {'When a {C:tarot}Tarot card{} is used, there is',
             '{C:green}#4# in #5#{} chance to create another {C:tarot}Tarot card{}.',
-            '(If no room, {C:attention}accumulate{} them {C:inactive}[#3#]{} until there is.)',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Tarot card{} used.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            '(If no room, {C:attention}accumulate{} them {C:inactive}[#3#]{} until there is.)'},
+            {'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Tarot card{} used.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={3,2}
+       --,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -76,17 +76,17 @@ Holo.Relic_Joker{ -- Nekomata Okayu
     loc_txt = {
         name = "Lunchbox of the Hungry Cat",
         text = {
-            '{C:attention}+#3#{} comsumeable slot.',
-            'Eat a random {V:1}consumeable{} at end of shop.',
-            'Gain {X:mult,C:white}X#2#{} mult per {V:1}consumeable{} eaten, and',
+            {'{C:attention}+#3#{} comsumeable slot.',
+            'Eat a random {V:1}consumeable{} at end of shop.'},
+            {'Gain {X:mult,C:white}X#2#{} mult per {V:1}consumeable{} eaten, and',
             '{C:attention}+1{} consumeable slot every #5# {C:inactive}[#4#]',
-            '{V:1}consumeables{} eaten. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            '{V:1}consumeables{} eaten. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={1,4}
+       --,boxes={1,4}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-        Xmult = 2, Xmult_mod = 0.2,
+        Xmult = 2, Xmult_mod = 1,
         bento_size = 3,
         upgrade_args = {
             scale_var = 'Xmult',
@@ -158,31 +158,30 @@ Holo.Relic_Joker{ -- Inugami Korone
     loc_txt = {
         name = "Boxing Glove of the Energetic Dog",
         text = {
-            'For each {C:attention}empty{} consumeable slot,',
-            'punch the blind at {C:attention}start of round',
-            'and reduce score requirement by {C:chips}10%{}.',
-            '{C:inactive}(Currently #3# punches. Max at #4#.)',
-            'Gain {X:mult,C:white}X#2#{} mult every time',
+            {'Punch a random consumeable {C:attention}very hard',
+            'that turns it {C:dark_edition}Negative{} at {C:attention}end of shop{}.',
+            '{C:dark_edition}Negative{} consumeables have {C:green}#3# in #4#{} chance',
+            'to get {C:attention}knocked out{} instead.'},
+            {'Gain {X:mult,C:white}X#2#{} mult every time',
             'a consumeable slot is {C:chips}freed up{}.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={3,3}
+        --,boxes={3,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
-        Xmult = 1, Xmult_mod = 0.1,
-        punches = 2, punches_max = 22,
+        Xmult = 2, Xmult_mod = 1,
+        yubi = 2, odds = 4,
         upgrade_args = {
             scale_var = 'Xmult',
         }
     }},
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
-        local punch = G.consumeables and (G.consumeables.config.card_limit - #G.consumeables.cards) or 0
         return {
             vars = {
                 cae.Xmult, cae.Xmult_mod,
-                punch, cae.punches_max,
+                Holo.prob_norm(),cae.odds,
             }
         }
     end,
@@ -192,11 +191,28 @@ Holo.Relic_Joker{ -- Inugami Korone
     soul_pos = { x = 3, y = 1 },
 
     add_to_deck = function (self, card, context)
-        card.ability.extra.punches = G.consumeables.config.card_limit - #G.consumeables.cards
+        card.ability.extra.yubi = G.consumeables.config.card_limit - #G.consumeables.cards
     end,
     calculate = function(self, card, context)
         local cae = card.ability.extra
-        if context.first_hand_drawn then
+        if context.ending_shop and (#G.consumeables.cards>0) then
+            local punch_card = pseudorandom_element(G.consumeables.cards,'Inugami Korone')
+            local _edition = punch_card.edition
+            if _edition == nil then
+                -- Apply Negative
+                punch_card:set_edition('e_negative',true)
+            elseif _edition.type == 'negative' then
+                -- Apply Knock-Out
+                if Holo.chance('おらよ！',cae.odds) then
+                    Holo.delayed_destruction({punch_card})
+                end
+            else
+                -- Apply Wrap-Break
+                punch_card:set_edition(nil,true)
+                play_sound('glass'..pseudorandom('おらよ！',1,6))
+            end
+        --elseif context.first_hand_drawn then
+            --[[
             for _=1,math.min(cae.punches,cae.punches_max) do
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
@@ -212,17 +228,19 @@ Holo.Relic_Joker{ -- Inugami Korone
                 }))
                 SMODS.calculate_effect({message='POW!', colour=Holo.C.Korone},card)
             end
+            ]]
         elseif context.joker_main then
             return {
                 Xmult = cae.Xmult,
                 colour = Holo.C.Korone,
             }
-        elseif cae.punches~=(G.consumeables.config.card_limit-#G.consumeables.cards) then
+        end
+        if (cae.yubi~=(G.consumeables.config.card_limit-#G.consumeables.cards)) and not context.blueprint then
             local empty_consumable_slot_number = G.consumeables.config.card_limit-#G.consumeables.cards
-            for _=1,(empty_consumable_slot_number-cae.punches)do
+            for _=1,(empty_consumable_slot_number-cae.yubi)do
                 holo_card_upgrade(card)
             end
-            cae.punches = empty_consumable_slot_number
+            cae.yubi = empty_consumable_slot_number
         end
     end
 }
