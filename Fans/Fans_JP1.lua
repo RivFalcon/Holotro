@@ -186,14 +186,14 @@ Holo.Fan_card{ -- Rose-tai
     loc_txt = {
         name = 'Rose-tai',
         text = {
-            'Increases {C:money}sell value{} of',
-            'each current Joker by {C:money}$1{}.',
-            'If a Joker is {C:attention}selected{},',
+            {'Increases {C:money}sell value{} of',
+            'each current Joker by {C:money}$1{}.'},
+            {'If a Joker is {C:attention}selected{},',
             'increases the {C:money}sell value{}',
             'of this Joker by {C:money}$1',
-            'for each current Joker.',
+            'for each current Joker.'},
         }
-        ,boxes={2,4}
+        --,boxes={2,4}
     },
     config = {},
     loc_vars = function(self, info_queue, card)

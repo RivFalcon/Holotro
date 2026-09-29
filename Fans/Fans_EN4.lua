@@ -112,13 +112,13 @@ SMODS.Sticker{ -- Cecilia Immergreen: Durable
     loc_txt = {
         name = 'Durable',
         text = {
-            'This card is',
-            'very {V:1}Durable{}.',
-            '{C:inactive}(Shattering mechanic of',
+            {'This card is',
+            'very {V:1}Durable{}.'},
+            {'{C:inactive}(Shattering mechanic of',
             '{C:inactive}Glass enhancement',
-            '{C:inactive}will not trigger.)',
+            '{C:inactive}will not trigger.)'},
         }
-        ,boxes={2,3}
+        --,boxes={2,3}
     },
     loc_vars = function (self, info_queue, card)
         return {vars={colours={Holo.C.Ceci}}}

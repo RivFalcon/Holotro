@@ -192,13 +192,13 @@ Holo.Fan_card{ -- Hooman
     loc_txt = {
         name = 'Hooman',
         text = {
-            'Sacrifices up to {C:attention}#1#{} selected',
+            {'Sacrifices up to {C:attention}#1#{} selected',
             '{C:attention}non{}-{C:spades}Spade{} cards',
-            'for the civilization.',
-            'Rerolls the next {C:attention}Boss Blind',
-            'if no cards were selected.'
+            'for the civilization.'},
+            {'Rerolls the next {C:attention}Boss Blind',
+            'if no cards were selected.'}
         }
-        ,boxes={3,2}
+        --,boxes={3,2}
     },
     config = {max_highlighted = 3},
     loc_vars = function (self, info_queue, card)

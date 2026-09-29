@@ -17,7 +17,7 @@ Holo.Relic_Joker{ -- IRyS
             'Gain {C:money}$#2#{} bonus by using a {V:2}#5#{}.',
             'Consumeable changes at end of shop.'
         }
-        ,boxes={3,1}
+        --,boxes={3,1}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -89,14 +89,14 @@ Holo.Relic_Joker{ -- Tsukumo Sana
     loc_txt = {
         name = "Size Limiter of the Astrogirl",
         text = {
-            '{C:green}#3# in #4#{} chance to create the',
+            {'{C:green}#3# in #4#{} chance to create the',
             '{C:planet}Planet card{} of played poker hand.',
-            '(If no room, {C:attention}accumulate{} them until there is.)',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:planet}Planet card{} used',
+            '(If no room, {C:attention}accumulate{} them until there is.)'},
+            {'Gain {X:mult,C:white}X#2#{} mult per {C:planet}Planet card{} used',
             'since taking this relic.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={3,3}
+        --,boxes={3,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -182,13 +182,13 @@ Holo.Relic_Joker{ -- Ceres Fauna
     loc_txt = {
         name = "Golden Fruit of the Mother Nature",
         text = {
-            'If played hand contains a {C:attention}Full House{}, create',
-            'a {C:dark_edition}Negative {C:planet}Planet card{} of played poker hand.',
-            'Gain {X:mult,C:white}X#2#{} mult every time',
+            {'If played hand contains a {C:attention}Full House{}, create',
+            'a {C:dark_edition}Negative {C:planet}Planet card{} of played poker hand.'},
+            {'Gain {X:mult,C:white}X#2#{} mult every time',
             '{C:attention}Full House{} or {C:attention}Flush House{} is {C:planet}leveled up{}.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'}
         }
-        ,boxes={2,3}
+        --,boxes={2,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -258,12 +258,12 @@ Holo.Relic_Joker{ -- Ouro Kronii
     loc_txt = {
         name = "Clock Hands of the Time Warden",
         text = {
-            'Create a {C:dark_edition}Negative {C:tarot}World{} every {C:attention}12 {C:inactive}[#3#]{}',
-            '{C:blue}played{} or {C:red}discarded{} cards with {C:spades}Spade{} suit.',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The World{} used.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
+            {'Create a {C:dark_edition}Negative {C:tarot}World{} every {C:attention}12 {C:inactive}[#3#]{}',
+            '{C:blue}played{} or {C:red}discarded{} cards with {C:spades}Spade{} suit.'},
+            {'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The World{} used.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'}
         }
-        ,boxes={2,2}
+        --,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -323,13 +323,13 @@ Holo.Relic_Joker{ -- Nanashi Mumei
     loc_txt = {
         name = "Dagger of the Guardian Owl",
         text = {
-            'Each{C:red} discarded {C:attention}non{}-{C:spades}Spade{} card',
+            {'Each{C:red} discarded {C:attention}non{}-{C:spades}Spade{} card',
             'has {C:green}#3# in #4#{} chance to be {X:black,C:white}sacrificed',
-            'for the {C:attention}civilization{}.',
-            'Gain {X:mult,C:white}X#2#{} mult for each card destroyed.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
+            'for the {C:attention}civilization{}.'},
+            {'Gain {X:mult,C:white}X#2#{} mult for each card destroyed.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'}
         }
-        ,boxes={3,2}
+        --,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -387,14 +387,14 @@ Holo.Relic_Joker{ -- Hakos Baelz
     loc_txt = {
         name = "Rolling Dice of the Scarlet Rat",
         text = {
-            'Roll a {V:1}six-sided die',
+            {'Roll a {V:1}six-sided die',
             'after each played hand.',
             'Multiplies all listed {C:green}probabilities',
-            'with the number it lands.',
-            'Gain {X:mult,C:white}X#2#{} mult on {V:1}Snake Eye{}.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult and {C:green}X#3#{C:inactive} Chance)'
+            'with the number it lands.'},
+            {'Gain {X:mult,C:white}X#2#{} mult on {V:1}Snake Eye{}.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult and {C:green}X#3#{C:inactive} Chance)'}
         }
-        ,boxes={4,2}
+        --,boxes={4,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {

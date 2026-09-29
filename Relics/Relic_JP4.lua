@@ -12,12 +12,12 @@ Holo.Relic_Joker{ -- Amane Kanata
     loc_txt = {
         name = "Halo of the Other-side Angel",
         text = {
-            '{C:green}#3# in #4#{} chance to gain {V:1}+1{} handsize',
-            'when acquire a joker. (Currently {V:1}+#5#{}, Max:{V:1}50{})',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Judgement{} used.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            {'{C:green}#3# in #4#{} chance to gain {V:1}+1{} handsize',
+            'when acquire a joker. (Currently {V:1}+#5#{}, Max:{V:1}50{})'},
+            {'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Judgement{} used.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={2,2}
+       --,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -87,13 +87,13 @@ Holo.Relic_Joker{ -- Kiryu Coco
     loc_txt = {
         name = "Morning Greeting of the Legendary Dragon",
         text = {
-            'Greet you morning and create a {V:3}Meme{} joker',
+            {'Greet you morning and create a {V:3}Meme{} joker',
             'for every {V:1}#3#{} cards held in hand at {C:attention}start of round{}.',
-            '{C:inactive}(Must have room)',
-            'Gain {X:mult,C:white}X#2#{} mult whenever your {V:2}handsize increases{}.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            '{C:inactive}(Must have room)'},
+            {'Gain {X:mult,C:white}X#2#{} mult whenever your {V:2}handsize increases{}.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={3,2}
+       --,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {

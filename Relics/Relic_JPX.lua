@@ -64,13 +64,13 @@ Holo.Relic_Joker{ -- Takane Lui
     loc_txt = {
         name = "X of the Sage Hawk",
         text = {
-            'Create a {C:tarot}Hermit{} every {C:attention}#3# {C:inactive}[#4#]{} times',
+            {'Create a {C:tarot}Hermit{} every {C:attention}#3# {C:inactive}[#4#]{} times',
             'a playing card with rank of {C:attention}10{} scores.',
-            '{C:inactive}(Must have room)',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Hermit{} used.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            '{C:inactive}(Must have room)'},
+            {'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Hermit{} used.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={3,2}
+       --,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -288,15 +288,15 @@ Holo.Relic_Joker{ -- Hakui Koyori
     loc_txt = {
         name = "X of the Chemist Coyote",
         text = {
-            'Cards has {C:green}#3# in #4#{} chance to receive random',
+            {'Cards has {C:green}#3# in #4#{} chance to receive random',
             '{V:1}chemical effects{} when drawn to hand.',
             'Cards with rank of {C:attention}10{} are {C:green}guaranteed',
-            'to receive {V:1}chemical effect{} instead.',
-            'Gain {X:mult,C:white}X#2#{} mult every time a chemical effect',
-            'is triggered. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)',
-            'Chemical effects are cleared at {C:attention}end of round{}.'
+            'to receive {V:1}chemical effect{} instead.'},
+            {'Gain {X:mult,C:white}X#2#{} mult every time a chemical effect',
+            'is triggered. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'},
+            {'Chemical effects are cleared at {C:attention}end of round{}.'}
         }
-        ,boxes={4,2,1}
+       --,boxes={4,2,1}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -392,13 +392,13 @@ Holo.Relic_Joker{ -- Sakamata Chloe
     loc_txt = {
         name = "X of the Cleaner Orca",
         text = {
-            'Discarded cards with ranks {C:attention}other than 10',
-            'have {C:green}#5# in #6#{} chance to get {C:red}cleaned away{}.',
-            'Create a {C:dark_edition}Negative {C:tarot}Magician{} every {C:attention}#4# {C:inactive}[#3#]{} discards.',
-            'Gain {X:mult,C:white}X#2#{} mult per discard with no card',
-            'needed to be cleaned. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            {'Discarded cards with ranks {C:attention}other than 10',
+            'have {C:green}#5# in #6#{} chance to get {C:red}cleaned away{}.'},
+            {'Create a {C:dark_edition}Negative {C:tarot}Magician{} every {C:attention}#4# {C:inactive}[#3#]{} discards.'},
+            {'Gain {X:mult,C:white}X#2#{} mult per discard with no card',
+            'needed to be cleaned. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={2,1,2}
+       --,boxes={2,1,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -459,13 +459,13 @@ Holo.Relic_Joker{ -- Kazama Iroha
     loc_txt = {
         name = "X of the Bodyguard Samurai",
         text = {
-            'Played cards with ranks {C:attention}other than 10',
-            'have {C:green}#5# in #6#{} chance to get {C:red}slashed{} after scoring.',
-            'Create a {C:dark_edition}Negative {C:tarot}Star{} every {C:attention}#4# {C:inactive}[#3#]{} played hands.',
-            'Gain {X:mult,C:white}X#2#{} mult per played hand with no card',
-            'needed to be slashed. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            {'Played cards with ranks {C:attention}other than 10',
+            'have {C:green}#5# in #6#{} chance to get {C:red}slashed{} after scoring.'},
+            {'Create a {C:dark_edition}Negative {C:tarot}Star{} every {C:attention}#4# {C:inactive}[#3#]{} played hands.'},
+            {'Gain {X:mult,C:white}X#2#{} mult per played hand with no card',
+            'needed to be slashed. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={2,1,2}
+       --,boxes={2,1,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {

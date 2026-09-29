@@ -33,16 +33,14 @@ Holo.Relic_Joker = SMODS.Joker:extend{
 
     add_to_deck = function(self, card, from_debuff)
         local cae = card.ability.extra
-        if from_debuff then
-            if cae.add_from_debuff then
-                cae.add_from_debuff(card)
-            end
+        if from_debuff and self.add_from_debuff then
+            self.add_from_debuff(card)
         else
-            if cae.add_jingle then
-                play_sound(cae.add_jingle)
+            if cae.sound_when_added then
+                play_sound(cae.sound_when_added)
             end
-            if cae.add_to_deck then
-                cae.add_to_deck(card)
+            if self.effect_when_added then
+                self.effect_when_added(card)
             end
             if G.GAME then
                 G.GAME.acquired_hololive_relic = true
@@ -51,16 +49,14 @@ Holo.Relic_Joker = SMODS.Joker:extend{
     end,
     remove_from_deck = function(self, card, from_debuff)
         local cae = card.ability.extra
-        if from_debuff then
-            if cae.remove_to_debuff then
-                cae.remove_to_debuff(card)
-            end
+        if from_debuff and self.remove_to_debuff then
+            self.remove_to_debuff(card)
         else
-            if cae.remove_jingle then
-                play_sound(cae.remove_jingle)
+            if cae.sound_when_removed then
+                play_sound(cae.sound_when_removed)
             end
-            if cae.remove_from_deck then
-                cae.remove_from_deck(card)
+            if self.effect_when_removed then
+                self.effect_when_removed(card)
             end
         end
     end,

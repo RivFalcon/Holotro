@@ -326,7 +326,7 @@ return {
             k_hololive_gen_regloss="ReGLOSS",
             k_hololive_gen_justice="Justice",
             k_hololive_gen_flowglow="FLOW GLOW",
-            k_hololive_gen_asobi="ASOBI★MAWARI-TAI!",
+            k_hololive_gen_asomawa="ASOBI★MAWARI-TAI!",
 
             ---- Full Name Table
             k_hololive_fullname_table=fullname,

@@ -12,12 +12,12 @@ Holo.Relic_Joker{ -- Elizabeth Rose Bloodflame
     loc_txt = {
         name = "Thorn the Great Sword of the Scarlet Queen",
         text = {
-            'Serve {C:tarot}Justice{} when a {C:attention}blind{} is either',
-            '{C:attention}selected{} or {C:attention}skipped{}. {C:inactive}(Must have room){}',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Justice{} rightfully delivered.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
+            {'Serve {C:tarot}Justice{} when a {C:attention}blind{} is either',
+            '{C:attention}selected{} or {C:attention}skipped{}. {C:inactive}(Must have room){}'},
+            {'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Justice{} rightfully delivered.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'}
         }
-        ,boxes={2,2}
+       --,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -55,14 +55,14 @@ Holo.Relic_Joker{ -- Gigi Murin
     loc_txt = {
         name = "Gauntlet of Da Fister",
         text = {
-            'All played cards get {C:attention}fisted{} and',
-            'become {C:attention}Glass cards{} before scoring.',
-            'Gain {X:mult,C:white} X#1# {} Mult every time a card',
+            {'All played cards get {C:attention}fisted{} and',
+            'become {C:attention}Glass cards{} before scoring.'},
+            {'Gain {X:mult,C:white} X#1# {} Mult every time a card',
             'is already a {C:attention}Glass Card{}',
             'before getting {C:attention}fisted{}.',
-            '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'
+            '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'}
         }
-        ,boxes = { 2, 4 }
+       --,boxes = { 2, 4 }
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -120,12 +120,12 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
     loc_txt = {
         name = "Violance of the Automaton",
         text = {
-            'All {C:attention}Glass cards{} become {V:1}very durable{}.',
-            'Gain {X:mult,C:white} X#1# {} Mult every time a {C:attention}Glass Card{}',
+            {'All {C:attention}Glass cards{} become {V:1}very durable{}.'},
+            {'Gain {X:mult,C:white} X#1# {} Mult every time a {C:attention}Glass Card{}',
             'is prevented from shattering.',
-            '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'
+            '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'}
         }
-        ,boxes = { 1, 3 }
+       --,boxes = { 1, 3 }
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -190,13 +190,13 @@ Holo.Relic_Joker{ -- Raora Panthera
     loc_txt = {
         name = "Sketching Pen of the Pink Panther",
         text = {
-            '{C:attention}Glass cards{} get sketched',
+            {'{C:attention}Glass cards{} get sketched',
             'and increase its {C:mult}Xmult{}',
-            'by {X:mult,C:white}X#3#{} mult when played.',
-            'Gain {X:mult,C:white}X#2#{} mult per card sketched.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
+            'by {X:mult,C:white}X#3#{} mult when played.'},
+            {'Gain {X:mult,C:white}X#2#{} mult per card sketched.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'}
         }
-        ,boxes = { 3, 2 }
+        --,boxes = { 3, 2 }
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {

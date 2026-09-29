@@ -175,7 +175,7 @@ Holo.Generations = {
             'Vivi',
         },
     },
-    gen_asobi={
+    gen_asomawa={
         order = 18, branch = 'HL', codename =    'Asobi', name = 'ASOBI★MAWARI-TAI!',
         members = {
             'Mela',
@@ -385,7 +385,7 @@ Holo.Members = {
     --[[
     Mela     = {order = 78, branch = 'HL', C = HEX('')}
     Sopia    = {order = 78, branch = 'HL', C = HEX('')}
-    Tsuzuri  = {order = 78, branch = 'HL', C = HEX('')}
+    Tsuzuri  = {order = 78, branch = 'HL', C = HEX('bb1f25')}
     Kyoko    = {order = 78, branch = 'HL', C = HEX('')}
     ]]
 }
@@ -537,6 +537,11 @@ Holo.badge_colours = {
     Suu      = { back = Holo.C.Suu      , text = HEX('6079b4')},
     Chihaya  = { back = Holo.C.Chihaya  , text = HEX('d7d7d7')},
     Vivi     = { back = Holo.C.Vivi     , text = HEX('7f72aa')},
+
+    --Mela     = { back = Holo.C.Vivi     , text = HEX('')},
+    --Sopia    = { back = Holo.C.Vivi     , text = HEX('')},
+    --Tsuzuri  = { back = Holo.C.Tsuzuri  , text = HEX('ffeecf')},
+    --Kyoko    = { back = Holo.C.Vivi     , text = HEX('')},
 }
 
 Holo.type_colour = {
@@ -616,6 +621,7 @@ Holo.birthday_chart = {
 
     -- May
     ['0502'] = 'Shiori',
+    --['0508'] = 'Kyoko',
     ['0511'] = 'Raora',
     --['0512'] = 'Ririka',
     ['0515'] = 'Sora',
@@ -635,6 +641,7 @@ Holo.birthday_chart = {
     --['0617'] = 'Coco',
     ['0618'] = 'Iroha',
     ['0620'] = 'Gura',
+    --['0628'] = 'Tsuzuri',
 
     -- July
     ['0701'] = 'AZKi',
@@ -673,7 +680,7 @@ Holo.birthday_chart = {
     --['1115'] = 'Lamy',
     ['1121'] = 'Nerissa',
     ['1124'] = 'Noel',
-    
+
     -- December
     ['1201'] = 'Aqua',
     ['1208'] = 'Shion',

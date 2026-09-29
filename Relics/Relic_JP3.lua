@@ -12,15 +12,15 @@ Holo.Relic_Joker{ -- Usada Pekora
     loc_txt = {
         name = "Slot Machine of the Greedy Rabbit",
         text = {
-            'For each {C:attention}Gold Card{} held in hand',
-            'at {C:attention}end of round{}, pay {C:money}$#3#{} to pull the lever.',
-            'Each pull has {C:green}#1# in #2#{} chance to',
+            {'For each {C:attention}Gold Card{} held in hand',
+            'at {C:attention}end of round{}, pay {C:money}$#3#{} to pull the lever.'},
+            {'Each pull has {C:green}#1# in #2#{} chance to',
             '{C:attention}hit the jackpot{} and gain {C:money}$#4#{},',
-            'otherwise raise the prize by {C:money}$#5#{}.',
-            '{C:inactive}(Prize resets after each jackpot)',
-            '{C:inactive}(Odds {C:green}-1 {C:inactive}per {C:attention}Gold Card{C:inactive} in your {C:attention}full deck{C:inactive})'
+            'otherwise raise the prize by {C:money}$#5#{}.'},
+            {'{C:inactive}(Prize resets after each jackpot)',
+            '{C:inactive}(Odds {C:green}-1 {C:inactive}per {C:attention}Gold Card{C:inactive} in your {C:attention}full deck{C:inactive})'}
         }
-        ,boxes={2,3,2}
+       --,boxes={2,3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = {
@@ -105,10 +105,6 @@ Holo.Relic_Joker{ -- Uruha Rushia
     config = { extra = {
         cocoons = nil,
         odds = 2,
-        add_to_deck = function(card)
-            local _d = os.date("*t")
-            card.ability.extra.cocoons = (_d.year-2022) - ((_d.yday<55)and 1 or 0)
-        end,
     }},
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
@@ -130,6 +126,10 @@ Holo.Relic_Joker{ -- Uruha Rushia
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
 
+    effect_when_added = function(card)
+        local _d = os.date("*t")
+        card.ability.extra.cocoons = (_d.year-2022) - ((_d.yday<55)and 1 or 0)
+    end,
     calculate = function(self, card, context)
         if context.game_over and not context.blueprint then
             local cae = card.ability.extra

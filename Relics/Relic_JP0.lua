@@ -12,14 +12,14 @@ Holo.Relic_Joker{ -- Tokino Sora
     loc_txt = {
         name = "Starlight of the First Idol",
         text = {
-            'Each played card with {C:diamonds}Diamond{} suit',
+            {'Each played card with {C:diamonds}Diamond{} suit',
             'that has the {C:attention}same rank{}',
             'as the {C:attention}first{} played card',
-            'gives {X:mult,C:white}X#1#{} Mult when scored.',
-            'Gain {X:mult,C:white}X#2#{} Mult before scoring',
-            'if first played card is {C:diamonds}Diamond{} suit.'
+            'gives {X:mult,C:white}X#1#{} Mult when scored.'},
+            {'Gain {X:mult,C:white}X#2#{} Mult before scoring',
+            'if first played card is {C:diamonds}Diamond{} suit.'}
         }
-        ,boxes={4,2}
+       --,boxes={4,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -64,15 +64,15 @@ Holo.Relic_Joker{ -- Roboco
     loc_txt = {
         name = "Maintenance Tools of the High-spec Robot",
         text = {
-            '{C:attention}Steel cards{} held in hand have',
+            {'{C:attention}Steel cards{} held in hand have',
             '{C:green}#3# in #4#{} chance to upgrade their {X:mult,C:white}Xmult',
-            'by {X:mult,C:white}X#1#{} mult after scoring.',
-            '{C:attention}Steel cards{} with {C:diamonds}Diamond{} suit are',
-            '{C:green}guaranteed{} to be upgraded.',
-            'Played {C:attention}Steel cards{} will also',
-            'give their {X:mult,C:white}Xmult{} when scored.'
+            'by {X:mult,C:white}X#1#{} mult after scoring.'},
+            {'{C:attention}Steel cards{} with {C:diamonds}Diamond{} suit are',
+            '{C:green}guaranteed{} to be upgraded.'},
+            {'Played {C:attention}Steel cards{} will also',
+            'give their {X:mult,C:white}Xmult{} when scored.'}
         }
-        ,boxes={3,2,2}
+       --,boxes={3,2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -136,14 +136,14 @@ Holo.Relic_Joker{ -- Hoshimachi Suisei
     loc_txt = {
         name = "Golden Axe of the Stellar Diva",
         text = {
-            'Each played card with {C:diamonds}Diamond{} suit,',
+            {'Each played card with {C:diamonds}Diamond{} suit,',
             'generates {C:attention}#3#~#4#{} stardust when scored.',
             'Collect {C:attention}18 {C:inactive}[#5#]{} stardust to form a {C:tarot}Star{}.',
-            '(If no room, accumulate them {C:inactive}[#6#]{} until there is.)',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Star{} used.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            '(If no room, accumulate them {C:inactive}[#6#]{} until there is.)'},
+            {'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Star{} used.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={4,2}
+       --,boxes={4,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -212,15 +212,15 @@ Holo.Relic_Joker{ -- Sakura Miko
     loc_txt = {
         name = "Gohei of the Shrine Maiden",
         text = {
-            'Each {C:red}discarded{} card with {C:attention}non{}-{C:diamonds}Diamond{} suits',
+            {'Each {C:red}discarded{} card with {C:attention}non{}-{C:diamonds}Diamond{} suits',
             'is thrown into {C:attention}lava{} and burned into {C:attention}#3#~#4#{} crisps.',
             'Collect {C:attention}#1# {C:inactive}[#2#]{} burnt crisp to create a {C:tarot}Star{}.',
-            '(If no room, accumulate them {C:inactive}[#5#]{} until there is.)',
-            'Earn {C:money}$35{} at end of round if your {C:attention}full deck',
+            '(If no room, accumulate them {C:inactive}[#5#]{} until there is.)'},
+            {'Earn {C:money}$35{} at end of round if your {C:attention}full deck',
             'has more {C:diamonds}Diamond{} cards',
-            'than other suits combined.'
+            'than other suits combined.'}
         }
-        ,boxes={4,3}
+       --,boxes={4,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -291,15 +291,15 @@ Holo.Relic_Joker{ -- AZKi
     loc_txt = {
         name = "Mic and Map of the Navigator Diva",
         text = {
-            'Each played card',
+            {'Each played card',
             'with {C:diamonds}Diamond{} suit',
-            'is retriggered {C:attention}#1#{} times.',
-            'Gain {C:attention}1{} retrigger if',
+            'is retriggered {C:attention}#1#{} times.'},
+            {'Gain {C:attention}1{} retrigger if',
             '{C:attention}first drawn hand{} of round',
-            'contains a {C:attention}#2#{} of {C:diamonds}Diamond{}.',
-            'Rank changes at end of round.'
+            'contains a {C:attention}#2#{} of {C:diamonds}Diamond{}.'},
+            {'Rank changes at end of round.'}
         }
-        ,boxes={2,3,1}
+       --,boxes={2,3,1}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -308,11 +308,6 @@ Holo.Relic_Joker{ -- AZKi
             scale_var = 'retriggers',
             message = 'Guess!',
         },
-        add_to_deck = function(card)
-            if not from_debuff then
-                self.roll_for_rank(card)
-            end
-        end,
     }},
     loc_vars = function(self, info_queue, card)
         local cae = card.ability.extra
@@ -344,6 +339,9 @@ Holo.Relic_Joker{ -- AZKi
         else
             card.ability.extra.base = {value='Ace', id = 14}
         end
+    end,
+    effect_when_added = function(card)
+        self.roll_for_rank(card)
     end,
     calculate = function(self, card, context)
         local cae = card.ability.extra

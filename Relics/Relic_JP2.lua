@@ -12,13 +12,13 @@ Holo.Relic_Joker{ -- Minato Aqua
     loc_txt = {
         name = "Headpiece of the House Maid",
         text = {
-            'If played hand has only {C:attention}one{} card,',
-            'it gives {X:mult,C:white}X#1#{} mult when scored.',
-            'Clean away {C:attention}lowest{} ranked card',
+            {'If played hand has only {C:attention}one{} card,',
+            'it gives {X:mult,C:white}X#1#{} mult when scored.'},
+            {'Clean away {C:attention}lowest{} ranked card',
             'held in hand at {C:attention}end of round',
-            'if your hand contains {C:attention}more than one{} rank.'
+            'if your hand contains {C:attention}more than one{} rank.'}
         }
-        ,boxes={2,3}
+        --,boxes={2,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = { Xmult = 44.5 } },
@@ -67,13 +67,13 @@ Holo.Relic_Joker{ -- Murasaki Shion
     loc_txt = {
         name = "Eye of the Violet Mage",
         text = {
-            '{C:attention}Lucky Aces {C:green}guarantee{} to give {C:mult}+#3#{} mult',
+            {'{C:attention}Lucky Aces {C:green}guarantee{} to give {C:mult}+#3#{} mult',
             'and have {C:green}#4# in #5#{} chance to win {C:money}$#6#',
-            'instead when scored.',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Magician{} used.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)',
+            'instead when scored.'},
+            {'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Magician{} used.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'},
         }
-        ,boxes={3,2}
+       --,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -117,13 +117,13 @@ Holo.Relic_Joker{ -- Nagiri Ayame
     loc_txt = {
         name = "Mask of the Oni",
         text = {
-            'If played hand is a {C:attention}High Card{},',
-            'retrigger each scored card {C:attention}#5#{} times.',
-            'Each {C:attention}Ace{} held in hand has',
+            {'If played hand is a {C:attention}High Card{},',
+            'retrigger each scored card {C:attention}#5#{} times.'},
+            {'Each {C:attention}Ace{} held in hand has',
             '{C:green}#3# in #4#{} chance to give {X:mult,C:white}X#1#{} Mult.',
-            'Gain {X:mult,C:white}X#2#{} mult when {C:attention}Boss Blind{} is defeated.'
+            'Gain {X:mult,C:white}X#2#{} mult when {C:attention}Boss Blind{} is defeated.'}
         }
-        ,boxes={2,3}
+       --,boxes={2,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -183,14 +183,14 @@ Holo.Relic_Joker{ -- Yuzuki Choco
     loc_txt = {
         name = "Syringe of the Demon Nurse",
         text = {
-            'Each card held in hand gets {C:attention}injected',
-            'with a syringe at {C:attention}end of round{}.',
-            'If injected card is an {C:attention}Ace{}, gain {X:mult,C:white}X#2#{} mult;',
+            {'Each card held in hand gets {C:attention}injected',
+            'with a syringe at {C:attention}end of round{}.'},
+            {'If injected card is an {C:attention}Ace{}, gain {X:mult,C:white}X#2#{} mult;',
             'othrerwise each injected card has',
             '{C:green}#3# in #4#{} chance to increase its {C:attention}rank{}.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={2,4}
+       --,boxes={2,4}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -289,13 +289,13 @@ Holo.Relic_Joker{ -- Oozora Subaru
     loc_txt = {
         name = "Whistle of the Duck Officer",
         text = {
-            'Played card that {C:red}did not score',
-            'will be {C:attention}arrested{}.',
-            'Gain {X:mult,C:white}X#2#{} mult when playing a hand',
+            {'Played card that {C:red}did not score',
+            'will be {C:attention}arrested{}.'},
+            {'Gain {X:mult,C:white}X#2#{} mult when playing a hand',
             'with {C:attention}no{} cards arrested.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={2,3}
+       --,boxes={2,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {

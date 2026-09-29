@@ -12,12 +12,12 @@ Holo.Relic_Joker{ -- Shiori Novella
     loc_txt = {
         name = "Quill Pen of the Archiver",
         text = {
-            'Retrigger all cards {C:attention}#1#{} times.',
-            '{C:attention}+1{} retrigger every {C:attention}23{C:inactive} [#2#] {}cards discarded.',
-            'Discarded {C:attention}face cards{} get made into {X:black,C:white}bookmarks{}',
-            'and will be properly {X:black,C:white}archived{}.'
+            {'Retrigger all cards {C:attention}#1#{} times.',
+            '{C:attention}+1{} retrigger every {C:attention}23{C:inactive} [#2#] {}cards discarded.'},
+            {'Discarded {C:attention}face cards{} get made into {X:black,C:white}bookmarks{}',
+            'and will be properly {X:black,C:white}archived{}.'}
         }
-        ,boxes={2,2}
+        --,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -72,14 +72,14 @@ Holo.Relic_Joker{ -- Koseki Bijou
     loc_txt = {
         name = "Jewel Crown of the Ancient Rock",
         text = {
-            '{C:attention}Stone cards{} become {C:attention}#4#{},',
-            'permanently gain {C:chips}+#3#{} chips when played.',
-            '{C:attention}Non-face cards{} or {C:attention}Stone Cards',
+            {'{C:attention}Stone cards{} become {C:attention}#4#{},',
+            'permanently gain {C:chips}+#3#{} chips when played.'},
+            {'{C:attention}Non-face cards{} or {C:attention}Stone Cards',
             'give {X:mult,C:white}X#1#{} Mult when scored.',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Tower{} used.',
-            '{C:attention}Non-face cards{} will always score.'
+            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Tower{} used.'},
+            {'{C:attention}Non-face cards{} will always score.'}
         }
-        ,boxes={2,3,1}
+       --,boxes={2,3,1}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -133,14 +133,14 @@ Holo.Relic_Joker{ -- Nerissa Ravencroft
     loc_txt = {
         name = "Tuning Fork of the Raven Diva",
         text = {
-            'Each played card {C:spectral}sings along with the tune{}',
-            'and gives {X:mult,C:white} X#1# {} mult when scored.',
-            '{C:attention}Face cards{} that joined the chorus',
-            'will fall victim into {X:black,C:white}craziness{}.',
-            'Gain {X:mult,C:white}X#2#{} mult after the chorus',
-            'if everyone survived.'
+            {'Each played card {C:spectral}sings along with the tune{}',
+            'and gives {X:mult,C:white} X#1# {} mult when scored.'},
+            {'{C:attention}Face cards{} that joined the chorus',
+            'will fall victim into {X:black,C:white}craziness{}.'},
+            {'Gain {X:mult,C:white}X#2#{} mult after the chorus',
+            'if everyone survived.'}
         }
-        ,boxes={2,2,2}
+       --,boxes={2,2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -187,12 +187,12 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
     loc_txt = {
         name = "Claws of the Fluffy Hellhound",
         text = {
-            'Each played card with {V:1}odd{} rank',
-            'is retriggered {C:attention}#1#{} times.',
-            '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#]',
-            '{V:1}odd{} cards played.',
+            {'Each played card with {V:1}odd{} rank',
+            'is retriggered {C:attention}#1#{} times.'},
+            {'{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#]',
+            '{V:1}odd{} cards played.'},
         }
-        ,boxes={2,2}
+       --,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -248,12 +248,12 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
     loc_txt = {
         name = "Claws of the Fuzzy Hellhound",
         text = {
-            'Each played card with {V:1}even{} rank',
-            'is retriggered {C:attention}#1#{} times.',
-            '{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#]',
-            '{V:1}even{} cards played.',
+            {'Each played card with {V:1}even{} rank',
+            'is retriggered {C:attention}#1#{} times.'},
+            {'{C:attention}+1{} retrigger every {C:attention}22{C:inactive} [#2#]',
+            '{V:1}even{} cards played.'},
         }
-        ,boxes={2,2}
+       --,boxes={2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {

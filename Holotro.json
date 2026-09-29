@@ -9,9 +9,8 @@
 	"priority": 0,
 	"badge_colour": "33C9FE",
 	"badge_text_colour": "ffffff",
-	"version": "0-beta_26w39a",
+	"version": "0-beta_26w40a",
 	"dependencies": [
 		"Steamodded (>=1.0.0~BETA-0827c)"
-		,"MultiTextBox (>=1.0.2)"
 	]
 }

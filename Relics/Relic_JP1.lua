@@ -46,13 +46,13 @@ Holo.Relic_Joker{ -- Yozora Mel
     loc_txt = {
         name = "Bite of the Vampire",
         text = {
-            'Each played {C:attention}Enhanced card{} gets {V:1}kapu{}\'d,',
+            {'Each played {C:attention}Enhanced card{} gets {V:1}kapu{}\'d,',
             '{C:attention}loses the enhancement{} before scoring,',
-            'and gives {C:mult}+10.31{} mult when scored.',
-            'Gain {X:mult,C:white}X#2#{} mult per kapu.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            'and gives {C:mult}+10.31{} mult when scored.'},
+            {'Gain {X:mult,C:white}X#2#{} mult per kapu.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={3,2}
+       --,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -135,13 +135,13 @@ Holo.Relic_Joker{ -- Shirakami Fubuki
     loc_txt = {
         name = "Pentagram Emblem of the King Fox",
         text = {
-            'Create a {C:tarot}Foob{} card every {C:attention}#5# {C:inactive}[#4#]',
+            {'Create a {C:tarot}Foob{} card every {C:attention}#5# {C:inactive}[#4#]',
             '{C:attention}unenhanced{} playing card scored.',
-            '(If no room, accumulate them {C:inactive}[#3#]{} until there is.)',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Foob{} used.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
+            '(If no room, accumulate them {C:inactive}[#3#]{} until there is.)'},
+            {'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Foob{} used.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'}
         }
-        ,boxes={3,2}
+        --,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -200,14 +200,14 @@ Holo.Relic_Joker{ -- Natsuiro Matsuri
     loc_txt = {
         name = "Taiko of the Summer Festival",
         text = {
-            'Drumming on each played',
-            '{C:attention}unenhanced{} card for {C:attention}#1#{} beats.',
-            'Each beat has {C:green}#2# in #3#{} chance to retrigger once.',
+            {'Drumming on each played',
+            '{C:attention}unenhanced{} card for {C:attention}#1#{} beats.'},
+            {'Each beat has {C:green}#2# in #3#{} chance to retrigger once.',
             'Beats on cards with {C:hearts}Heart{} suit',
             '{C:green}guarantees{} to give retriggers.',
-            'Gain {C:attention}1{} beat when {C:attention}Boss Blind{} is defeated.'
+            'Gain {C:attention}1{} beat when {C:attention}Boss Blind{} is defeated.'}
         }
-        ,boxes={2,4}
+        --,boxes={2,4}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -266,15 +266,15 @@ Holo.Relic_Joker{ -- Aki Rosenthal
     loc_txt = {
         name = "Beer Mug of the Exotic Elf",
         text = {
-            'Take a sip of beer from the mug {C:inactive}(#3#/21)',
+            {'Take a sip of beer from the mug {C:inactive}(#3#/21)',
             'before {C:blue}playing{} or {C:red}discarding{} a hand.',
             'Each {C:attention}unenhanced{} played card',
-            'gives {X:mult,C:white}X#1#{} Mult if a sip is taken.',
-            'Refill the mug with {C:tarot}Temperance',
+            'gives {X:mult,C:white}X#1#{} Mult if a sip is taken.'},
+            {'Refill the mug with {C:tarot}Temperance',
             'when it\'s {C:red}less{} than {C:attention}half-full{}.',
-            'Gain {X:mult,C:white}X#2#{} mult for each refill.'
+            'Gain {X:mult,C:white}X#2#{} mult for each refill.'}
         }
-        ,boxes={4,3}
+        --,boxes={4,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -338,13 +338,13 @@ Holo.Relic_Joker{ -- Akai Haato / Haachama
     loc_txt = {
         name = "incREDible Heart of the Strongest Idol",
         text = {
-            'Each played card with {C:hearts}Heart{} suit receives',
-            'a {C:attention}random enhancement{} before scoring.',
-            'Each card with {C:hearts}Heart{} suit held in hand',
+            {'Each played card with {C:hearts}Heart{} suit receives',
+            'a {C:attention}random enhancement{} before scoring.'},
+            {'Each card with {C:hearts}Heart{} suit held in hand',
             'gives {X:mult,C:white}X#1#{} Mult when scored.',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Sun{} used.'
+            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}The Sun{} used.'}
         }
-        ,boxes={2,3}
+        --,boxes={2,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {

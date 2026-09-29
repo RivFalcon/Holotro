@@ -42,14 +42,14 @@ Holo.Fan_card{ -- Robosa
     loc_txt = {
         name = 'Robosa',
         text = {
-            'Enhances {C:attention}#1# {}cards',
-            'into {C:attention}Steel cards{}.',
-            'If a selected card is',
+            {'Enhances {C:attention}#1# {}cards',
+            'into {C:attention}Steel cards{}.'},
+            {'If a selected card is',
             'already a {C:attention}Steel Card{},',
             'increases its {X:mult,C:white}Xmult',
-            'by {X:mult,C:white}X#2#{} mult.'
+            'by {X:mult,C:white}X#2#{} mult.'}
         }
-        ,boxes={2,4}
+        --,boxes={2,4}
     },
     config = {
         max_highlighted = 3,

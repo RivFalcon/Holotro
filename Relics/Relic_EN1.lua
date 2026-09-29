@@ -12,15 +12,15 @@ Holo.Relic_Joker{ -- Mori Calliope
     loc_txt = {
         name = "Scythe of the Death Apprentice",
         text = {
-            'When played exactly {C:attention}4 {}cards, each card',
+            {'When played exactly {C:attention}4 {}cards, each card',
             'has {C:green}#3# in #4# {}chance to be {C:attention}converted{}',
-            'to the {C:attention}fourth {}card before scoring.',
-            'Create a {C:dark_edition}Negative {C:tarot}Death {}card',
-            'every {C:attention}#5# {C:inactive}[#6#] {}conversions.',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Death{} used.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
+            'to the {C:attention}fourth {}card before scoring.'},
+            {'Create a {C:dark_edition}Negative {C:tarot}Death {}card',
+            'every {C:attention}#5# {C:inactive}[#6#] {}conversions.'},
+            {'Gain {X:mult,C:white}X#2#{} mult per {C:tarot}Death{} used.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'}
         }
-        ,boxes={3,2,2}
+        --,boxes={3,2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -122,15 +122,15 @@ Holo.Relic_Joker{ -- Takanashi Kiara
     loc_txt = {
         name = "Flaming Sword of the Phoenix",
         text = {
-            'Ignite {C:attention}1{V:1} fire charge {C:inactive}(#4#/4)',
+            {'Ignite {C:attention}1{V:1} fire charge {C:inactive}(#4#/4)',
             'when the scoring board is {V:1,E:1}on fire{}.',
             'When {C:red}discard{}, spend {C:attention}1{V:1} fire charge',
-            'to destroy {C:attention}all{} discarded cards.',
-            'Gain {X:mult,C:white}X#2#{} mult per burned discard',
+            'to destroy {C:attention}all{} discarded cards.'},
+            {'Gain {X:mult,C:white}X#2#{} mult per burned discard',
             'and {C:money}$#3#{} per burning card.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'}
         }
-        ,boxes={4,3}
+        --,boxes={4,3}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -207,13 +207,13 @@ Holo.Relic_Joker{ -- Ninomae Ina'nis
     loc_txt = {
         name = "Ancient Tome of the Eldritch Priestess",
         text = {
-            'Each played card with a {C:purple}purple seal{}',
+            {'Each played card with a {C:purple}purple seal{}',
             'creates a {C:spectral}Spectral{} card when scored.',
-            '(If no room, {C:attention}accumulate{} them {C:inactive}[#3#]{} until there is.)',
-            'Gain {X:mult,C:white}X#2#{} mult per {C:spectral}Spectral{} card used.',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
+            '(If no room, {C:attention}accumulate{} them {C:inactive}[#3#]{} until there is.)'},
+            {'Gain {X:mult,C:white}X#2#{} mult per {C:spectral}Spectral{} card used.',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'}
         }
-        ,boxes={3,2}
+        --,boxes={3,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
@@ -294,14 +294,14 @@ Holo.Relic_Joker{ -- Gawr Gura
     loc_txt = {
         name = "Trident of the Atlantic Shark",
         text = {
-            'Retrigger {C:blue}first {C:attention}3 {}scored cards {C:attention}2{} additional times',
-            'if played hand is a {V:1}Straight Flush{}.',
-            'Gain {X:mult,C:white}X#2#{} mult every time {V:1}Straight Flush{}',
-            'is {C:planet}leveled up{}. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}',
-            '{s:0.8}Using a {C:planet,s:0.8}Neptune{s:0.8} levels up {C:attention,s:0.8}Straight Flush {C:blue,s:0.8}2{s:0.8} additional times.',
-            '{s:0.8}Using a {C:planet,s:0.8}Jupiter{s:0.8} or a {C:planet,s:0.8}Saturn{s:0.8} also levels up {C:attention,s:0.8}Straight Flush{s:0.8}.'
+            {'Retrigger {C:blue}first {C:attention}3 {}scored cards {C:attention}2{} additional times',
+            'if played hand is a {V:1}Straight Flush{}.'},
+            {'Gain {X:mult,C:white}X#2#{} mult every time {V:1}Straight Flush{}',
+            'is {C:planet}leveled up{}. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'},
+            {'{s:0.8}Using a {C:planet,s:0.8}Neptune{s:0.8} levels up {C:attention,s:0.8}Straight Flush {C:blue,s:0.8}2{s:0.8} additional times.',
+            '{s:0.8}Using a {C:planet,s:0.8}Jupiter{s:0.8} or a {C:planet,s:0.8}Saturn{s:0.8} also levels up {C:attention,s:0.8}Straight Flush{s:0.8}.'}
         }
-        ,boxes={2,2,2}
+        --,boxes={2,2,2}
         ,unlock=Holo.Relic_unlock_text
     },
     config = { extra = {
