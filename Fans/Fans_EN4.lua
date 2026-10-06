@@ -112,11 +112,11 @@ SMODS.Sticker{ -- Cecilia Immergreen: Durable
     loc_txt = {
         name = 'Durable',
         text = {
-            {'This card is',
-            'very {V:1}Durable{}.'},
-            {'{C:inactive}(Shattering mechanic of',
-            '{C:inactive}Glass enhancement',
-            '{C:inactive}will not trigger.)'},
+            'This card is',
+            'very {V:1}Durable{}.',
+            '{C:inactive}(Shattering mechanic',
+            '{C:inactive}of Glass enhancement',
+            '{C:inactive}will not trigger.)',
         }
         --,boxes={2,3}
     },
