@@ -56,7 +56,7 @@ Holo.Relic_Joker{ -- Amane Kanata
         holo_card_upgrade_by_consumeable(card, context, 'c_judgement')
         if context.card_added and not context.blueprint then
             if (context.card.ability.set=='Joker')and(cae.grip<=50) then
-                if Holo.chance('Kanata',cae.odds)then
+                if Holo.chance('天音かなた', cae.odds, card)then
                     cae.grip = cae.grip + 1
                     G.hand:change_size(1)
                 end

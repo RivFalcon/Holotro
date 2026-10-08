@@ -66,7 +66,7 @@ Holo.Relic_Joker{ -- Mori Calliope
                 if i == 4 then
                     break
                 end
-                if Holo.chance('Calli', cae.odds) then
+                if Holo.chance('Mori Calliope', cae.odds, card) then
                     local percent = 1.15 - (i-0.999)/(4-0.998)*0.3
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',

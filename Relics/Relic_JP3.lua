@@ -70,7 +70,7 @@ Holo.Relic_Joker{ -- Usada Pekora
         if context.end_of_round and context.individual then
             if SMODS.has_enhancement(context.other_card, "m_gold") then
                 ease_dollars(-cae.fee)
-                if Holo.chance('Pekora', card.config.center.get_odds(cae.odds)) then
+                if Holo.chance('兎田 ぺこら', card.config.center.get_odds(cae.odds), card) then
                     card:juice_up()
                     ease_dollars(cae.prize)
                     cae.prize = 777
@@ -151,7 +151,7 @@ Holo.Relic_Joker{ -- Uruha Rushia
             }
         elseif context.before and next(context.poker_hands['Two Pair']) then
             local cae = card.ability.extra
-            if Holo.chance('tag_hololive_butterfly',cae.odds) then
+            if Holo.chance('潤羽るしあ', cae.odds, card) then
                 G.E_MANAGER:add_event(Event({func = function()
                     add_tag(Tag('tag_hololive_butterfly'))
                     play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
@@ -210,7 +210,7 @@ Holo.Relic_Joker{ -- Shiranui Flare
                     holo_card_upgrade(card)
                     SMODS.calculate_effect({message="Painted!",colour = HEX('ff5028')},v)
                 end
-                if Holo.chance('Flare', card.ability.extra.odds) then
+                if Holo.chance('不知火フレア', card.ability.extra.odds, card) then
                     v:set_seal('Gold', nil, true)
                 end
             end

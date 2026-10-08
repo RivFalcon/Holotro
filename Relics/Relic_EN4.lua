@@ -121,9 +121,14 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
         name = "Violance of the Automaton",
         text = {
             {'All {C:attention}Glass cards{} become {V:1}very durable{}.'},
+            {'Each played {C:attention}Glass Card{} after scoring',
+            'has {C:green}the same chance{} as shattering',
+            'to grant {} X#1# {} mult. {C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'},
+            --[[
             {'Gain {X:mult,C:white} X#1# {} Mult every time a {C:attention}Glass Card{}',
             'is prevented from shattering.',
             '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'}
+            ]]
         }
        --,boxes = { 1, 3 }
         ,unlock=Holo.Relic_unlock_text
@@ -149,33 +154,23 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
     fandom = 'fans_otomo',
 
     calculate = function(self, card, context)
-        --[[
-        if context.remove_playing_cards and not context.blueprint then
-            for i, val in ipairs(context.removed) do
-                if SMODS.has_enhancement(val, "m_glass") then
-                    holo_card_upgrade(card)
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            -- Copied (and modified) this part from "Ship of Theseus" of ExtraCredit mod.
-                            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                            local _card = copy_card(val, nil, nil, G.playing_card)
-                            _card:add_to_deck()
-                            G.discard:emplace(_card)
-                            table.insert(G.playing_cards, _card)
-                            playing_card_joker_effects({true})
-                            _card:start_materialize()
-                            return true
-                        end
-                    }))
-                end
-            end
-        end
-        ]]
         if context.hololive_shatter_card and SMODS.has_enhancement(context.hololive_shatter_card, 'm_glass') then
             if not context.blueprint then
                 holo_card_upgrade(card)
             end
             return {durable=true}
+        elseif context.fix_probability and context.identifier == 'glass' and not context.blueprint then
+            if Holo.chance(context.trigger_obj.config.center.config.extra,'holo_glass', card) then
+                SMODS.calculate_effect({
+                    message='Durable!',
+                    colour=Holo.C.Ceci,
+                    sound='hololive_sound_Ceci_Durable'
+                },context.trigger_obj)
+                holo_card_upgrade(card)
+            end
+            return{
+                numerator = 0
+            }
         elseif context.joker_main then
             return {
                 Xmult = card.ability.extra.Xmult

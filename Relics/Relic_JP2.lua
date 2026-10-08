@@ -107,6 +107,13 @@ Holo.Relic_Joker{ -- Murasaki Shion
         if context.joker_main then
             card:juice_up()
             return {Xmult=card.ability.extra.Xmult}
+        elseif context.mod_probability and context.trigger_obj.is and context.trigger_obj:is(Card) then
+            local is_lucky = context.identifier == 'lucky_mult' or context.identifier == 'lucky_money'
+            if is_lucky and context.trigger_obj.base.id == 14 then
+                return{
+                    denominator = context.denominator / 5
+                }
+            end
         end
     end
 }
@@ -163,7 +170,7 @@ Holo.Relic_Joker{ -- Nagiri Ayame
             end
         elseif context.individual and context.cardarea == G.hand and not context.end_of_round then
             if context.other_card:get_id()==14 then
-                if Holo.chance('Yo~dayo', card.ability.extra.odds) then
+                if Holo.chance('百鬼あやめ', card.ability.extra.odds, card) then
                     return {
                         message='Yo!',
                         colour=Holo.C.Ayame,
@@ -222,7 +229,7 @@ Holo.Relic_Joker{ -- Yuzuki Choco
             if context.other_card:get_id()>=14 and not context.blueprint then
                 holo_card_upgrade(card)
             elseif not SMODS.has_no_rank(context.other_card) then
-                if Holo.chance('Chocosen', card.ability.extra.odds) then
+                if Holo.chance('癒月ちょこ', card.ability.extra.odds, card) then
                     Holo.change_rank(context.other_card, context.other_card.base.id + 1)
                 end
             end

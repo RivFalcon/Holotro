@@ -187,17 +187,12 @@ function Holo.cae(card)
 end
 
 function Holo.prob_norm()
-    local _prob = G.GAME.probabilities
-    -- insert probability manipulations
-    return _prob.normal
+    return G.GAME.probabilities.normal
 end
-function Holo.chance(seed, odds)
-    local _pseurand = pseudorandom(seed)
-    local _result = _pseurand < Holo.prob_norm() / (odds or 1)
-    -- Modify _result here:
-
-    -- End of modification.
-    return _result
+function Holo.chance(seed, odds, card)
+    --local _pseurand = pseudorandom(seed)
+    --local _result = _pseurand < Holo.prob_norm() / (odds or 1)
+    return SMODS.pseudorandom_probability(card, seed, 1, odds)
 end
 function Holo.pseudorandom_weighted_element(weight_table, seed)
     local pool = {}

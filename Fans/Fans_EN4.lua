@@ -79,7 +79,7 @@ Holo.Fan_card{ -- Gremurin
 
         local destroyed_cards = {}
         for i=#G.hand.cards, 1, -1 do
-            if Holo.chance('gremurin', card.ability.extra) then
+            if Holo.chance('gremurin', card.ability.extra, card) then
                 local v = G.hand.cards[i]
                 if Holo.is_durable(v) then
                     SMODS.calculate_effect({
@@ -132,6 +132,13 @@ SMODS.Sticker{ -- Cecilia Immergreen: Durable
         local is_held_in_hand = (area==G.hand) or false
         return is_playing_card and has_glass_enhancement and(is_held_in_hand or bypass_roll)
     end,
+    calculate = function(self, card, context)
+        if context.fix_probability and (context.trigger_obj == card) and (context.identifier == 'glass') then
+            return{
+                numerator = 0
+            }
+        end
+    end
 }
 Holo.Fan_card{ -- Otomo
     member = 'Ceci',

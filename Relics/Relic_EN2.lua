@@ -56,7 +56,7 @@ Holo.Relic_Joker{ -- IRyS
         local cae = card.ability.extra
         holo_card_upgrade_by_consumeable(card, context, cae.base.key)
         if context.using_consumeable then
-            if Holo.chance('IRyS', cae.odds) then
+            if Holo.chance('IRyS', cae.odds, card) then
                 ease_dollars(cae.dollars)
                 SMODS.calculate_effect({message='Hope!',colour=Holo.C.IRyS},card)
             end
@@ -135,7 +135,7 @@ Holo.Relic_Joker{ -- Tsukumo Sana
                 holo_card_upgrade(card)
             end
         elseif context.before then
-            if Holo.chance('Sanana', cae.odds) then
+            if Holo.chance('Tsukumo Sana', cae.odds, card) then
                 -- Store the planet into the bag of planet.
                 local _planet = 'c_pluto'
                 for k, v in pairs(G.P_CENTER_POOLS.Planet) do
@@ -363,7 +363,7 @@ Holo.Relic_Joker{ -- Nanashi Mumei
             end
         elseif context.discard then
             if not context.other_card:is_suit("Spades") then
-                if Holo.chance('Mumei', card.ability.extra.odds) then
+                if Holo.chance('Nanashi Mumei', card.ability.extra.odds, card) then
                     return {
                         remove = true,
                         sound='slice1',
@@ -419,20 +419,19 @@ Holo.Relic_Joker{ -- Hakos Baelz
     soul_pos = { x = 5, y = 1 },
     fandom = 'fans_brat',
 
+    --[[
     add_to_deck = function(self, card, from_debuff)
         G.GAME.probabilities.normal = G.GAME.probabilities.normal * card.ability.extra.Pmult
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.GAME.probabilities.normal = G.GAME.probabilities.normal / card.ability.extra.Pmult
     end,
+    ]]
     calculate = function(self, card, context)
         local cae = card.ability.extra
-        local prob = G.GAME.probabilities
         if context.after and context.cardarea == G.jokers and not context.blueprint then
-            prob.normal = prob.normal / cae.Pmult
             card:juice_up()
             cae.Pmult = pseudorandom('Hakos Baelz', 1, 6)
-            prob.normal = prob.normal * cae.Pmult
             if cae.Pmult == 1 then
                 holo_card_upgrade(card)
             else
@@ -441,6 +440,10 @@ Holo.Relic_Joker{ -- Hakos Baelz
                     colour = Holo.C.Bae,
                 }
             end
+        elseif context.mod_probability then
+            return{
+                numerator = context.numerator * cae.Pmult
+            }
         elseif context.joker_main then
             return {
                 Xmult = cae.Xmult,

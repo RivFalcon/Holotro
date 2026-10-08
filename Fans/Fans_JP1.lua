@@ -217,7 +217,8 @@ Holo.Fan_card{ -- Rose-tai
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.7,func = function()
                 v:juice_up()
                 play_sound('timpani')
-                J.sell_cost = J.sell_cost + 1
+                J.ability.extra_value = (J.ability.extra_value or 0) + 1
+                J:set_cost()
             return true end}))
             SMODS.calculate_effect({message='+$1',colour=G.C.MONEY,sound='coin1'},J)
         end

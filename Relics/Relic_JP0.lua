@@ -100,7 +100,6 @@ Holo.Relic_Joker{ -- Roboco
     fandom = 'fans_robosa',
 
     calculate = function(self, card, context)
-        local cae = card.ability.extra
         if context.individual and context.cardarea == G.play then
             if SMODS.has_enhancement(context.other_card, 'm_steel') then
                 return {
@@ -109,12 +108,13 @@ Holo.Relic_Joker{ -- Roboco
                 }
             end
         elseif context.after then
+            local cae = card.ability.extra
             for _,v in ipairs(G.hand.cards) do
                 if SMODS.has_enhancement(v, 'm_steel') then
                     local _tick = false
                     if v:is_suit('Diamonds') then
                         _tick = true
-                    elseif Holo.chance('Roboco', card.ability.extra.odds) then
+                    elseif Holo.chance('ロボ子さん', cae.odds, card) then
                         _tick = true
                     end
                     if _tick then

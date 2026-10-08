@@ -173,12 +173,7 @@ local Koyori_Potion = SMODS.Sticker:extend{
     calculate = function(self, card, context)
         local pt_cfg = self.potion_config
         if context.before and context.cardarea==G.play then
-            if self.key == 'hololive_potion_green' and not card.chemical_chance then
-                G.GAME.probabilities.normal = G.GAME.probabilities.normal * pt_cfg.green
-                card.potion_trigger=true
-                card.chemical_chance=true
-                return{message='Chance X'..pt_cfg.green..'!', colour=G.C.GREEN}
-            elseif self.key == 'hololive_potion_gold' then
+            if self.key == 'hololive_potion_gold' then
                 card.potion_trigger=true
                 return{dollars=pt_cfg.gold, colour=G.C.GOLD}
             elseif self.key == 'hololive_potion_blue' then
@@ -198,19 +193,16 @@ local Koyori_Potion = SMODS.Sticker:extend{
                 card.potion_trigger=true
                 return{chips=pt_cfg.cyan}
             end
-        elseif context.destroy_card then
-            if self.key == 'hololive_potion_green' and card.chemical_chance then
-                G.GAME.probabilities.normal = G.GAME.probabilities.normal / pt_cfg.green
-                card.chemical_chance=nil
+        elseif context.mod_probability and context.cardarea==G.play then
+            if self.key == 'hololive_potion_green' and not card.chemical_chance then
+                card.potion_trigger=true
+                card.chemical_chance=true
+                return{
+                    numerator = context.numerator * pt_cfg.green,
+                    message='Chance X'..pt_cfg.green..'!',
+                    colour=G.C.GREEN
+                }
             end
-            card.potion_trigger=nil
-            local pc = self.key
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    card:remove_sticker(pc)
-                    return true
-                end
-            }))
         end
     end
 }
@@ -290,8 +282,8 @@ Holo.Relic_Joker{ -- Hakui Koyori
         text = {
             {'Cards has {C:green}#3# in #4#{} chance to receive random',
             '{V:1}chemical effects{} when drawn to hand.',
-            'Cards with rank of {C:attention}10{} are {C:green}guaranteed',
-            'to receive {V:1}chemical effect{} instead.'},
+            'Cards with rank of {C:attention}10{} are instead',
+            '{C:green}guaranteed{} to receive {V:1}chemical effects{}.'},
             {'Gain {X:mult,C:white}X#2#{} mult every time a chemical effect',
             'is triggered. {C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'},
             {'Chemical effects are cleared at {C:attention}end of round{}.'}
@@ -342,22 +334,24 @@ Holo.Relic_Joker{ -- Hakui Koyori
     end,
     calculate = function(self, card, context)
         local cae = card.ability.extra
-        if context.hololive_drawn_card and G.GAME.facing_blind then
-            local _tick = false
-            if context.hololive_drawn_card:get_id()==10 then
-                _tick = true
-            elseif Holo.chance('Zunou of X', cae.odds) then
-                _tick = true
-            end
-            if _tick then
-                local _potion_type = Holo.pseudorandom_weighted_element(cae.Potion_Rack, 'Koyo')
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        context.hololive_drawn_card:juice_up()
-                        context.hololive_drawn_card:add_sticker('hololive_potion_'.._potion_type)
-                        return true
-                    end
-                }))
+        if context.hand_drawn then
+            for _,_c in ipairs(context.hand_drawn) do
+                local _tick = false
+                if _c:get_id()==10 then
+                    _tick = true
+                elseif Holo.chance('博衣こより', cae.odds, card) then
+                    _tick = true
+                end
+                if _tick then
+                    local _potion_type = Holo.pseudorandom_weighted_element(cae.Potion_Rack, 'Koyo')
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            _c:juice_up()
+                            _c:add_sticker('hololive_potion_'.._potion_type)
+                            return true
+                        end
+                    }))
+                end
             end
         elseif context.before and not context.blueprint then
             for _,v in ipairs(context.full_hand)do
@@ -442,7 +436,7 @@ Holo.Relic_Joker{ -- Sakamata Chloe
             end
         elseif context.discard then
             if context.other_card:get_id()~=10 then
-                if Holo.chance('Chloe', cae.odds) then
+                if Holo.chance('沙花叉クロヱ', cae.odds, card) then
                     return{remove=true,message='Baku!',colour=Holo.C.Chloe}
                 end
             end
@@ -509,7 +503,7 @@ Holo.Relic_Joker{ -- Kazama Iroha
             end
         elseif context.destroy_card and context.cardarea == G.play then
             if context.destroy_card:get_id()~=10 then
-                if Holo.chance('Iroha', cae.odds) then
+                if Holo.chance('風真いろは', cae.odds, card) then
                     return{remove=true,message='Sha-kin!',colour=Holo.C.Iroha}
                 end
             end

@@ -16,7 +16,6 @@ if (from==G.deck)and(to==G.hand) then
     })
 end
 if (from==G.hand)and(to==G.play) then
-    -- What's the difference between this and context.before?
     SMODS.calculate_context({
         hololive_played_card = card,
     })

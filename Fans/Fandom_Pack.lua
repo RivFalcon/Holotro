@@ -39,7 +39,7 @@ Holo.Fandom_Pack = SMODS.Booster:extend{
                 end
             end
             if _pool[1] then
-                _card.key = 'hololive_'..pseudorandom_element(pool,pseudoseed('holofancall'))
+                _card.key = 'hololive_'..pseudorandom_element(_pool,pseudoseed('holofancall'))
             end
         end
         return _card

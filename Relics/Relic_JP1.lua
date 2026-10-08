@@ -243,7 +243,7 @@ Holo.Relic_Joker{ -- Natsuiro Matsuri
                     retriggers = cae.beats
                 else
                     for _=1,cae.beats do
-                        if Holo.chance('Matsuri Taiko', cae.odds) then
+                        if Holo.chance('夏色まつり', cae.odds, card) then
                             retriggers = retriggers + 1
                         end
                     end

@@ -25,6 +25,7 @@ SMODS.Booster:take_ownership_by_kind(
     ,true
 )
 
+--[[
 SMODS.Enhancement:take_ownership(
     'm_lucky',
     {
@@ -40,7 +41,9 @@ SMODS.Enhancement:take_ownership(
     }
     ,true
 )
+]]
 
+--[[
 SMODS.Enhancement:take_ownership(
     'm_glass',
     {
@@ -63,6 +66,7 @@ SMODS.Enhancement:take_ownership(
     }
     ,true
 )
+]]
 
 --[[
 SMODS.Enhancement:take_ownership(

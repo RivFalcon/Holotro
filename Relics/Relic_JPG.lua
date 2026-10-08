@@ -25,7 +25,7 @@ Holo.Relic_Joker{ -- Ookami Mio
         }
     }},
     upgrade_func = function(card)
-        if Holo.chance('MioTarot',card.ability.extra.odds)then
+        if Holo.chance('大神ミオ', card.ability.extra.odds, card)then
             card.ability.extra.deck_of_tarots = card.ability.extra.deck_of_tarots + 1
         end
     end,
@@ -203,7 +203,7 @@ Holo.Relic_Joker{ -- Inugami Korone
                 punch_card:set_edition('e_negative',true)
             elseif _edition.type == 'negative' then
                 -- Apply Knock-Out
-                if Holo.chance('おらよ！',cae.odds) then
+                if Holo.chance('おらよ！', cae.odds, card) then
                     Holo.delayed_destruction({punch_card})
                 end
             else

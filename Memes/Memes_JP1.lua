@@ -6,7 +6,7 @@ SMODS.Atlas{
     px = 71,
     py = 95
 }
-Holo.Meme_Joker{
+Holo.Meme_Joker{ -- Fubuki -- Medical Fee Gamble
     key = "Meme_Fubuki_MFG",
     member = "Fubuki",
     loc_txt = {
@@ -30,7 +30,7 @@ Holo.Meme_Joker{
     end,
     calculate = function(self, card, context)
         if context.buying_card or context.hololive_buying_booster or context.hololive_buying_voucher then
-            if Holo.chance('Fubuki',3) then
+            if SMODS.pseudorandom_probability(card, 'Fubuki Medical Fee Gamble', 2, 6) then
                 context.card.cost = 0
                 SMODS.calculate_effect({
                     message = 'Free!',

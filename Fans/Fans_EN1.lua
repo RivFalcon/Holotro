@@ -45,7 +45,7 @@ Holo.Fan_card{ -- Dead Beats
         end
         for i=1, #G.hand.highlighted do
             if G.hand.highlighted[i] ~= rightmost then
-                if Holo.chance('Dead Beat', card.ability.odds) then
+                if Holo.chance('Dead Beat', card.ability.odds, card) then
                     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
                         copy_card(rightmost, G.hand.highlighted[i])
                     return true end}))
