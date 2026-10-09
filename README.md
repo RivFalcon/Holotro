@@ -12,4 +12,4 @@
 
 ## Perm
  Anyone can download and play this mod, especially hololive talents.<br>
- Even though this mod is far from finished, please feel free to try this on stream!
+ Even though this mod is far from finished, please feel free to try this!
