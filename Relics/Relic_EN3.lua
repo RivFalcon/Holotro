@@ -39,7 +39,7 @@ Holo.Relic_Joker{ -- Shiori Novella
     atlas = 'Relic_Advent',
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
-    fandom = 'fans_novelite',
+    relic_fandom = 'fans_novelite',
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
@@ -103,7 +103,7 @@ Holo.Relic_Joker{ -- Koseki Bijou
     atlas = 'Relic_Advent',
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
-    fandom = 'fans_pebble',
+    relic_fandom = 'fans_pebble',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -160,7 +160,7 @@ Holo.Relic_Joker{ -- Nerissa Ravencroft
     atlas = 'Relic_Advent',
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
-    fandom = 'fans_jailbird',
+    relic_fandom = 'fans_jailbird',
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
@@ -218,7 +218,7 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
     atlas = 'Relic_Advent',
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
-    fandom = 'fans_ruffian_b',
+    relic_fandom = 'fans_ruffian_b',
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
@@ -279,7 +279,7 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
     atlas = 'Relic_Advent',
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
-    fandom = 'fans_ruffian_p',
+    relic_fandom = 'fans_ruffian_p',
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then

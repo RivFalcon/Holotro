@@ -729,3 +729,5 @@ function Holo.local_text.consumeable(consumeable_key)
     local consumeable_name = localize({key=consumeable_key, set=consumeable_set, type='name_text'})
     return '{C:'..(consumeable_loc_colours[consumeable_set]or'')..'}'..consumeable_name..'{}'
 end
+
+Holo.local_fullname = {}

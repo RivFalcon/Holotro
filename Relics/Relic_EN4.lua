@@ -35,7 +35,7 @@ Holo.Relic_Joker{ -- Elizabeth Rose Bloodflame
     atlas = 'Relic_Justice',
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
-    fandom = 'fans_rosarian',
+    relic_fandom = 'fans_rosarian',
 
     calculate = function(self, card, context)
         holo_card_upgrade_by_consumeable(card, context, 'c_justice')
@@ -80,7 +80,7 @@ Holo.Relic_Joker{ -- Gigi Murin
     atlas = 'Relic_Justice',
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
-    fandom = 'fans_gremurin',
+    relic_fandom = 'fans_gremurin',
 
     calculate = function(self, card, context)
         if context.before then
@@ -151,7 +151,7 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
     atlas = 'Relic_Justice',
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
-    fandom = 'fans_otomo',
+    relic_fandom = 'fans_otomo',
 
     calculate = function(self, card, context)
         if context.hololive_shatter_card and SMODS.has_enhancement(context.hololive_shatter_card, 'm_glass') then
@@ -216,7 +216,7 @@ Holo.Relic_Joker{ -- Raora Panthera
     atlas = 'Relic_Justice',
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
-    fandom = 'fans_chattino',
+    relic_fandom = 'fans_chattino',
 
     calculate = function(self, card, context)
         if context.hololive_played_card and not context.blueprint then

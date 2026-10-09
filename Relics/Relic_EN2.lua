@@ -50,7 +50,7 @@ Holo.Relic_Joker{ -- IRyS
     atlas = 'Relic_Promise',
     pos = { x = 0, y = 0 },
     soul_pos = { x = 0, y = 1 },
-    fandom = 'fans_irystocrat',
+    relic_fandom = 'fans_irystocrat',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -126,7 +126,7 @@ Holo.Relic_Joker{ -- Tsukumo Sana
     atlas = 'Relic_Promise',
     pos = { x = 1, y = 0 },
     soul_pos = { x = 1, y = 1 },
-    fandom = 'fans_sanallite',
+    relic_fandom = 'fans_sanallite',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -212,7 +212,7 @@ Holo.Relic_Joker{ -- Ceres Fauna
     atlas = 'Relic_Promise',
     pos = { x = 2, y = 0 },
     soul_pos = { x = 2, y = 1 },
-    fandom = 'fans_sapling',
+    relic_fandom = 'fans_sapling',
 
     calculate = function(self, card, context)
         if context.before then
@@ -295,7 +295,7 @@ Holo.Relic_Joker{ -- Ouro Kronii
     atlas = 'Relic_Promise',
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
-    fandom = 'fans_kronie',
+    relic_fandom = 'fans_kronie',
 
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -354,7 +354,7 @@ Holo.Relic_Joker{ -- Nanashi Mumei
     atlas = 'Relic_Promise',
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
-    fandom = 'fans_hooman',
+    relic_fandom = 'fans_hooman',
 
     calculate = function(self, card, context)
         if context.remove_playing_cards and not context.blueprint then
@@ -417,7 +417,7 @@ Holo.Relic_Joker{ -- Hakos Baelz
     atlas = 'Relic_Promise',
     pos = { x = 5, y = 0 },
     soul_pos = { x = 5, y = 1 },
-    fandom = 'fans_brat',
+    relic_fandom = 'fans_brat',
 
     --[[
     add_to_deck = function(self, card, from_debuff)

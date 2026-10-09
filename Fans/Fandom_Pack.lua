@@ -34,8 +34,8 @@ Holo.Fandom_Pack = SMODS.Booster:extend{
         if i==1 then
             local _pool = {}
             for _,J in ipairs(G.jokers.cards)do
-                if J.config.center.rarity == 'hololive_Relic' then
-                    _pool[#_pool+1] = 'hololive_'..J.config.center.fandom
+                if J.config.center.relic_fandom then
+                    _pool[#_pool+1] = J.config.center.relic_fandom
                 end
             end
             if _pool[1] then
