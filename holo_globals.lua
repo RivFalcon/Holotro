@@ -382,12 +382,11 @@ Holo.Members = {
     Suu      = {order = 75, branch = 'DI', C = HEX('71e5ff'), },
     Chihaya  = {order = 76, branch = 'DI', C = HEX('37baba'), },
     Vivi     = {order = 77, branch = 'DI', C = HEX('ff90cc'), },
-    --[[
-    Mela     = {order = 78, branch = 'HL', C = HEX('')}
-    Sopia    = {order = 78, branch = 'HL', C = HEX('')}
-    Tsuzuri  = {order = 78, branch = 'HL', C = HEX('bb1f25')}
-    Kyoko    = {order = 78, branch = 'HL', C = HEX('')}
-    ]]
+    -- HL1,
+    Mela     = {order = 78, branch = 'HL', C = HEX('1ea6fe'), },
+    Sopia    = {order = 78, branch = 'HL', C = HEX('7b85ff'), },
+    Tsuzuri  = {order = 78, branch = 'HL', C = HEX('bb1f25'), },
+    Kyoko    = {order = 78, branch = 'HL', C = HEX('f38e46'), },
 }
 
 Holo.memberlist = {}
@@ -538,10 +537,10 @@ Holo.badge_colours = {
     Chihaya  = { back = Holo.C.Chihaya  , text = HEX('d7d7d7')},
     Vivi     = { back = Holo.C.Vivi     , text = HEX('7f72aa')},
 
-    --Mela     = { back = Holo.C.Vivi     , text = HEX('')},
-    --Sopia    = { back = Holo.C.Vivi     , text = HEX('')},
-    --Tsuzuri  = { back = Holo.C.Tsuzuri  , text = HEX('ffeecf')},
-    --Kyoko    = { back = Holo.C.Vivi     , text = HEX('')},
+    Mela     = { back = Holo.C.Mela     , text = HEX('01ffce')},
+    Sopia    = { back = Holo.C.Sopia    , text = HEX('fffe03')},
+    Tsuzuri  = { back = Holo.C.Tsuzuri  , text = HEX('ffeecf')},
+    Kyoko    = { back = Holo.C.Kyoko    , text = HEX('676f84')},
 }
 
 Holo.type_colour = {
