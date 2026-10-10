@@ -1,4 +1,4 @@
-local fullname = {
+Holo.local_fullname['en-us'] = {
     Sora = "Tokino Sora",
     Roboco = "Roboco-san",
     Suisei = "Hoshimachi Suisei",
@@ -85,6 +85,7 @@ local fullname = {
     Tsuzuri = "Suzuna Tsuzuri",
     Kyoko = "Hyakuto Kyoko"
 }
+local fullname = Holo.local_fullname['en-us']
 
 local relicgacha_text={
     "Creates a",
