@@ -41,7 +41,7 @@ Holo.Relic_Gacha = SMODS.Consumable:extend{
         }
     end,
     hidden = true,
-    soul_set = 'holo_fandom_packs',
+    soul_set = 'holo_fandom',
     soul_rate = 0.05,
     unlocked = true,
     discovered = false,
