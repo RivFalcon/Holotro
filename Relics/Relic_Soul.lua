@@ -41,7 +41,7 @@ Holo.Relic_Gacha = SMODS.Consumable:extend{
         }
     end,
     hidden = true,
-    soul_set = 'holo_fandom_packs',
+    soul_set = 'holo_fandom',
     soul_rate = 0.05,
     unlocked = true,
     discovered = false,
@@ -415,11 +415,6 @@ Holo.Relic_Gacha{ -- Hololive
     pos      = {x=0,y=0},
     soul_pos = {x=5,y=0},
 
-    in_pool = function(self, args)
-        for _,J in ipairs(G.jokers.cards) do
-            if Holo.mod_check(J) then return true end
-        end
-    end,
     use = function(self, card, area, copier)
         local _member = RelicGacha()
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()

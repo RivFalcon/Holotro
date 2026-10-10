@@ -123,7 +123,7 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
             {'All {C:attention}Glass cards{} become {V:1}very durable{}.'},
             {'Each played {C:attention}Glass Card{} after scoring',
             'has {C:green}the same chance{} as shattering',
-            'to grant {} X#1# {} mult. {C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'},
+            'to grant {X:mult,C:white} X#1# {} mult. {C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'},
             --[[
             {'Gain {X:mult,C:white} X#1# {} Mult every time a {C:attention}Glass Card{}',
             'is prevented from shattering.',
@@ -159,7 +159,7 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
                 holo_card_upgrade(card)
             end
             return {durable=true}
-        elseif context.fix_probability and context.identifier == 'glass' and not context.blueprint then
+        elseif context.fix_probability and context.trigger_obj and context.identifier == 'glass' and not context.blueprint then
             if Holo.chance(context.trigger_obj.config.center.config.extra,'holo_glass', card) then
                 SMODS.calculate_effect({
                     message='Durable!',

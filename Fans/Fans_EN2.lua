@@ -113,11 +113,10 @@ Holo.Fan_card{ -- Sapling
     pos={y=2,x=1},
 
     can_use = function (self, card)
-        if not G.hand or not G.hand.highlighted then return false end
+        if not (G.hand and G.hand.highlighted) then return false end
         if #G.hand.highlighted ~= 2 then return false end
         local c1, c2 = G.hand.highlighted[1], G.hand.highlighted[2]
-        local r1, r2 = Holo.rank_suffice[c1:get_id()], Holo.rank_suffice[c2:get_id()]
-        if r1 and r2 and (r1~=r2) then return true end
+        return not (SMODS.has_no_rank(c1) or SMODS.has_no_rank(c2) or c1:get_id()==c2:get_id())
     end,
     use = function(self, card, area, copier)
         Holo.reset_hand_text()
