@@ -422,6 +422,9 @@ Holo.Relic_Gacha{ -- Hololive
             SMODS.add_card({key = 'j_hololive_Relic_'.._member, area = G.jokers})
         return true end }))
     end,
+    in_pool = function(self, args)
+        return true
+    end
 }
 
 --[[
