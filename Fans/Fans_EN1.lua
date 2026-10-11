@@ -177,14 +177,8 @@ Holo.Fan_card{ -- Chumbuds
     pos={y=0,x=3},
 
     can_use = function(self, card)
-        if #G.hand.highlighted == 1 then
-            local _rank = G.hand.highlighted[1]:get_id()
-            for i=2,14 do
-                if _rank == i then
-                    return true
-                end
-            end
-        end
+        if #G.hand.highlighted ~= 1 then return false end
+        if Holo.rank_suffice[G.hand.highlighted[1]:get_id()] then return true end
         return false
     end,
     use = function(self, card, area, copier)
