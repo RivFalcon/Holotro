@@ -103,6 +103,20 @@ end
 ---- Holo utility functions ----
 --------------------------------
 
+function Holo.add_event(args)
+    local _args = copy_table(args)
+    _args.func = function()
+        args.event_func(args.func_args)
+        return true
+    end
+    G.E_MANAGER:add_event(Event(_args))
+end
+function Holo.add_func_event(func)
+    G.E_MANAGER:add_event(Event({func=function()
+        func()
+    return true end}))
+end
+
 function Holo.series_and(list, criteria_func)
     criteria_func = (type(criteria_func)=='function') and criteria_func or function(v)return v end
     for _,item in ipairs(list)do
@@ -203,9 +217,9 @@ function Holo.blueprint_update(card, joker_to_copy, extra_criteria)
     if joker_to_copy==nil then
         card.ability.blueprint_compat = false
     elseif Holo.nil_check(joker_to_copy,{'config','center'}).blueprint_compat and extra_criteria then
-        card.ability.blueprint_compat = 'compatible'
+        card.ability.blueprint_compat = localize('k_compatible')
     else
-        card.ability.blueprint_compat = 'incompatible'
+        card.ability.blueprint_compat = localize('k_incompatible')
     end
 end
 
@@ -225,11 +239,6 @@ function Holo.try_add_consumeable(_key, _neg)
         }))
         return true
     end
-end
-
-function Holo.is_durable(card)
-    local with_violance = next(find_joker('j_hololive_Relic_Ceci')) and SMODS.has_enhancement(card,'m_glass') or false
-    return with_violance or card.ability.hololive_durable or false
 end
 
 function Holo.create_main_end_node(text,colour)
@@ -265,14 +274,7 @@ function Holo.flip_cards_in_hand(mode, unflip)
         pool = G.hand.highlighted
     elseif mode=='low' then
         for _,c in ipairs(G.hand.cards)do
-            local is_low = true
-            for _,h in ipairs(G.hand.highlighted)do
-                if c==h then
-                    is_low = false
-                    break
-                end
-            end
-            if is_low then
+            if not c.highlighted then
                 pool[#pool+1] = c
             end
         end
@@ -291,37 +293,23 @@ end
 function Holo.create_card_copy(card, amount, area)
     amount = amount or 1
     area = area or G.hand
-    G.E_MANAGER:add_event(Event({
-        func = function()
-            local _first_dissolve = nil
-            local new_cards = {}
-            for i = 1, amount do
-                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                local _card = copy_card(card, nil, nil, G.playing_card)
-                _card:add_to_deck()
-                G.deck.config.card_limit = G.deck.config.card_limit + 1
-                table.insert(G.playing_cards, _card)
-                area:emplace(_card)
-                _card:start_materialize(nil, _first_dissolve)
-                _first_dissolve = true
-                new_cards[#new_cards+1] = _card
-            end
-            playing_card_joker_effects(new_cards)
-            return true
+    G.E_MANAGER:add_event(Event({func = function()
+        local _first_dissolve = nil
+        local new_cards = {}
+        for i = 1, amount do
+            local _card = SMODS.copy_card(G.hand.highlighted[1])
+            _card:start_materialize(nil, _first_dissolve)
+            _first_dissolve = true
+            new_cards[#new_cards+1] = _card
         end
-    }))
+        playing_card_joker_effects(new_cards)
+    return true end}))
 end
 
 function Holo.delayed_destruction(destroyed_cards, func)
     func = func or function()end
     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.2,func = function()
         for i,_card in ipairs(destroyed_cards) do
-            --[[
-            if Holo.is_durable(_card) then
-                SMODS.calculate_context({hololive_shatter_card=_card})
-                --Holo.create_card_copy(_card)
-            end
-            ]]
             if SMODS.shatters(_card) then
                 _card:shatter()
             else
@@ -332,16 +320,27 @@ function Holo.delayed_destruction(destroyed_cards, func)
     return true end}))
 end
 
+function Holo.parity_check(_id)
+    if (_id < 2) or (_id > 14) then return nil
+    elseif _id == 14 then return 'odd'
+    elseif (_id == 13) or (_id == 12) or (_id == 11) then return nil
+    elseif _id % 2 == 0 then return 'even'
+    elseif _id % 2 == 1 then return 'odd'
+    else return nil end
+end
+
 function Holo.unhighlight_all()
     G.E_MANAGER:add_event(Event({trigger='after',delay=0.2,func=function()G.hand:unhighlight_all()return true end}))
 end
 
 Holo.rank_suffice = {nil,'2','3','4','5','6','7','8','9','10','Jack','Queen','King','Ace'}
 Holo.rank_strings = {nil,'2','3','4','5','6','7','8','9','T','J','Q','K','A'}
-Holo.rank_FuwaMoco = {nil,'even','odd','even','odd','even','odd','even','odd','even',nil,nil,nil,'odd'}
 function Holo.change_rank(card, rank)
     if not Holo.rank_suffice[rank] then return end
     assert(SMODS.change_base(card, nil, Holo.rank_suffice[rank]))
+    G.E_MANAGER:add_event(Event({func = function()
+        card:set_sprites(nil, card.config.card)
+    return true end}))
 end
 
 ------------------------

@@ -415,6 +415,9 @@ Holo.Relic_Gacha{ -- Hololive
     pos      = {x=0,y=0},
     soul_pos = {x=5,y=0},
 
+    in_pool = function(self, args)
+        return true
+    end,
     use = function(self, card, area, copier)
         local _member = RelicGacha()
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()

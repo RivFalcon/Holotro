@@ -222,8 +222,7 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
-            local _rank = context.other_card:get_id()
-            if (_rank == 14)or(_rank == 9)or(_rank == 7)or(_rank == 5)or(_rank == 3) then
+            if Holo.parity_check(context.other_card:get_id()) == 'odd' then
                 return {
                     message = 'Bau!',
                     repetitions = card.ability.extra.retriggers,
@@ -232,8 +231,7 @@ Holo.Relic_Joker{ -- Fuwawa Abyssgard
                 }
             end
         elseif context.hololive_played_card and not context.blueprint then
-            local _rank = context.hololive_played_card:get_id()
-            if (_rank == 14)or(_rank == 9)or(_rank == 7)or(_rank == 5)or(_rank == 3) then
+            if Holo.parity_check(context.hololive_played_card:get_id()) == 'odd' then
                 if holo_card_counting(card) then
                     holo_card_upgrade(card)
                 end
@@ -283,8 +281,7 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
-            local _rank = context.other_card:get_id()
-            if (_rank == 10)or(_rank == 8)or(_rank == 6)or(_rank == 4)or(_rank == 2) then
+            if Holo.parity_check(context.other_card:get_id()) == 'even' then
                 return {
                     message = 'Bau!',
                     repetitions = card.ability.extra.retriggers,
@@ -293,8 +290,7 @@ Holo.Relic_Joker{ -- Mococo Abyssgard
                 }
             end
         elseif context.hololive_played_card and not context.blueprint then
-            local _rank = context.hololive_played_card:get_id()
-            if (_rank == 10)or(_rank == 8)or(_rank == 6)or(_rank == 4)or(_rank == 2) then
+            if Holo.parity_check(context.hololive_played_card:get_id()) == 'even' then
                 if holo_card_counting(card) then
                     holo_card_upgrade(card)
                 end
