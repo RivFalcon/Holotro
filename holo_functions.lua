@@ -33,7 +33,7 @@ end
 
 function holo_fan_cheers(_member)
     local _cheer = false
-    for _,J in ipairs(find_joker('j_hololive_Relic_'.._member))do
+    for _,J in ipairs(SMODS.find_card('j_hololive_Relic_'.._member))do
         holo_card_upgrade(J)
         _cheer = true
     end
@@ -92,7 +92,7 @@ end
 function holo_card_relic_response(_card, _oshi, _context)
     if G.GAME.used_vouchers.v_hololive_stage_response then
         _oshi = _oshi or ''
-        local oshi_relics = find_joker('j_hololive_Relic_'.._oshi)
+        local oshi_relics = SMODS.find_card('j_hololive_Relic_'.._oshi)
         if next(oshi_relics) then
             return SMODS.blueprint_effect(_card, oshi_relics[1], _context)
         end
@@ -321,12 +321,12 @@ function Holo.delayed_destruction(destroyed_cards, func)
 end
 
 function Holo.parity_check(_id)
-    if (_id < 2) or (_id > 14) then return nil
-    elseif _id == 14 then return 'odd'
-    elseif (_id == 13) or (_id == 12) or (_id == 11) then return nil
-    elseif _id % 2 == 0 then return 'even'
-    elseif _id % 2 == 1 then return 'odd'
-    else return nil end
+    if (_id < 2) or (_id > 14) then return nil end
+    if _id == 14 then return 'odd' end
+    if (_id == 13) or (_id == 12) or (_id == 11) then return nil end
+    if _id % 2 == 0 then return 'even' end
+    if _id % 2 == 1 then return 'odd' end
+    return nil
 end
 
 function Holo.unhighlight_all()
@@ -334,13 +334,18 @@ function Holo.unhighlight_all()
 end
 
 Holo.rank_suffice = {nil,'2','3','4','5','6','7','8','9','10','Jack','Queen','King','Ace'}
-Holo.rank_strings = {nil,'2','3','4','5','6','7','8','9','T','J','Q','K','A'}
 function Holo.change_rank(card, rank)
     if not Holo.rank_suffice[rank] then return end
     assert(SMODS.change_base(card, nil, Holo.rank_suffice[rank]))
     G.E_MANAGER:add_event(Event({func = function()
         card:set_sprites(nil, card.config.card)
     return true end}))
+end
+
+Holo.rank_strings = {nil,'2','3','4','5','6','7','8','9','T','J','Q','K','A'}
+Holo.rank_keys = {}
+for _,R in pairs(SMODS.Ranks) do
+    Holo.rank_keys[R.id] = R.card_key
 end
 
 ------------------------
@@ -407,6 +412,12 @@ function level_up_hand(card, hand, instant, amount)
     SMODS.calculate_context({hololive_level_up_hand = hand, hololive_level_up_amount = amount or 1})
 end
 
+Holo.hooks.loc_colour = loc_colour
+function loc_colour(_c, _default)
+    if Holo.C[_c] then return Holo.C[_c] end
+    return Holo.hooks.loc_colour(_c, _default)
+end
+
 Holo.hooks.play_sound = play_sound
 function play_sound(sound_code, per, vol)
     if Holo.mod_config.allow_hell_of_doot and sound_code~='hololive_sound_Kaela_Doot' then
@@ -436,7 +447,7 @@ end
 Holo.hooks.SMODS_always_scores = SMODS.always_scores
 function SMODS.always_scores(card)
     if Holo.hooks.SMODS_always_scores(card)then return true end
-    if next(find_joker('j_hololive_Relic_Biboo')) and not card:is_face() then return true end
+    if next(SMODS.find_card('j_hololive_Relic_Biboo')) and not card:is_face() then return true end
     return false
 end
 

@@ -341,7 +341,7 @@ Holo.Relic_Joker{ -- AZKi
         end
     end,
     effect_when_added = function(card)
-        self.roll_for_rank(card)
+        card.config.center.roll_for_rank(card)
     end,
     calculate = function(self, card, context)
         local cae = card.ability.extra
@@ -366,7 +366,7 @@ Holo.Relic_Joker{ -- AZKi
                 end
             end
         elseif context.end_of_round and context.cardarea == G.jokers then
-            self.roll_for_rank(card)
+            card.config.center.roll_for_rank(card)
         end
     end
 }

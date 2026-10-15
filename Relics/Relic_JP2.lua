@@ -107,7 +107,7 @@ Holo.Relic_Joker{ -- Murasaki Shion
         if context.joker_main then
             card:juice_up()
             return {Xmult=card.ability.extra.Xmult}
-        elseif context.mod_probability and context.trigger_obj.is and context.trigger_obj:is(Card) then
+        elseif context.mod_probability and context.trigger_obj and context.trigger_obj.is and context.trigger_obj:is(Card) then
             local is_lucky = context.identifier == 'lucky_mult' or context.identifier == 'lucky_money'
             if is_lucky and context.trigger_obj.base.id == 14 then
                 return{

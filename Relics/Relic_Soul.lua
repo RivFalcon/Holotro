@@ -51,11 +51,11 @@ Holo.Relic_Gacha = SMODS.Consumable:extend{
     in_pool = function(self, args)
         local _tick = 0
         for _,m in ipairs(self.memberlist) do
-            if next(find_joker('j_hololive_Relic_'..m))then
+            if next(SMODS.find_card('j_hololive_Relic_'..m))then
                 _tick = _tick + 1
             end
         end
-        return (_tick > 0) and ((_tick < #self.memberlist) or next(find_joker('Showman')))
+        return (_tick > 0) and ((_tick < #self.memberlist) or next(SMODS.find_card('Showman')))
     end,
     can_use = function(self, card)
         return (#G.jokers.cards < G.jokers.config.card_limit) or (card.area == G.jokers)
@@ -65,11 +65,11 @@ Holo.Relic_Gacha = SMODS.Consumable:extend{
     end,
     use = function(self, card, area, copier)
         local _pool = {}
-        if next(find_joker('Showman')) then
+        if next(SMODS.find_card('Showman')) then
             _pool = self.memberlist
         else
             for _,m in ipairs(self.memberlist) do
-                if not next(find_joker('j_hololive_Relic_'..m)) then
+                if not next(SMODS.find_card('j_hololive_Relic_'..m)) then
                     _pool[#_pool+1] = m
                 end
             end
@@ -156,8 +156,8 @@ local implemented_relic_members = {
 }
 
 local function RelicGacha()
-    local have_Showman = next(find_joker('Showman'))
-    local dupe_check = function(M)return have_Showman or not next(find_joker('j_hololive_Relic_'..M))end
+    local have_Showman = next(SMODS.find_card('Showman'))
+    local dupe_check = function(M)return have_Showman or not next(SMODS.find_card('j_hololive_Relic_'..M))end
 
     if Holo.mod_config.allow_birthday_event and not G.GAME.acquired_birthday_relic then
         local BD_member = Holo.birthday_chart[os.date('%m%d')]

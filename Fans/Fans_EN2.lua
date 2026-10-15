@@ -195,7 +195,7 @@ Holo.Fan_card{ -- Hooman
             '{C:attention}non{}-{C:spades}Spade{} cards',
             'for the civilization.'},
             {'Rerolls the next {C:attention}Boss Blind',
-            'if no cards were selected.'}
+            'if {C:red}no{} cards were selected.'}
         }
         --,boxes={3,2}
     },

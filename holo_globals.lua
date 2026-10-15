@@ -408,12 +408,6 @@ for memb_name,memb_data in pairs(Holo.Members)do
     -- 
 end
 
-local hl_loc_colour = loc_colour
-function loc_colour(_c, _default)
-    if Holo.C[_c] then return Holo.C[_c] end
-    return hl_loc_colour(_c, _default)
-end
-
 Holo.H_Pool = {
     Fans = {},
     Mascots = {},
