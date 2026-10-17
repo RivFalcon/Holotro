@@ -42,7 +42,7 @@ Holo.Relic_Gacha = SMODS.Consumable:extend{
     end,
     hidden = true,
     soul_set = 'holo_fandom',
-    soul_rate = 0.05,
+    soul_rate = Holo.mod_config.gacha_rate,
     unlocked = true,
     discovered = false,
     cost = 10,
@@ -55,7 +55,8 @@ Holo.Relic_Gacha = SMODS.Consumable:extend{
                 _tick = _tick + 1
             end
         end
-        return (_tick > 0) and ((_tick < #self.memberlist) or next(SMODS.find_card('Showman')))
+        local have_Showman = next(SMODS.find_card('Showman')) and true or false
+        return (_tick > 0) and ((_tick < #self.memberlist) or have_Showman)
     end,
     can_use = function(self, card)
         return (#G.jokers.cards < G.jokers.config.card_limit) or (card.area == G.jokers)

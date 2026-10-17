@@ -33,7 +33,7 @@ local memes_files = {
 
     --"EN3",
     --"DI1",
-    --"EN4",
+    "EN4",
     --"DI2",
 }
 for _,file in ipairs(memes_files) do assert(SMODS.load_file("Memes/Memes_"..file..".lua"))()end
