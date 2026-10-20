@@ -44,6 +44,15 @@ SMODS.current_mod.config_tab = function()
             ref_value = "allow_hell_of_doot",
             info = {"DO NOT TOUCH THIS unless you desperately want to experience hell."},
         }),
+        create_toggle({
+            label = "Display Fullnames Untranslated",
+            ref_table = Holo.mod_config,
+            ref_value = "display_fullname_untranslated",
+            info = {
+                "\"I know who they are, I don\'t need your translation!\"",
+                "Toggle this ON to have members\' names displayed untranslated."
+            },
+        }),
     }
     return {
         n = G.UIT.ROOT,
