@@ -80,11 +80,10 @@ Holo.Meme_Joker{
     loc_txt = {
         name = "Doom",
         text = {
-            'Destroys {C:attention}#2#{} random cards',
-            'in hand at {C:attention}end of round',
-            'and create a {C:spectral}Black Hole{}.',
-            '{C:inactive}If no room, accumulate',
-            '{C:inactive}until there is. [#1#]',
+            'Create a {C:spectral}Black Hole{} at {C:attention}end of round{},',
+            'destroying at most {C:attention}#2#{} random',
+            'cards in hand in the process.',
+            '{C:inactive}(If no room, accumulate[#1#] until there is.)',
         }
     },
     config = { extra = { kill = 2, accumulate = 0 } },
@@ -105,8 +104,11 @@ Holo.Meme_Joker{
         if context.end_of_round and context.cardarea == G.jokers and (#G.hand.cards>=card.ability.extra.kill) then
             local N = #G.hand.cards
             local a = pseudorandom('Raora_Doom_1',1,N)
-            local b = ( a + pseudorandom('Raora_Doom_2',1,N-1) ) % N
-            local destroyed_cards = {G.hand.cards[a], G.hand.cards[b]}
+            local destroyed_cards = {G.hand.cards[a],}
+            if N>=2 then
+                local b = ( a + pseudorandom('Raora_Doom_2',1,N-1) ) % N
+                destroyed_cards[2] = G.hand.cards[b]
+            end
 
             Holo.delayed_destruction(destroyed_cards)
             delay(0.3)
