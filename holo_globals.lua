@@ -713,7 +713,7 @@ function Holo.local_text.current_xmult(var_index)
 end
 function Holo.local_text.if_no_room(var_index)
     if var_index then
-        return '(If no room, accumulate {C:inactive}[#'..var_index..'#]{} until there is.)'
+        return '{C:inactive}(If no room, accumulate [#'..var_index..'#] until there is.)'
     end
     return '(If no room, accumulate them until there is.)'
 end
