@@ -333,8 +333,9 @@ Holo.Relic_Joker{ -- Hakui Koyori
         end
     end,
     calculate = function(self, card, context)
-        local cae = card.ability.extra
+        --local cae = card.ability.extra
         if context.hand_drawn then
+            local cae = card.ability.extra
             for _,_c in ipairs(context.hand_drawn) do
                 local _tick = false
                 if _c:get_id()==10 then
@@ -373,7 +374,7 @@ Holo.Relic_Joker{ -- Hakui Koyori
             end
         elseif context.joker_main then
             return{
-                Xmult = cae.Xmult,
+                Xmult = card.ability.extra.Xmult,
                 colour = Holo.C.Koyori,
             }
         end
@@ -423,25 +424,29 @@ Holo.Relic_Joker{ -- Sakamata Chloe
     soul_pos = { x = 3, y = 1 },
 
     calculate = function(self, card, context)
-        local cae = card.ability.extra
+        --local cae = card.ability.extra
         if context.pre_discard then
-            local is_ten = function(v)
-                return (v:get_id()==10)
+            local _check = true
+            for _, _c in ipairs(context.full_hand) do
+                if _c:get_id()~=10 then
+                    if Holo.chance('沙花叉クロヱ', card.ability.extra.odds, card) then
+                        _c.hololive_Chloe_Baku = true
+                        _check = false
+                    end
+                end
             end
-            if Holo.series_and(context.full_hand, is_ten) and not context.blueprint then
+            if _check and not context.blueprint then
                 holo_card_upgrade(card)
             end
             if holo_card_counting(card) then
                 SMODS.add_card({ key = 'c_magician', area = G.consumeables, edition = 'e_negative' })
             end
         elseif context.discard then
-            if context.other_card:get_id()~=10 then
-                if Holo.chance('沙花叉クロヱ', cae.odds, card) then
-                    return{remove=true,message='Baku!',colour=Holo.C.Chloe}
-                end
+            if context.other_card.hololive_Chloe_Baku then
+                return{remove=true,message='Baku!',colour=Holo.C.Chloe}
             end
         elseif context.joker_main then
-            return{Xmult=cae.Xmult,colour=Holo.C.Chloe}
+            return{Xmult=card.ability.extra.Xmult,colour=Holo.C.Chloe}
         end
         return holo_card_relic_response(card,'Shion',context)
     end
@@ -490,7 +495,7 @@ Holo.Relic_Joker{ -- Kazama Iroha
     soul_pos = { x = 4, y = 1 },
 
     calculate = function(self, card, context)
-        local cae = card.ability.extra
+        --local cae = card.ability.extra
         if context.before then
             local is_ten = function(v)
                 return (v:get_id()==10)
@@ -503,12 +508,12 @@ Holo.Relic_Joker{ -- Kazama Iroha
             end
         elseif context.destroy_card and context.cardarea == G.play then
             if context.destroy_card:get_id()~=10 then
-                if Holo.chance('風真いろは', cae.odds, card) then
+                if Holo.chance('風真いろは', card.ability.extra.odds, card) then
                     return{remove=true,message='Sha-kin!',colour=Holo.C.Iroha}
                 end
             end
         elseif context.joker_main then
-            return{Xmult=cae.Xmult,colour=Holo.C.Iroha}
+            return{Xmult=card.ability.extra.Xmult,colour=Holo.C.Iroha}
         end
         return holo_card_relic_response(card,'Suisei',context)
     end

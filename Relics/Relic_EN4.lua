@@ -121,10 +121,13 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
         name = "Violance of the Automaton",
         text = {
             {'All {C:attention}Glass cards{} become {V:1}very durable{}.'},
+            {'{C:green}#4# in #3#{} chance to gain {X:mult,C:white} X#1# {} Mult',
+            'after a {C:attention}Glass Card{} is played.',
+            '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'}
+            --[[
             {'Each played {C:attention}Glass Card{} after scoring',
             'has {C:green}the same chance{} as shattering',
             'to grant {X:mult,C:white} X#1# {} mult. {C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'},
-            --[[
             {'Gain {X:mult,C:white} X#1# {} Mult every time a {C:attention}Glass Card{}',
             'is prevented from shattering.',
             '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'}
@@ -135,6 +138,7 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
     },
     config = { extra = {
         Xmult = 4, Xmult_mod = 1,
+        odds = 4,
         upgrade_args = {
             scale_var = 'Xmult',
             message = 'For Justice!',
@@ -144,6 +148,7 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
         info_queue[#info_queue+1] = G.P_CENTERS.m_glass
         return { vars = {
             card.ability.extra.Xmult_mod, card.ability.extra.Xmult,
+            card.ability.extra.odds,Holo.prob_norm(),
             colours = {Holo.C.Ceci}
         } }
     end,
@@ -159,8 +164,9 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
                 holo_card_upgrade(card)
             end
             return {durable=true}
-        elseif context.fix_probability and context.trigger_obj and context.identifier == 'glass' and not context.blueprint then
-            if Holo.chance(context.trigger_obj.config.center.config.extra,'holo_glass', card) then
+        elseif context.fix_probability and context.from_roll and context.trigger_obj
+         and context.identifier == 'glass' and not context.blueprint then
+            if Holo.chance(card.ability.extra.odds,'holo_glass', card) then
                 SMODS.calculate_effect({
                     message='Durable!',
                     colour=Holo.C.Ceci,

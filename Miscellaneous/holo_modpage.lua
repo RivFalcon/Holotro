@@ -35,7 +35,7 @@ SMODS.current_mod.config_tab = function()
             ref_value = "allow_profanity",
             info = {
                 "For meme purposes, some no-no words are included in this mod.",
-                "Toggle this off to get alternatives/censorship."
+                "Toggle this OFF to get alternatives/censorship."
             },
         }),
         create_toggle({
