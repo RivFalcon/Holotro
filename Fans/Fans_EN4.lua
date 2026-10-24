@@ -77,11 +77,15 @@ Holo.Fan_card{ -- Gremurin
         Holo.flip_cards_in_hand('all', true)
         delay(0.5)
 
+        local shattered_cards = {}
         local destroyed_cards = {}
-        for i=#G.hand.cards, 1, -1 do
-            if Holo.chance('glass', card.ability.extra, card) then
-                destroyed_cards[#destroyed_cards+1] = G.hand.cards[i]
+        for _,_c in ipairs(G.hand.cards) do
+            if Holo.chance('glass', card.ability.extra, _c) then
+                shattered_cards[#shattered_cards+1] = _c
             end
+        end
+        for i=#shattered_cards, 1, -1 do
+            destroyed_cards[#destroyed_cards+1] = shattered_cards[i]
         end
 
         Holo.delayed_destruction(destroyed_cards)

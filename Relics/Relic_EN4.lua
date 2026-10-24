@@ -164,15 +164,18 @@ Holo.Relic_Joker{ -- Cecilia Immergreen
                 holo_card_upgrade(card)
             end
             return {durable=true}
-        elseif context.fix_probability and context.from_roll and context.trigger_obj
-         and context.identifier == 'glass' and not context.blueprint then
-            if Holo.chance(card.ability.extra.odds,'holo_glass', card) then
-                SMODS.calculate_effect({
-                    message='Durable!',
-                    colour=Holo.C.Ceci,
-                    sound='hololive_sound_Ceci_Durable'
-                },context.trigger_obj)
-                holo_card_upgrade(card)
+        elseif context.fix_probability and context.identifier == 'glass' then
+            if context.from_roll and context.trigger_obj then
+                if Holo.chance('holo_glass',card.ability.extra.odds, card) then
+                    SMODS.calculate_effect({
+                        message='Durable!',
+                        colour=Holo.C.Ceci,
+                        sound='hololive_sound_Ceci_Durable'
+                    },context.trigger_obj)
+                    if not context.blueprint then
+                        holo_card_upgrade(card)
+                    end
+                end
             end
             return{
                 numerator = 0
