@@ -238,7 +238,6 @@ Holo.Relic_Joker{ -- Natsuiro Matsuri
         if context.repetition and context.cardarea==G.play then
             if SMODS.has_enhancement(context.other_card, 'c_base') then
                 local retriggers = 0
-                local is_heart = context.other_card:is_suit('Hearts')
                 if context.other_card:is_suit('Hearts') then
                     retriggers = cae.beats
                 else

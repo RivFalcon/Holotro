@@ -210,20 +210,25 @@ Holo.Fan_card{ -- Teamates
         name = 'Teamate',
         text = {
             'Select {C:attention}1{} face card,',
-            'creates {C:attention}2{} copies of it',
+            'creates {C:attention}#1#{} copies of it',
             'with random {C:attention}Enhancement{},',
             '{C:dark_edition}Edition{}, and {C:dark_edition}Seal{}.'
         }
     },
+    config = {extra = 2},
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra,
+            }
+        }
+    end,
     atlas='holo_fandoms_3',
     pos={y=0,x=4},
 
     can_use = function(self, card)
-        if #G.hand.highlighted == 1 then
-            if G.hand.highlighted[1]:is_face()then
-                return true
-            end
-        end
+        if #G.hand.highlighted ~= 1 then return false end
+        return G.hand.highlighted[1]:is_face()
     end,
     use = function(self, card, area, copier)
         Holo.juice_on_use(card)
@@ -231,11 +236,11 @@ Holo.Fan_card{ -- Teamates
         local _front = G.P_CARDS[string.sub(_base.suit, 1, 1)..'_'..Holo.rank_strings[_base.id]]
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.7,func = function()
             local cards = {}
-            for i=1, 2 do
+            for i=1, card.ability.extra do
                 cards[i] = true
                 local cen_pool = {}
                 for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                    if v.key ~= 'm_stone' then 
+                    if not v.no_rank then
                         cen_pool[#cen_pool+1] = v
                     end
                 end

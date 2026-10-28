@@ -253,6 +253,8 @@ return {
             k_hololive_song="Original Song",
 
             ---- Localized Messages/Texts
+            k_hololive_clock_tick="Tick!",
+            k_hololive_clock_tock="Tock!",
             k_hololive_moon_full="Full Moon",
             k_hololive_moon_new="New Moon",
 

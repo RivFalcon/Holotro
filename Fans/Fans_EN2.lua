@@ -171,7 +171,7 @@ Holo.Fan_card{ -- Kronie
         delay(0.2)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
             for _,v in ipairs(G.hand.cards) do
-                if v:is_suit(self.config.suit_conv) then
+                if v:is_suit(self.config.suit_conv,true) then
                     v.ability.perma_bonus = (v.ability.perma_bonus or 0) + self.config.extra
                 else
                     v:change_suit(self.config.suit_conv)
@@ -214,7 +214,7 @@ Holo.Fan_card{ -- Hooman
         end
         if #G.hand.highlighted >= 1 then
             for _,v in ipairs(G.hand.highlighted)do
-                if v:is_suit('Spades')then
+                if v:is_suit('Spades',true)then
                     return false
                 end
             end

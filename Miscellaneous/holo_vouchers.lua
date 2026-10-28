@@ -99,7 +99,7 @@ function Holo.roll_for_suit_tarot()
     for _,v in ipairs(G.playing_cards) do
         for _,suit_tarot in ipairs(G.GAME.suit_tarots)do
             _counter[suit_tarot] = _counter[suit_tarot] or 0
-            if v:is_suit(G.P_CENTERS[suit_tarot].config.suit_conv)then
+            if v:is_suit(G.P_CENTERS[suit_tarot].config.suit_conv,true)then
                 _counter[suit_tarot] = _counter[suit_tarot] + 1
             end
         end
@@ -146,7 +146,7 @@ SMODS.Voucher{ -- Bouquet
         local counter = {}
         for _,v in ipairs(G.playing_cards)do
             for suit,_ in ipairs(SMODS.Suits)do
-                if v:is_suit(suit)then
+                if v:is_suit(suit,true)then
                     counter[suit] = (counter[suit] or 0) + 1
                 end
             end

@@ -41,13 +41,7 @@ Holo.Relic_Joker{ -- Ayunda Risu
             card.ability.extra.clubbin = 3
         elseif context.individual and context.cardarea == G.hand and not context.end_of_round then
             if context.other_card:is_suit("Clubs") then
-                if context.other_card.debuff then
-                    return {
-                        message = localize("k_debuffed"),
-                        colour = G.C.RED,
-                        card = card,
-                    }
-                elseif card.ability.extra.clubbin == 3 then
+                if card.ability.extra.clubbin == 3 then
                     card.ability.extra.clubbin = 2
                     return {
                         message = 'Clubbin\'',
@@ -120,7 +114,7 @@ Holo.Relic_Joker{ -- Moona Hoshinova
     calculate = function(self, card, context)
         holo_card_upgrade_by_consumeable(card, context, 'c_moon')
         if context.individual and context.cardarea == G.play and not context.blueprint then
-            if not context.other_card.debuff and context.other_card:is_suit("Clubs") then
+            if context.other_card:is_suit("Clubs") then
                 if holo_card_counting(card) then
                     SMODS.calculate_effect({
                         message=localize("k_hololive_"..card.ability.extra.phase),

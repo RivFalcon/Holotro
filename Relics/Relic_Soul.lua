@@ -194,7 +194,7 @@ local function RelicGacha()
 
             -- Suits
             for suit,counter in pairs(card_stats.suits)do
-                if c:is_suit(suit) then card_stats.suits[suit] = counter + 1 end
+                if c:is_suit(suit,true) then card_stats.suits[suit] = counter + 1 end
             end
 
             -- Ranks

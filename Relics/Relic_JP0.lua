@@ -44,14 +44,14 @@ Holo.Relic_Joker{ -- Tokino Sora
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            if context.other_card:is_suit('Diamonds') and context.other_card:get_id()==context.full_hand[1]:get_id() then
+            if context.other_card:is_suit('Diamonds',true) and context.other_card:get_id()==context.full_hand[1]:get_id() then
                 return {
                     Xmult=card.ability.extra.Xmult,
                     colour=Holo.C.Sora
                 }
             end
         elseif context.before and not context.blueprint then
-            if context.full_hand[1]:is_suit('Diamonds') then
+            if context.full_hand[1]:is_suit('Diamonds',true) then
                 holo_card_upgrade(card)
             end
         end
@@ -262,7 +262,7 @@ Holo.Relic_Joker{ -- Sakura Miko
     calculate = function(self, card, context)
         local cae = card.ability.extra
         if context.discard and not context.blueprint then
-            if not context.other_card:is_suit('Diamonds')then
+            if not context.other_card:is_suit('Diamonds',true)then
                 local lavacrisp = pseudorandom('Miko', cae.crisp_min, cae.crisp_max)
                 if holo_card_counting(card, lavacrisp) then
                     holo_card_upgrade(card)
@@ -278,7 +278,7 @@ Holo.Relic_Joker{ -- Sakura Miko
     calc_dollar_bonus = function(self, card)
         local D=0
         for _,v in ipairs(G.playing_cards)do
-            if v:is_suit('Diamonds') then D=D+2 end
+            if v:is_suit('Diamonds',true) then D=D+2 end
         end
         if D>#G.playing_cards then return 35 end
         return 0
@@ -330,7 +330,7 @@ Holo.Relic_Joker{ -- AZKi
     roll_for_rank = function(card)
         local pool = {}
         for _,v in ipairs(G.playing_cards or {})do
-            if v:is_suit('Diamonds') and not SMODS.has_no_rank(v) then
+            if v:is_suit('Diamonds',true) and not SMODS.has_no_rank(v) then
                 pool[#pool+1] = v.base
             end
         end

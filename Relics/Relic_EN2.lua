@@ -268,8 +268,10 @@ Holo.Relic_Joker{ -- Ouro Kronii
     },
     config = { extra = {
         Xmult = 6, Xmult_mod = 1.5,
+        tick = false,
         upgrade_args = {
             scale_var = 'Xmult',
+            message_loc = 'k_hololive_clock_tick'
         },
         count_args = {
             down = 12,
@@ -279,7 +281,7 @@ Holo.Relic_Joker{ -- Ouro Kronii
     upgrade_func = function(card)
         local cae = card.ability.extra
         cae.tick = not cae.tick
-        cae.upgrade_args.message = cae.tick and 'Tick!' or 'Tock!'
+        cae.upgrade_args.message_loc = cae.tick and 'k_hololive_clock_tick' or 'k_hololive_clock_tock'
     end,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_world
@@ -298,15 +300,15 @@ Holo.Relic_Joker{ -- Ouro Kronii
     relic_fandom = 'fans_kronie',
 
     calculate = function(self, card, context)
-        local cae = card.ability.extra
         holo_card_upgrade_by_consumeable(card, context, 'c_world')
         if ((context.individual and context.cardarea == G.play) or context.discard) and not context.blueprint then
-            if not context.other_card.debuff and context.other_card:is_suit("Spades") then
+            if context.other_card:is_suit("Spades") then
                 if holo_card_counting(card) then
                     Holo.try_add_consumeable('c_world', true)
                 end
             end
         elseif context.joker_main then
+            local cae = card.ability.extra
             return {
                 Xmult = cae.Xmult,
                 message='Time!',
@@ -362,7 +364,7 @@ Holo.Relic_Joker{ -- Nanashi Mumei
                 holo_card_upgrade(card)
             end
         elseif context.discard then
-            if not context.other_card:is_suit("Spades") then
+            if not context.other_card:is_suit("Spades",true) then
                 if Holo.chance('Nanashi Mumei', card.ability.extra.odds, card) then
                     return {
                         remove = true,
@@ -428,8 +430,8 @@ Holo.Relic_Joker{ -- Hakos Baelz
     end,
     ]]
     calculate = function(self, card, context)
-        local cae = card.ability.extra
         if context.after and context.cardarea == G.jokers and not context.blueprint then
+            local cae = card.ability.extra
             card:juice_up()
             cae.Pmult = pseudorandom('Hakos Baelz', 1, 6)
             if cae.Pmult == 1 then
@@ -442,11 +444,11 @@ Holo.Relic_Joker{ -- Hakos Baelz
             end
         elseif context.mod_probability then
             return{
-                numerator = context.numerator * cae.Pmult
+                numerator = context.numerator * card.ability.extra.Pmult
             }
         elseif context.joker_main then
             return {
-                Xmult = cae.Xmult,
+                Xmult = card.ability.extra.Xmult,
                 message = 'Chaos!',
                 colour = Holo.C.Bae,
                 sound = 'gong',

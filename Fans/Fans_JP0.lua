@@ -26,7 +26,7 @@ Holo.Fan_card{ -- Soratomo
     can_use = function (self, card)
         if #G.hand.highlighted > card.ability.max_highlighted then return false end
         if #G.hand.highlighted < card.ability.min_highlighted then return false end
-        return G.hand.highlighted[1]:is_suit('Diamonds')
+        return G.hand.highlighted[1]:is_suit('Diamonds',true)
     end,
     use = function (self, card, area, copier)
         Holo.create_card_copy(G.hand.highlighted[1], card.ability.extra)
@@ -119,7 +119,7 @@ Holo.Fan_card{ -- Hoshiyomi
         delay(0.2)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
             for _,v in ipairs(G.hand.cards) do
-                if v:is_suit(self.config.suit_conv) then
+                if v:is_suit(self.config.suit_conv,true) then
                     v.ability.perma_bonus = (v.ability.perma_bonus or 0) + self.config.extra
                 else
                     v:change_suit(self.config.suit_conv)
